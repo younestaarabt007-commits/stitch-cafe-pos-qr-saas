@@ -139,6 +139,12 @@ const DASHBOARD_TRANSLATIONS = {
         menu_manager: "Menu Manager",
         qr_center: "QR Center",
         reservations: "Reservations",
+        delivery_hub: "Deliveries & Reservations",
+        tables_plan: "Floor Plan (12 Tables)",
+        theme_manager: "Menu Appearance",
+        workspace: "WORKSPACE",
+        elite_roastery: "Elite Roastery",
+        demo_workspace: "Demo workspace",
         sign_out: "Sign Out",
         summary_title: "Today's Summary",
         summary_subtitle: "Manage your shop in real-time.",
@@ -163,10 +169,25 @@ const DASHBOARD_TRANSLATIONS = {
         fast: "Fast",
         in_progress: "In Progress",
         quick_actions: "Quick Actions",
+        new_badge: "NEW",
+        tables_badge: "12 Tables",
         generate_qr: "<p class='font-bold'>Generate QR</p><p class='text-[10px] text-gray-400 font-bold uppercase tracking-widest'>New Table QR</p>",
         welcome_ali: "<h2 class='text-xl font-bold'>Good Morning, Ali! 👋</h2><p class='text-gray-500 mt-2'>Here's what's happening at Stitch today.</p>",
         end_shift: "End Shift",
-        floor_plan: "Floor Plan"
+        floor_plan: "Floor Plan",
+        titles: {
+            dashboard: ["Today's Summary", "Manage your shop in real-time."],
+            pos: ["Point of Sale", "Take manual orders directly from the counter."],
+            orders: ["Order History", "Review and manage all past and live orders."],
+            'delivery-hub': ["Deliveries & Reservations", "Home delivery and table reservation management."],
+            delivery: ["Deliveries & Reservations", "Home delivery and table reservation management."],
+            kitchen: ["Kitchen Display", "Manage orders in the kitchen."],
+            menu: ["Menu Management", "Add, edit, or remove products from your shop."],
+            tables: ["Floor Plan & QR (12 Tables)", "Supervision of 12 tables (Terrace, Main Hall, 1st Floor) and QR Codes."],
+            qr: ["Floor Plan & QR (12 Tables)", "Supervision of 12 tables (Terrace, Main Hall, 1st Floor) and QR Codes."],
+            reservations: ["Deliveries & Reservations", "Home delivery and table reservation management."],
+            'theme-manager': ["Menu Appearance & Themes", "Customize client QR menu visual style in one click."]
+        }
     },
     fr: {
         dashboard: "Tableau de Bord",
@@ -176,6 +197,12 @@ const DASHBOARD_TRANSLATIONS = {
         menu_manager: "Gestion Menu",
         qr_center: "Centre QR",
         reservations: "Réservations",
+        delivery_hub: "Livraisons & Réservations",
+        tables_plan: "Plan des Tables (12)",
+        theme_manager: "Apparence du Menu",
+        workspace: "ESPACE DE TRAVAIL",
+        elite_roastery: "Elite Roastery",
+        demo_workspace: "Espace Démo",
         sign_out: "Déconnexion",
         summary_title: "Résumé d'aujourd'hui",
         summary_subtitle: "Gérez votre boutique en temps réel.",
@@ -200,31 +227,52 @@ const DASHBOARD_TRANSLATIONS = {
         fast: "Rapide",
         in_progress: "En Cours",
         quick_actions: "Actions Rapides",
+        new_badge: "NOUVEAU",
+        tables_badge: "12 Tables",
         generate_qr: "<p class='font-bold'>Générer QR</p><p class='text-[10px] text-gray-400 font-bold uppercase tracking-widest'>Nouveau QR Table</p>",
         welcome_ali: "<h2 class='text-xl font-bold'>Bonjour, Ali ! 👋</h2><p class='text-gray-500 mt-2'>Voici ce qui se passe chez Stitch aujourd'hui.</p>",
         end_shift: "Fin de service",
-        floor_plan: "Plan de salle"
+        floor_plan: "Plan de salle",
+        titles: {
+            dashboard: ["Résumé d'aujourd'hui", "Gérez votre boutique en temps réel."],
+            pos: ["Point de Vente", "Prenez les commandes manuelles directement au comptoir."],
+            orders: ["Historique des Commandes", "Consultez et gérez toutes les commandes passées et en direct."],
+            'delivery-hub': ["Livraisons & Réservations", "Commandes à domicile et gestion des réservations de tables."],
+            delivery: ["Livraisons & Réservations", "Commandes à domicile et gestion des réservations de tables."],
+            kitchen: ["Affichage Cuisine", "Gestion des commandes en préparation dans la cuisine."],
+            menu: ["Gestion du Menu", "Ajoutez, modifiez ou retirez des produits et catégories."],
+            tables: ["Plan des Tables & QR (12 Tables)", "Supervision des 12 tables (Terrasse, Salle Principale, 1er Étage) et QR Codes."],
+            qr: ["Plan des Tables & QR (12 Tables)", "Supervision des 12 tables (Terrasse, Salle Principale, 1er Étage) et QR Codes."],
+            reservations: ["Livraisons & Réservations", "Commandes à domicile et gestion des réservations de tables."],
+            'theme-manager': ["Apparence & Thèmes du Menu", "Personnalisez l'ambiance visuelle du menu QR client en un clic."]
+        }
     },
     ar: {
         dashboard: "لوحة التحكم",
-        take_order: "اتخاذ الطلب",
-        live_orders: "الطلبات المباشرة",
-        kitchen_display: "عرض المطبخ",
-        menu_manager: "مدير القائمة",
-        qr_center: "مركز QR",
+        take_order: "طلب جديد (POS)",
+        live_orders: "الطلبات الحالية",
+        kitchen_display: "عرض المطبخ (KDS)",
+        menu_manager: "إدارة القائمة",
+        qr_center: "مركز رموز QR",
         reservations: "الحجوزات",
+        delivery_hub: "التوصيل والحجوزات",
+        tables_plan: "مخطط الطاولات (12)",
+        theme_manager: "مظهر القائمة",
+        workspace: "مساحة العمل",
+        elite_roastery: "محمصة النخبة",
+        demo_workspace: "مساحة تجريبية",
         sign_out: "تسجيل الخروج",
         summary_title: "ملخص اليوم",
-        summary_subtitle: "إدارة متجرك في الوقت الحقيقي.",
+        summary_subtitle: "إدارة متجرك ومتابعة المبيعات في الوقت الفعلي.",
         manual_order: "طلب يدوي",
         kitchen_online: "المطبخ متصل",
         total_revenue: "إجمالي الإيرادات",
-        active_tables: "الطاولات النشطة",
+        active_tables: "الطاولات المشغولة",
         pending_orders: "قيد الانتظار",
         completed_orders: "مكتمل",
-        search_placeholder: "البحث في القائمة...",
-        add_to_cart: "إضافة للطلب",
-        checkout: "الدفع",
+        search_placeholder: "البحث في أصناف القائمة...",
+        add_to_cart: "إضافة إلى الطلب",
+        checkout: "دفع وإنهاء",
         table: "طاولة",
         status: "الحالة",
         items: "العناصر",
@@ -233,14 +281,29 @@ const DASHBOARD_TRANSLATIONS = {
         total_sales: "إجمالي المبيعات",
         total_orders: "إجمالي الطلبات",
         today: "اليوم",
-        avg_prep: "متوسط التحضير",
+        avg_prep: "متوسط وقت التحضير",
         fast: "سريع",
         in_progress: "قيد التنفيذ",
         quick_actions: "إجراءات سريعة",
-        generate_qr: "<p class='font-bold'>إنشاء QR</p><p class='text-[10px] text-gray-400 font-bold uppercase tracking-widest'>QR طاولة جديد</p>",
-        welcome_ali: "<h2 class='text-xl font-bold'>صباح الخير يا علي! 👋</h2><p class='text-gray-500 mt-2'>إليك ما يحدث في Stitch اليوم.</p>",
+        new_badge: "جديد",
+        tables_badge: "12 طاولة",
+        generate_qr: "<p class='font-bold'>إنشاء رمز QR</p><p class='text-[10px] text-gray-400 font-bold uppercase tracking-widest'>رمز طاولة جديد</p>",
+        welcome_ali: "<h2 class='text-xl font-bold'>صباح الخير، علي! 👋</h2><p class='text-gray-500 mt-2'>إليك مستجدات Stitch اليوم في الوقت الفعلي.</p>",
         end_shift: "إنهاء الوردية",
-        floor_plan: "مخطط الطوابق"
+        floor_plan: "مخطط الطاولات",
+        titles: {
+            dashboard: ["ملخص اليوم", "إدارة متجرك ومتابعة المبيعات في الوقت الفعلي."],
+            pos: ["نقطة البيع (POS)", "تسجيل الطلبات المباشرة من الكاونتر."],
+            orders: ["سجل وتاريخ الطلبات", "مراجعة وإدارة كافة الطلبات السابقة والحالية."],
+            'delivery-hub': ["مركز التوصيل والحجوزات", "إدارة طلبات التوصيل المنزلي وحجوزات الطاولات."],
+            delivery: ["مركز التوصيل والحجوزات", "إدارة طلبات التوصيل المنزلي وحجوزات الطاولات."],
+            kitchen: ["شاشة المطبخ (KDS)", "تنسيق وتحضير الطلبات في المطبخ."],
+            menu: ["إدارة القائمة والأصناف", "إضافة وتعديل وحذف المنتجات والتصنيفات."],
+            tables: ["مخطط الطاولات ورموز QR (12 طاولة)", "مراقبة الـ 12 طاولة (التراس، الصالة الرئيسية، الطابق الأول) وتوليد رموز QR."],
+            qr: ["مخطط الطاولات ورموز QR (12 طاولة)", "مراقبة الـ 12 طاولة (التراس، الصالة الرئيسية، الطابق الأول) وتوليد رموز QR."],
+            reservations: ["مركز التوصيل والحجوزات", "إدارة طلبات التوصيل المنزلي وحجوزات الطاولات."],
+            'theme-manager': ["مظهر وهوية القائمة", "تخصيص التصميم والنمط المرئي لقائمة الزبائن بضغطة واحدة."]
+        }
     }
 };
 
@@ -258,7 +321,7 @@ function switchLanguage(lang) {
     // Update translations (text only)
     document.querySelectorAll('[data-i18n]').forEach(el => {
         const key = el.getAttribute('data-i18n');
-        if (DASHBOARD_TRANSLATIONS[lang][key]) {
+        if (DASHBOARD_TRANSLATIONS[lang] && DASHBOARD_TRANSLATIONS[lang][key]) {
             el.textContent = DASHBOARD_TRANSLATIONS[lang][key];
         }
     });
@@ -266,8 +329,16 @@ function switchLanguage(lang) {
     // Update translations (HTML inner)
     document.querySelectorAll('[data-i18n-inner]').forEach(el => {
         const key = el.getAttribute('data-i18n-inner');
-        if (DASHBOARD_TRANSLATIONS[lang][key]) {
+        if (DASHBOARD_TRANSLATIONS[lang] && DASHBOARD_TRANSLATIONS[lang][key]) {
             el.innerHTML = DASHBOARD_TRANSLATIONS[lang][key];
+        }
+    });
+
+    // Update placeholders
+    document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+        const key = el.getAttribute('data-i18n-placeholder');
+        if (DASHBOARD_TRANSLATIONS[lang] && DASHBOARD_TRANSLATIONS[lang][key]) {
+            el.placeholder = DASHBOARD_TRANSLATIONS[lang][key];
         }
     });
 
@@ -284,20 +355,47 @@ function switchLanguage(lang) {
     if (langCycleText) {
         langCycleText.textContent = lang.toUpperCase();
     }
+    const langCycleTextKitchen = document.getElementById('lang-cycle-text-kitchen');
+    if (langCycleTextKitchen) {
+        langCycleTextKitchen.textContent = lang.toUpperCase();
+    }
 
     // Handle dynamic text elements
     if (typeof updateDynamicTranslations === 'function') {
         updateDynamicTranslations();
     }
+
+    // Re-render active tab components with localized labels
+    const activeTabId = document.getElementById('main-content')?.getAttribute('data-active-tab') || 'dashboard';
+    if (activeTabId === 'tables' || activeTabId === 'qr') {
+        if (typeof renderQRFloors === 'function') renderQRFloors();
+        if (typeof renderTableGrid === 'function' && typeof currentQRFloor !== 'undefined') renderTableGrid(currentQRFloor);
+    } else if (activeTabId === 'pos') {
+        if (typeof renderPOSCategories === 'function' && typeof menuItems !== 'undefined') renderPOSCategories(menuItems);
+        if (typeof renderCart === 'function') renderCart();
+    } else if (activeTabId === 'kitchen') {
+        if (typeof renderKitchenDisplay === 'function') renderKitchenDisplay();
+    } else if (activeTabId === 'orders') {
+        if (typeof renderOrders === 'function') renderOrders();
+    }
 }
 
 function updateDynamicTranslations() {
+    const activeTabId = document.getElementById('main-content')?.getAttribute('data-active-tab') || 'dashboard';
+    const localizedTitles = DASHBOARD_TRANSLATIONS[currentLang]?.titles || DASHBOARD_TRANSLATIONS['en'].titles;
     const title = document.getElementById('page-title');
     const subtitle = document.getElementById('page-subtitle');
 
-    // Only update if they exist and are matched to summary
-    if (title && (title.textContent.includes('Summary') || title.textContent.includes('Résumé') || title.textContent.includes('ملخص'))) {
-        title.textContent = DASHBOARD_TRANSLATIONS[currentLang].summary_title;
+    if (localizedTitles && localizedTitles[activeTabId]) {
+        if (title) title.textContent = localizedTitles[activeTabId][0];
+        if (subtitle) {
+            if (activeTabId === 'pos') {
+                subtitle.style.display = 'none';
+            } else {
+                subtitle.style.display = 'block';
+                subtitle.textContent = localizedTitles[activeTabId][1];
+            }
+        }
     }
 }
 
@@ -694,19 +792,7 @@ function switchTab(tabId) {
         activeCollapsedIcon.classList.add('icon-active-gradient');
     }
 
-    const titles = {
-        dashboard: ["Today's Summary", "Manage your shop in real-time."],
-        pos: ["Point of Sale", "Take manual orders directly from the counter."],
-        orders: ["Order History", "Review and manage all past orders."],
-        'delivery-hub': ["Livraisons & Réservations", "Commandes à domicile et gestion des réservations de tables."],
-        delivery: ["Livraisons & Réservations", "Commandes à domicile et gestion des réservations de tables."],
-        kitchen: ["Kitchen Display", "Manage orders in the kitchen."],
-        menu: ["Menu Management", "Add, edit, or remove products from your shop."],
-        tables: ["Plan des Tables & QR (12 Tables)", "Supervision des 12 tables (Terrasse, Salle Principale, 1er Étage) et QR Codes."],
-        qr: ["Plan des Tables & QR (12 Tables)", "Supervision des 12 tables (Terrasse, Salle Principale, 1er Étage) et QR Codes."],
-        reservations: ["Livraisons & Réservations", "Commandes à domicile et gestion des réservations de tables."],
-        'theme-manager': ["Apparence & Thèmes du Menu", "Personnalisez l'ambiance visuelle du menu QR client en un clic."]
-    };
+    const titles = DASHBOARD_TRANSLATIONS[currentLang]?.titles || DASHBOARD_TRANSLATIONS["en"].titles;
     if (pageTitle && titles[tabId]) {
         pageTitle.textContent = titles[tabId][0];
         if (pageSubtitle) {
@@ -901,11 +987,18 @@ function renderQRFloors() {
     const container = document.getElementById('qr-floors');
     if (!container) return;
     const floors = Object.keys(TABLE_DATA);
-    container.innerHTML = floors.map(floor => `
+    const floorNames = {
+        'Terrasse': { en: 'Terrace (1-4)', fr: 'Terrasse (1-4)', ar: 'التراس (1-4)' },
+        'Salle Principale': { en: 'Main Hall (5-8)', fr: 'Salle Principale (5-8)', ar: 'القاعة الرئيسية (5-8)' },
+        '1er Étage': { en: '1st Floor (9-12)', fr: '1er Étage (9-12)', ar: 'الطابق الأول (9-12)' }
+    };
+    container.innerHTML = floors.map(floor => {
+        const displayName = floorNames[floor]?.[currentLang] || floor;
+        return `
         <button onclick="switchQRFloor('${floor}')" class="floor-btn px-5 py-2.5 rounded-full text-xs font-bold whitespace-nowrap shadow-sm transition-all ${floor === currentQRFloor ? 'bg-primary text-white' : 'bg-white dark:bg-zinc-800 border border-accent-grey dark:border-white/5 text-industrial-slate dark:text-zinc-300'}">
-            ${floor}
+            ${displayName}
         </button>
-    `).join('');
+    `}).join('');
 }
 
 window.switchQRFloor = (floor) => {

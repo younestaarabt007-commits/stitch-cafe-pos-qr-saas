@@ -69,7 +69,7 @@
 
     <!-- Middle: Navigation (scrollable) -->
     <nav aria-label="Merchant navigation" class="flex-1 overflow-y-auto px-4 py-2 space-y-1.5 min-h-0">
-      <p class="merchant-nav-label">WORKSPACE</p>
+      <p class="merchant-nav-label" data-i18n="workspace">WORKSPACE</p>
       <button data-tab="dashboard"
         class="w-full flex items-center gap-3 px-4 py-2.5 text-primary hover:text-orange-500 hover:bg-white dark:hover:bg-white/90 rounded-xl font-bold transition-all nav-btn pos-button">
         <span class="material-symbols-outlined text-[20px] text-primary">dashboard</span>
@@ -89,7 +89,7 @@
       <button data-tab="delivery-hub" onclick="switchTab('delivery-hub')"
         class="w-full flex items-center gap-3 px-4 py-2.5 text-primary hover:text-orange-500 hover:bg-white dark:hover:bg-white/90 rounded-xl font-bold transition-all nav-btn pos-button">
         <span class="material-symbols-outlined text-[20px] text-primary">moped</span>
-        <span class="text-primary text-sm">Livraisons &amp; Réservations</span>
+        <span data-i18n="delivery_hub" class="text-primary text-sm">Livraisons &amp; Réservations</span>
         <span id="delivery-res-count-badge" class="ml-auto bg-amber-500 text-white text-[10px] px-2 py-0.5 rounded-full shadow-glow">0</span>
       </button>
       <button data-tab="kitchen"
@@ -106,14 +106,14 @@
       <button data-tab="tables" onclick="switchTab('tables')"
         class="w-full flex items-center gap-3 px-4 py-2.5 text-primary hover:text-orange-500 hover:bg-white dark:hover:bg-white/90 rounded-xl font-bold transition-all nav-btn pos-button">
         <span class="material-symbols-outlined text-[20px] text-primary">table_restaurant</span>
-        <span class="text-primary text-sm">Plan des Tables (12)</span>
-        <span id="nav-tables-count" class="ml-auto bg-green-500 text-white text-[10px] px-2 py-0.5 rounded-full shadow-glow">12 Tables</span>
+        <span data-i18n="tables_plan" class="text-primary text-sm">Plan des Tables (12)</span>
+        <span id="nav-tables-count" data-i18n="tables_badge" class="ml-auto bg-green-500 text-white text-[10px] px-2 py-0.5 rounded-full shadow-glow">12 Tables</span>
       </button>
       <button data-tab="theme-manager" onclick="switchTab('theme-manager')"
         class="w-full flex items-center gap-3 px-4 py-2.5 text-primary hover:text-orange-500 hover:bg-white dark:hover:bg-white/90 rounded-xl font-bold transition-all nav-btn pos-button cursor-pointer">
         <span class="material-symbols-outlined text-[20px] text-primary">palette</span>
-        <span class="text-primary text-sm">Apparence du Menu</span>
-        <span class="ml-auto bg-amber-500 text-white text-[9px] font-black uppercase px-2 py-0.5 rounded-full shadow-glow">NOUVEAU</span>
+        <span data-i18n="theme_manager" class="text-primary text-sm">Apparence du Menu</span>
+        <span data-i18n="new_badge" class="ml-auto bg-amber-500 text-white text-[9px] font-black uppercase px-2 py-0.5 rounded-full shadow-glow">NOUVEAU</span>
       </button>
     </nav>
 
@@ -125,7 +125,7 @@
             <span class="material-symbols-outlined text-primary text-[16px] text-ultra-contrast">coffee</span>
           </div>
           <div class="min-w-0">
-            <span class="text-[9px] font-bold uppercase tracking-widest text-white/60 text-ultra-contrast block">Elite Roastery</span>
+            <span data-i18n="elite_roastery" class="text-[9px] font-bold uppercase tracking-widest text-white/60 text-ultra-contrast block">Elite Roastery</span>
             <p class="text-xs font-bold truncate text-ultra-contrast">merchant@cafe.com</p>
           </div>
         </div>
@@ -220,7 +220,7 @@
             <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
             <span class="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
           </span>
-          <span class="text-xs font-bold">Demo workspace</span>
+          <span data-i18n="demo_workspace" class="text-xs font-bold">Demo workspace</span>
         </div>
         <!-- Language Selector -->
         <button onclick="cycleLanguage()" id="lang-cycle-btn"

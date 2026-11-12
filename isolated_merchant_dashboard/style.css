@@ -1167,19 +1167,20 @@ header.md\:hidden {
     margin-left: auto;
 }
 
-/* Flip icons that have directionality */
-[dir="rtl"] .material-symbols-outlined:not(.no-flip) {
+/* Flip icons that have explicit directionality */
+[dir="rtl"] .material-symbols-outlined.rtl-flip {
     transform: scaleX(-1);
 }
 
 /* Specific button adjustments */
 [dir="rtl"] .nav-btn {
-    flex-direction: row-reverse;
+    flex-direction: row;
     justify-content: flex-start;
+    text-align: right;
 }
 
 [dir="rtl"] .nav-btn span:first-child {
-    margin-left: 0.75rem;
+    margin-inline-end: 0.75rem;
 }
 
 [dir="rtl"] .pos-button {

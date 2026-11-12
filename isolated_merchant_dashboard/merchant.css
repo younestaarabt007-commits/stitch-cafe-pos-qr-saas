@@ -259,3 +259,128 @@
 .merchant-app #pos-categories .merchant-category-icon img { width:30px;height:30px;object-fit:contain; }
 .merchant-app #pos-categories .merchant-category-label { margin:0;font-size:12px;opacity:1; }
 .merchant-app #pos-categories .merchant-category-count { margin:0;font-size:10px;opacity:.7; }
+
+/* ==========================================================================
+   RTL & ARABIC SUPPORT SYSTEM (FIXES SIDEBAR POSITION, PADDING & ALIGNMENT)
+   ========================================================================== */
+[dir="rtl"] {
+  text-align: right;
+  direction: rtl;
+}
+
+html[dir="rtl"] .merchant-app #sidebar,
+[dir="rtl"] .merchant-app #sidebar,
+[dir="rtl"] #sidebar {
+  left: auto !important;
+  right: 0 !important;
+  border-right: none !important;
+  border-left: 1px solid var(--merchant-line) !important;
+  box-shadow: -4px 0 18px rgba(0, 0, 0, 0.08) !important;
+}
+
+[dir="rtl"] .merchant-app #collapsed-quick-rail {
+  left: auto !important;
+  right: 8px !important;
+}
+
+@media (min-width: 768px) {
+  html[dir="rtl"] .merchant-app #main-content.md\:ml-72,
+  [dir="rtl"] .merchant-app #main-content.md\:ml-72 {
+    margin-left: 0 !important;
+    margin-right: 232px !important;
+  }
+  html[dir="rtl"] .merchant-app #main-content.md\:ml-20,
+  [dir="rtl"] .merchant-app #main-content.md\:ml-20 {
+    margin-left: 0 !important;
+    margin-right: 80px !important;
+  }
+  [dir="rtl"] .merchant-app #sidebar.-translate-x-full {
+    transform: translateX(100%) !important;
+  }
+  [dir="rtl"] .merchant-app #sidebar.md\:translate-x-0 {
+    transform: translateX(0) !important;
+  }
+}
+
+@media (max-width: 767px) {
+  html[dir="rtl"] .merchant-app #main-content,
+  [dir="rtl"] .merchant-app #main-content {
+    margin: 0 !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+  [dir="rtl"] .merchant-app #sidebar {
+    left: auto !important;
+    right: 0 !important;
+  }
+  [dir="rtl"] .merchant-app #sidebar.-translate-x-full {
+    transform: translateX(100%) !important;
+  }
+  [dir="rtl"] .merchant-app #sidebar:not(.-translate-x-full) {
+    transform: translateX(0) !important;
+  }
+}
+
+/* Fix flex navigation buttons & items in RTL */
+[dir="rtl"] .merchant-app #sidebar .nav-btn {
+  text-align: right !important;
+  flex-direction: row !important;
+}
+[dir="rtl"] .merchant-app .ml-auto {
+  margin-left: 0 !important;
+  margin-right: auto !important;
+}
+[dir="rtl"] .merchant-app .mr-auto {
+  margin-right: 0 !important;
+  margin-left: auto !important;
+}
+
+/* Restore normal icon orientation; only flip explicit arrows */
+[dir="rtl"] .material-symbols-outlined {
+  transform: none !important;
+}
+[dir="rtl"] .material-symbols-outlined.rtl-flip,
+[dir="rtl"] .material-symbols-outlined.icon-flip-rtl {
+  transform: scaleX(-1) !important;
+}
+
+/* Page Header & Actions in RTL */
+[dir="rtl"] .merchant-app .pos-page-header {
+  flex-direction: row !important;
+  justify-content: space-between !important;
+}
+[dir="rtl"] .merchant-app .merchant-page-heading {
+  text-align: right !important;
+}
+[dir="rtl"] .merchant-app .pos-page-actions {
+  flex-direction: row-reverse !important;
+}
+
+/* POS Search in RTL */
+[dir="rtl"] .merchant-app #pos-search {
+  padding: 12px 42px 12px 14px !important;
+  text-align: right !important;
+}
+[dir="rtl"] .merchant-app .relative:has(#pos-search) .material-symbols-outlined,
+[dir="rtl"] .merchant-app #pos-tab .relative .material-symbols-outlined.left-4 {
+  left: auto !important;
+  right: 14px !important;
+}
+
+/* Text alignments across cards & tables */
+[dir="rtl"] .merchant-app .text-left {
+  text-align: right !important;
+}
+[dir="rtl"] .merchant-app th,
+[dir="rtl"] .merchant-app td {
+  text-align: right !important;
+}
+[dir="rtl"] .merchant-app .pos-order-shell,
+[dir="rtl"] .merchant-app .pos-cart-head-block,
+[dir="rtl"] .merchant-app .pos-cart-foot-block {
+  text-align: right !important;
+}
+[dir="rtl"] .merchant-app .merchant-context {
+  flex-direction: row !important;
+}
+

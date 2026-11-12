@@ -19,12 +19,16 @@ function liveOrdersApiBase() {
 }
 
 function buildCustomerMenuUrl(tableId) {
+    const isGitHubPages = typeof window !== 'undefined' && window.location.pathname.includes('/stitch-cafe-pos-qr-saas/');
+    const pathPrefix = isGitHubPages ? '/stitch-cafe-pos-qr-saas' : '';
     const base = detectedNetworkMenuUrl
         || (typeof window !== 'undefined' && (window.location.protocol === 'http:' || window.location.protocol === 'https:')
-            ? `${window.location.origin}/stitch_caf_menu_table_12/swiggy-style_elite_main_menu_390x2500/index.html`
+            ? `${window.location.origin}${pathPrefix}/stitch_caf_menu_table_12/swiggy-style_elite_main_menu_390x2500/index.html`
             : 'http://127.0.0.1:8000/stitch_caf_menu_table_12/swiggy-style_elite_main_menu_390x2500/index.html');
     const url = new URL(base);
     url.searchParams.set('table', String(tableId));
+    const activeTheme = (typeof window.getStitchActiveTheme === 'function' ? window.getStitchActiveTheme() : localStorage.getItem('stitch_menu_theme')) || 'swiggy-bold';
+    url.searchParams.set('theme', activeTheme);
     return url.href;
 }
 
@@ -124,10 +128,133 @@ const DEMO_MENU = [
 ];
 
 const DEMO_ORDERS = [
-    { id: 'ORD-001', table: '12', customerName: 'Yassine', notes: 'No nuts. Allergic.', items: [{ name: 'Velvet Flat White', qty: 2, price: 20, image_url: '../stitch_caf_menu_table_12/swiggy-style_elite_main_menu_390x2500/assets/coffee-velvet-flat-white.jpg' }, { name: 'Butter Croissant', qty: 1, price: 18, image_url: '../stitch_caf_menu_table_12/swiggy-style_elite_main_menu_390x2500/assets/sweet-butter-croissant.jpg' }], total: 58, status: 'Received', time: Date.now() - 1000 * 60 * 2 },
-    { id: 'ORD-002', table: '5', customerName: 'Amal', notes: 'Less salt. Serve hot.', items: [{ name: 'Avocado Toast', qty: 1, price: 45, image_url: '../stitch_caf_menu_table_12/swiggy-style_elite_main_menu_390x2500/assets/toast-avocado.jpg' }, { name: 'Fresh Orange Juice', qty: 1, price: 30, image_url: '../stitch_caf_menu_table_12/swiggy-style_elite_main_menu_390x2500/assets/juice-fresh-orange.jpg' }], total: 75, status: 'Preparing', time: Date.now() - 1000 * 60 * 12 },
-    { id: 'ORD-003', table: '3', customerName: 'Karim', notes: 'Oat milk, extra hot.', items: [{ name: 'Single Origin Espresso', qty: 3, price: 18, mods: ['Extra Shot', 'Oat Milk'], image_url: '../stitch_caf_menu_table_12/swiggy-style_elite_main_menu_390x2500/assets/coffee-single-origin-espresso.jpg' }], total: 78, status: 'Ready', time: Date.now() - 1000 * 60 * 25 },
+    { id: 'ORD-001', table: '12', customerName: 'Yassine', notes: 'Sans noix. Allergie.', items: [{ name: 'Velvet Flat White', qty: 2, price: 20, image_url: '../stitch_caf_menu_table_12/swiggy-style_elite_main_menu_390x2500/assets/black coffee/Café Crème.jpg' }, { name: 'Butter Croissant', qty: 1, price: 18, image_url: '../stitch_caf_menu_table_12/swiggy-style_elite_main_menu_390x2500/assets/sweets/07abeb0b37011bc4f4413062a5fc0045.jpg' }], total: 58, status: 'Received', time: Date.now() - 1000 * 60 * 3 },
+    { id: 'ORD-002', table: '5', customerName: 'Amal', notes: 'Bien chaud, sans sucre.', items: [{ name: 'Avocado Toast', qty: 1, price: 45, image_url: '../stitch_caf_menu_table_12/swiggy-style_elite_main_menu_390x2500/assets/salty food and sweet brunch/toast.jpg' }, { name: 'Fresh Orange Juice', qty: 1, price: 30, image_url: '../stitch_caf_menu_table_12/swiggy-style_elite_main_menu_390x2500/assets/juces.jpg' }], total: 75, status: 'Preparing', time: Date.now() - 1000 * 60 * 11 },
+    { id: 'ORD-003', table: '3', customerName: 'Karim', notes: 'Lait d\'avoine, extra chaud.', items: [{ name: 'Single Origin Espresso', qty: 2, price: 18, mods: ['Extra Shot', 'Oat Milk'], image_url: '../stitch_caf_menu_table_12/swiggy-style_elite_main_menu_390x2500/assets/black coffee/Café Noire.jpg' }, { name: 'Ceremonial Matcha', qty: 1, price: 28, image_url: '../stitch_caf_menu_table_12/swiggy-style_elite_main_menu_390x2500/assets/tea/Tea Nordique.jpg' }], total: 64, status: 'Ready', time: Date.now() - 1000 * 60 * 22 },
+    { id: 'ORD-004', table: '8', customerName: 'Salma', notes: 'Glaçons à part.', items: [{ name: 'Berry Burst Smoothie', qty: 2, price: 26, image_url: '../stitch_caf_menu_table_12/swiggy-style_elite_main_menu_390x2500/assets/smoothie/60d841c27d82e0664048039ced318168.jpg' }, { name: 'Pain au Chocolat', qty: 2, price: 16, image_url: '../stitch_caf_menu_table_12/swiggy-style_elite_main_menu_390x2500/assets/sweets/99e4f1c4df32d646f2dde6bf28cd9566.jpg' }], total: 84, status: 'Preparing', time: Date.now() - 1000 * 60 * 15 }
 ];
+
+
+// --- ARABIC PRODUCT & CATEGORY DICTIONARIES ---
+const ARABIC_PRODUCT_NAMES = {
+    "Petit Déjeuner Américain": "فطور أمريكي كامل",
+    "Petit Déjeuner Complet": "فطور صباحي متكامل",
+    "Petit Déjeuner Marocain": "فطور مغربي بلدي أصيل",
+    "Farm Omelette": "أومليت المزرعة بالأعشاب",
+    "Eggs Benedict": "بيض بينيديكت بصلصة الهولنديز",
+    "Spicy Shakshuka": "شكشوكة مغربية حارة",
+    "Garden Skillet": "مقلاة الخضار الطازجة مع البيض",
+    "Brunch Burrito": "بوريتو الفطور المكسيكي",
+    "Citrus Cheese Cake": "تشيز كيك الحمضيات المنعشة",
+    "Fit Egg-White": "أومليت بياض البيض الصحي",
+    "Crème Caramel": "كريم كراميل منزلي فاخر",
+    "Signature Benedict": "بينيديكت فاخر مع الأفوكادو",
+    "Truffle Omelette": "أومليت الفطر وزيت الكمأة",
+    "Shakshuka": "شكشوكة تقليدية بالصلصة الغنية",
+    "Avocado Toast": "توست الأفوكادو مع خبز المحمص",
+    "Classic Benedict": "بيض بينيديكت كلاسيكي",
+    "Vegan Power Bowl": "وعاء الحبوب والخضار النباتي",
+    "Mediterranean": "توست البحر المتوسط بالفيتا والزيتون",
+    "Steak & Eggs": "ستيك ريب آي مع بيض مقلي",
+    "Velvet Flat White": "فلات وايت مخملي ناعم",
+    "Kyoto Cold Brew": "كولد برو كيوتو بالتنقيط البطيء",
+    "Oat Milk Latte": "لاتيه حليب الشوفان النباتي",
+    "Single Origin Espresso": "إسبريسو سينغل أوريجين بنكهات غنية",
+    "Dark Mocha": "موكا شوكولاتة داكنة 70%",
+    "Classic Latte": "لاتيه كلاسيكي بالحليب المبخر",
+    "Signature Oat Latte": "لاتيه الشوفان الفاخر",
+    "Vanilla Bean": "لاتيه الفانيليا الطبيعية",
+    "Caramel Macchiato": "ماكياتو بصوص الكراميل الذهبي",
+    "Spanish Latte": "سبانش لاتيه بالحليب المكثف",
+    "Rose Water Latte": "لاتيه ماء الورد العطري",
+    "Iced Matcha Latte": "ماتشا مثلجة فاخرة",
+    "Hazelnut Latte": "لاتيه البندق المحمص",
+    "Pumpkin Spice Latte": "لاتيه اليقطين والتوابل الموسمية",
+    "Ceremonial Matcha": "ماتشا يابانية احتفالية فاخرة",
+    "Masala Chai": "شاي ماسالا الهندي بالتوابل والحليب",
+    "Ginger Lemon": "شاي الزنجبيل والليمون الدافئ",
+    "Moroccan Mint": "شاي مغربي أصيل بالنعناع الطازج",
+    "Royal Milk Tea": "شاي الحليب الملكي مع الكراميل",
+    "Iced Peach Oolong": "شاي أولونغ مثلج بنكهة الخوخ",
+    "Lavender Earl Grey": "شاي إيرل غري بزهور اللافندر",
+    "Berry Burst": "سموذي التوت المشكل والزبادي",
+    "Berry Burst Smoothie": "سموذي التوت المشكل والزبادي",
+    "Green Power": "سموذي الطاقة الأخضر",
+    "Protein Plus": "سموذي البروتين بالموز وزبدة الفول السوداني",
+    "Tropical Smooth": "سموذي استوائي (مانجو وأناناس)",
+    "Fresh Orange": "عصير برتقال طبيعي معصور طازج",
+    "Fresh Orange Juice": "عصير برتقال طبيعي معصور طازج",
+    "Lemon Mint": "عصير الليمون المنعش بالنعناع",
+    "Pineapple Punch": "عصير الأناناس الاستوائي البارد",
+    "Apple Classic": "عصير تفاح طبيعي نقي",
+    "Mango Glow": "عصير المانجو الاستوائي المركز",
+    "Signature Green Juice": "العصير الأخضر الصحي (كيل وتفاح)",
+    "Mango Tango": "سموذي مانجو وتانجو الفواكه الاستوائية",
+    "Cold Pressed Orange": "عصير برتقال معصور على البارد",
+    "Ginger Turmeric Shot": "جرعة مناعة الزنجبيل والكركم",
+    "Beetroot Energizer": "عصير الشمندر والجزر المقوي",
+    "Green Goddess": "عصير آلهة الخضار المنقي",
+    "Butter Croissant": "كرواسون فرنسي بالزبدة الطبيعية",
+    "Almond Croissant": "كرواسون محشو باللوز والفرانجيبان",
+    "Pain au Chocolat": "بان أو شوكولا فرنسي مقرمش",
+    "Chocolate Éclair": "إكلير الشوكولاتة الداكنة والكريمة",
+    "Strawberry Tart": "تارت الفراولة الطازجة بكريمة الفانيليا",
+    "Lemon Meringue Tart": "تارت الليمون والميرانغ المحروق",
+    "Velvet Cake Slice": "قطعة كيكة المخمل الناعمة",
+    "Signature Sourdough": "خبز العجين المخمر التقليدي",
+    "Traditional Baguette": "باغيت فرنسي مقرمش وهش",
+    "Artisan Rye Bread": "خبز الجاودار الحرفي الغني بالألياف"
+};
+
+const POS_CATEGORY_LABELS = {
+    ar: {
+        'All': 'الكل',
+        'Brunch': 'برنش وفطور',
+        'Toast': 'توست وسندويشات',
+        'Fast Food': 'وجبات سريعة',
+        'Coffee': 'قهوة ساخنة',
+        'Tea': 'شاي وأعشاب',
+        'Juice': 'عصائر طازجة',
+        'Juices': 'عصائر طازجة',
+        'Smoothie': 'سموذي صحي',
+        'Shake': 'ميلك شيك',
+        'Shakes': 'ميلك شيك',
+        'Pastry': 'معجنات وحلويات',
+        'Bakery': 'مخبوزات'
+    },
+    fr: {
+        'All': 'Tous',
+        'Brunch': 'Brunch & Plats',
+        'Toast': 'Toasts & Brunch',
+        'Fast Food': 'Fast Food & Burgers',
+        'Coffee': 'Cafés & Chauds',
+        'Tea': 'Thés & Infusions',
+        'Juice': 'Jus Frais',
+        'Juices': 'Jus Frais',
+        'Smoothie': 'Smoothies',
+        'Shake': 'Milkshakes',
+        'Shakes': 'Milkshakes',
+        'Pastry': 'Pâtisseries',
+        'Bakery': 'Boulangerie'
+    }
+};
+
+function getLocalizedItemName(item) {
+    if (!item) return '';
+    const name = item.name || '';
+    if (currentLang === 'ar') {
+        return ARABIC_PRODUCT_NAMES[name] || name;
+    }
+    return name;
+}
+
+function getLocalizedCategoryLabel(cat) {
+    if (!cat) return '';
+    if (POS_CATEGORY_LABELS[currentLang] && POS_CATEGORY_LABELS[currentLang][cat]) {
+        return POS_CATEGORY_LABELS[currentLang][cat];
+    }
+    return cat;
+}
 
 // --- TRANSLATIONS ---
 const DASHBOARD_TRANSLATIONS = {
@@ -1730,6 +1857,13 @@ async function setMerchantTheme(newTheme) {
     currentMerchantTheme = newTheme;
     try { localStorage.setItem('stitch_menu_theme', newTheme); } catch (_) {}
     updateThemeManagerUI(newTheme);
+    if (typeof currentQRFloor !== 'undefined' && typeof renderTableGrid === 'function') {
+        renderTableGrid(currentQRFloor);
+    }
+    const qrLinkEl = document.getElementById('qr-link-text');
+    if (qrLinkEl && typeof selectedTable !== 'undefined') {
+        qrLinkEl.textContent = buildCustomerMenuUrl(selectedTable);
+    }
 
     // Sync with backend API
     try {
@@ -1970,15 +2104,15 @@ function renderDeliveryTab() {
             <!-- Action Buttons -->
             <div class="flex items-center justify-between gap-2 pt-2 border-t border-gray-100 dark:border-white/5">
                 <button onclick="openReceiptModal('${o.id}')" class="px-3.5 py-2.5 rounded-xl bg-gray-100 dark:bg-white/5 text-xs font-bold flex items-center gap-1.5">
-                    <span class="material-symbols-outlined text-[16px]">print</span> Ticket
+                    <span class="material-symbols-outlined text-[16px]">print</span> ${currentLang === 'ar' ? 'الفاتورة' : 'Ticket'}
                 </button>
                 <div class="flex items-center gap-2">
                     ${o.status === 'Received' ? `
-                        <button onclick="updateOrderStatus('${o.id}', 'Preparing')" class="px-4 py-2.5 rounded-xl bg-blue-600 text-white text-xs font-extrabold shadow-sm">Lancer Préparation</button>
+                        <button onclick="updateOrderStatus('${o.id}', 'Preparing')" class="px-4 py-2.5 rounded-xl bg-blue-600 text-white text-xs font-extrabold shadow-sm">${currentLang === 'ar' ? 'بدء التحضير' : 'Lancer Préparation'}</button>
                     ` : o.status === 'Preparing' ? `
-                        <button onclick="updateOrderStatus('${o.id}', 'Ready')" class="px-4 py-2.5 rounded-xl bg-amber-500 text-white text-xs font-extrabold shadow-sm">En Route (Livreur)</button>
+                        <button onclick="updateOrderStatus('${o.id}', 'Ready')" class="px-4 py-2.5 rounded-xl bg-amber-500 text-white text-xs font-extrabold shadow-sm">${currentLang === 'ar' ? 'في الطريق' : 'En Route (Livreur)'}</button>
                     ` : o.status === 'Ready' ? `
-                        <button onclick="updateOrderStatus('${o.id}', 'Completed')" class="px-4 py-2.5 rounded-xl bg-emerald-600 text-white text-xs font-extrabold shadow-sm">Marquer Livrée</button>
+                        <button onclick="updateOrderStatus('${o.id}', 'Completed')" class="px-4 py-2.5 rounded-xl bg-emerald-600 text-white text-xs font-extrabold shadow-sm">${currentLang === 'ar' ? 'تم التوصيل' : 'Marquer Livrée'}</button>
                     ` : `<span class="text-xs font-extrabold text-emerald-600">✓ Livrée</span>`}
                 </div>
             </div>
@@ -2088,10 +2222,10 @@ function renderLiveOrders(orders) {
                         </div>
                         <div>
                             <h4 class="text-xl font-black">${escapeHTML(headerTitle)}</h4>
-                            <p class="text-[10px] text-gray-500 font-bold uppercase tracking-widest">${tableOrders.length} Active Tickets</p>
+                            <p class="text-[10px] text-gray-500 font-bold uppercase tracking-widest">${tableOrders.length} ${currentLang === 'ar' ? 'تذاكر نشطة' : (currentLang === 'fr' ? 'Tickets Actifs' : 'Active Tickets')}</p>
                         </div>
                     </div>
-                    ${isDeliveryGroup ? `<button onclick="switchTab('delivery')" class="px-3.5 py-2 rounded-xl bg-amber-500 text-white text-xs font-extrabold">Ouvrir Section Livraisons</button>` : ''}
+                    ${isDeliveryGroup ? `<button onclick="switchTab('delivery')" class="px-3.5 py-2 rounded-xl bg-amber-500 text-white text-xs font-extrabold">${currentLang === 'ar' ? 'فتح قسم التوصيل' : 'Ouvrir Section Livraisons'}</button>` : ''}
                 </div>
                 <div class="grid grid-cols-1 gap-4">
         `;
@@ -2103,10 +2237,10 @@ function renderLiveOrders(orders) {
             const isDel = isDeliveryOrder(o);
             const isTake = isTakeawayOrder(o);
             const modeBadge = isDel
-                ? '<span class="px-2.5 py-0.5 bg-amber-500 text-white text-[9px] font-black rounded-full uppercase tracking-wider">LIVRAISON DOMICILE</span>'
+                ? `<span class="px-2.5 py-0.5 bg-amber-500 text-white text-[9px] font-black rounded-full uppercase tracking-wider">${currentLang === 'ar' ? 'توصيل منزلي' : 'LIVRAISON DOMICILE'}</span>`
                 : isTake
-                ? '<span class="px-2.5 py-0.5 bg-purple-600 text-white text-[9px] font-black rounded-full uppercase tracking-wider">À EMPORTER</span>'
-                : '<span class="px-2.5 py-0.5 bg-emerald-600/15 text-emerald-700 text-[9px] font-black rounded-full uppercase tracking-wider">SUR PLACE</span>';
+                ? `<span class="px-2.5 py-0.5 bg-purple-600 text-white text-[9px] font-black rounded-full uppercase tracking-wider">${currentLang === 'ar' ? 'سفري / استلام' : 'À EMPORTER'}</span>`
+                : `<span class="px-2.5 py-0.5 bg-emerald-600/15 text-emerald-700 text-[9px] font-black rounded-full uppercase tracking-wider">${currentLang === 'ar' ? 'داخل المطعم' : 'SUR PLACE'}</span>`;
 
             // Build visual item thumbnails
             const visualItemsHtml = o.items.map(i => `
@@ -2411,18 +2545,43 @@ function renderOrders() {
 
     // Combine all orders for history view, sort newest first
     const historyOrders = [...liveOrders, ...completedOrders].sort((a, b) => b.time - a.time);
-    const renderKey = historyOrders.map(o => `${o.id}|${o.status}|${o.time}|${o.total}`).join('||');
+    const renderKey = historyOrders.map(o => `${o.id}|${o.status}|${o.time}|${o.total}`).join('||') + '|' + currentLang;
     if (ordersTab.dataset.renderKey === renderKey) return;
     ordersTab.dataset.renderKey = renderKey;
+
+    const t = {
+        title: currentLang === 'ar' ? 'جميع الطلبات' : (currentLang === 'fr' ? 'Toutes les Commandes' : 'All Orders'),
+        today: currentLang === 'ar' ? 'طلبات اليوم' : (currentLang === 'fr' ? 'Aujourd\'hui' : 'Today'),
+        noHistory: currentLang === 'ar' ? 'لا يوجد سجل طلبات متاح' : (currentLang === 'fr' ? 'Aucun historique de commande' : 'No order history available'),
+        thTime: currentLang === 'ar' ? 'الوقت' : (currentLang === 'fr' ? 'Heure' : 'Time'),
+        thOrder: currentLang === 'ar' ? 'الطلب' : (currentLang === 'fr' ? 'Commande' : 'Order'),
+        thTable: currentLang === 'ar' ? 'الزبون / الطاولة' : (currentLang === 'fr' ? 'Client / Table' : 'Guest/Table'),
+        thItems: currentLang === 'ar' ? 'الأصناف' : (currentLang === 'fr' ? 'Articles' : 'Items'),
+        thTotal: currentLang === 'ar' ? 'المجموع' : (currentLang === 'fr' ? 'Total' : 'Total'),
+        thStatus: currentLang === 'ar' ? 'الحالة' : (currentLang === 'fr' ? 'Statut' : 'Status'),
+        stReceived: currentLang === 'ar' ? 'مستلم' : (currentLang === 'fr' ? 'Reçu' : 'Received'),
+        stPreparing: currentLang === 'ar' ? 'قيد التحضير' : (currentLang === 'fr' ? 'En préparation' : 'Preparing'),
+        stReady: currentLang === 'ar' ? 'جاهز' : (currentLang === 'fr' ? 'Prêt' : 'Ready'),
+        stCompleted: currentLang === 'ar' ? 'مكتمل' : (currentLang === 'fr' ? 'Terminé' : 'Completed'),
+        tableWord: currentLang === 'ar' ? 'طاولة' : (currentLang === 'fr' ? 'Table' : 'Table')
+    };
+
+    const getStatusText = (s) => {
+        if (s === 'Received') return t.stReceived;
+        if (s === 'Preparing') return t.stPreparing;
+        if (s === 'Ready') return t.stReady;
+        if (s === 'Completed') return t.stCompleted;
+        return s;
+    };
 
     if (historyOrders.length === 0) {
         ordersTab.innerHTML = `
             <div class="flex items-center justify-between mb-6">
-                <h4 class="text-xl font-bold">All Orders</h4>
+                <h4 class="text-xl font-bold">${t.title}</h4>
             </div>
             <div class="text-center py-20 bg-white dark:bg-[#2a1e19] rounded-[2.5rem] border border-gray-200 dark:border-white/5 shadow-sm text-gray-400">
                 <span class="material-symbols-outlined text-[48px] mb-2 opacity-20">receipt_long</span>
-                <p class="text-xs font-bold uppercase tracking-widest">No order history available</p>
+                <p class="text-xs font-bold uppercase tracking-widest">${t.noHistory}</p>
             </div>`;
         return;
     }
@@ -2431,18 +2590,18 @@ function renderOrders() {
         <div class="space-y-4">
             <div class="flex items-center justify-between mb-6">
                 <h4 class="text-xl font-bold">All Orders</h4>
-                <span class="text-xs font-bold text-gray-400 uppercase tracking-widest">${historyOrders.length} Today</span>
+                <span class="text-xs font-bold text-gray-400 uppercase tracking-widest">${historyOrders.length} ${t.today}</span>
             </div>
             <div class="bg-white dark:bg-[#2a1e19] rounded-[2.5rem] border border-gray-200 dark:border-white/5 shadow-sm overflow-hidden overflow-x-auto">
                 <table class="w-full text-left min-w-[600px]">
                     <thead>
                         <tr class="text-[10px] font-bold uppercase tracking-widest text-gray-400 bg-gray-50/50 dark:bg-black/10">
-                            <th class="px-6 py-4">Time</th>
-                            <th class="px-6 py-4">Order</th>
-                            <th class="px-6 py-4">Guest/Table</th>
-                            <th class="px-6 py-4">Items</th>
-                            <th class="px-6 py-4">Total</th>
-                            <th class="px-6 py-4">Status</th>
+                            <th class="px-6 py-4">${t.thTime}</th>
+                            <th class="px-6 py-4">${t.thOrder}</th>
+                            <th class="px-6 py-4">${t.thTable}</th>
+                            <th class="px-6 py-4">${t.thItems}</th>
+                            <th class="px-6 py-4">${t.thTotal}</th>
+                            <th class="px-6 py-4">${t.thStatus}</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-100 dark:divide-white/5">
@@ -2451,13 +2610,13 @@ function renderOrders() {
                             <td class="px-6 py-4 text-xs font-bold text-gray-500 whitespace-nowrap">${new Date(o.time).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</td>
                             <td class="px-6 py-4 font-mono text-xs text-gray-500 font-bold">${o.id}</td>
                             <td class="px-6 py-4">
-                                <div class="font-bold text-primary truncate max-w-[120px]">${o.guestName || 'Table ' + o.table}</div>
+                                <div class="font-bold text-primary truncate max-w-[120px]">${o.guestName || t.tableWord + ' ' + o.table}</div>
                                 ${o.guestName ? `<div class="text-[10px] text-gray-400">Tb: ${o.table}</div>` : ''}
                             </td>
                             <td class="px-6 py-4 text-xs text-gray-600 dark:text-gray-400 truncate max-w-[200px]">${o.items.map(i => `${i.qty}x ${i.name}`).join(', ')}</td>
                             <td class="px-6 py-4 font-bold text-sm">${o.total.toFixed(2)}DH</td>
                             <td class="px-6 py-4 whitespace-nowrap">
-                                <span class="px-3 py-1 ${o.status === 'Completed' ? 'bg-gray-800 text-white dark:bg-white dark:text-black' : getStatusStyle(o.status)} text-[10px] font-bold rounded-full border border-current/20 shadow-sm">${o.status}</span>
+                                <span class="px-3 py-1 ${o.status === 'Completed' ? 'bg-gray-800 text-white dark:bg-white dark:text-black' : getStatusStyle(o.status)} text-[10px] font-bold rounded-full border border-current/20 shadow-sm">${getStatusText(o.status)}</span>
                             </td>
                         </tr>`).join('')}
                     </tbody>
@@ -2626,11 +2785,55 @@ function renderKitchenDisplay() {
         const elapsed = Math.floor((Date.now() - order.time) / 60000);
         const totalItems = order.items.reduce((sum, i) => sum + i.qty, 0);
         
+        const getKdsHeaderTheme = (status) => {
+            if (status === 'Received') {
+                return {
+                    stripe: 'bg-amber-500',
+                    banner: 'bg-amber-500/15 dark:bg-amber-950/40 border-b border-amber-300/40 dark:border-amber-700/40',
+                    label: currentLang === 'ar' ? 'طلب جديد (مستلم)' : (currentLang === 'fr' ? 'Nouveau Reçu' : 'Received (New)'),
+                    textClass: 'text-amber-900 dark:text-amber-200'
+                };
+            }
+            if (status === 'Preparing') {
+                return {
+                    stripe: 'bg-blue-500',
+                    banner: 'bg-blue-500/15 dark:bg-blue-950/40 border-b border-blue-300/40 dark:border-blue-700/40',
+                    label: currentLang === 'ar' ? 'قيد التحضير في المطبخ' : (currentLang === 'fr' ? 'En Préparation' : 'In Preparation'),
+                    textClass: 'text-blue-900 dark:text-blue-200'
+                };
+            }
+            if (status === 'Ready') {
+                return {
+                    stripe: 'bg-emerald-500',
+                    banner: 'bg-emerald-500/15 dark:bg-emerald-950/40 border-b border-emerald-300/40 dark:border-emerald-700/40',
+                    label: currentLang === 'ar' ? 'جاهز للتقديم للزبون' : (currentLang === 'fr' ? 'Prêt à Servir' : 'Ready to Serve'),
+                    textClass: 'text-emerald-900 dark:text-emerald-200'
+                };
+            }
+            return {
+                stripe: 'bg-gray-400',
+                banner: 'bg-gray-100 dark:bg-white/5 border-b border-gray-200 dark:border-white/10',
+                label: status,
+                textClass: 'text-gray-800 dark:text-gray-200'
+            };
+        };
+        const kdsTheme = getKdsHeaderTheme(order.status);
+        
         return `
         <div class="kitchen-card bg-white dark:bg-[#1f1714] rounded-2xl border border-gray-200/80 dark:border-white/10 shadow-sm overflow-hidden flex flex-col transition-all hover:shadow-md">
-            <!-- Distinct Step Indicator Color Bar (Stage Color) -->
-            <div class="h-2 ${getKdsAccentBar(order.status)} w-full"></div>
-            <div class="px-5 pt-4 pb-3">
+            <!-- Adequate Eye-Friendly Top Status Banner -->
+            <div class="h-1.5 ${kdsTheme.stripe} w-full"></div>
+            <div class="px-5 py-2.5 ${kdsTheme.banner} flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                    <span class="w-2.5 h-2.5 rounded-full ${kdsTheme.stripe} animate-pulse"></span>
+                    <span class="text-xs font-black uppercase tracking-wider ${kdsTheme.textClass}">${kdsTheme.label}</span>
+                </div>
+                <div class="flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-bold ${getTimerBadge(elapsed)}">
+                    <span class="material-symbols-outlined text-[13px]">timer</span>
+                    <span>${elapsed}m</span>
+                </div>
+            </div>
+            <div class="px-5 pt-3 pb-3">
                 <div class="flex items-center justify-between mb-3">
                     <div class="flex items-center gap-3">
                         <div class="w-11 h-11 rounded-xl bg-gray-100 dark:bg-white/5 border border-gray-200/80 dark:border-white/10 flex flex-col items-center justify-center shrink-0">
@@ -2747,7 +2950,7 @@ function renderPOSCategories(items) {
     container.innerHTML = categories.map(cat => `
         <button type="button" data-category="${escapeHTML(cat)}" aria-pressed="${cat === activePOSCategory}" class="category-btn merchant-category-btn px-4 py-2 ${cat === activePOSCategory ? 'bg-primary text-white' : 'bg-gray-100 dark:bg-white/5 text-gray-500'} text-xs font-bold rounded-xl transition-all whitespace-nowrap">
             <span class="merchant-category-icon" aria-hidden="true">${categoryIcon(cat)}</span>
-            <span class="merchant-category-label">${escapeHTML(cat)}</span>
+            <span class="merchant-category-label">${escapeHTML(getLocalizedCategoryLabel(cat))}</span>
             <span class="merchant-category-count">${cat === 'All' ? items.length : items.filter(item => item.category === cat).length}</span>
         </button>
     `).join('');
@@ -2796,7 +2999,7 @@ function renderPOSMenu(items) {
                 <span class="merchant-product-quantity" hidden></span>
                 ${outOfStock ? '<span class="merchant-product-soldout">Épuisé</span>' : '<span class="merchant-product-add material-symbols-outlined" aria-hidden="true">add</span>'}
             </div>
-            <span class="merchant-product-name block font-bold text-sm mb-1">${escapeHTML(item.name)}</span>
+            <span class="merchant-product-name block font-bold text-sm mb-1">${escapeHTML(getLocalizedItemName(item))}</span>
             <div class="merchant-product-meta flex items-center justify-between mt-1">
                 <span class="merchant-product-price text-primary font-black">${Number(item.price).toFixed(2)} <small>DH</small></span>
                 <span class="merchant-product-stock text-[10px] font-bold text-gray-500">${item.stock != null ? `${item.stock} restants` : escapeHTML(item.category)}</span>

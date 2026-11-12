@@ -104,8 +104,12 @@
 .merchant-app .merchant-expand-button:hover { border-color:var(--merchant-accent)!important;color:var(--merchant-accent); }
 .merchant-app .merchant-restore-icon { display:none; }
 .merchant-app .merchant-no-options { font-size:13px;line-height:1.6;color:var(--merchant-muted); }
-.merchant-app.pos-workspace-expanded :is(#sidebar,#collapsed-quick-rail,.merchant-pos-heading,.pos-page-header),.merchant-app.pos-workspace-expanded>header { display:none!important; }
-.merchant-app.pos-workspace-expanded main#main-content:is(.md\:ml-72,.md\:ml-20) { margin:0!important;width:100%!important;height:100dvh!important;padding:12px!important; }
+.merchant-app.pos-workspace-expanded :is(.merchant-pos-heading,.pos-page-header),.merchant-app.pos-workspace-expanded>header { display:none!important; }
+.merchant-app.pos-workspace-expanded #sidebar { display:flex!important; }
+.merchant-app.pos-workspace-expanded main#main-content { height:100dvh!important;padding:12px!important; }
+@media (max-width: 767px) {
+  .merchant-app.pos-workspace-expanded #sidebar.-translate-x-full { display:none!important; }
+}
 .merchant-app.pos-workspace-expanded .merchant-expand-icon { display:none; }
 .merchant-app.pos-workspace-expanded .merchant-restore-icon { display:block; }
 .merchant-app #pos-search { border:1px solid var(--merchant-line)!important;border-radius:11px!important;min-height:45px;padding:12px 14px 12px 42px!important;font-size:13px; }

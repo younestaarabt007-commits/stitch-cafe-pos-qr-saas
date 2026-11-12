@@ -311,7 +311,7 @@ function renderBestsellers(items) {
           <span class="swiggy-photo-badge absolute top-1.5 right-1.5 gourmet-tag text-[9px] font-black uppercase tracking-wider px-2 py-0.5 rounded-full shadow-md z-10">${gourmetMeta.tag}</span>
         </div>
 
-        <div class="flex-1 min-w-0 flex flex-col min-h-[6.2rem] md:min-h-[7.2rem] justify-between py-0.5 relative z-10">
+        <div class="flex-1 min-w-0 flex flex-col min-h-[5rem] md:min-h-[5.5rem] justify-between py-0.5 relative z-10">
           <div>
             <div class="flex items-center justify-between gap-2 mb-1">
               <div class="flex items-center gap-1 min-w-0">
@@ -321,10 +321,10 @@ function renderBestsellers(items) {
               <span class="swiggy-inline-badge gourmet-tag text-[9px] font-black uppercase tracking-wider px-2 py-0.5 rounded-full shrink-0 shadow-xs">${gourmetMeta.tag}</span>
             </div>
             <h4 class="font-extrabold text-[14px] md:text-[15px] text-stone-900 dark:text-white leading-snug line-clamp-1 group-hover:text-primary transition-colors">${nameText}</h4>
-            <p class="text-[11px] text-stone-500 dark:text-stone-400 line-clamp-2 mt-1 leading-relaxed">${descText}</p>
+            <p class="text-[11px] text-stone-500 dark:text-stone-400 line-clamp-2 mt-0.5 leading-snug">${descText}</p>
           </div>
 
-          <div class="flex items-center justify-between mt-2 pt-1.5 border-t border-stone-100/80 dark:border-white/5">
+          <div class="flex items-center justify-between mt-1 pt-1 border-t border-stone-100/80 dark:border-white/5">
             <div class="flex items-baseline gap-1">
               <span class="text-base md:text-lg font-black text-stone-900 dark:text-white font-outfit">${priceText}</span>
               <span class="text-[11px] font-black text-primary">DH</span>
@@ -344,11 +344,7 @@ function renderBestsellers(items) {
         html += renderGourmetComboCard(comboCount++);
       }
 
-      // Inject Promo Carousels after every 16 items when viewing all
-      if (activeMainCat === 'all' && activeSubCat === 'all' && (index + 1) % 16 === 0) {
-        html += renderSmallPromoCarousel();
-        html += renderBannerPromoCarousel();
-      }
+      // (Promo carousels removed from grid to keep cards uniform and normal-sized)
     } catch (err) {
       console.error('Critical error rendering item at index', index, err);
     }
@@ -1743,3 +1739,14 @@ window.addEventListener('storage', (e) => {
 });
 
 
+
+
+// Quick Client Theme Switcher (Synchronizes active theme directly on phone)
+window.switchMenuThemeQuick = function(theme) {
+    if (typeof window.setStitchTheme === 'function') {
+        window.setStitchTheme(theme);
+    } else {
+        localStorage.setItem('stitch_menu_theme', theme);
+        location.reload();
+    }
+};

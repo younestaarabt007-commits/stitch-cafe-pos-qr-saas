@@ -398,7 +398,7 @@
       /* Image taking 65-70% in Swiggy Bold */
       body.theme-swiggy-bold .gourmet-card > div:first-child {
         width: 100% !important;
-        height: 220px !important;
+        height: 150px !important;
         border-radius: 0 !important;
         position: relative !important;
         overflow: hidden !important;
@@ -417,7 +417,7 @@
 
       /* Card Content in Swiggy Bold */
       body.theme-swiggy-bold .gourmet-card > div:nth-child(2) {
-        padding: 1.15rem 1.25rem 1.25rem 1.25rem !important;
+        padding: 0.75rem 1rem 0.65rem 1rem !important;
         min-height: auto !important;
       }
 
@@ -435,6 +435,17 @@
         margin-top: 0.35rem !important;
       }
 
+      
+      /* Mobile Compact Food Card */
+      @media (max-width: 640px) {
+        body.theme-swiggy-bold .gourmet-card > div:first-child {
+          height: 140px !important;
+        }
+        body.theme-swiggy-bold .gourmet-card > div:nth-child(2) {
+          padding: 0.65rem 0.85rem 0.55rem 0.85rem !important;
+        }
+      }
+    
       /* Swiggy Big Bold "AJOUTER +" Button */
       body.theme-swiggy-bold .gourmet-action-btn {
         padding: 0.6rem 1.35rem !important;

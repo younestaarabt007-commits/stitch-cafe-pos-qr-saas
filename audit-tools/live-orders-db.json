@@ -5,207 +5,108 @@
       "table": "12",
       "customerName": "Yassine",
       "guestName": "Yassine",
-      "notes": "No nuts. Allergic.",
+      "notes": "Sans noix. Allergie.",
       "items": [
         {
           "name": "Velvet Flat White",
           "qty": 2,
           "price": 20,
-          "image_url": "../stitch_caf_menu_table_12/swiggy-style_elite_main_menu_390x2500/assets/coffee-velvet-flat-white.jpg"
+          "category": "Coffee",
+          "image_url": "../stitch_caf_menu_table_12/swiggy-style_elite_main_menu_390x2500/assets/black coffee/Café Crème.jpg"
         },
         {
           "name": "Butter Croissant",
           "qty": 1,
           "price": 18,
-          "image_url": "../stitch_caf_menu_table_12/swiggy-style_elite_main_menu_390x2500/assets/sweet-butter-croissant.jpg"
+          "category": "Pastry",
+          "image_url": "../stitch_caf_menu_table_12/swiggy-style_elite_main_menu_390x2500/assets/sweets/07abeb0b37011bc4f4413062a5fc0045.jpg"
         }
       ],
       "total": 58,
       "status": "Received",
-      "time": 1794329669325
+      "time": 1794514500000
     },
     {
       "id": "ORD-002",
       "table": "5",
       "customerName": "Amal",
       "guestName": "Amal",
-      "notes": "Less salt. Serve hot.",
+      "notes": "Bien chaud, sans sucre.",
       "items": [
         {
           "name": "Avocado Toast",
           "qty": 1,
           "price": 45,
-          "image_url": "../stitch_caf_menu_table_12/swiggy-style_elite_main_menu_390x2500/assets/toast-avocado.jpg"
+          "category": "Brunch",
+          "image_url": "../stitch_caf_menu_table_12/swiggy-style_elite_main_menu_390x2500/assets/salty food and sweet brunch/toast.jpg"
         },
         {
           "name": "Fresh Orange Juice",
           "qty": 1,
           "price": 30,
-          "image_url": "../stitch_caf_menu_table_12/swiggy-style_elite_main_menu_390x2500/assets/juice-fresh-orange.jpg"
+          "category": "Juice",
+          "image_url": "../stitch_caf_menu_table_12/swiggy-style_elite_main_menu_390x2500/assets/juces.jpg"
         }
       ],
       "total": 75,
-      "status": "Ready",
-      "time": 1794329069325
+      "status": "Preparing",
+      "time": 1794513900000
     },
     {
       "id": "ORD-003",
       "table": "3",
       "customerName": "Karim",
       "guestName": "Karim",
-      "notes": "Oat milk, extra hot.",
+      "notes": "Lait d'avoine, extra chaud.",
       "items": [
         {
           "name": "Single Origin Espresso",
-          "qty": 3,
+          "qty": 2,
           "price": 18,
+          "category": "Coffee",
           "mods": [
             "Extra Shot",
             "Oat Milk"
           ],
-          "image_url": "../stitch_caf_menu_table_12/swiggy-style_elite_main_menu_390x2500/assets/coffee-single-origin-espresso.jpg"
+          "image_url": "../stitch_caf_menu_table_12/swiggy-style_elite_main_menu_390x2500/assets/black coffee/Café Noire.jpg"
+        },
+        {
+          "name": "Ceremonial Matcha",
+          "qty": 1,
+          "price": 28,
+          "category": "Tea",
+          "image_url": "../stitch_caf_menu_table_12/swiggy-style_elite_main_menu_390x2500/assets/tea/Tea Nordique.jpg"
         }
       ],
-      "total": 78,
+      "total": 64,
       "status": "Ready",
-      "time": 1794328289325
+      "time": 1794513100000
     },
     {
-      "id": "ORD-653-457",
-      "table": "A-1",
-      "notes": "",
+      "id": "ORD-004",
+      "table": "8",
+      "customerName": "Salma",
+      "guestName": "Salma",
+      "notes": "Glaçons à part.",
       "items": [
         {
-          "name": "Full English Breakfast",
-          "qty": 1,
-          "price": 22,
-          "mods": [],
-          "notes": "",
-          "category": "Custom",
-          "image_url": "../stitch_caf_menu_table_12/images/sub catégorie images/Brunch food/delicious-and-hearty-full-english-breakfast-plate-with-fried-eggs-sausages-toast-beans-and-tomatoes-isolated-on-transparent-background-png.png"
-        },
-        {
-          "name": "Full English Breakfast",
-          "qty": 1,
-          "price": 22,
-          "mods": [],
-          "notes": "",
-          "category": "Brunch",
-          "image_url": "../stitch_caf_menu_table_12/images/sub catégorie images/Brunch food/delicious-and-hearty-full-english-breakfast-plate-with-fried-eggs-sausages-toast-beans-and-tomatoes-isolated-on-transparent-background-png.png"
-        }
-      ],
-      "total": 44,
-      "status": "Preparing",
-      "source": "qr_menu",
-      "time": 1794336455457
-    },
-    {
-      "id": "ORD-888-189",
-      "table": "12",
-      "orderType": "dine_in",
-      "paymentMethod": "cash",
-      "notes": "",
-      "items": [
-        {
-          "name": "Café Américain",
-          "qty": 1,
-          "price": 5.5,
-          "mods": [],
-          "notes": "",
-          "category": "Custom",
-          "image_url": "../stitch_caf_menu_table_12/images/sub catégorie images/black coffee/Café Américain.jpg"
-        },
-        {
-          "name": "Cheese Cake au Citron",
-          "qty": 1,
-          "price": 16,
-          "mods": [],
-          "notes": "",
-          "category": "Pastry",
-          "image_url": "http://127.0.0.1:8000/stitch_caf_menu_table_12/images/sub%20cat%C3%A9gorie%20images/sweets/Chees%20Cake%20au%20Citron.jpg"
-        },
-        {
-          "name": "Café au Lait Artisanal",
-          "qty": 1,
-          "price": 5.1,
-          "mods": [
-            "Accompagnement recommandé"
-          ],
-          "notes": "",
-          "category": "Coffee",
-          "image_url": "../stitch_caf_menu_table_12/images/sub catégorie images/latté/Café au Lait Artisanal.jpg"
-        }
-      ],
-      "total": 26.6,
-      "status": "Preparing",
-      "source": "qr_menu",
-      "time": 1794347654189
-    },
-    {
-      "id": "ORD-148-708",
-      "table": "12",
-      "orderType": "dine_in",
-      "paymentMethod": "cash",
-      "notes": "",
-      "items": [
-        {
-          "name": "Farm Omelette Fermière",
-          "qty": 1,
-          "price": 12.5,
-          "mods": [],
-          "notes": "",
-          "category": "Brunch",
-          "image_url": "http://127.0.0.1:8000/stitch_caf_menu_table_12/images/sub%20cat%C3%A9gorie%20images/Brunch%20food/Salade%20Mexicaine.jpg"
-        },
-        {
-          "name": "Raspberry Smoothie",
-          "qty": 1,
-          "price": 5.75,
-          "mods": [
-            "Accompagnement recommandé"
-          ],
-          "notes": "",
+          "name": "Berry Burst Smoothie",
+          "qty": 2,
+          "price": 26,
           "category": "Smoothie",
-          "image_url": "../stitch_caf_menu_table_12/images/sub catégorie images/smoothie/raspberry-smoothie_1150-18529.jpg"
-        }
-      ],
-      "total": 18.25,
-      "status": "Received",
-      "source": "qr_menu",
-      "time": 1794348338709
-    },
-    {
-      "id": "ORD-635-582",
-      "table": "A-1",
-      "orderType": "dine_in",
-      "paymentMethod": "cash",
-      "notes": "",
-      "items": [
-        {
-          "name": "Petit Déjeuner Américain",
-          "qty": 1,
-          "price": 17.5,
-          "mods": [],
-          "notes": "",
-          "category": "Brunch",
-          "image_url": "http://127.0.0.1:8000/stitch_caf_menu_table_12/images/sub%20cat%C3%A9gorie%20images/petit%20dejeuner/Petit%20D%C3%A9jeuner%20Am%C3%A9ricain.jpg"
+          "image_url": "../stitch_caf_menu_table_12/swiggy-style_elite_main_menu_390x2500/assets/smoothie/60d841c27d82e0664048039ced318168.jpg"
         },
         {
-          "name": "Café au Lait Artisanal",
-          "qty": 1,
-          "price": 5.1,
-          "mods": [
-            "Accompagnement recommandé"
-          ],
-          "notes": "",
-          "category": "Coffee",
-          "image_url": "../stitch_caf_menu_table_12/images/sub catégorie images/latté/Café au Lait Artisanal.jpg"
+          "name": "Pain au Chocolat",
+          "qty": 2,
+          "price": 16,
+          "category": "Pastry",
+          "image_url": "../stitch_caf_menu_table_12/swiggy-style_elite_main_menu_390x2500/assets/sweets/99e4f1c4df32d646f2dde6bf28cd9566.jpg"
         }
       ],
-      "total": 22.6,
+      "total": 84,
       "status": "Preparing",
-      "source": "qr_menu",
-      "time": 1794419027582
+      "time": 1794513600000
     }
   ],
   "completedOrders": [
@@ -215,43 +116,18 @@
       "notes": "",
       "items": [
         {
-          "name": "Mixed Berry Smoothie",
+          "name": "Berry Burst Smoothie",
           "qty": 1,
-          "price": 5.75,
-          "mods": [
-            "0: [object Object]"
-          ],
-          "notes": "",
-          "category": "Menu",
-          "image_url": "../stitch_caf_menu_table_12/images/sub catégorie images/smoothie/raspberry-smoothie_1150-18529.jpg"
+          "price": 26,
+          "category": "Smoothie",
+          "image_url": "../stitch_caf_menu_table_12/swiggy-style_elite_main_menu_390x2500/assets/smoothie/60d841c27d82e0664048039ced318168.jpg"
         }
       ],
-      "total": 5.75,
+      "total": 26,
       "status": "Completed",
       "source": "qr_menu",
-      "time": 1794334972165,
-      "completedAt": 1794335276592
-    },
-    {
-      "id": "ORD-386-144",
-      "table": "A-1",
-      "notes": "",
-      "items": [
-        {
-          "name": "Croissant Benedict Salmon",
-          "qty": 1,
-          "price": 16,
-          "mods": [],
-          "notes": "",
-          "category": "Custom",
-          "image_url": "../stitch_caf_menu_table_12/images/sub catégorie images/Brunch food/croissant-benedict-salmon-with-poched-egg-hollandaise-sauce-served-with-fresh-salad_140725-1329.avif"
-        }
-      ],
-      "total": 16,
-      "status": "Completed",
-      "source": "qr_menu",
-      "time": 1794335044145,
-      "completedAt": 1794335300314
+      "time": 1794511000000,
+      "completedAt": 1794512200000
     }
   ],
   "reservations": [
@@ -259,17 +135,17 @@
       "id": "RES-346",
       "clientName": "amine hafid",
       "phone": "0638364736",
-      "date": "2026-11-11",
+      "date": "2026-11-12",
       "time": "10:30",
       "guests": 2,
       "zone": "Salle Principale",
       "tableId": "A-1",
-      "notes": "Anniversaire • je veux  la table preparer en avance",
+      "notes": "Anniversaire • je veux la table préparée en avance",
       "status": "Pending",
       "createdAt": 1794348240037
     }
   ],
-  "updatedAt": 1794512287973,
+  "updatedAt": 1794518000000,
   "tableAlerts": [],
   "settings": {
     "activeTheme": "swiggy-bold",

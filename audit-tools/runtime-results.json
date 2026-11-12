@@ -1,0 +1,124 @@
+[
+  {
+    "name": "health",
+    "status": 200,
+    "body": {
+      "ok": true
+    }
+  },
+  {
+    "name": "ready",
+    "status": 200,
+    "body": {
+      "db": true
+    }
+  },
+  {
+    "name": "orders without authentication",
+    "status": 401,
+    "body": {
+      "success": false,
+      "error": {
+        "code": "UNAUTHORIZED",
+        "message": "No token"
+      }
+    }
+  },
+  {
+    "name": "manager with WRONG password",
+    "status": 200,
+    "body": {
+      "success": true,
+      "data": {
+        "access_token": "[REDACTED]",
+        "token_type": "Bearer",
+        "expires_in": 3600,
+        "user": {
+          "id": "22222222-2222-2222-2222-222222222222",
+          "name": "Elite Merchant",
+          "role": "MANAGER",
+          "tenant_id": "00000000-0000-0000-0000-000000000001",
+          "tenant_slug": "tenant_demo"
+        },
+        "simulator": true
+      }
+    }
+  },
+  {
+    "name": "me in simulator",
+    "status": 500,
+    "body": {
+      "success": false,
+      "error": {
+        "code": "SERVER_ERROR",
+        "message": "Server error"
+      }
+    }
+  },
+  {
+    "name": "cash session in simulator",
+    "status": 500,
+    "body": {
+      "success": false,
+      "error": {
+        "code": "SERVER_ERROR",
+        "message": "Server error"
+      }
+    }
+  },
+  {
+    "name": "negative quantity accepted",
+    "status": 200,
+    "body": {
+      "success": true,
+      "data": {
+        "id": "9f301a0d-650e-419f-9702-2fcbca8e5472",
+        "total": -7
+      },
+      "simulator": true
+    }
+  },
+  {
+    "name": "unknown item accepted",
+    "status": 200,
+    "body": {
+      "success": true,
+      "data": {
+        "id": "98beccc5-c141-48d0-9742-0bc3460ab11f",
+        "total": 0
+      },
+      "simulator": true
+    }
+  },
+  {
+    "name": "empty order accepted",
+    "status": 200,
+    "body": {
+      "success": true,
+      "data": {
+        "id": "bccae619-e849-47a1-86f7-b25e37914fde",
+        "total": 0
+      },
+      "simulator": true
+    }
+  },
+  {
+    "name": "menu",
+    "status": 200,
+    "bytes": 42053
+  },
+  {
+    "name": "missing central store",
+    "status": 404,
+    "bytes": 11
+  },
+  {
+    "name": "POS",
+    "status": 500,
+    "bytes": 3039
+  },
+  {
+    "name": "Kitchen",
+    "error": "fetch failed"
+  }
+]

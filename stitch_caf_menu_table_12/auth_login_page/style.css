@@ -1,0 +1,36 @@
+.mesh-bg {
+    background-color: #f8f6f5;
+    background-image: 
+        radial-gradient(at 0% 0%, rgba(255, 82, 0, 0.05) 0px, transparent 50%),
+        radial-gradient(at 100% 0%, rgba(255, 82, 0, 0.03) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, rgba(255, 82, 0, 0.05) 0px, transparent 50%),
+        radial-gradient(at 0% 100%, rgba(255, 82, 0, 0.03) 0px, transparent 50%);
+}
+
+.dark .mesh-bg {
+    background-color: #1a100c;
+    background-image: 
+        radial-gradient(at 0% 0%, rgba(255, 82, 0, 0.1) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, rgba(255, 82, 0, 0.05) 0px, transparent 50%);
+}
+
+.shadow-glow {
+    box-shadow: 0 0 20px rgba(255, 82, 0, 0.35);
+}
+
+input::placeholder {
+    color: #9ca3af;
+}
+
+.dark input::placeholder {
+    color: #4b5563;
+}
+
+/* Glassmorphism focus effect */
+input:focus {
+    background-color: white !important;
+}
+
+.dark input:focus {
+    background-color: rgba(0, 0, 0, 0.4) !important;
+}

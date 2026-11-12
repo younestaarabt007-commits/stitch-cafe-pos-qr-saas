@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#f47b25",
+                        "background-light": "#f8f7f5",
+                        "background-dark": "#221710",
+                    },
+                    fontFamily: {
+                        "display": ["Plus Jakarta Sans", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "1rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+    <style>
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+    <style>
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+</head>
+
+<body
+    class="bg-background-light dark:bg-background-dark text-[#1c130d] dark:text-[#fcfaf8] min-h-screen flex justify-center">
+    <div
+        class="relative w-full max-w-[390px] min-h-screen bg-white dark:bg-[#1c130d] shadow-2xl overflow-hidden flex flex-col">
+        <div class="relative h-[400px] w-full shrink-0">
+            <div class="w-full h-full bg-center bg-no-repeat bg-cover"
+                data-alt="Vibrant purple berry smoothie with blueberries and mint leaves"
+                style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBiVeZwsSWJCE0eA9VnyqfFQS9JikAIjX1ILhQIdSMxHybKQKVUH0Sr4yC_VY7Kk24O1rncwIV4QOErsCS1AQafyRo16YS2BNrdDdtGyILBk815rqkxyt10oNzoZhdGaAuoofSFHQwNk1HqwRzN_8N8iQQFRJQbND46R6lZeLOfl01ft9o-_Nqhm_V7Hoj1P2VTpGmEqLxku_EHeRoAggD0NnfKsB_q5hKCNJx87UYCqbvwAHawhLYg4sCOANFI-gixKf_hoMp6jic");'>
+                <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+            </div>
+            <div class="absolute top-6 left-4 right-4 flex justify-between items-center">
+                <button id="back-btn"
+                    class="w-10 h-10 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center text-black shadow-lg">
+                    <span class="material-symbols-outlined">arrow_back_ios_new</span>
+                </button>
+                <button
+                    class="w-10 h-10 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center text-black shadow-lg">
+                    <span class="material-symbols-outlined">share</span>
+                </button>
+            </div>
+        </div>
+        <div class="relative -mt-16 flex-1 bg-white dark:bg-[#1c130d] rounded-t-xl px-4 pt-2 pb-32">
+            <div class="flex h-5 w-full items-center justify-center mb-2">
+                <div class="h-1.5 w-12 rounded-full bg-[#e8d9ce] dark:bg-zinc-700"></div>
+            </div>
+            <div class="flex flex-col gap-1">
+                <h1 class="text-[#1c130d] dark:text-white text-3xl font-bold leading-tight tracking-tight">Mixed Berry
+                    Smoothie</h1>
+                <div class="flex items-center gap-2">
+                    <div class="flex items-center">
+                        <span class="material-symbols-outlined text-primary text-lg"
+                            style="font-variation-settings: 'FILL' 1">star</span>
+                        <span class="text-[#1c130d] dark:text-white text-base font-bold ml-1">4.8</span>
+                    </div>
+                    <span class="text-[#9c6c49] dark:text-zinc-400 text-sm">(120+ reviews)</span>
+                </div>
+                <p class="text-[#1c130d]/70 dark:text-zinc-400 text-base font-normal leading-relaxed mt-2">
+                    A refreshing blend of forest berries, Greek yogurt, and a hint of honey.
+                </p>
+            </div>
+            <div class="mt-8">
+                <h2 class="text-[#1c130d] dark:text-white text-lg font-bold mb-4">Choose Size</h2>
+                <div class="grid grid-cols-2 gap-4">
+                    <div id="size-regular"
+                        class="relative p-4 rounded-lg border-2 border-primary bg-primary/5 dark:bg-primary/10 flex flex-col gap-1 cursor-pointer size-option"
+                        data-price="0">
+                        <div class="flex justify-between items-start">
+                            <span class="material-symbols-outlined text-primary">local_drink</span>
+                            <span class="material-symbols-outlined text-primary"
+                                style="font-variation-settings: 'FILL' 1">check_circle</span>
+                        </div>
+                        <p class="font-bold text-[#1c130d] dark:text-white mt-2">Regular</p>
+                        <p class="text-sm text-[#9c6c49] dark:text-zinc-400">350ml</p>
+                    </div>
+                    <div id="size-large"
+                        class="relative p-4 rounded-lg border border-[#e8d9ce] dark:border-zinc-800 bg-white dark:bg-zinc-900/50 flex flex-col gap-1 cursor-pointer size-option"
+                        data-price="1.50">
+                        <div class="flex justify-between items-start">
+                            <span class="material-symbols-outlined text-[#9c6c49] dark:text-zinc-400">local_drink</span>
+                        </div>
+                        <p class="font-bold text-[#1c130d] dark:text-white mt-2">Large</p>
+                        <p class="text-sm text-[#9c6c49] dark:text-zinc-400">500ml</p>
+                        <p class="text-xs font-bold text-primary mt-1">+1.50DH</p>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-8">
+                <h2 class="text-[#1c130d] dark:text-white text-lg font-bold mb-4">Add Extras</h2>
+                <div class="flex flex-col gap-3">
+                    <div class="flex items-center justify-between p-4 rounded-lg bg-background-light dark:bg-zinc-900 border border-primary/20 extra-option"
+                        data-price="0">
+                        <div class="flex items-center gap-3">
+                            <div
+                                class="w-10 h-10 rounded-full bg-blue-50 dark:bg-blue-900/20 flex items-center justify-center text-blue-500">
+                                <span class="material-symbols-outlined">ac_unit</span>
+                            </div>
+                            <div>
+                                <p class="font-bold text-[#1c130d] dark:text-white">Extra Ice</p>
+                                <p class="text-xs text-[#9c6c49] dark:text-zinc-400">Standard for smoothies</p>
+                            </div>
+                        </div>
+                        <div class="h-6 w-6 rounded-full bg-primary flex items-center justify-center text-white">
+                            <span class="material-symbols-outlined text-sm">check</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between p-4 rounded-lg border border-[#e8d9ce] dark:border-zinc-800 extra-option"
+                        data-price="0.50">
+                        <div class="flex items-center gap-3">
+                            <div
+                                class="w-10 h-10 rounded-full bg-yellow-50 dark:bg-yellow-900/20 flex items-center justify-center text-yellow-600">
+                                <span class="material-symbols-outlined">bakery_dining</span>
+                            </div>
+                            <div>
+                                <p class="font-bold text-[#1c130d] dark:text-white">Whipped Cream</p>
+                                <p class="text-xs text-primary font-bold">+0.50DH</p>
+                            </div>
+                        </div>
+                        <div class="h-6 w-6 rounded-full border-2 border-[#e8d9ce] dark:border-zinc-700"></div>
+                    </div>
+                    <div class="flex items-center justify-between p-4 rounded-lg border border-[#e8d9ce] dark:border-zinc-800 extra-option"
+                        data-price="0.30">
+                        <div class="flex items-center gap-3">
+                            <div
+                                class="w-10 h-10 rounded-full bg-orange-50 dark:bg-orange-900/20 flex items-center justify-center text-orange-500">
+                                <span class="material-symbols-outlined">fluid_med</span>
+                            </div>
+                            <div>
+                                <p class="font-bold text-[#1c130d] dark:text-white">Honey Drizzle</p>
+                                <p class="text-xs text-primary font-bold">+0.30DH</p>
+                            </div>
+                        </div>
+                        <div class="h-6 w-6 rounded-full border-2 border-[#e8d9ce] dark:border-zinc-700"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-8 mb-8">
+                <h2 class="text-[#1c130d] dark:text-white text-lg font-bold mb-4">Perfect To-Go Pairings</h2>
+                <div class="flex gap-4 overflow-x-auto pb-4 hide-scrollbar snap-x">
+                    <div class="flex-none w-[140px] snap-start">
+                        <div
+                            class="bg-background-light dark:bg-zinc-900 rounded-2xl p-2 shadow-sm border border-[#e8d9ce]/30 dark:border-zinc-800 overflow-hidden">
+                            <div class="aspect-square w-full rounded-xl overflow-hidden bg-white mb-2 shadow-inner">
+                                <img alt="Butter Croissant" class="w-full h-full object-cover"
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuDCEzHhVRVlmtWW9_pAOBOngVZEPwLNEa8dmIlDTMnxxWVQjyylQJTq0R8t533g1QNkdoxN7zzb1kDnaUT3F7pEUKnvV0Ugj4lsn4RAdDFB182OKbBOUYW-MiUYMUTEKeuKjig1uEwNbav3N1w0kZdPzd5402FdLVpUwdjgfibLO8NUIluM4E-5DtPSifYTKGjOfQAz4Mh2_4iCxA8db-YOO-zzG9U4Mw6W7XRZzqwo3nVAGpHPpVfinid77vJ8-jF8kDVZnNEaBQM" />
+                            </div>
+                            <div class="px-1">
+                                <p class="font-bold text-sm text-[#1c130d] dark:text-white truncate">Butter Croissant
+                                </p>
+                                <div class="flex items-center justify-between mt-1">
+                                    <p class="text-sm font-bold text-primary">4.50DH</p>
+                                    <button
+                                        class="w-6 h-6 rounded-full bg-white dark:bg-[#1c130d] shadow-md border border-[#e8d9ce] dark:border-zinc-800 flex items-center justify-center text-[#1c130d] dark:text-white active:bg-primary active:text-white">
+                                        <span class="material-symbols-outlined text-[16px]">add</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex-none w-[140px] snap-start">
+                        <div
+                            class="bg-background-light dark:bg-zinc-900 rounded-2xl p-2 shadow-sm border border-[#e8d9ce]/30 dark:border-zinc-800 overflow-hidden">
+                            <div class="aspect-square w-full rounded-xl overflow-hidden bg-white mb-2 shadow-inner">
+                                <img alt="Almond Pain au Chocolat" class="w-full h-full object-cover"
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuBeC_Vjp81zxsLqCzV3zzr4_lvob43RscsQs9Ej7j-_X2MYjxVg0XKdiIRciAKUj5GH5iyCImdy9KvZhDql6iuaq74h8VIblRwEJVvLU4gXMh03aNI80oGfs-GwtIduY1dABNezb6XyUI1TgTh9C6j2UviCHl5yuhffrLspsrPzMo7QwzuAXk-cEZejVZsPOVtNAP5Yv_lqbmg00eRjytJTnBXN3f4OXpNch-pwIUDsqyOHtY1cdTASW2Em2xOVhjU-QumHGP7bQsg" />
+                            </div>
+                            <div class="px-1">
+                                <p class="font-bold text-sm text-[#1c130d] dark:text-white truncate">Almond Pain au...
+                                </p>
+                                <div class="flex items-center justify-between mt-1">
+                                    <p class="text-sm font-bold text-primary">5.50DH</p>
+                                    <button
+                                        class="w-6 h-6 rounded-full bg-white dark:bg-[#1c130d] shadow-md border border-[#e8d9ce] dark:border-zinc-800 flex items-center justify-center text-[#1c130d] dark:text-white active:bg-primary active:text-white">
+                                        <span class="material-symbols-outlined text-[16px]">add</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex-none w-[140px] snap-start opacity-50">
+                        <div
+                            class="bg-background-light dark:bg-zinc-900 rounded-2xl p-2 shadow-sm border border-[#e8d9ce]/30 dark:border-zinc-800 overflow-hidden">
+                            <div class="aspect-square w-full rounded-xl overflow-hidden bg-white mb-2 shadow-inner">
+                                <img alt="Cold Brew" class="w-full h-full object-cover"
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuDMOnlY4f0IPkxZNyMtsDw9QVBNQ_wwBKCKEp7_1tNDso5X7d_ONOTKFLTH0YvEh65j9g27EBp_rQWGqHMTuXGT8AQTKp_xypHUtE0dyPHexic12h0AEJpjqNLMj-f-j30uMDGjRzZ1qXLZX4R0TXeB3sbErNpW9bfKe4JupRxhTdxg8xP7BmIEn9eoWItqXI7H-atuXol8r82zb7qKNdzrtP98IzQWv_5zspJ2XiG9sqcvbYsiFS_o09P_mDJyhH2k7VLrQRjP4SY" />
+                            </div>
+                            <div class="px-1">
+                                <p class="font-bold text-sm text-[#1c130d] dark:text-white truncate">Classic Muffin</p>
+                                <div class="flex items-center justify-between mt-1">
+                                    <p class="text-sm font-bold text-primary">3.95DH</p>
+                                    <button
+                                        class="w-6 h-6 rounded-full bg-white dark:bg-[#1c130d] shadow-md border border-[#e8d9ce] dark:border-zinc-800 flex items-center justify-center">
+                                        <span class="material-symbols-outlined text-[16px]">add</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div
+            class="fixed bottom-[55px] left-0 right-0 max-w-[390px] mx-auto bg-white/80 dark:bg-[#1c130d]/80 backdrop-blur-xl border-t border-[#e8d9ce] dark:border-zinc-800 p-4 pb-4 z-50">
+            <div class="flex items-center gap-4 h-16">
+                <div
+                    class="flex items-center bg-background-light dark:bg-zinc-900 rounded-full px-2 py-1 h-full border border-[#e8d9ce] dark:border-zinc-800">
+                    <button id="quantity-decrease"
+                        class="w-10 h-10 rounded-full flex items-center justify-center text-[#1c130d] dark:text-white hover:bg-zinc-200 dark:hover:bg-zinc-700">
+                        <span class="material-symbols-outlined">remove</span>
+                    </button>
+                    <span id="quantity-value" class="w-8 text-center font-bold text-lg">1</span>
+                    <button id="quantity-increase"
+                        class="w-10 h-10 rounded-full flex items-center justify-center text-[#1c130d] dark:text-white hover:bg-zinc-200 dark:hover:bg-zinc-700">
+                        <span class="material-symbols-outlined">add</span>
+                    </button>
+                </div>
+                <button id="add-to-order-btn"
+                    class="flex-1 h-full bg-primary hover:bg-primary/90 text-white rounded-full flex items-center justify-center gap-2 shadow-[0_8px_30px_rgb(244,123,37,0.3)] transition-transform active:scale-95">
+                    <span class="font-bold text-base tracking-wide">ADD TO ORDER</span>
+                    <span class="w-1.5 h-1.5 rounded-full bg-white/30"></span>
+                    <span id="total-price" class="font-extrabold text-lg">8.50DH</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="../nav-bar.js?v=9"></script>
+</body>
+
+</html>

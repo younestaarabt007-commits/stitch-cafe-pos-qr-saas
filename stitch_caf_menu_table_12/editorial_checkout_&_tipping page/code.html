@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "swiggy": "#FF5200",
+            "cream": "#FAFAF5",
+            "charcoal": "#1a1a1a",
+          },
+          fontFamily: {
+            "sans": ["Inter", "system-ui", "sans-serif"],
+            "serif": ["Playfair Display", "serif"],
+          },
+          boxShadow: {
+            "glow": "0 0 20px rgba(255, 82, 0, 0.5)",
+            "neon": "0 0 10px rgba(255, 82, 0, 0.8), 0 0 20px rgba(255, 82, 0, 0.4)",
+          }
+        },
+      },
+    }
+  </script>
+<style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #FAFAF5;
+    }@keyframes slideUp {
+      from { opacity: 0; transform: translateY(30px) scale(0.95); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    .stagger-1 { animation: slideUp 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; animation-delay: 0.1s; opacity: 0; }
+    .stagger-2 { animation: slideUp 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; animation-delay: 0.2s; opacity: 0; }
+    .stagger-3 { animation: slideUp 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; animation-delay: 0.3s; opacity: 0; }
+    .stagger-4 { animation: slideUp 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; animation-delay: 0.4s; opacity: 0; }.glass-card-2 {
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.9);
+      box-shadow: 0 4px 20px -5px rgba(0,0,0,0.05), inset 0 0 20px rgba(255,255,255,0.5);
+    }.pop-img {
+      transform: perspective(1000px) rotateY(-5deg) rotateX(5deg) scale(1.15) translateY(-5px);
+      box-shadow: 10px 15px 25px -5px rgba(0,0,0,0.2);
+      transition: transform 0.4s ease;
+      border: 2px solid white;
+    }
+    .pop-img:hover {
+      transform: perspective(1000px) rotateY(0) rotateX(0) scale(1.2) translateY(-8px);
+    }.dynamic-island {
+      background: #000;
+      color: white;
+      box-shadow: 0 10px 30px -5px rgba(255, 82, 0, 0.5);
+    }
+    .dynamic-island::before {
+      content: '';
+      position: absolute;
+      inset: -2px;
+      border-radius: 999px;
+      padding: 2px;
+      background: linear-gradient(45deg, #FF5200, transparent, #FF5200);
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      opacity: 0.5;
+    }.shimmer-text {
+      background: linear-gradient(to right, #1a1a1a 20%, #FF5200 40%, #FF5200 60%, #1a1a1a 80%);
+      background-size: 200% auto;
+      color: #000;
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: shine 3s linear infinite;
+    }
+    @keyframes shine {
+      to { background-position: 200% center; }
+    }.ripple-bg {
+      position: relative;
+      overflow: hidden;
+    }
+    .ripple-bg::after {
+      content: '';
+      position: absolute;
+      width: 200%;
+      height: 200%;
+      top: -50%;
+      left: -50%;
+      background: radial-gradient(circle, rgba(255,82,0,0.03) 0%, transparent 70%);
+      animation: rippleAnim 4s infinite linear;
+      z-index: 0;
+      pointer-events: none;
+    }
+    @keyframes rippleAnim {
+      0% { transform: scale(0.5); opacity: 0; }
+      50% { opacity: 1; }
+      100% { transform: scale(1.2); opacity: 0; }
+    }.header-glass-title {
+      background: rgba(255, 255, 255, 0.25);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }.tip-active {
+        background: white;
+        border-color: #FF5200;
+        color: #FF5200;
+        box-shadow: 0 0 10px rgba(255, 82, 0, 0.3);
+        animation: pulseBorder 2s infinite;
+    }
+    @keyframes pulseBorder {
+        0% { box-shadow: 0 0 0 0 rgba(255, 82, 0, 0.3); }
+        70% { box-shadow: 0 0 0 4px rgba(255, 82, 0, 0); }
+        100% { box-shadow: 0 0 0 0 rgba(255, 82, 0, 0); }
+    }
+</style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-cream text-charcoal min-h-screen">
+<header class="sticky top-0 z-50 bg-[#FF5200] px-4 pt-4 pb-6 shadow-xl overflow-hidden relative">
+<div class="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full blur-2xl -translate-y-1/2 translate-x-1/2"></div>
+<div class="absolute bottom-0 left-0 w-24 h-24 bg-yellow-400/20 rounded-full blur-xl translate-y-1/2 -translate-x-1/2"></div>
+<div class="relative z-10 flex items-center justify-between">
+<button class="flex items-center justify-center size-10 rounded-full bg-white/20 text-white hover:bg-white/30 transition-colors backdrop-blur-sm">
+<span class="material-symbols-outlined font-bold">arrow_back</span>
+</button>
+<div class="header-glass-title px-6 py-2 rounded-full transform translate-y-1">
+<h1 class="text-sm font-black tracking-widest text-white drop-shadow-sm uppercase font-display">Review Order</h1>
+</div>
+<div class="size-10"></div>
+</div>
+</header>
+<main class="max-w-[390px] mx-auto pb-48 pt-4 overflow-x-hidden">
+<section class="mt-2 mb-4">
+<div class="px-4 mb-4 flex items-baseline justify-between stagger-1">
+<h3 class="font-bold text-[28px] text-charcoal font-serif">Cart <span class="text-[#FF5200] text-xl align-top">2</span></h3>
+<span class="text-xs font-bold text-gray-400 uppercase tracking-widest">Elite Mode</span>
+</div>
+<div class="px-4 space-y-4"> 
+<div class="glass-card-2 rounded-[16px] p-3 relative overflow-visible stagger-2 group"> 
+<div class="flex items-start gap-3">
+<div class="relative shrink-0">
+<div class="size-20 rounded-[12px] bg-gray-200 bg-center bg-cover pop-img relative z-20" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAcWNQDzk4UvC-Y8fYkgXQMrstzcMryg5v0Ye0CqlXQ0i7TwnDC2TllOzO2Lo-I3bUrbisSeOdsTrZBGrbQ-rThfeDVbdW8HbYS6g3nhS-7ZxNQjidqqHfFzQVWA-7UuEx1vhLi5vSgrUB9nIsD1Zw0ZVa5PWG4WGoWmsAqI4j3ptTVGThHrTpBVraibSPbwo4_NbefgN4F0aRtd4SKLXJ4xZwOFNVeeCwbZFI6Qir8wS9g5lnUi74I_VDxIHWX6jFPE7xxvHi6_Bg");'>
+</div>
+<div class="absolute bottom-0 left-2 right-2 h-4 bg-black/40 blur-lg rounded-[100%] z-10 translate-y-2 group-hover:scale-110 transition-transform duration-300"></div>
+</div>
+<div class="flex flex-col flex-1 pt-0.5 pl-1">
+<div class="flex justify-between items-start w-full">
+<p class="font-semibold text-[16px] leading-tight text-charcoal group-hover:text-[#FF5200] transition-colors">Oat Milk Latte</p> 
+</div>
+<p class="text-[10px] font-bold text-gray-400 uppercase tracking-wide mt-1">Extra Shot • Heart Art</p>
+<div class="mt-2 flex items-center justify-between">
+<div class="flex items-center gap-2 bg-white/50 rounded-lg px-2 py-0.5">
+<span class="material-symbols-outlined text-[10px]">remove</span>
+<span class="text-xs font-bold">1</span>
+<span class="material-symbols-outlined text-[10px]">add</span>
+</div>
+<p class="font-bold text-base text-charcoal">€5.50</p>
+</div>
+</div>
+</div>
+</div>
+<div class="glass-card-2 rounded-[16px] p-3 relative overflow-visible stagger-3 group"> 
+<div class="flex items-start gap-3">
+<div class="relative shrink-0">
+<div class="size-20 rounded-[12px] bg-gray-200 bg-center bg-cover pop-img relative z-20" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuC4Yzd9ypJzm6NaVlTpKVc7tURp1zRI8SCpsS98xFUa9eDAOiNjrJuHLzfPJmyNW8z-i7ELIUrXQzqnDr2CWByAB1_AYu-wHaeP-svCljLOpM9K44AghGme6KdVudeQ6Tc-9gFR0n8bM-CRlYpji---ka8OYb_8_n2PQHO9DCsOQdkGcXk6p7z3Volv59Z80NSVNjR41_Isdd_v1H6TNGQKINe0AWU5duY5MO_iEbN0iMz3CRbQg_QV51F3CUcdHaIyAxTlmT2mtyY");'>
+</div>
+<div class="absolute bottom-0 left-2 right-2 h-4 bg-black/40 blur-lg rounded-[100%] z-10 translate-y-2 group-hover:scale-110 transition-transform duration-300"></div>
+</div>
+<div class="flex flex-col flex-1 pt-0.5 pl-1">
+<div class="flex justify-between items-start w-full">
+<p class="font-semibold text-[16px] leading-tight text-charcoal group-hover:text-[#FF5200] transition-colors">Croissant Combo</p> 
+</div>
+<p class="text-[10px] font-bold text-gray-400 uppercase tracking-wide mt-1">Flaky Pastry + Filter</p>
+<div class="mt-2 flex items-center justify-between">
+<div class="flex items-center gap-2 bg-white/50 rounded-lg px-2 py-0.5">
+<span class="material-symbols-outlined text-[10px]">remove</span>
+<span class="text-xs font-bold">1</span>
+<span class="material-symbols-outlined text-[10px]">add</span>
+</div>
+<p class="font-bold text-base text-charcoal">€12.00</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="mt-4 px-4 stagger-4"> 
+<div class="flex items-baseline justify-between mb-3 relative">
+<h3 class="font-bold text-base text-charcoal font-serif italic">Thank Your Server</h3>
+<p class="text-[#DAA520] text-[10px] uppercase tracking-wider font-bold">Good Karma</p>
+</div>
+<div class="grid grid-cols-4 gap-2"> 
+<button class="glass-card-2 flex flex-col items-center justify-center py-2 rounded-[16px] border border-[#DAA520]/20 bg-white/80 shadow-sm hover:border-[#FF5200] transition-all active:scale-95 tip-active">
+<span class="font-black text-sm">10%</span>
+<span class="text-[10px] font-bold mt-0.5">€1.75</span>
+</button>
+<button class="glass-card-2 flex flex-col items-center justify-center py-2 rounded-[16px] border border-transparent bg-white/40 text-gray-500 hover:border-[#DAA520] hover:text-[#DAA520] transition-all active:scale-95 shadow-sm">
+<span class="font-bold text-sm">15%</span>
+<span class="text-[10px] opacity-60 mt-0.5 font-medium">€2.62</span>
+</button>
+<button class="glass-card-2 flex flex-col items-center justify-center py-2 rounded-[16px] border border-transparent bg-white/40 text-gray-500 hover:border-[#DAA520] hover:text-[#DAA520] transition-all active:scale-95 shadow-sm">
+<span class="font-bold text-sm">20%</span>
+<span class="text-[10px] opacity-60 mt-0.5 font-medium">€3.50</span>
+</button>
+<button class="glass-card-2 flex flex-col items-center justify-center py-2 rounded-[16px] border border-transparent bg-white/40 text-gray-500 hover:border-[#DAA520] hover:text-[#DAA520] transition-all active:scale-95 shadow-sm h-full">
+<span class="material-symbols-outlined text-base">edit</span>
+</button>
+</div>
+</section>
+<section class="mt-4 px-4 stagger-4"> 
+<div class="relative bg-charcoal rounded-[16px] p-0.5 overflow-hidden shadow-lg"> 
+<div class="absolute inset-0 bg-gradient-to-r from-[#FF5200] via-purple-500 to-[#FF5200] opacity-50 animate-pulse"></div>
+<div class="relative bg-[#111] rounded-[14px] p-3 flex items-center justify-between"> 
+<div class="flex items-center gap-3">
+<div class="bg-[#FF5200] text-white w-10 h-10 rounded-lg flex items-center justify-center shadow-[0_0_15px_rgba(255,82,0,0.4)] transform rotate-3">
+<span class="material-symbols-outlined text-xl drop-shadow-md">payments</span>
+</div>
+<div class="flex flex-col">
+<p class="font-bold text-sm text-white tracking-wide uppercase italic">Cash Payment</p>
+<p class="text-[10px] text-gray-400 font-medium uppercase tracking-wider mt-0.5">Pay at counter</p>
+</div>
+</div>
+<div class="size-5 rounded-full border border-[#FF5200] flex items-center justify-center">
+<div class="size-2.5 rounded-full bg-[#FF5200] shadow-[0_0_8px_#FF5200]"></div>
+</div>
+</div>
+</div>
+</section>
+<section class="mt-4 px-6 py-4 space-y-2 font-sans ripple-bg rounded-[16px] glass-card-2 mx-4 stagger-4"> 
+<div class="relative z-10">
+<div class="flex justify-between items-baseline">
+<span class="text-[12px] font-bold text-gray-500 uppercase tracking-wider">Subtotal</span> 
+<span class="text-sm font-bold text-charcoal tracking-tight">€17.50</span>
+</div>
+<div class="flex justify-between items-baseline">
+<span class="text-[12px] font-bold text-gray-500 uppercase tracking-wider">Tip (10%)</span> 
+<span class="text-sm font-bold text-[#FF5200] tracking-tight">+ €1.75</span>
+</div>
+<div class="flex justify-between items-baseline">
+<span class="text-[12px] font-bold text-gray-500 uppercase tracking-wider">Tax</span> 
+<span class="text-sm font-bold text-charcoal tracking-tight">€1.40</span>
+</div>
+<div class="h-px w-full bg-gradient-to-r from-transparent via-gray-300 to-transparent my-3"></div>
+<div class="flex justify-between items-baseline">
+<span class="text-base font-black text-charcoal uppercase italic">Total</span>
+<span class="text-xl font-black shimmer-text tracking-tight">€20.65</span>
+</div>
+</div>
+</section>
+</main>
+<footer class="fixed bottom-6 w-full z-50 flex justify-center pointer-events-none">
+<div class="w-[342px] pointer-events-auto"> 
+<button class="w-full dynamic-island h-[64px] rounded-[32px] flex items-center justify-between px-2 pr-5 shadow-2xl transition-transform active:scale-95 group relative overflow-hidden">
+<div class="absolute inset-0 bg-gradient-to-r from-black via-[#1a1a1a] to-black"></div>
+<div class="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:animate-[shine_1s_ease-in-out_infinite]"></div>
+<div class="relative z-10 bg-[#222] h-[48px] px-5 rounded-[24px] flex items-center justify-center border border-white/5">
+<span class="text-white font-black text-base">€20.65</span>
+</div>
+<div class="relative z-10 flex items-center gap-2">
+<span class="font-black text-xs tracking-widest uppercase text-white/90">Slide to Pay</span>
+<div class="bg-[#FF5200] rounded-full p-1.5 animate-pulse shadow-[0_0_15px_#FF5200]">
+<span class="material-symbols-outlined text-white text-base">arrow_forward</span>
+</div>
+</div>
+</button>
+</div>
+</footer>
+</body></html>

@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html class="light" lang="fr">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Réserver une Table — Stitch Café</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap"
+    rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+    rel="stylesheet" />
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            primary: "#FF5200",
+            cream: "#FAF8F5",
+            espresso: "#18120E"
+          },
+          fontFamily: {
+            sans: ["Plus Jakarta Sans", "sans-serif"],
+            serif: ["Instrument Serif", "serif"]
+          },
+          boxShadow: {
+            luxury: "0 20px 50px -12px rgba(24, 18, 14, 0.08)",
+            glow: "0 12px 28px -6px rgba(255, 82, 0, 0.4)"
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: #FAF8F5;
+    }
+    .hide-scrollbar::-webkit-scrollbar { display: none; }
+    .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+  </style>
+</head>
+
+<body class="min-h-screen bg-[#FAF8F5] text-stone-900 antialiased pb-28">
+  <!-- Top Luxury Hero Header -->
+  <header class="relative bg-stone-900 text-white rounded-b-[2.5rem] overflow-hidden shadow-xl">
+    <div class="absolute inset-0 opacity-35">
+      <img src="../assets/images/latté header image.jpg" alt="Stitch Café" class="w-full h-full object-cover" />
+    </div>
+    <div class="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-stone-950/95"></div>
+
+    <div class="relative z-10 max-w-xl mx-auto px-5 pt-6 pb-8">
+      <div class="flex items-center justify-between mb-6">
+        <a href="../welcome_portal/index.html"
+          class="w-10 h-10 rounded-full bg-white/15 hover:bg-white/25 backdrop-blur-md border border-white/20 flex items-center justify-center text-white transition-all">
+          <span class="material-symbols-outlined text-[20px]">arrow_back</span>
+        </a>
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/15">
+          <span class="material-symbols-outlined text-[15px] text-primary">event_seat</span>
+          <span class="text-[11px] font-bold uppercase tracking-widest">Réservation de Table</span>
+        </div>
+        <a href="../swiggy-style_elite_main_menu_390x2500/index.html?mode=delivery"
+          class="px-3 py-1.5 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/15 text-[11px] font-bold flex items-center gap-1">
+          <span class="material-symbols-outlined text-[14px]">restaurant_menu</span>
+          <span>Carte</span>
+        </a>
+      </div>
+
+      <div class="text-center">
+        <span class="text-[10px] font-extrabold uppercase tracking-[0.25em] text-amber-300/90">Stitch Café & Roastery</span>
+        <h1 class="font-serif italic text-3xl sm:text-4xl mt-1">Réservez votre moment</h1>
+        <p class="text-xs text-white/70 mt-1.5 max-w-sm mx-auto">
+          Confirmation immédiate auprès de notre maître d'hôtel sans frais de réservation.
+        </p>
+      </div>
+
+      <!-- 3-Step Progress Bar -->
+      <div class="mt-7 grid grid-cols-3 gap-2 max-w-md mx-auto" id="step-indicators">
+        <div class="flex flex-col items-center gap-1.5" id="ind-step-1">
+          <div class="w-full h-1.5 rounded-full bg-primary transition-all" id="bar-step-1"></div>
+          <span class="text-[10px] font-extrabold uppercase tracking-wider text-white">1. Créneau</span>
+        </div>
+        <div class="flex flex-col items-center gap-1.5" id="ind-step-2">
+          <div class="w-full h-1.5 rounded-full bg-white/20 transition-all" id="bar-step-2"></div>
+          <span class="text-[10px] font-bold uppercase tracking-wider text-white/60" id="lbl-step-2">2. Espace</span>
+        </div>
+        <div class="flex flex-col items-center gap-1.5" id="ind-step-3">
+          <div class="w-full h-1.5 rounded-full bg-white/20 transition-all" id="bar-step-3"></div>
+          <span class="text-[10px] font-bold uppercase tracking-wider text-white/60" id="lbl-step-3">3. Validation</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content Container -->
+  <main class="max-w-xl mx-auto px-4 sm:px-6 -mt-4 relative z-20">
+    <!-- STEP 1: GUESTS, DATE & TIME -->
+    <section id="step-1" class="space-y-4">
+      <!-- Guests Selector Card -->
+      <div class="bg-white rounded-[2rem] p-5 sm:p-6 shadow-luxury border border-stone-200/70">
+        <div class="flex items-center justify-between mb-4">
+          <div class="flex items-center gap-2.5">
+            <div class="w-9 h-9 rounded-xl bg-orange-50 text-primary flex items-center justify-center">
+              <span class="material-symbols-outlined text-[20px]">groups</span>
+            </div>
+            <div>
+              <h2 class="text-sm font-extrabold text-stone-900">Nombre de convives</h2>
+              <p class="text-[11px] text-stone-400">Sélectionnez la taille de votre table</p>
+            </div>
+          </div>
+          <span id="guests-badge" class="px-3 py-1 rounded-full bg-stone-900 text-white text-xs font-extrabold">2 Personnes</span>
+        </div>
+
+        <div class="grid grid-cols-4 sm:grid-cols-8 gap-2" id="guests-grid">
+          <!-- Injected by JS -->
+        </div>
+      </div>
+
+      <!-- Date Selector Card -->
+      <div class="bg-white rounded-[2rem] p-5 sm:p-6 shadow-luxury border border-stone-200/70">
+        <div class="flex items-center gap-2.5 mb-4">
+          <div class="w-9 h-9 rounded-xl bg-orange-50 text-primary flex items-center justify-center">
+            <span class="material-symbols-outlined text-[20px]">calendar_month</span>
+          </div>
+          <div>
+            <h2 class="text-sm font-extrabold text-stone-900">Date de réservation</h2>
+            <p class="text-[11px] text-stone-400">Aujourd'hui, demain ou une autre date</p>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-3 gap-2.5 mb-3">
+          <button type="button" onclick="selectQuickDate(0)" id="quick-date-0"
+            class="py-3 px-3 rounded-2xl border-2 border-primary bg-orange-50/60 text-primary font-extrabold text-xs text-center transition-all">
+            Aujourd'hui
+          </button>
+          <button type="button" onclick="selectQuickDate(1)" id="quick-date-1"
+            class="py-3 px-3 rounded-2xl border border-stone-200 bg-[#FAF8F5] text-stone-700 font-bold text-xs text-center transition-all">
+            Demain
+          </button>
+          <button type="button" onclick="document.getElementById('res-date-input').showPicker?.() || document.getElementById('res-date-input').focus()" id="quick-date-custom"
+            class="py-3 px-3 rounded-2xl border border-stone-200 bg-[#FAF8F5] text-stone-700 font-bold text-xs text-center transition-all">
+            Autre date
+          </button>
+        </div>
+        <input type="date" id="res-date-input" onchange="onCustomDateChange(this.value)"
+          class="w-full px-4 py-3 rounded-2xl bg-[#FAF8F5] border border-stone-200 text-xs font-bold text-stone-800 focus:outline-none focus:border-primary" />
+      </div>
+
+      <!-- Time Slots Card -->
+      <div class="bg-white rounded-[2rem] p-5 sm:p-6 shadow-luxury border border-stone-200/70">
+        <div class="flex items-center justify-between mb-4">
+          <div class="flex items-center gap-2.5">
+            <div class="w-9 h-9 rounded-xl bg-orange-50 text-primary flex items-center justify-center">
+              <span class="material-symbols-outlined text-[20px]">schedule</span>
+            </div>
+            <div>
+              <h2 class="text-sm font-extrabold text-stone-900">Heure d'arrivée</h2>
+              <p class="text-[11px] text-stone-400">Table garantie pendant 30 min après l'heure choisie</p>
+            </div>
+          </div>
+          <span id="time-badge" class="px-3 py-1 rounded-full bg-orange-50 text-primary text-xs font-extrabold">10:30</span>
+        </div>
+
+        <div class="space-y-3" id="time-slots-container">
+          <!-- Injected by JS -->
+        </div>
+      </div>
+
+      <button type="button" onclick="goToStep(2)"
+        class="w-full py-4 rounded-2xl bg-primary hover:bg-[#e04800] text-white font-extrabold text-sm shadow-glow flex items-center justify-center gap-2 transition-all active:scale-95">
+        <span>Continuer vers le choix de l'espace</span>
+        <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+      </button>
+    </section>
+
+    <!-- STEP 2: ZONE & AMBIANCE -->
+    <section id="step-2" class="hidden space-y-4">
+      <div class="bg-white rounded-[2rem] p-5 sm:p-6 shadow-luxury border border-stone-200/70">
+        <div class="flex items-center gap-2.5 mb-4">
+          <div class="w-9 h-9 rounded-xl bg-orange-50 text-primary flex items-center justify-center">
+            <span class="material-symbols-outlined text-[20px]">deck</span>
+          </div>
+          <div>
+            <h2 class="text-sm font-extrabold text-stone-900">Préférence d'Espace</h2>
+            <p class="text-[11px] text-stone-400">Choisissez l'ambiance souhaitée pour votre table</p>
+          </div>
+        </div>
+
+        <div class="space-y-3" id="zones-container">
+          <!-- Zone 1 -->
+          <button type="button" onclick="selectZone('Salle Principale', 'T-1')" data-zone="Salle Principale"
+            class="zone-card w-full text-left p-4 rounded-2xl border-2 border-primary bg-orange-50/40 flex items-center justify-between gap-4 transition-all">
+            <div class="flex items-center gap-3.5">
+              <div class="w-12 h-12 rounded-2xl bg-stone-900 text-white flex items-center justify-center shrink-0">
+                <span class="material-symbols-outlined text-[22px]">storefront</span>
+              </div>
+              <div>
+                <h3 class="text-sm font-extrabold text-stone-900">Salle Principale & Roastery</h3>
+                <p class="text-xs text-stone-500 mt-0.5">Espace climatisé non-fumeur, vue bar à café & brunch</p>
+              </div>
+            </div>
+            <span class="material-symbols-outlined text-primary text-[22px] zone-check">check_circle</span>
+          </button>
+
+          <!-- Zone 2 -->
+          <button type="button" onclick="selectZone('Terrasse Ensoleillée', 'T-2')" data-zone="Terrasse Ensoleillée"
+            class="zone-card w-full text-left p-4 rounded-2xl border border-stone-200 bg-[#FAF8F5] flex items-center justify-between gap-4 transition-all">
+            <div class="flex items-center gap-3.5">
+              <div class="w-12 h-12 rounded-2xl bg-amber-600 text-white flex items-center justify-center shrink-0">
+                <span class="material-symbols-outlined text-[22px]">deck</span>
+              </div>
+              <div>
+                <h3 class="text-sm font-extrabold text-stone-900">Terrasse Jardin</h3>
+                <p class="text-xs text-stone-500 mt-0.5">En plein air, idéale pour le café du matin ou fin d'après-midi</p>
+              </div>
+            </div>
+            <span class="material-symbols-outlined text-stone-300 text-[22px] zone-check">radio_button_unchecked</span>
+          </button>
+
+          <!-- Zone 3 -->
+          <button type="button" onclick="selectZone('Salon Lounge Calme', 'B-1')" data-zone="Salon Lounge Calme"
+            class="zone-card w-full text-left p-4 rounded-2xl border border-stone-200 bg-[#FAF8F5] flex items-center justify-between gap-4 transition-all">
+            <div class="flex items-center gap-3.5">
+              <div class="w-12 h-12 rounded-2xl bg-stone-700 text-white flex items-center justify-center shrink-0">
+                <span class="material-symbols-outlined text-[22px]">weekend</span>
+              </div>
+              <div>
+                <h3 class="text-sm font-extrabold text-stone-900">Salon Lounge & Banquettes</h3>
+                <p class="text-xs text-stone-500 mt-0.5">Ambiance feutrée pour repas en famille ou rendez-vous pro</p>
+              </div>
+            </div>
+            <span class="material-symbols-outlined text-stone-300 text-[22px] zone-check">radio_button_unchecked</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Occasion & Special Notes -->
+      <div class="bg-white rounded-[2rem] p-5 sm:p-6 shadow-luxury border border-stone-200/70">
+        <h3 class="text-xs font-extrabold uppercase tracking-wider text-stone-400 mb-3">Occasion ou demande particulière (Optionnel)</h3>
+        <div class="flex flex-wrap gap-2 mb-3" id="occasion-chips">
+          <button type="button" onclick="toggleOccasion(this, 'Anniversaire')" class="px-3.5 py-1.5 rounded-full text-xs font-bold border border-stone-200 bg-[#FAF8F5] text-stone-700 transition-all">Anniversaire</button>
+          <button type="button" onclick="toggleOccasion(this, 'Brunch en Famille')" class="px-3.5 py-1.5 rounded-full text-xs font-bold border border-stone-200 bg-[#FAF8F5] text-stone-700 transition-all">Brunch en Famille</button>
+          <button type="button" onclick="toggleOccasion(this, 'Rendez-vous Pro')" class="px-3.5 py-1.5 rounded-full text-xs font-bold border border-stone-200 bg-[#FAF8F5] text-stone-700 transition-all">Rendez-vous Pro</button>
+          <button type="button" onclick="toggleOccasion(this, 'Chaise Bébé')" class="px-3.5 py-1.5 rounded-full text-xs font-bold border border-stone-200 bg-[#FAF8F5] text-stone-700 transition-all">Chaise Bébé</button>
+        </div>
+        <textarea id="res-notes" rows="2" placeholder="Précisez toute demande spéciale (table calme, allergie...)"
+          class="w-full px-4 py-3 rounded-2xl bg-[#FAF8F5] border border-stone-200 text-xs font-medium focus:outline-none focus:border-primary resize-none"></textarea>
+      </div>
+
+      <div class="grid grid-cols-3 gap-3">
+        <button type="button" onclick="goToStep(1)"
+          class="col-span-1 py-4 rounded-2xl bg-white border border-stone-200 font-bold text-xs text-stone-700 hover:bg-stone-50 transition-all">
+          Retour
+        </button>
+        <button type="button" onclick="goToStep(3)"
+          class="col-span-2 py-4 rounded-2xl bg-primary hover:bg-[#e04800] text-white font-extrabold text-sm shadow-glow flex items-center justify-center gap-2 transition-all active:scale-95">
+          <span>Dernière étape</span>
+          <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- STEP 3: CONTACT DETAILS & SUBMIT -->
+    <section id="step-3" class="hidden space-y-4">
+      <!-- Booking Summary Card -->
+      <div class="bg-stone-900 text-white rounded-[2rem] p-5 sm:p-6 shadow-xl relative overflow-hidden">
+        <div class="flex items-center justify-between pb-4 mb-4 border-b border-white/10">
+          <div>
+            <span class="text-[10px] font-bold uppercase tracking-widest text-amber-300">Récapitulatif</span>
+            <h3 class="font-serif italic text-2xl mt-0.5">Votre Table chez Stitch</h3>
+          </div>
+          <button type="button" onclick="goToStep(1)" class="text-xs font-bold text-amber-300 underline">Modifier</button>
+        </div>
+        <div class="grid grid-cols-3 gap-3 text-center">
+          <div class="bg-white/10 rounded-2xl p-3">
+            <span class="material-symbols-outlined text-primary text-[18px]">calendar_today</span>
+            <p class="text-[10px] text-white/60 uppercase font-bold mt-1">Date & Heure</p>
+            <p class="text-xs font-extrabold mt-0.5" id="sum-datetime">—</p>
+          </div>
+          <div class="bg-white/10 rounded-2xl p-3">
+            <span class="material-symbols-outlined text-primary text-[18px]">groups</span>
+            <p class="text-[10px] text-white/60 uppercase font-bold mt-1">Convives</p>
+            <p class="text-xs font-extrabold mt-0.5" id="sum-guests">2 Personnes</p>
+          </div>
+          <div class="bg-white/10 rounded-2xl p-3">
+            <span class="material-symbols-outlined text-primary text-[18px]">deck</span>
+            <p class="text-[10px] text-white/60 uppercase font-bold mt-1">Espace</p>
+            <p class="text-xs font-extrabold mt-0.5 truncate" id="sum-zone">Salle Principale</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Contact Form -->
+      <div class="bg-white rounded-[2rem] p-5 sm:p-6 shadow-luxury border border-stone-200/70 space-y-4">
+        <div>
+          <label class="text-[11px] font-extrabold uppercase tracking-wider text-stone-500 block mb-1.5">Nom & Prénom *</label>
+          <div class="relative">
+            <span class="material-symbols-outlined text-stone-400 text-[18px] absolute left-4 top-1/2 -translate-y-1/2">person</span>
+            <input type="text" id="res-name" placeholder="Ex: Yassine El Amrani"
+              class="w-full pl-11 pr-4 py-3.5 rounded-2xl bg-[#FAF8F5] border border-stone-200 text-sm font-bold text-stone-900 focus:outline-none focus:border-primary" />
+          </div>
+        </div>
+
+        <div>
+          <label class="text-[11px] font-extrabold uppercase tracking-wider text-stone-500 block mb-1.5">Téléphone / WhatsApp *</label>
+          <div class="relative">
+            <span class="material-symbols-outlined text-stone-400 text-[18px] absolute left-4 top-1/2 -translate-y-1/2">call</span>
+            <input type="tel" id="res-phone" placeholder="Ex: 06 61 23 45 67"
+              class="w-full pl-11 pr-4 py-3.5 rounded-2xl bg-[#FAF8F5] border border-stone-200 text-sm font-bold text-stone-900 focus:outline-none focus:border-primary" />
+          </div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-3 gap-3">
+        <button type="button" onclick="goToStep(2)"
+          class="col-span-1 py-4 rounded-2xl bg-white border border-stone-200 font-bold text-xs text-stone-700 hover:bg-stone-50 transition-all">
+          Retour
+        </button>
+        <button type="button" id="submit-res-btn" onclick="submitReservation()"
+          class="col-span-2 py-4 rounded-2xl bg-primary hover:bg-[#e04800] text-white font-extrabold text-sm shadow-glow flex items-center justify-center gap-2 transition-all active:scale-95">
+          <span class="material-symbols-outlined text-[18px]">check_circle</span>
+          <span>Confirmer ma Réservation</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- STEP 4: SUCCESS PASS -->
+    <section id="step-success" class="hidden">
+      <div class="bg-white rounded-[2.5rem] p-6 sm:p-8 shadow-luxury border border-stone-200/80 text-center">
+        <div class="w-20 h-20 rounded-full bg-emerald-50 border-2 border-emerald-200 text-emerald-600 flex items-center justify-center mx-auto mb-5">
+          <span class="material-symbols-outlined text-[42px]">verified</span>
+        </div>
+        <span class="px-3 py-1 rounded-full bg-orange-50 text-primary text-[11px] font-extrabold uppercase tracking-widest" id="conf-id">RES-842</span>
+        <h2 class="font-serif italic text-3xl text-stone-900 mt-2">Réservation Envoyée !</h2>
+        <p class="text-xs text-stone-500 mt-1.5 max-w-sm mx-auto leading-relaxed">
+          Notre équipe a bien reçu votre demande de table en temps réel. Présentez simplement votre nom à votre arrivée.
+        </p>
+
+        <div class="my-6 p-4 rounded-2xl bg-[#FAF8F5] border border-stone-200/70 text-left space-y-2 text-xs">
+          <div class="flex justify-between"><span class="text-stone-400 font-bold">Client :</span><span class="font-extrabold text-stone-900" id="conf-name">—</span></div>
+          <div class="flex justify-between"><span class="text-stone-400 font-bold">Date & Heure :</span><span class="font-extrabold text-stone-900" id="conf-datetime">—</span></div>
+          <div class="flex justify-between"><span class="text-stone-400 font-bold">Table & Espace :</span><span class="font-extrabold text-primary" id="conf-zone">—</span></div>
+        </div>
+
+        <div class="space-y-3">
+          <a href="../swiggy-style_elite_main_menu_390x2500/index.html?mode=delivery"
+            class="w-full py-4 rounded-2xl bg-stone-900 text-white font-extrabold text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg">
+            <span class="material-symbols-outlined text-[18px]">restaurant_menu</span>
+            <span>Découvrir notre Carte en attendant</span>
+          </a>
+          <a href="../welcome_portal/index.html"
+            class="block py-3 text-xs font-bold text-stone-500 hover:text-stone-900">
+            Retour à l'accueil
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const state = {
+      guests: 2,
+      date: new Date().toISOString().split('T')[0],
+      time: '10:30',
+      zone: 'Salle Principale',
+      tableId: 'A-1',
+      occasions: []
+    };
+
+    const TIME_SLOTS = [
+      { label: 'Matin & Brunch', slots: ['09:00', '09:30', '10:00', '10:30', '11:00', '11:30'] },
+      { label: 'Déjeuner', slots: ['12:30', '13:00', '13:30', '14:00', '14:30', '15:00'] },
+      { label: 'Pause Goûter & Soirée', slots: ['16:30', '17:30', '18:30', '19:30', '20:30', '21:30'] }
+    ];
+
+    function initReservationPage() {
+      document.getElementById('res-date-input').value = state.date;
+      renderGuests();
+      renderTimeSlots();
+    }
+
+    function renderGuests() {
+      const grid = document.getElementById('guests-grid');
+      const counts = [1, 2, 3, 4, 5, 6, 7, 8];
+      grid.innerHTML = counts.map(n => {
+        const active = state.guests === n;
+        return `
+          <button type="button" onclick="setGuests(${n})"
+            class="py-3 rounded-2xl font-extrabold text-xs transition-all ${active
+              ? 'bg-primary text-white shadow-glow scale-[1.03]'
+              : 'bg-[#FAF8F5] text-stone-700 border border-stone-200 hover:border-stone-300'}">
+            ${n}${n === 8 ? '+' : ''}
+          </button>
+        `;
+      }).join('');
+      document.getElementById('guests-badge').textContent = `${state.guests} ${state.guests > 1 ? 'Personnes' : 'Personne'}`;
+    }
+
+    function setGuests(n) {
+      state.guests = n;
+      renderGuests();
+    }
+
+    function selectQuickDate(offsetDays) {
+      const d = new Date();
+      d.setDate(d.getDate() + offsetDays);
+      state.date = d.toISOString().split('T')[0];
+      document.getElementById('res-date-input').value = state.date;
+
+      [0, 1].forEach(idx => {
+        const btn = document.getElementById('quick-date-' + idx);
+        if (idx === offsetDays) {
+          btn.className = 'py-3 px-3 rounded-2xl border-2 border-primary bg-orange-50/60 text-primary font-extrabold text-xs text-center transition-all';
+        } else {
+          btn.className = 'py-3 px-3 rounded-2xl border border-stone-200 bg-[#FAF8F5] text-stone-700 font-bold text-xs text-center transition-all';
+        }
+      });
+    }
+
+    function onCustomDateChange(val) {
+      if (val) state.date = val;
+    }
+
+    function renderTimeSlots() {
+      const container = document.getElementById('time-slots-container');
+      container.innerHTML = TIME_SLOTS.map(group => `
+        <div>
+          <p class="text-[10px] font-extrabold uppercase tracking-wider text-stone-400 mb-2">${group.label}</p>
+          <div class="grid grid-cols-3 sm:grid-cols-6 gap-2">
+            ${group.slots.map(t => {
+              const active = state.time === t;
+              return `
+                <button type="button" onclick="setTime('${t}')"
+                  class="py-2.5 rounded-xl font-bold text-xs transition-all ${active
+                    ? 'bg-stone-900 text-white shadow-md'
+                    : 'bg-[#FAF8F5] text-stone-700 border border-stone-200 hover:border-primary/40'}">
+                  ${t}
+                </button>
+              `;
+            }).join('')}
+          </div>
+        </div>
+      `).join('');
+      document.getElementById('time-badge').textContent = state.time;
+    }
+
+    function setTime(t) {
+      state.time = t;
+      renderTimeSlots();
+    }
+
+    function selectZone(zoneName, defaultTable) {
+      state.zone = zoneName;
+      state.tableId = defaultTable;
+      document.querySelectorAll('.zone-card').forEach(card => {
+        const isMatch = card.dataset.zone === zoneName;
+        card.className = isMatch
+          ? 'zone-card w-full text-left p-4 rounded-2xl border-2 border-primary bg-orange-50/40 flex items-center justify-between gap-4 transition-all'
+          : 'zone-card w-full text-left p-4 rounded-2xl border border-stone-200 bg-[#FAF8F5] flex items-center justify-between gap-4 transition-all';
+        const icon = card.querySelector('.zone-check');
+        if (icon) {
+          icon.textContent = isMatch ? 'check_circle' : 'radio_button_unchecked';
+          icon.className = isMatch ? 'material-symbols-outlined text-primary text-[22px] zone-check' : 'material-symbols-outlined text-stone-300 text-[22px] zone-check';
+        }
+      });
+    }
+
+    function toggleOccasion(btn, label) {
+      const idx = state.occasions.indexOf(label);
+      if (idx > -1) {
+        state.occasions.splice(idx, 1);
+        btn.className = 'px-3.5 py-1.5 rounded-full text-xs font-bold border border-stone-200 bg-[#FAF8F5] text-stone-700 transition-all';
+      } else {
+        state.occasions.push(label);
+        btn.className = 'px-3.5 py-1.5 rounded-full text-xs font-bold border-2 border-primary bg-orange-50 text-primary transition-all';
+      }
+    }
+
+    function goToStep(stepNumber) {
+      ['step-1', 'step-2', 'step-3', 'step-success'].forEach((id, i) => {
+        document.getElementById(id).classList.toggle('hidden', (i + 1) !== stepNumber);
+      });
+      [1, 2, 3].forEach(n => {
+        const bar = document.getElementById('bar-step-' + n);
+        if (bar) bar.className = n <= stepNumber ? 'w-full h-1.5 rounded-full bg-primary transition-all' : 'w-full h-1.5 rounded-full bg-white/20 transition-all';
+      });
+      if (stepNumber === 3) {
+        document.getElementById('sum-datetime').textContent = `${state.date} à ${state.time}`;
+        document.getElementById('sum-guests').textContent = `${state.guests} ${state.guests > 1 ? 'Personnes' : 'Personne'}`;
+        document.getElementById('sum-zone').textContent = state.zone;
+      }
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    async function submitReservation() {
+      const name = document.getElementById('res-name').value.trim();
+      const phone = document.getElementById('res-phone').value.trim();
+      const extraNotes = document.getElementById('res-notes').value.trim();
+
+      if (!name || !phone) {
+        alert('Veuillez renseigner votre nom et votre numéro de téléphone.');
+        return;
+      }
+
+      const btn = document.getElementById('submit-res-btn');
+      btn.disabled = true;
+      btn.innerHTML = '<span class="material-symbols-outlined animate-spin text-[18px]">sync</span><span>Confirmation en cours...</span>';
+
+      const combinedNotes = [...state.occasions, extraNotes].filter(Boolean).join(' • ');
+      const payload = {
+        id: 'RES-' + Math.floor(100 + Math.random() * 900),
+        clientName: name,
+        phone,
+        date: state.date,
+        time: state.time,
+        guests: state.guests,
+        zone: state.zone,
+        tableId: state.tableId,
+        notes: combinedNotes,
+        status: 'Pending'
+      };
+
+      try {
+        const res = await fetch(`${window.location.origin}/api/reservations`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        if (res.ok) {
+          const json = await res.json();
+          if (json?.data?.id) payload.id = json.data.id;
+        }
+      } catch (_) {}
+
+      try {
+        const localRes = JSON.parse(localStorage.getItem('stitch_reservations') || '[]');
+        localRes.unshift(payload);
+        localStorage.setItem('stitch_reservations', JSON.stringify(localRes));
+      } catch (_) {}
+
+      document.getElementById('conf-id').textContent = payload.id;
+      document.getElementById('conf-name').textContent = `${payload.clientName} (${payload.phone})`;
+      document.getElementById('conf-datetime').textContent = `${payload.date} à ${payload.time} (${payload.guests} pers.)`;
+      document.getElementById('conf-zone').textContent = payload.zone;
+
+      ['step-1', 'step-2', 'step-3'].forEach(id => document.getElementById(id).classList.add('hidden'));
+      document.getElementById('step-success').classList.remove('hidden');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    document.addEventListener('DOMContentLoaded', initReservationPage);
+  </script>
+  <script src="../theme-engine.js?v=1"></script>
+</body>
+
+</html>

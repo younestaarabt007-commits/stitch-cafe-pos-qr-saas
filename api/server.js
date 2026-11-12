@@ -496,8 +496,76 @@ app.delete('/api/v1/admin/merchants/:id', authMiddleware, requireRoles(['SUPER_A
   res.json({ success: true, simulator: true });
 });
 
+// --- REAL-TIME QR MENU & KDS LIVE ORDERS ---
+MEMORY_DB.liveOrders = [];
+MEMORY_DB.completedOrders = [];
+
+app.get('/api/live-orders', (req, res) => {
+  res.json({
+    success: true,
+    data: {
+      liveOrders: MEMORY_DB.liveOrders,
+      completedOrders: MEMORY_DB.completedOrders,
+      updatedAt: Date.now()
+    }
+  });
+});
+
+app.post('/api/live-orders', (req, res) => {
+  const body = req.body || {};
+  const rawItems = Array.isArray(body.items) ? body.items : (Array.isArray(body.itemsList) ? body.itemsList : []);
+  const items = rawItems.map(item => ({
+    name: String(item.name || item.item || 'Article').trim(),
+    qty: Math.max(1, parseInt(item.qty ?? item.quantity ?? 1, 10) || 1),
+    price: Math.max(0, parseFloat(item.price ?? item.unit_price ?? 0) || 0),
+    mods: Array.isArray(item.mods) ? item.mods : [],
+    notes: item.notes ? String(item.notes) : '',
+    image_url: item.image_url || item.image || ''
+  }));
+  if (!items.length) return res.status(400).json({ success: false, error: { message: 'Invalid order items' } });
+  const total = Number(body.total) || items.reduce((s, i) => s + i.price * i.qty, 0);
+  const order = {
+    id: body.id || ('ORD-' + Math.floor(100 + Math.random() * 900) + '-' + String(Date.now()).slice(-3)),
+    table: String(body.table || 'Walk-in').replace(/^Table\s+/i, '').trim() || 'Walk-in',
+    customerName: body.customerName || body.guestName || body.customer || undefined,
+    guestName: body.customerName || body.guestName || body.customer || undefined,
+    notes: body.notes || '',
+    items,
+    total: Number(total.toFixed(2)),
+    status: 'Received',
+    time: Date.now()
+  };
+  MEMORY_DB.liveOrders = MEMORY_DB.liveOrders.filter(o => o.id !== order.id);
+  MEMORY_DB.liveOrders.push(order);
+  res.status(201).json({ success: true, data: order });
+});
+
+app.get('/api/live-orders/:id', (req, res) => {
+  const found = MEMORY_DB.liveOrders.find(o => o.id === req.params.id) || MEMORY_DB.completedOrders.find(o => o.id === req.params.id);
+  if (!found) return res.status(404).json({ success: false, error: { message: 'Order not found' } });
+  res.json({ success: true, data: found });
+});
+
+app.patch('/api/live-orders/:id', (req, res) => {
+  const newStatus = req.body?.status;
+  if (!['Received', 'Preparing', 'Ready', 'Completed'].includes(newStatus)) {
+    return res.status(400).json({ success: false, error: { message: 'Invalid status' } });
+  }
+  const idx = MEMORY_DB.liveOrders.findIndex(o => o.id === req.params.id);
+  if (idx === -1) return res.status(404).json({ success: false, error: { message: 'Order not found' } });
+  const order = MEMORY_DB.liveOrders[idx];
+  order.status = newStatus;
+  if (newStatus === 'Completed') {
+    const completed = { ...order, completedAt: Date.now() };
+    MEMORY_DB.completedOrders.push(completed);
+    MEMORY_DB.liveOrders.splice(idx, 1);
+    return res.json({ success: true, data: completed });
+  }
+  res.json({ success: true, data: order });
+});
+
 app.get('/health', (req, res) => res.json({ ok: true }));
 app.get('/ready', (req, res) => res.json({ db: DB_READY }));
 initDb().then(() => initSchema()).then(() => seedDemo()).finally(() => {
-  app.listen(process.env.PORT || 3000);
+  app.listen(process.env.PORT || 3000, '0.0.0.0');
 });

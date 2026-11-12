@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Elite Compact Juice &amp; Creams Master 3000px</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Playfair+Display:wght@700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#ff5500", 
+                        "primary-light": "#ff8800",
+                        "background-light": "#fdfbf7",
+                        "background-dark": "#0f0f0f",
+                        "card-glass": "rgba(255, 255, 255, 0.65)",
+                        "glass-border": "rgba(255, 255, 255, 0.4)",
+                    },
+                    fontFamily: {
+                        "display": ["Plus Jakarta Sans", "sans-serif"],
+                        "serif": ["Playfair Display", "serif"],
+                    },
+                    backgroundImage: {
+                        'mesh-gradient': 'radial-gradient(at 0% 0%, rgba(255,160,122,0.3) 0px, transparent 50%), radial-gradient(at 100% 0%, rgba(255,120,50,0.2) 0px, transparent 50%), radial-gradient(at 100% 100%, rgba(255,200,100,0.1) 0px, transparent 50%), radial-gradient(at 0% 100%, rgba(255,250,240,0.5) 0px, transparent 50%)',
+                    }
+                },
+            },
+        }
+    </script>
+<style type="text/tailwindcss">
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #fdfbf7;
+            min-height: 3000px;
+        }
+        .text-stroke-outline {
+            -webkit-text-stroke: 2px rgba(255, 255, 255, 0.2);
+            color: transparent;
+        }
+        .hero-mesh {
+            background: radial-gradient(circle at 50% 50%, #fff7ed 0%, #ffedd5 25%, #fed7aa 50%, #fb923c 100%);
+            background-size: 200% 200%;
+        }
+        .glass-card {
+            @apply bg-white/40 backdrop-blur-xl border border-white/60 shadow-[0_8px_32px_0_rgba(255,100,0,0.05)];
+        }
+        .floating-particle {
+            @apply absolute rounded-full opacity-40 mix-blend-multiply pointer-events-none;
+        }
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .cart-glow {
+            box-shadow: 0 0 50px 0px rgba(255, 85, 0, 0.6);
+        }
+        .liquid-splash-img {
+            filter: drop-shadow(0 15px 25px rgba(0,0,0,0.15));
+        }
+        .compact-card {
+            @apply p-3 pt-10;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-white antialiased overflow-x-hidden">
+<div class="relative w-full max-w-[390px] mx-auto flex flex-col bg-background-light dark:bg-background-dark shadow-2xl overflow-visible pb-32">
+<div class="absolute inset-0 overflow-hidden pointer-events-none z-0">
+<div class="absolute top-[800px] left-[-20px] w-40 h-40 bg-orange-200/20 rounded-full blur-3xl"></div>
+<div class="absolute top-[1200px] right-[-40px] w-64 h-64 bg-yellow-200/20 rounded-full blur-3xl"></div>
+<div class="absolute top-[2000px] left-[20%] w-32 h-32 bg-orange-300/10 rounded-full blur-2xl"></div>
+<div class="floating-particle w-2 h-3 bg-green-800/20 top-[600px] left-[10%] rotate-45 rounded-tl-none rounded-br-none"></div>
+<div class="floating-particle w-3 h-4 bg-orange-800/20 top-[900px] right-[15%] rotate-12 rounded-[100%]"></div>
+<div class="floating-particle w-2 h-2 bg-green-500/20 top-[1500px] left-[80%] rotate-90 rounded-tl-none"></div>
+</div>
+<div class="fixed top-0 left-1/2 -translate-x-1/2 w-full max-w-[390px] z-50 flex items-center justify-between p-4 bg-gradient-to-b from-black/10 to-transparent pointer-events-none">
+<div id="back-btn" class="flex size-10 items-center justify-center rounded-full bg-white/20 backdrop-blur-md text-white border border-white/20 shadow-lg pointer-events-auto cursor-pointer hover:bg-white/30 transition-colors">
+<span class="material-symbols-outlined">arrow_back</span>
+</div>
+<div class="relative pointer-events-auto group">
+    <input type="text" id="search-input" placeholder="Search..." class="pl-10 pr-4 py-2.5 rounded-full bg-white/20 backdrop-blur-md text-white placeholder-white/80 border border-white/20 focus:outline-none focus:ring-2 focus:ring-white/50 w-10 focus:w-48 transition-all duration-300 shadow-lg text-sm cursor-pointer focus:cursor-text opacity-0 focus:opacity-100 group-hover:w-48 group-hover:opacity-100 peer">
+    <div class="absolute right-0 top-0 size-10 flex items-center justify-center rounded-full bg-white/20 backdrop-blur-md text-white border border-white/20 shadow-lg pointer-events-none transition-opacity duration-300 peer-focus:opacity-0 group-hover:opacity-0">
+        <span class="material-symbols-outlined">search</span>
+    </div>
+    <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-white/80 text-[18px] opacity-0 peer-focus:opacity-100 group-hover:opacity-100 transition-opacity duration-300">search</span>
+</div>
+</div>
+<div class="relative h-[480px] w-full overflow-hidden hero-mesh flex items-center justify-center rounded-b-[2.5rem] shadow-xl z-10">
+<h1 class="absolute top-24 left-1/2 -translate-x-1/2 text-[100px] font-black text-stroke-outline tracking-tighter opacity-30 select-none z-0 scale-y-125">
+            SQUEEZE
+        </h1>
+<div class="absolute inset-0 z-10">
+<div class="absolute top-20 left-4 w-20 h-20 bg-orange-500/30 blur-xl rounded-full mix-blend-overlay"></div>
+<div class="absolute bottom-24 right-8 w-24 h-24 bg-white/40 blur-2xl rounded-full mix-blend-overlay"></div>
+<div class="absolute top-32 left-8 w-10 h-10 border border-white/30 bg-white/10 backdrop-blur-sm rounded-xl -rotate-12 shadow-lg z-20"></div>
+<div class="absolute bottom-32 right-12 w-8 h-8 border border-white/30 bg-white/10 backdrop-blur-sm rounded-lg rotate-45 shadow-lg z-20"></div>
+<div class="absolute top-24 right-10 w-12 h-12 rounded-full border-2 border-orange-100/50 bg-orange-500/20 backdrop-blur-sm shadow-xl z-20"></div>
+<div class="absolute bottom-28 left-12 w-10 h-10 rounded-full border border-orange-100/50 bg-orange-400/20 backdrop-blur-sm shadow-xl -rotate-12 z-20"></div>
+</div>
+<div class="relative z-30 flex flex-col items-center justify-center text-center mt-6">
+<div class="w-[280px] h-[280px] bg-center bg-contain bg-no-repeat drop-shadow-[0_25px_50px_rgba(0,0,0,0.3)] transform transition-transform duration-700 hover:scale-105" data-alt="Exploding glass of orange juice with milk swirls" style='background-image: url("https://images.unsplash.com/photo-1613478223719-2ab802602423?auto=format&fit=crop&w=500&h=500&q=80");'>
+</div>
+<div class="mt-0 flex flex-col items-center">
+<h1 class="text-white font-serif font-bold text-[28px] tracking-tight leading-tight drop-shadow-md">
+                    Velvet <span class="text-orange-100">Crush</span>
+</h1>
+<div class="mt-2 px-3 py-1 rounded-full bg-white/20 backdrop-blur-md border border-white/30 text-white font-semibold text-[10px] uppercase tracking-wider shadow-lg">
+                    Limited Edition
+                </div>
+</div>
+</div>
+</div>
+<div class="relative z-20 -mt-6">
+<div class="flex w-full overflow-x-auto px-4 py-3 gap-3 no-scrollbar pb-6">
+<div class="flex flex-col items-center gap-1.5 min-w-[72px] group">
+<div class="size-[72px] rounded-full p-[2px] bg-gradient-to-tr from-orange-500 via-yellow-400 to-white shadow-lg animate-pulse">
+<div class="w-full h-full rounded-full border-[2px] border-white bg-white overflow-hidden">
+<div class="w-full h-full bg-cover bg-center group-active:scale-110 transition-transform duration-300" style='background-image: url("https://images.unsplash.com/photo-1613478223719-2ab802602423?auto=format&fit=crop&w=500&h=500&q=80");'></div>
+</div>
+</div>
+<span class="text-[10px] font-bold text-slate-700 uppercase tracking-wide">Pure OJ</span>
+</div>
+<div class="flex flex-col items-center gap-1.5 min-w-[72px] group">
+<div class="size-[72px] rounded-full p-[2px] bg-gradient-to-tr from-orange-400 via-orange-200 to-white shadow-lg">
+<div class="w-full h-full rounded-full border-[2px] border-white bg-white overflow-hidden">
+<div class="w-full h-full bg-cover bg-center group-active:scale-110 transition-transform duration-300" style='background-image: url("https://images.unsplash.com/photo-1541167760496-1628856ab772?auto=format&fit=crop&w=500&h=500&q=80");'></div>
+</div>
+</div>
+<span class="text-[10px] font-bold text-slate-700 uppercase tracking-wide">Oat Blend</span>
+</div>
+<div class="flex flex-col items-center gap-1.5 min-w-[72px] group">
+<div class="size-[72px] rounded-full p-[2px] bg-gradient-to-tr from-orange-400 via-orange-200 to-white shadow-lg">
+<div class="w-full h-full rounded-full border-[2px] border-white bg-white overflow-hidden">
+<div class="w-full h-full bg-cover bg-center group-active:scale-110 transition-transform duration-300" style='background-image: url("https://images.unsplash.com/photo-1505252585461-04db1eb84625?auto=format&fit=crop&w=500&h=500&q=80");'></div>
+</div>
+</div>
+<span class="text-[10px] font-bold text-slate-700 uppercase tracking-wide">Protein</span>
+</div>
+<div class="flex flex-col items-center gap-1.5 min-w-[72px] group">
+<div class="size-[72px] rounded-full p-[2px] bg-gradient-to-tr from-orange-400 via-orange-200 to-white shadow-lg">
+<div class="w-full h-full rounded-full border-[2px] border-white bg-white overflow-hidden">
+<div class="w-full h-full bg-cover bg-center group-active:scale-110 transition-transform duration-300" style='background-image: url("https://images.unsplash.com/photo-1497534446932-c925b458314e?auto=format&fit=crop&w=500&h=500&q=80");'></div>
+</div>
+</div>
+<span class="text-[10px] font-bold text-slate-700 uppercase tracking-wide">Offers</span>
+</div>
+</div>
+</div>
+<div class="sticky top-20 z-40 bg-background-light/95 backdrop-blur-md py-3 border-b border-orange-100/50 mb-4">
+<div class="flex gap-2 px-4 overflow-x-auto no-scrollbar">
+<div class="filter-btn flex h-9 shrink-0 items-center justify-center rounded-full bg-black px-5 shadow-lg active:scale-95 transition-transform cursor-pointer active" data-filter="all">
+<p class="text-white text-xs font-bold">All</p>
+</div>
+<div class="filter-btn flex h-9 shrink-0 items-center justify-center rounded-full bg-white px-5 border border-orange-100 shadow-sm text-slate-800 font-bold text-xs active:scale-95 transition-transform cursor-pointer hover:bg-orange-50" data-filter="pure">
+<p>Pure Juice</p>
+</div>
+<div class="filter-btn flex h-9 shrink-0 items-center justify-center rounded-full bg-white px-5 border border-orange-100 shadow-sm text-slate-800 font-bold text-xs active:scale-95 transition-transform cursor-pointer hover:bg-orange-50" data-filter="creamy">
+<p>Cream Blends</p>
+</div>
+<div class="filter-btn flex h-9 shrink-0 items-center justify-center rounded-full bg-white px-5 border border-orange-100 shadow-sm text-slate-800 font-bold text-xs active:scale-95 transition-transform cursor-pointer hover:bg-orange-50" data-filter="shots">
+<p>Shots</p>
+</div>
+</div>
+</div>
+<div id="product-list" class="px-4 grid grid-cols-1 gap-3 pb-32">
+        <!-- Products will be rendered here by script.js -->
+    </div>
+</div>
+</div>
+    <!-- Hardcoded Nav Bar for Immediate Visibility -->
+<nav class="standard-nav-bar bg-white dark:bg-[#2a1e19] border-t border-gray-100 dark:border-white/5 shadow-[0_-4px_20px_rgba(0,0,0,0.1)] backdrop-blur-md h-[55px] flex items-stretch justify-between px-6 fixed bottom-0 left-0 right-0 z-50 max-w-[390px] mx-auto">
+    <button onclick="window.location.href='../swiggy-style_elite_main_menu_390x2500/index.html'" class="flex-1 flex flex-col items-center justify-center gap-0.5 text-gray-600 dark:text-gray-300 hover:text-primary transition-colors">
+        <span class="material-symbols-outlined text-[22px]">home</span>
+        <span class="text-[10px] font-bold uppercase tracking-widest">Home</span>
+    </button>
+    <button onclick="window.location.href='../swiggy-style_elite_main_menu_390x2500/index.html#explore'" class="flex-1 flex flex-col items-center justify-center gap-0.5 text-gray-600 dark:text-gray-300 hover:text-primary transition-colors">
+        <span class="material-symbols-outlined text-[22px]">category</span>
+        <span class="text-[10px] font-bold uppercase tracking-widest">Explore</span>
+    </button>
+    <button onclick="window.location.href='../order_success_page/index.html'" class="relative flex-1 flex flex-col items-center justify-center gap-0.5 text-gray-600 dark:text-gray-300 hover:text-primary transition-colors">
+        <span class="material-symbols-outlined text-[22px]">shopping_cart</span>
+        <span class="text-[10px] font-bold uppercase tracking-widest">Cart</span>
+        <span id="global-cart-count" class="absolute -top-1 right-4 bg-primary text-white text-[10px] font-bold px-1.5 py-[2px] rounded-full hidden">0</span>
+    </button>
+    <button onclick="alert('Profile feature coming soon')" class="flex-1 flex flex-col items-center justify-center gap-0.5 text-gray-600 dark:text-gray-300 hover:text-primary transition-colors">
+        <span class="material-symbols-outlined text-[22px]">person</span>
+        <span class="text-[10px] font-bold uppercase tracking-widest">Profile</span>
+    </button>
+</nav>
+    <!-- Navigation Bar -->
+    <script src="script.js"></script>
+    <script src="../nav-bar.js?v=9"></script>
+</body>
+</html>

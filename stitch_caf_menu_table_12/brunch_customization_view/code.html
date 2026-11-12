@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Brunch Customization - Artisanal Avocado Toast</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Playfair+Display:wght@700&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#FF6600",
+                        "background-light": "#F8F9FA",
+                        "background-dark": "#121212",
+                    },
+                    fontFamily: {
+                        display: ["Plus Jakarta Sans", "sans-serif"],
+                        serif: ["Playfair Display", "serif"],
+                    },
+                    borderRadius: {
+                        DEFAULT: "16px",
+                    },
+                },
+            },
+        };
+    </script>
+<style>
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<style>
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="font-display bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 antialiased overflow-x-hidden">
+<div class="relative max-w-[390px] min-h-screen mx-auto bg-white dark:bg-zinc-900 shadow-2xl overflow-hidden">
+<div class="relative h-[300px] w-full overflow-hidden">
+<img alt="Artisanal Avocado Toast with poached egg" class="w-full h-full object-cover transform scale-105 hover:scale-100 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDqV07TEiWkbkV2UmSxFhvhZ00KVvCBdjh-kWCdmKzCR7q5DDxnMHR-94xBMH368QrF80GNqT3QL_9tW_YxEJzMCrADMXFOrifcsWl2NKTC7Lla-rE168kG0KrkMfATPiaeXyVNoKmWYu9CZLX9PV02pC3sBRj6UP4UdpQKvqlehFH9_88ike95JgDXjkPRgMvU3duceHePL0UFnaZMxShy-JEK-4MB7PnyEYgJ-XDDo1UEz_vGlDcR3Z4YL-dmG8bJ_TYNNbkFwBc"/>
+<div class="absolute top-12 left-4 right-4 flex justify-between items-center">
+<button class="w-9 h-9 flex items-center justify-center rounded-full bg-white/90 dark:bg-black/40 backdrop-blur-md shadow-lg text-slate-800 dark:text-white">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+<button class="w-9 h-9 flex items-center justify-center rounded-full bg-white/90 dark:bg-black/40 backdrop-blur-md shadow-lg text-slate-800 dark:text-white">
+<span class="material-symbols-outlined text-[20px]">share</span>
+</button>
+</div>
+</div>
+<div class="relative -mt-12 mx-4 p-5 bg-white dark:bg-zinc-800 rounded-3xl shadow-xl border border-slate-100 dark:border-zinc-700 z-10">
+<div class="flex justify-between items-start mb-2">
+<h1 class="font-serif text-[28px] font-bold tracking-tight leading-tight text-slate-900 dark:text-white max-w-[70%]">
+                    Artisanal Avocado Toast
+                </h1>
+<div class="bg-orange-100 dark:bg-orange-500/20 px-2.5 py-1 rounded-full">
+<span class="text-primary font-bold text-base">$12.50</span>
+</div>
+</div>
+<p class="text-slate-500 dark:text-zinc-400 text-sm leading-snug">
+                Thick sourdough, hand-mashed hass avocado, chili flakes, radish, and fresh micro-greens.
+            </p>
+</div>
+<div class="pb-32 px-4 pt-6 space-y-8"> 
+<section>
+<div class="flex items-center justify-between mb-3">
+<div class="flex items-center gap-2">
+<div class="w-1 h-5 bg-orange-500 rounded-full"></div>
+<h2 class="text-[20px] font-bold text-slate-800 dark:text-zinc-200">Choose Bread</h2>
+</div>
+<span class="text-[10px] font-bold bg-slate-100 dark:bg-zinc-800 text-slate-500 dark:text-zinc-400 px-2 py-0.5 rounded uppercase">Required</span>
+</div>
+<div class="grid grid-cols-3 gap-3">
+<div class="flex flex-col items-center p-3 rounded-[20px] bg-orange-50 dark:bg-orange-500/10 border-2 border-primary shadow-sm">
+<span class="material-symbols-outlined text-primary text-2xl mb-1">bakery_dining</span>
+<span class="text-[11px] font-bold text-primary">Sourdough</span>
+</div>
+<div class="flex flex-col items-center p-3 rounded-[20px] bg-slate-50 dark:bg-zinc-800 border-2 border-transparent hover:border-slate-200 dark:hover:border-zinc-700 transition-all">
+<span class="material-symbols-outlined text-slate-400 dark:text-zinc-500 text-2xl mb-1">grain</span>
+<span class="text-[11px] font-semibold text-slate-600 dark:text-zinc-400">Rye</span>
+</div>
+<div class="flex flex-col items-center p-3 rounded-[20px] bg-slate-50 dark:bg-zinc-800 border-2 border-transparent hover:border-slate-200 dark:hover:border-zinc-700 transition-all">
+<span class="material-symbols-outlined text-slate-400 dark:text-zinc-500 text-2xl mb-1">energy_savings_leaf</span>
+<span class="text-[11px] font-semibold text-slate-600 dark:text-zinc-400 text-center leading-tight">Gluten-Free</span>
+</div>
+</div>
+</section>
+<section>
+<div class="flex items-center gap-2 mb-3">
+<div class="w-1 h-5 bg-blue-500 rounded-full"></div>
+<h2 class="text-[20px] font-bold text-slate-800 dark:text-zinc-200">Add Toppings</h2>
+</div>
+<div class="space-y-2"> 
+<div class="flex items-center justify-between p-3 bg-white dark:bg-zinc-800/50 rounded-2xl border border-slate-100 dark:border-zinc-700 shadow-sm">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-lg bg-yellow-100 dark:bg-yellow-500/20 flex items-center justify-center text-yellow-600">
+<span class="material-symbols-outlined text-[20px]">egg_alt</span>
+</div>
+<div>
+<p class="text-[16px] font-semibold text-slate-800 dark:text-zinc-200 leading-none mb-0.5">Poached Egg</p>
+<p class="text-xs text-slate-400">+$2.00</p>
+</div>
+</div>
+<div class="w-5 h-5 rounded-full border-2 border-primary bg-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-white text-[14px]">check</span>
+</div>
+</div>
+<div class="flex items-center justify-between p-3 bg-white dark:bg-zinc-800/50 rounded-2xl border border-slate-100 dark:border-zinc-700 shadow-sm">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-lg bg-red-100 dark:bg-red-500/20 flex items-center justify-center text-red-600">
+<span class="material-symbols-outlined text-[20px]">set_meal</span>
+</div>
+<div>
+<p class="text-[16px] font-semibold text-slate-800 dark:text-zinc-200 leading-none mb-0.5">Smoked Salmon</p>
+<p class="text-xs text-slate-400">+$4.50</p>
+</div>
+</div>
+<div class="w-5 h-5 rounded-full border-2 border-slate-200 dark:border-zinc-600"></div>
+</div>
+<div class="flex items-center justify-between p-3 bg-white dark:bg-zinc-800/50 rounded-2xl border border-slate-100 dark:border-zinc-700 shadow-sm">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-lg bg-green-100 dark:bg-green-500/20 flex items-center justify-center text-green-600">
+<span class="material-symbols-outlined text-[20px]">eco</span>
+</div>
+<div>
+<p class="text-[16px] font-semibold text-slate-800 dark:text-zinc-200 leading-none mb-0.5">Extra Avocado</p>
+<p class="text-xs text-slate-400">+$3.00</p>
+</div>
+</div>
+<div class="w-5 h-5 rounded-full border-2 border-slate-200 dark:border-zinc-600"></div>
+</div>
+</div>
+</section>
+<section>
+<div class="flex items-center gap-2 mb-3">
+<div class="w-1 h-5 bg-pink-500 rounded-full"></div>
+<h2 class="text-[20px] font-bold text-slate-800 dark:text-zinc-200">Perfect Pairings</h2>
+</div>
+<div class="flex gap-3 overflow-x-auto no-scrollbar -mx-4 px-4">
+<div class="min-w-[160px] bg-white dark:bg-zinc-800 rounded-2xl border border-slate-100 dark:border-zinc-700 overflow-hidden shadow-sm">
+<img alt="Iced Latte" class="h-24 w-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCd1r2qCXF3xcecdbNkVPdKO1AtbnY4L_MKM6Lxj8rXhckDLkhr5TplOWsE4PLVPjInWQeIOxqUyXFvaT8eOl1WFHw2SI30i2c8_5m4x4LMOveS66ge5L2t9eO0faD61ci2uZBy_QJFWgjkogIsV7KKzH1Hmrel4cGo36s0mDfMC9cin2JsCRUBTBzCnnurzcd-27-OlmA18GIuUx9Rix1_RXxcCxB9zdI6GdKdVhLGtHNx-sRqyoN4TWbG5o8GZg6Eew1r_7pF8OA"/>
+<div class="p-2.5">
+<p class="font-semibold text-sm text-slate-800 dark:text-zinc-200 truncate">Iced Oat Latte</p>
+<div class="flex justify-between items-center mt-1">
+<span class="text-primary font-bold text-xs">$5.50</span>
+<button class="w-6 h-6 rounded-full bg-slate-100 dark:bg-zinc-700 flex items-center justify-center">
+<span class="material-symbols-outlined text-slate-600 dark:text-zinc-300 text-sm">add</span>
+</button>
+</div>
+</div>
+</div>
+<div class="min-w-[160px] bg-white dark:bg-zinc-800 rounded-2xl border border-slate-100 dark:border-zinc-700 overflow-hidden shadow-sm">
+<img alt="Fresh OJ" class="h-24 w-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDpG1NqnebwcDo2xvUWUIXfDb_q7P59u7XKkSbVUk5HER25-c-rYvdqjRUrA6FxqtyF1BbX0iStFfS_HIG69S5AUcQ14KR3YHd0BODYcv7UxBRBIJZSj4LOF4jw4Z-g-lG9TzrgNSgdfQ5DcrFaLxUX9j5R05_eWhluZDgE5QaDVs2kanJXID74C8RwPJpKBtjo7FVc6-Zn9aQA-ihtYbepDFHDIVDtJTljMm8XlKwr5CkK8jPH0v75c6eRvTKWgLag4wJHisgRZ0M"/>
+<div class="p-2.5">
+<p class="font-semibold text-sm text-slate-800 dark:text-zinc-200 truncate">Freshly Squeezed OJ</p>
+<div class="flex justify-between items-center mt-1">
+<span class="text-primary font-bold text-xs">$4.50</span>
+<button class="w-6 h-6 rounded-full bg-slate-100 dark:bg-zinc-700 flex items-center justify-center">
+<span class="material-symbols-outlined text-slate-600 dark:text-zinc-300 text-sm">add</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+<div class="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[390px] px-4 pb-6 pt-3 bg-white/90 dark:bg-zinc-900/90 backdrop-blur-xl border-t border-slate-100 dark:border-zinc-800 z-50">
+<div class="flex items-center gap-3">
+<div class="flex items-center bg-slate-100 dark:bg-zinc-800 p-1 rounded-[14px]">
+<button class="w-9 h-9 flex items-center justify-center rounded-[10px] bg-white dark:bg-zinc-700 shadow-sm text-slate-700 dark:text-white">
+<span class="material-symbols-outlined text-[18px]">remove</span>
+</button>
+<span class="px-4 font-bold text-lg text-slate-800 dark:text-white">1</span>
+<button class="w-9 h-9 flex items-center justify-center rounded-[10px] bg-white dark:bg-zinc-700 shadow-sm text-slate-700 dark:text-white">
+<span class="material-symbols-outlined text-[18px]">add</span>
+</button>
+</div>
+<button class="flex-1 bg-primary hover:bg-orange-600 text-white flex items-center justify-between h-[48px] px-5 rounded-[14px] shadow-lg shadow-orange-500/30 transition-all active:scale-95">
+<span class="font-bold uppercase tracking-tight text-sm">Add To Order</span>
+<div class="h-4 w-px bg-white/20"></div>
+<span class="font-bold text-sm">$14.50</span>
+</button>
+</div>
+</div>
+</div>
+
+</body></html>

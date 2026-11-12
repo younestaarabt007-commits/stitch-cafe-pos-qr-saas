@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carousel Auto-Scroll Test</title>
+    <style>
+        .carousel-container {
+            width: 100%;
+            overflow-x: auto;
+            display: flex;
+            gap: 16px;
+            padding: 20px;
+            border: 2px solid blue;
+            scroll-behavior: smooth;
+        }
+        .carousel-item {
+            min-width: 300px;
+            height: 200px;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+        .status {
+            padding: 20px;
+            background: #f0f0f0;
+            margin: 20px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Automatic Carousel Test</h1>
+    <div class="status" id="status">Status: Starting...</div>
+    <div class="carousel-container" id="test-carousel">
+        <div class="carousel-item">Card 1</div>
+        <div class="carousel-item">Card 2</div>
+        <div class="carousel-item">Card 3</div>
+        <div class="carousel-item">Card 4</div>
+        <div class="carousel-item">Card 5</div>
+    </div>
+    <p>Watch the automatic scrolling with 0.5s pause between transitions!</p>
+
+    <script>
+        function testAutoCarousel() {
+            const container = document.getElementById('test-carousel');
+            const status = document.getElementById('status');
+            let currentCardIndex = 0;
+            let autoScrollInterval;
+
+            function scrollToCard(index) {
+                const cards = container.children;
+                if (index >= cards.length) {
+                    currentCardIndex = 0;
+                    container.scrollTo({ left: 0, behavior: 'smooth' });
+                    status.textContent = `Status: Scrolling to Card 1 (loop restart)`;
+                } else {
+                    const cardWidth = cards[0].offsetWidth + 16; // + gap
+                    const targetScroll = index * cardWidth;
+                    container.scrollTo({ left: targetScroll, behavior: 'smooth' });
+                    status.textContent = `Status: Scrolling to Card ${index + 1}`;
+                }
+            }
+
+            function startAutoScroll() {
+                autoScrollInterval = setInterval(() => {
+                    const totalCards = container.children.length;
+                    currentCardIndex = (currentCardIndex + 1) % totalCards;
+                    
+                    // Wait 0.5 seconds before scrolling to next card
+                    setTimeout(() => {
+                        scrollToCard(currentCardIndex);
+                    }, 500);
+                }, 3500); // Total cycle: 3.5s (3s display + 0.5s pause)
+            }
+
+            // Start the automatic carousel
+            status.textContent = 'Status: Auto-scrolling started!';
+            startAutoScroll();
+        }
+
+        // Start after page loads
+        document.addEventListener('DOMContentLoaded', testAutoCarousel);
+    </script>
+</body>
+</html>

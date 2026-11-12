@@ -1,0 +1,102 @@
+/* Mesh Gradient Background */
+.mesh-gradient {
+    background-color: #f8f7f5;
+    background-image: 
+        radial-gradient(at 50% 50%, rgba(249, 127, 26, 0.08) 0px, transparent 50%),
+        radial-gradient(at 80% 20%, rgba(35, 24, 15, 0.05) 0px, transparent 50%);
+}
+.dark .mesh-gradient {
+    background-color: #23180f;
+    background-image: 
+        radial-gradient(at 50% 50%, rgba(249, 127, 26, 0.15) 0px, transparent 50%),
+        radial-gradient(at 0% 0%, rgba(0, 0, 0, 0.4) 0px, transparent 50%);
+}
+
+/* Glossy Effect for Buttons */
+.gloss-effect {
+    background: linear-gradient(180deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 50%, rgba(0,0,0,0.05) 100%);
+}
+
+/* Base Body Styles */
+body {
+    min-height: 100vh;
+    /* Use dvh for mobile browsers where address bar changes height */
+    min-height: 100dvh; 
+}
+
+/* Floating Animations */
+@keyframes float {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-10px) rotate(2deg); }
+}
+
+@keyframes float-slow {
+    0%, 100% { transform: translate(-50%, -50%) rotate(-15deg) translateY(0px); }
+    50% { transform: translate(-50%, -50%) rotate(-12deg) translateY(-8px); }
+}
+
+@keyframes float-medium {
+    0%, 100% { transform: translateY(0px) scale(1); }
+    50% { transform: translateY(-6px) scale(1.05); }
+}
+
+@keyframes float-fast {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-4px); }
+}
+
+.floating-slow {
+    animation: float-slow 6s ease-in-out infinite;
+}
+
+.floating-medium {
+    animation: float-medium 4s ease-in-out infinite;
+}
+
+.floating-fast {
+    animation: float-fast 3s ease-in-out infinite;
+}
+
+/* Slide Up Fade In Animation */
+@keyframes slideUpFade {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.slide-up-fade {
+    opacity: 0;
+    animation: slideUpFade 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.delay-100 { animation-delay: 0.1s; }
+.delay-200 { animation-delay: 0.2s; }
+.delay-300 { animation-delay: 0.3s; }
+.delay-400 { animation-delay: 0.4s; }
+.delay-500 { animation-delay: 0.5s; }
+
+/* Interactive States */
+.card-hover:hover {
+    transform: rotate(0deg) scale(1.02);
+}
+
+/* Material Symbols Font Variation Settings for Active State */
+.material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    transition: font-variation-settings 0.3s ease;
+}
+
+.active-nav .material-symbols-outlined {
+    font-variation-settings: 'FILL' 1, 'wght' 500, 'GRAD' 0, 'opsz' 24;
+}
+
+/* Scrollbar Hiding */
+::-webkit-scrollbar {
+    width: 0px;
+    background: transparent;
+}

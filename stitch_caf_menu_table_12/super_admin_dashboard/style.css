@@ -1,0 +1,74 @@
+body {
+    background-color: #f8f6f5;
+}
+
+.dark body {
+    background-color: #1a100c;
+}
+
+.shadow-glow {
+    box-shadow: 0 0 20px rgba(255, 82, 0, 0.35);
+}
+
+:root {
+    --color-primary: #FF5200;
+}
+.theme-blue {
+    --color-primary: #2563EB;
+}
+.theme-emerald {
+    --color-primary: #10B981;
+}
+.text-primary {
+    color: var(--color-primary) !important;
+}
+.bg-primary {
+    background-color: var(--color-primary) !important;
+}
+.border-primary {
+    border-color: var(--color-primary) !important;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #e2e8f0;
+    border-radius: 10px;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+    background: #2a1e19;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #cbd5e1;
+}
+
+/* Custom classes */
+.glass-card {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.dark .glass-card {
+    background: rgba(42, 30, 25, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Ensure tab contents are hidden by default, shown by JS */
+/* Animation removed for stability */
+.tab-content {
+    /* No default display:none here, relying on inline styles */
+}
+
+.tab-content.block {
+    display: block !important;
+}

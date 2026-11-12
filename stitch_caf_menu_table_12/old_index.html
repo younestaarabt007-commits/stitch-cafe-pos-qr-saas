@@ -1,0 +1,456 @@
+﻿<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Elite Main Menu � Stitch Caf� (Updated)</title>
+  <meta name="version" content="1.1">
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css?v=7"/>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            primary: "#FF5200",
+            "background-light": "#f8f6f5",
+            "background-dark": "#1a100c"
+          },
+          fontFamily: {
+            sans: ["Plus Jakarta Sans", "sans-serif"],
+            serif: ["Instrument Serif", "serif"]
+          },
+          boxShadow: {
+            glow: "0 0 20px rgba(255, 82, 0, 0.35)"
+          }
+        }
+      }
+    };
+  </script>
+</head>
+<body class="mesh-bg min-h-screen font-sans text-gray-900 dark:text-white pb-32">
+  <div class="relative mx-auto w-full max-w-7xl min-h-screen flex flex-col overflow-hidden">
+    <header class="bg-primary pt-2 pb-6 shadow-xl relative z-20 rounded-b-[2.5rem] md:rounded-b-[3rem]">
+      <div class="flex items-center justify-between px-4 md:px-8 mb-2 text-white">
+        <div class="flex items-center gap-2 bg-white text-black px-3 py-1.5 rounded-full shadow-lg">
+          <span class="material-symbols-outlined text-[18px] text-[#FFC107]">restaurant</span>
+          <span class="text-xs font-bold tracking-wide" data-i18n="table_12">Table 12</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <!-- Language Toggle -->
+          <div id="language-toggle" class="language-toggle scale-75 ltr:origin-right rtl:origin-left lang-en">
+              <div class="toggle-switch">
+                  <span class="slider"></span>
+              </div>
+              <span id="current-language" class="hidden md:inline-block">English</span>
+          </div>
+          <a href="https://www.bing.com/maps/search?FORM=HDRSC6&q=aposto+restaurant+rabat&cp=33.967154%7E-6.846021&lvl=11.8&style=r" target="_blank" class="flex items-center gap-1 bg-white/10 backdrop-blur-sm px-2 py-1 rounded-full border border-white/20 cursor-pointer hover:bg-white/20 transition-all text-white hover:text-white decoration-none">
+            <div class="loader scale-[0.4] origin-center -ml-3 -mr-3 rtl:-mr-3 rtl:-ml-3"></div>
+            <span class="text-xs font-semibold truncate max-w-[120px]" data-i18n="stitch_cafe">Stitch Caf�</span>
+            <span class="material-symbols-outlined text-[14px]">expand_more</span>
+          </a>
+          <div class="shrink-0">
+            <img src="assets/waiter.jpg" class="w-11 h-11 rounded-full object-cover border-2 border-white/20 shadow-lg" alt="Waiter">
+          </div>
+        </div>
+      </div>
+      <div class="px-4 md:px-8 relative z-20 flex flex-col gap-5 mb-4">
+        <div class="relative group w-full mt-4">
+          <div class="absolute inset-y-0 start-0 ps-3 flex items-center pointer-events-none z-10">
+            <span class="material-symbols-outlined text-gray-500 text-[18px]">search</span>
+          </div>
+          <input id="search-input" class="block w-full ps-10 pe-10 py-2.5 bg-white border-transparent rounded-xl text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:bg-white shadow-lg transition-all font-medium text-xs relative z-0 rtl:text-right" placeholder="Search..." data-i18n-placeholder="search_placeholder" type="text"/>
+        </div>
+        <div class="flex items-center justify-between gap-3">
+          <div class="flex items-center gap-2">
+            <button class="header-btn flex items-center gap-1.5 bg-white text-black px-3 py-1.5 rounded-full text-xs font-semibold shadow-lg">
+              <span class="material-symbols-outlined text-[14px] text-[#FFC107]">local_dining</span>
+              <span data-i18n="dine_in">Dine In</span>
+            </button>
+            <button class="header-btn flex items-center gap-1.5 bg-white text-black px-3 py-1.5 rounded-full text-xs font-semibold shadow-lg">
+              <span class="material-symbols-outlined text-[14px] text-[#FFC107]">takeout_dining</span>
+              <span data-i18n="take_away">Take Away</span>
+            </button>
+          </div>
+          <div class="shrink-0">
+            <button class="bg-white/20 p-2 rounded-full backdrop-blur-sm flex items-center justify-center hover:bg-white/30 transition-all relative shadow-lg">
+              <img src="assets/bell_icon.png" class="w-7 h-7 object-contain" alt="Notifications">
+              <div class="notification-badge absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full border-2 border-primary"></div>
+            </button>
+          </div>
+        </div>
+      </div>
+      
+    </header>
+
+    <section class="relative pt-4 pb-6 flex flex-col z-10 bg-background-light dark:bg-background-dark shadow-[0_-10px_40px_rgba(0,0,0,0.1)]">
+      <!-- Hero Card Carousel -->
+      <div id="hero-carousel" class="w-full mt-auto relative pt-0">
+        <div class="flex overflow-x-auto snap-x snap-mandatory hide-scrollbar gap-4 px-[25px] pb-4">
+          <!-- Card 0: Brunch Special -->
+          <div class="w-[85vw] sm:w-[340px] md:w-[45%] lg:w-[32%] h-[160px] flex-shrink-0 snap-center bg-gradient-to-br from-green-50 to-emerald-100 dark:from-green-900/30 dark:to-emerald-800/40 rounded-2xl p-4 shadow-xl relative overflow-hidden border border-white/20 backdrop-blur-sm">
+            <div class="relative z-10 flex h-full justify-between items-center">
+              <div class="flex flex-col items-start justify-center h-full w-[60%]">
+                <div class="flex items-center gap-1 mb-1">
+                  <span class="bg-green-200 dark:bg-green-700/60 text-green-700 dark:text-green-300 text-[9px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider" data-i18n="chefs_choice">Chef's Choice</span>
+                  <span class="bg-purple-200 dark:bg-purple-700/60 text-purple-700 dark:text-purple-300 text-[8px] font-bold px-1.5 py-0.5 rounded-full" data-i18n="no1_seller">N�1 seller</span>
+                </div>
+                <h1 class="font-serif italic font-bold text-xl leading-none text-green-900 dark:text-white mt-1 uppercase tracking-tight"><span data-i18n="brunch">BRUNCH</span><br><span class="text-green-600 dark:text-green-400" data-i18n="favorites">FAVORITES</span></h1>
+                <p class="text-[10px] text-green-800/80 dark:text-green-200/80 mt-1" data-i18n="savory_brunch">Savory brunch classics.</p>
+                <div class="flex items-center gap-1 mt-2 mb-2">
+                  <div class="flex items-center gap-0.5">
+                    <span class="material-symbols-outlined text-[#FFC107] text-[12px]">star</span>
+                    <span class="text-[10px] font-bold text-green-800 dark:text-green-200">4.8</span>
+                  </div>
+                  <span class="text-[9px] text-green-600 dark:text-green-400">(2.3k+)</span>
+                </div>
+
+              </div>
+            </div>
+            <div class="absolute -right-4 -bottom-4 w-40 h-40 transform hover:scale-110 transition-transform duration-500">
+              <img alt="Brunch Special" class="w-full h-full object-contain drop-shadow-2xl hero-card-image" src="assets/hero-full-english.png" onerror="this.src='assets/hero-omelette.png'"/>
+            </div>
+            <div class="absolute top-3 right-3 bg-white/20 dark:bg-white/10 backdrop-blur-sm rounded-full p-1.5">
+              <span class="material-symbols-outlined text-green-600 dark:text-green-400 text-[16px]">favorite</span>
+            </div>
+          </div>
+
+          <!-- Card 1: Velvet Sips -->
+          <div class="w-[340px] h-[160px] flex-shrink-0 snap-center bg-gradient-to-br from-amber-50 to-orange-100 dark:from-amber-900/30 dark:to-orange-800/40 rounded-2xl p-4 shadow-xl relative overflow-hidden border border-white/20 backdrop-blur-sm">
+            <div class="relative z-10 flex h-full justify-between items-center">
+              <div class="flex flex-col items-start justify-center h-full w-[60%]">
+                <div class="flex items-center gap-1 mb-1">
+                  <span class="bg-amber-200 dark:bg-amber-700/60 text-amber-700 dark:text-amber-300 text-[9px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider" data-i18n="new_arrival">New Arrival</span>
+                  <span class="bg-red-500 text-white text-[8px] font-bold px-1.5 py-0.5 rounded-full" data-i18n="hot">?? Hot</span>
+                </div>
+                <h1 class="font-serif italic font-bold text-xl leading-none text-amber-900 dark:text-white mt-1 uppercase tracking-tight"><span data-i18n="velvet">VELVET</span><br><span class="text-amber-600 dark:text-amber-400" data-i18n="sips">SIPS</span></h1>
+                <p class="text-[10px] text-amber-800/80 dark:text-amber-200/80 mt-1" data-i18n="smooth_iced_blends">Smooth iced blends.</p>
+                <div class="flex items-center gap-1 mt-2 mb-2">
+                  <div class="flex items-center gap-0.5">
+                    <span class="material-symbols-outlined text-[#FFC107] text-[12px]">star</span>
+                    <span class="text-[10px] font-bold text-amber-800 dark:text-amber-200">4.9</span>
+                  </div>
+                  <span class="text-[9px] text-amber-600 dark:text-amber-400">(1.8k+)</span>
+                </div>
+
+              </div>
+            </div>
+            <div class="absolute -right-4 -bottom-4 w-40 h-40 transform hover:scale-110 transition-transform duration-500">
+              <img alt="Velvet Sips" class="w-full h-full object-contain drop-shadow-2xl hero-card-image" src="assets/hero-scrambled-eggs.png" onerror="this.src='assets/hero-omelette.png'"/>
+            </div>
+            <div class="absolute top-3 right-3 bg-white/20 dark:bg-white/10 backdrop-blur-sm rounded-full p-1.5">
+              <span class="material-symbols-outlined text-amber-600 dark:text-amber-400 text-[16px]">favorite</span>
+            </div>
+          </div>
+
+          <!-- Card 2: Morning Brew -->
+          <div class="w-[340px] h-[160px] flex-shrink-0 snap-center bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-900/30 dark:to-blue-800/40 rounded-2xl p-4 shadow-xl relative overflow-hidden border border-white/20 backdrop-blur-sm">
+            <div class="relative z-10 flex h-full justify-between items-center">
+              <div class="flex flex-col items-start justify-center h-full w-[60%]">
+                <div class="flex items-center gap-1 mb-1">
+                  <span class="bg-blue-200 dark:bg-blue-700/60 text-blue-700 dark:text-blue-300 text-[9px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider" data-i18n="morning_special">Morning Special</span>
+                  <span class="bg-cyan-200 dark:bg-cyan-700/60 text-cyan-700 dark:text-cyan-300 text-[8px] font-bold px-1.5 py-0.5 rounded-full" data-i18n="trend">Trend</span>
+                </div>
+                <h1 class="font-serif italic font-bold text-xl leading-none text-blue-900 dark:text-white mt-1 uppercase tracking-tight"><span data-i18n="morning">MORNING</span><br><span class="text-blue-600 dark:text-blue-400" data-i18n="brew">BREW</span></h1>
+                <p class="text-[10px] text-blue-800/80 dark:text-blue-200/80 mt-1" data-i18n="freshly_brewed_coffee">Freshly brewed coffee.</p>
+                <div class="flex items-center gap-1 mt-2 mb-2">
+                  <div class="flex items-center gap-0.5">
+                    <span class="material-symbols-outlined text-[#FFC107] text-[12px]">star</span>
+                    <span class="text-[10px] font-bold text-blue-800 dark:text-blue-200">4.7</span>
+                  </div>
+                  <span class="text-[9px] text-blue-600 dark:text-blue-400">(3.1k+)</span>
+                </div>
+
+              </div>
+            </div>
+            <div class="absolute -right-4 -bottom-4 w-40 h-40 transform hover:scale-110 transition-transform duration-500">
+              <img alt="Morning Brew" class="w-full h-full object-contain drop-shadow-2xl hero-card-image" src="assets/hero-omelette.png" onerror="this.src='assets/hero-scrambled-eggs.png'"/>
+            </div>
+            <div class="absolute top-3 right-3 bg-white/20 dark:bg-white/10 backdrop-blur-sm rounded-full p-1.5">
+              <span class="material-symbols-outlined text-blue-600 dark:text-blue-400 text-[16px]">favorite</span>
+            </div>
+          </div>
+
+          <!-- Card 3: Sweet Delights -->
+          <div class="w-[85vw] sm:w-[340px] md:w-[45%] lg:w-[32%] h-[160px] flex-shrink-0 snap-center bg-gradient-to-br from-pink-50 to-rose-100 dark:from-pink-900/30 dark:to-rose-800/40 rounded-2xl p-4 shadow-xl relative overflow-hidden border border-white/20 backdrop-blur-sm">
+            <div class="relative z-10 flex h-full justify-between items-center">
+              <div class="flex flex-col items-start justify-center h-full w-[60%]">
+                <div class="flex items-center gap-1 mb-1">
+                  <span class="bg-green-200 dark:bg-green-700/60 text-green-700 dark:text-green-300 text-[9px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider" data-i18n="sweet_treats">Sweet Treats</span>
+                  <span class="bg-yellow-400 text-yellow-900 text-[8px] font-bold px-1.5 py-0.5 rounded-full" data-i18n="popular">? Popular</span>
+                </div>
+                <h1 class="font-serif italic font-bold text-xl leading-none text-pink-900 dark:text-white mt-1 uppercase tracking-tight"><span data-i18n="sweet">SWEET</span><br><span class="text-green-600 dark:text-green-400" data-i18n="delights">DELIGHTS</span></h1>
+                <p class="text-[10px] text-green-800/80 dark:text-green-200/80 mt-1" data-i18n="fluffy_pancakes">Fluffy pancakes, sweet treats.</p>
+                <div class="flex items-center gap-1 mt-2 mb-2">
+                  <div class="flex items-center gap-0.5">
+                    <span class="material-symbols-outlined text-[#FFC107] text-[12px]">star</span>
+                    <span class="text-[10px] font-bold text-green-800 dark:text-green-200">4.9</span>
+                  </div>
+                  <span class="text-[9px] text-green-600 dark:text-green-400">(4.2k+)</span>
+                </div>
+
+              </div>
+            </div>
+            <div class="absolute -right-4 -bottom-4 w-40 h-40 transform hover:scale-110 transition-transform duration-500">
+              <img alt="Sweet Delights" class="w-full h-full object-contain drop-shadow-2xl hero-card-image" src="assets/hero-pancakes.png"/>
+            </div>
+            <div class="absolute top-3 right-3 bg-white/20 dark:bg-white/10 backdrop-blur-sm rounded-full p-1.5">
+              <span class="material-symbols-outlined text-green-600 dark:text-green-400 text-[16px]">favorite</span>
+            </div>
+          </div>
+    </section>
+
+    <div class="bg-background-light dark:bg-background-dark mt-0 pt-0 pb-4 relative z-0">
+    <section class="">
+      <div class="px-4 md:px-8 mb-0 flex items-center justify-between max-w-7xl mx-auto w-full">
+        <h3 class="text-lg md:text-xl font-bold text-gray-900 dark:text-white uppercase tracking-tight" data-i18n="explore">Explore</h3>
+        <span class="text-primary text-xs font-extrabold uppercase tracking-wider cursor-pointer" data-i18n="view_all">View All</span>
+      </div>
+      <div id="explore-categories" class="flex overflow-x-auto hide-scrollbar gap-2 px-4 md:px-8 pb-0 max-w-7xl mx-auto w-full">
+        <!-- 2 Cold Drinks -->
+        <div class="flex flex-col items-center gap-2 shrink-0 cursor-pointer group" onclick="window.location.href='../milkshake sub cat�gorie page/index.html'">
+          <div class="p-[3px] rounded-full bg-gray-200 dark:bg-gray-700 group-hover:bg-primary transition-all">
+            <div class="bg-white dark:bg-[#1a100c] p-1 rounded-full">
+              <div class="w-16 h-16 rounded-full overflow-hidden relative">
+                <img src="https://images.unsplash.com/photo-1572490122747-3968b75cc699?q=80&w=300&auto=format&fit=crop" alt="Milkshake" loading="lazy" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500" onerror="this.src='assets/Cold%20drinks.jpg'">
+              </div>
+            </div>
+          </div>
+          <p class="text-[10px] text-gray-800 dark:text-white text-center" data-i18n="milkshake">Milkshake</p>
+        </div>
+
+        <div class="flex flex-col items-center gap-2 shrink-0 cursor-pointer group" onclick="window.location.href='../juces sub cat�gorie page/index.html'">
+          <div class="p-[3px] rounded-full bg-gray-200 dark:bg-gray-700 group-hover:bg-primary transition-all">
+            <div class="bg-white dark:bg-[#1a100c] p-1 rounded-full">
+              <div class="w-16 h-16 rounded-full overflow-hidden relative">
+                <img src="https://images.unsplash.com/photo-1613478223719-2ab802602423?q=80&w=300&auto=format&fit=crop" alt="Juice" loading="lazy" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500" onerror="this.src='assets/Cold%20drinks.jpg'">
+              </div>
+            </div>
+          </div>
+          <p class="text-[10px] text-gray-800 dark:text-white text-center" data-i18n="juice">Juice</p>
+        </div>
+
+        <!-- 3 Food Items -->
+        <div class="flex flex-col items-center gap-2 shrink-0 cursor-pointer group" onclick="window.location.href='../fast food sub catégorie page/index.html'">
+          <div class="p-[3px] rounded-full bg-gray-200 dark:bg-gray-700 group-hover:bg-primary transition-all">
+            <div class="bg-white dark:bg-[#1a100c] p-1 rounded-full">
+              <div class="w-16 h-16 rounded-full overflow-hidden relative">
+                <img src="https://images.unsplash.com/photo-1558961363-fa8fdf82db35?q=80&w=300&auto=format&fit=crop" alt="Sweet Pastries" loading="lazy" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500" onerror="this.src='assets/pastry.jpg'">
+              </div>
+            </div>
+          </div>
+          <p class="text-[10px] text-gray-800 dark:text-white text-center" data-i18n="sweet_pastries">Fast Food</p>
+        </div>
+
+        <div class="flex flex-col items-center gap-2 shrink-0 cursor-pointer group" onclick="window.location.href='../toast brunch sub cat�gorie page/index.html'">
+          <div class="p-[3px] rounded-full bg-gray-200 dark:bg-gray-700 group-hover:bg-primary transition-all">
+            <div class="bg-white dark:bg-[#1a100c] p-1 rounded-full">
+              <div class="w-16 h-16 rounded-full overflow-hidden relative">
+                <img src="https://images.unsplash.com/photo-1484723091739-30a097e8f929?q=80&w=300&auto=format&fit=crop" alt="Toast" loading="lazy" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500" onerror="this.src='assets/Brunch.jpg'">
+              </div>
+            </div>
+          </div>
+          <p class="text-[10px] text-gray-800 dark:text-white text-center" data-i18n="toast">Toast</p>
+        </div>
+
+        <div class="flex flex-col items-center gap-2 shrink-0 cursor-pointer group" onclick="window.location.href='../long_scroll_brunch_explorer/index.html'">
+          <div class="p-[3px] rounded-full bg-gray-200 dark:bg-gray-700 group-hover:bg-primary transition-all">
+            <div class="bg-white dark:bg-[#1a100c] p-1 rounded-full">
+              <div class="w-16 h-16 rounded-full overflow-hidden relative">
+                <img src="https://images.unsplash.com/photo-1559622214-f8a985d3ccaa?q=80&w=300&auto=format&fit=crop" alt="Brunch" loading="lazy" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500" onerror="this.src='assets/Brunch.jpg'">
+              </div>
+            </div>
+          </div>
+          <p class="text-[10px] text-gray-800 dark:text-white text-center" data-i18n="brunch">Brunch</p>
+        </div>
+
+        <!-- 2 Brew Items -->
+        <div class="flex flex-col items-center gap-2 shrink-0 cursor-pointer group" onclick="window.location.href='../black coffee sub cat�gorie page/index.html'">
+          <div class="p-[3px] rounded-full bg-gray-200 dark:bg-gray-700 group-hover:bg-primary transition-all">
+            <div class="bg-white dark:bg-[#1a100c] p-1 rounded-full">
+              <div class="w-16 h-16 rounded-full overflow-hidden relative">
+                <img src="https://images.unsplash.com/photo-1497935586351-b67a49e012bf?q=80&w=300&auto=format&fit=crop" alt="Black Coffee" loading="lazy" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500" onerror="this.src='assets/Brew.jpg'">
+              </div>
+            </div>
+          </div>
+          <p class="text-[10px] text-gray-800 dark:text-white text-center" data-i18n="black_coffee">Black Coffee</p>
+        </div>
+
+        <div class="flex flex-col items-center gap-2 shrink-0 cursor-pointer group" onclick="window.location.href='../latt� hot drink sub cat�gorie page/index.html'">
+          <div class="p-[3px] rounded-full bg-gray-200 dark:bg-gray-700 group-hover:bg-primary transition-all">
+            <div class="bg-white dark:bg-[#1a100c] p-1 rounded-full">
+              <div class="w-16 h-16 rounded-full overflow-hidden relative">
+                <img src="https://images.unsplash.com/photo-1461023058943-07fcbe16d735?q=80&w=300&auto=format&fit=crop" alt="Latte" loading="lazy" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500" onerror="this.src='assets/Brew.jpg'">
+              </div>
+            </div>
+          </div>
+          <p class="text-[10px] text-gray-800 dark:text-white text-center" data-i18n="latte">Latte</p>
+        </div>
+
+        <!-- 2 Cold Drinks -->
+        <div class="flex flex-col items-center gap-2 shrink-0 cursor-pointer group" onclick="window.location.href='../smothie sub cat�gorie page/index.html'">
+          <div class="p-[3px] rounded-full bg-gray-200 dark:bg-gray-700 group-hover:bg-primary transition-all">
+            <div class="bg-white dark:bg-[#1a100c] p-1 rounded-full">
+              <div class="w-16 h-16 rounded-full overflow-hidden relative">
+                <img src="https://images.unsplash.com/photo-1505252585461-04db1eb84625?q=80&w=300&auto=format&fit=crop" alt="Smoothie" loading="lazy" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500" onerror="this.src='assets/Cold%20drinks.jpg'">
+              </div>
+            </div>
+          </div>
+          <p class="text-[10px] text-gray-800 dark:text-white text-center" data-i18n="smoothie">Smoothie</p>
+        </div>
+
+        <div class="flex flex-col items-center gap-2 shrink-0 cursor-pointer group" onclick="window.location.href='../tea and infusion sub cat�gorie page/index.html'">
+          <div class="p-[3px] rounded-full bg-gray-200 dark:bg-gray-700 group-hover:bg-primary transition-all">
+            <div class="bg-white dark:bg-[#1a100c] p-1 rounded-full">
+              <div class="w-16 h-16 rounded-full overflow-hidden relative">
+                <img src="https://images.unsplash.com/photo-1597481499750-3e6b22637e12?q=80&w=300&auto=format&fit=crop" alt="Tea &amp; Infusion" loading="lazy" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500" onerror="this.src='assets/Brunch.jpg'">
+              </div>
+            </div>
+          </div>
+          <p class="text-[10px] text-gray-800 dark:text-white text-center" data-i18n="tea_infusion">Tea &amp; Infusion</p>
+        </div>
+
+        <!-- 1 Food Item -->
+        <div class="flex flex-col items-center gap-2 shrink-0 cursor-pointer group" onclick="window.location.href='../artisanal bread sub cat�gorie page/index.html'">
+          <div class="p-[3px] rounded-full bg-gray-200 dark:bg-gray-700 group-hover:bg-primary transition-all">
+            <div class="bg-white dark:bg-[#1a100c] p-1 rounded-full">
+              <div class="w-16 h-16 rounded-full overflow-hidden relative">
+                <img src="https://images.unsplash.com/photo-1550617931-e17a7b70dce2?q=80&w=300&auto=format&fit=crop" alt="Artisanal Bread" loading="lazy" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500" onerror="this.src='assets/pastry.jpg'">
+              </div>
+            </div>
+          </div>
+          <p class="text-[10px] text-gray-800 dark:text-white text-center" data-i18n="artisanal_bread">Pastry</p>
+        </div>
+
+        <!-- 1 Brew Item -->
+        <div class="flex flex-col items-center gap-2 shrink-0 cursor-pointer group" onclick="window.location.href='../Brew cat�gorie page/index.html'">
+          <div class="p-[3px] rounded-full bg-gray-200 dark:bg-gray-700 group-hover:bg-primary transition-all">
+            <div class="bg-white dark:bg-[#1a100c] p-1 rounded-full">
+              <div class="w-16 h-16 rounded-full overflow-hidden relative">
+                <img src="https://images.unsplash.com/photo-1517701550927-30cf4ba1dba5?q=80&w=300&auto=format&fit=crop" alt="Brew" loading="lazy" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500" onerror="this.src='assets/Brew.jpg'">
+              </div>
+            </div>
+          </div>
+          <p class="text-[10px] text-gray-800 dark:text-white text-center" data-i18n="brew">Brew</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="px-4 md:px-8 pt-0 md:pt-0 mt-3 max-w-7xl mx-auto w-full">
+      <div class="text-center mb-5">
+        <h3 class="text-xl md:text-2xl font-bold text-gray-900 dark:text-white uppercase tracking-tight mb-1" data-i18n="our_menu">Our Menu</h3>
+        <div class="flex items-center justify-center gap-2 opacity-90">
+          <div class="h-[1px] w-16 bg-gradient-to-r from-transparent via-amber-400 to-amber-400"></div>
+          <div class="w-1.5 h-1.5 rotate-45 bg-amber-400"></div>
+          <div class="h-[1px] w-16 bg-gradient-to-r from-amber-400 via-amber-400 to-transparent"></div>
+        </div>
+      </div>
+      <div class="grid grid-cols-2 gap-3">
+        <!-- Brunch -->
+        <a href="../long_scroll_brunch_explorer/index.html" class="col-span-1 h-44 md:h-56 relative bg-orange-100 dark:bg-orange-900/20 rounded-[2rem] overflow-hidden group shadow-sm text-white">
+          <img alt="Brunch" loading="lazy" class="absolute inset-0 w-full h-full object-cover z-0 filter brightness-110 saturate-125 contrast-105"
+               src="https://images.unsplash.com/photo-1559622214-f8a985d3ccaa?q=80&w=800&auto=format&fit=crop"
+               onerror="this.src='assets/Brunch.jpg'">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent z-10"></div>
+          <div class="relative z-20 p-4 text-white">
+            <h4 class="text-white text-lg md:text-xl font-bold uppercase" data-i18n="brunch">Brunch</h4>
+            <p class="text-white text-[10px] md:text-xs mt-1" data-i18n="toasts_bowls">Toasts & Bowls</p>
+          </div>
+        </a>
+        <!-- Brew -->
+        <a href="../Brew cat�gorie page/index.html" class="col-span-1 h-44 md:h-56 relative bg-[#3E2723] rounded-[2rem] overflow-hidden group shadow-sm text-white">
+          <img alt="Brew" loading="lazy" class="absolute inset-0 w-full h-full object-cover z-0 filter brightness-110 saturate-125 contrast-105"
+               src="https://images.unsplash.com/photo-1560972715-3fb62a8469fe?q=80&w=800&auto=format&fit=crop"
+               onerror="this.src='assets/Brew.jpg'">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent z-10"></div>
+          <div class="relative z-20 p-4 text-white">
+            <h4 class="text-white text-lg md:text-xl font-bold uppercase" data-i18n="brew">Brew</h4>
+            <p class="text-white text-[10px] md:text-xs mt-1" data-i18n="coffee_tea">Coffee & Tea</p>
+          </div>
+        </a>
+        <!-- Cold Drink -->
+        <a href="../cold drinks cat�gorie page/index.html" class="col-span-1 h-44 md:h-56 relative bg-blue-50 dark:bg-blue-900/20 rounded-[2rem] overflow-hidden group shadow-sm text-white">
+          <img alt="Cold Drink" loading="lazy" class="absolute inset-0 w-full h-full object-cover z-0 filter brightness-110 saturate-125 contrast-105"
+               src="https://images.unsplash.com/photo-1562059390-a761a0847683?q=80&w=800&auto=format&fit=crop"
+               onerror="this.src='assets/Cold%20drinks.jpg'">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent z-10"></div>
+          <div class="relative z-20 p-4 text-white">
+            <h4 class="text-white text-lg md:text-xl font-bold uppercase" data-i18n="cold_drink">Cold Drink</h4>
+            <p class="text-white text-[10px] md:text-xs mt-1" data-i18n="juices_shakes">Juices & Shakes</p>
+          </div>
+        </a>
+        <!-- Pastry -->
+        <a href="../bakery catégorie page/index.html" class="col-span-1 h-44 md:h-56 relative bg-yellow-50 dark:bg-yellow-900/20 rounded-[2rem] overflow-hidden group shadow-sm text-white">
+          <img alt="Pastry" loading="lazy" class="absolute inset-0 w-full h-full object-cover z-0 filter brightness-110 saturate-125 contrast-105"
+               src="https://images.unsplash.com/photo-1509440159598-7106ff28ebfe?q=80&w=800&auto=format&fit=crop"
+               onerror="this.src='assets/pastry.jpg'">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent z-10"></div>
+          <div class="relative z-20 p-4 text-white">
+            <h4 class="text-white text-lg md:text-xl font-bold uppercase" data-i18n="pastry">Pastry</h4>
+            <p class="text-white text-[10px] md:text-xs mt-1" data-i18n="bakery_sweets">Bakery & Sweets</p>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <section class="px-4 md:px-8 py-0 max-w-7xl mx-auto w-full">
+      <div class="mb-4 flex items-center justify-between">
+        <div class="flex-1">
+          <div class="text-center">
+            <span class="text-primary font-bold text-[10px] uppercase tracking-[0.2em] block mt-6" data-i18n="trending_now">Trending Now</span>
+          </div>
+          <h3 class="font-serif italic font-bold text-lg md:text-xl text-gray-900 dark:text-white leading-tight mt-2 text-left" data-i18n="all_items">All variety of items</h3>
+        </div>
+        <button class="bg-white dark:bg-[#2a1e19] p-3 rounded-full shadow-sm border border-gray-100 dark:border-white/5 w-12 h-12 flex items-center justify-center">
+          <span class="material-symbols-outlined text-[22px] text-gray-600 dark:text-gray-300">tune</span>
+        </button>
+      </div>
+      <div id="bestsellers" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6"></div>
+    </section>
+    </div>
+
+
+  </div>
+  <div id="order-modal" class="fixed inset-0 z-[60] hidden">
+    <div class="absolute inset-0 bg-black/50"></div>
+    <div class="absolute bottom-0 left-0 right-0 bg-white dark:bg-[#2a1e19] rounded-t-[2rem] border-t border-gray-100 dark:border-white/5 shadow-[0_-10px_30px_rgba(0,0,0,0.15)] p-6 max-w-7xl mx-auto">
+      <div class="w-12 h-1.5 bg-gray-200 dark:bg-gray-700 rounded-full mx-auto mb-6"></div>
+      <div class="flex items-center justify-between mb-4">
+        <h3 id="order-modal-title" class="text-xl font-bold" data-i18n="order_status">Order Status</h3>
+        <span id="order-status-badge" class="px-2 py-0.5 bg-orange-100 dark:bg-orange-900/30 text-primary text-[10px] font-bold rounded-full" data-i18n="received">Received</span>
+      </div>
+      <div class="space-y-3 max-h-[40vh] overflow-y-auto pr-2" id="order-items"></div>
+      <div class="mt-6 pt-4 border-t border-gray-100 dark:border-white/5 space-y-2">
+        <div class="flex justify-between items-center">
+          <span id="subtotal-label" class="text-gray-400 font-bold uppercase tracking-widest text-[10px]" data-i18n="subtotal">Subtotal</span>
+          <span id="modal-subtotal" class="font-bold">$0.00</span>
+        </div>
+        <div class="flex justify-between items-center">
+          <span id="tax-label" class="text-gray-400 font-bold uppercase tracking-widest text-[10px]" data-i18n="tax">Tax (10%)</span>
+          <span id="modal-tax" class="font-bold">$0.00</span>
+        </div>
+        <div class="flex justify-between items-center pt-2">
+          <span id="total-label" class="text-xl font-bold" data-i18n="total">Total</span>
+          <span id="modal-total" class="text-2xl font-black text-primary">$0.00</span>
+        </div>
+      </div>
+      <div class="mt-6 grid grid-cols-2 gap-3">
+        <button id="order-close-btn" class="w-full bg-gray-100 dark:bg-white/5 py-4 rounded-2xl font-bold hover:scale-[1.02] transition-all" data-i18n="close">
+          Close
+        </button>
+        <button id="order-place-btn" class="w-full bg-primary text-white py-4 rounded-2xl font-bold shadow-glow hover:scale-[1.02] transition-all" data-i18n="place_order">
+          Place Order
+        </button>
+      </div>
+    </div>
+  </div>
+  <script src="./header-interactions.js"></script>
+  <script src="./carousel-auto-loop.js"></script>
+  <script src="../nav-bar.js?v=9"></script>
+  <script src="./script.js?v=15"></script>
+</body>
+</html>
+

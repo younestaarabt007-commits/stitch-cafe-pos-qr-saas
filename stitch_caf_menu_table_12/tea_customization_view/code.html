@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Tea Customization View</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Playfair+Display:ital,wght@0,400..900;1,400..900&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#f47b25",
+                        "background-light": "#f8f7f5",
+                        "background-dark": "#221710",
+                    },
+                    fontFamily: {
+                        "display": ["Plus Jakarta Sans", "sans-serif"],
+                        "serif": ["Playfair Display", "serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "2xl": "1rem", "3xl": "1.5rem", "bento": "20px", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        .material-symbols-outlined.filled {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+    <style>
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+</head>
+
+<body
+    class="bg-background-light dark:bg-background-dark font-display antialiased text-gray-900 dark:text-gray-100 min-h-screen flex justify-center">
+    <div
+        class="w-full max-w-[480px] min-h-screen bg-background-light dark:bg-background-dark relative flex flex-col shadow-2xl overflow-hidden">
+        <div class="h-[35vh] w-full relative shrink-0">
+            <div class="absolute inset-0 bg-cover bg-center"
+                data-alt="Vibrant green matcha latte with precise latte art in a textured ceramic bowl"
+                style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBRtVCR4sUnY2InnmsGdNEOOfBuoOvXFEzLyl-_jjgtqzsGTQNLEdTqHCyXzaMjPM7BZLs9MQs288cYfJsOzNyA_wWT1ecMSyvGsRoDJG3CZvssqS2vWJzA0cmkJmsVAy-21qfkyCGYrcCbmIHEbEMW-UV_NDnesSYF8sO0QUkr3zr0b90P2TbUESLMkW5yYyvxaxlYzSoW6u2dwhm9WCYX6YERFP7MVnsSsPCDdmYXHEsOTvqB1cmGhph7Yf9e0-UYvnklPslEyJg');">
+            </div>
+            <div class="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-transparent"></div>
+            <div class="absolute top-0 left-0 right-0 p-4 flex justify-between items-center z-10 pt-12">
+                <button
+                    class="w-9 h-9 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white hover:bg-white/30 transition">
+                    <span class="material-symbols-outlined text-[20px]">arrow_back</span>
+                </button>
+                <button
+                    class="w-9 h-9 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white hover:bg-white/30 transition">
+                    <span class="material-symbols-outlined text-[20px]">favorite</span>
+                </button>
+            </div>
+        </div>
+        <div class="flex-1 relative -mt-6 z-20 flex flex-col">
+            <div
+                class="bg-background-light dark:bg-background-dark rounded-t-[20px] shadow-[0_-4px_20px_rgba(0,0,0,0.05)] flex-1 px-4 pt-6 pb-32">
+                <div class="flex flex-col gap-2 mb-6">
+                    <div class="flex justify-between items-start">
+                        <h1 class="font-serif italic font-bold text-[28px] text-gray-900 dark:text-white leading-tight">
+                            Ceremonial<br />Matcha Latte</h1>
+                        <div class="bg-primary/10 text-primary px-2.5 py-0.5 rounded-full text-base font-bold">
+                            7.00DH
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-1.5 text-xs font-medium text-gray-600 dark:text-gray-400">
+                        <span class="material-symbols-outlined filled text-yellow-500 text-[16px]">star</span>
+                        <span class="text-gray-900 dark:text-white font-bold text-sm">4.9</span>
+                        <span>(124 reviews)</span>
+                        <span class="w-0.5 h-0.5 bg-gray-300 rounded-full mx-1"></span>
+                        <a class="text-primary underline decoration-primary/50 underline-offset-2"
+                            href="javascript:void(0)" onclick="alert('Full product details coming soon')">See
+                            details</a>
+                    </div>
+                    <p class="text-gray-500 dark:text-gray-400 text-xs leading-relaxed mt-1">
+                        Premium grade matcha whisked with water and your choice of milk. Smooth, earthy, and energizing.
+                    </p>
+                </div>
+                <div class="mb-6">
+                    <h3 class="text-gray-900 dark:text-white text-[20px] font-bold mb-3">Choose Size</h3>
+                    <div class="grid grid-cols-3 gap-3">
+                        <button
+                            class="group flex flex-col items-center justify-center gap-1.5 p-3 rounded-bento border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 hover:border-primary/50 transition relative overflow-hidden h-28">
+                            <span
+                                class="material-symbols-outlined text-gray-400 dark:text-gray-500 text-2xl group-hover:text-primary transition">local_cafe</span>
+                            <div class="text-center">
+                                <span class="block text-[16px] font-semibold text-gray-900 dark:text-white">Small</span>
+                                <span class="block text-[10px] text-gray-500">8oz</span>
+                            </div>
+                        </button>
+                        <button
+                            class="group flex flex-col items-center justify-center gap-1.5 p-3 rounded-bento border-2 border-primary bg-primary/5 dark:bg-primary/10 transition relative overflow-hidden h-28">
+                            <div
+                                class="absolute top-2 right-2 w-4 h-4 bg-primary rounded-full flex items-center justify-center">
+                                <span class="material-symbols-outlined text-white text-[10px] font-bold">check</span>
+                            </div>
+                            <span class="material-symbols-outlined text-primary text-3xl">local_cafe</span>
+                            <div class="text-center">
+                                <span
+                                    class="block text-[16px] font-semibold text-gray-900 dark:text-white">Medium</span>
+                                <span class="block text-[10px] text-primary font-medium">12oz</span>
+                            </div>
+                        </button>
+                        <button
+                            class="group flex flex-col items-center justify-center gap-1.5 p-3 rounded-bento border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 hover:border-primary/50 transition relative overflow-hidden h-28">
+                            <span
+                                class="material-symbols-outlined text-gray-400 dark:text-gray-500 text-3xl group-hover:text-primary transition">local_cafe</span>
+                            <div class="text-center">
+                                <span class="block text-[16px] font-semibold text-gray-900 dark:text-white">Large</span>
+                                <span class="block text-[10px] text-gray-500">16oz</span>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+                <div class="mb-6">
+                    <h3 class="text-gray-900 dark:text-white text-[20px] font-bold mb-3">Milk Base</h3>
+                    <div class="flex gap-3 overflow-x-auto no-scrollbar pb-1 -mx-4 px-4">
+                        <button
+                            class="flex-shrink-0 w-24 h-24 flex flex-col items-center justify-center gap-1 p-2 rounded-bento border-2 border-primary bg-primary/5 dark:bg-primary/10 transition">
+                            <span class="material-symbols-outlined filled text-primary text-2xl">spa</span>
+                            <div class="text-center">
+                                <span
+                                    class="block text-[16px] font-semibold text-gray-900 dark:text-white leading-tight">Oat</span>
+                                <span class="block text-[10px] text-primary font-medium">+0.50DH</span>
+                            </div>
+                        </button>
+                        <button
+                            class="flex-shrink-0 w-24 h-24 flex flex-col items-center justify-center gap-1 p-2 rounded-bento border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 hover:border-primary/50 transition">
+                            <span
+                                class="material-symbols-outlined text-gray-400 dark:text-gray-500 text-2xl">nutrition</span>
+                            <div class="text-center">
+                                <span
+                                    class="block text-[16px] font-semibold text-gray-900 dark:text-white leading-tight">Almond</span>
+                                <span class="block text-[10px] text-gray-500">+0.50DH</span>
+                            </div>
+                        </button>
+                        <button
+                            class="flex-shrink-0 w-24 h-24 flex flex-col items-center justify-center gap-1 p-2 rounded-bento border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 hover:border-primary/50 transition">
+                            <span
+                                class="material-symbols-outlined text-gray-400 dark:text-gray-500 text-2xl">water_drop</span>
+                            <div class="text-center">
+                                <span
+                                    class="block text-[16px] font-semibold text-gray-900 dark:text-white leading-tight">Whole</span>
+                                <span class="block text-[10px] text-gray-500">Standard</span>
+                            </div>
+                        </button>
+                        <button
+                            class="flex-shrink-0 w-24 h-24 flex flex-col items-center justify-center gap-1 p-2 rounded-bento border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 hover:border-primary/50 transition">
+                            <span class="material-symbols-outlined text-gray-400 dark:text-gray-500 text-2xl">eco</span>
+                            <div class="text-center">
+                                <span
+                                    class="block text-[16px] font-semibold text-gray-900 dark:text-white leading-tight">Soy</span>
+                                <span class="block text-[10px] text-gray-500">Free</span>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+                <div class="mb-6">
+                    <h3 class="text-gray-900 dark:text-white text-[20px] font-bold mb-3">Sweetness</h3>
+                    <div
+                        class="flex items-center justify-between bg-white dark:bg-gray-800 rounded-full p-1 border border-gray-200 dark:border-gray-700">
+                        <button
+                            class="flex-1 py-2.5 px-3 rounded-full text-xs font-semibold text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition">No
+                            Sugar</button>
+                        <button
+                            class="flex-1 py-2.5 px-3 rounded-full text-xs font-bold text-white bg-primary shadow-md transition">Medium</button>
+                        <button
+                            class="flex-1 py-2.5 px-3 rounded-full text-xs font-semibold text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition">Extra
+                            Honey</button>
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <div class="flex items-center justify-between mb-3">
+                        <h3 class="text-gray-900 dark:text-white text-[20px] font-bold">Perfect To-Go Pairings</h3>
+                        <span class="text-primary text-[10px] font-bold uppercase tracking-wide">Recommended</span>
+                    </div>
+                    <div class="flex gap-3 overflow-x-auto no-scrollbar pb-2 -mx-4 px-4">
+                        <button
+                            class="flex-shrink-0 w-28 flex flex-col bg-white dark:bg-gray-800 rounded-bento border border-gray-200 dark:border-gray-700 shadow-sm overflow-hidden group hover:border-primary/50 transition text-left">
+                            <div class="aspect-square w-full bg-gray-100 relative">
+                                <img alt="Butter Croissant" class="w-full h-full object-cover"
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuDX6qi3uYz_xMaY5Weci5bMJLNC5layW0xQI5aL8ubnBOxJZyZVGW7bZInLS5wH2Zbh380GTJoPvjASSIGcjhVxXvej3HqPGWG6dx39e65J7Vh2B_cZyfouLAJDSDNBrWoT9Y1VVu5ed5rUKTIeOGsZO9aEZ82XCX5aIGjOFlDTZtVjf7G7VpbG1pCO_gMpWNXECKDn_2lGD4xDAGTV6CVn-5q5iPDw7v_SmKxhh73XayO2TkRNx7xO-A7lUnRgH1LsIKU_CtjRrUo" />
+                                <div
+                                    class="absolute bottom-1.5 right-1.5 w-6 h-6 bg-white/90 backdrop-blur rounded-full flex items-center justify-center shadow-sm text-primary group-hover:bg-primary group-hover:text-white transition-colors">
+                                    <span class="material-symbols-outlined text-[16px]">add</span>
+                                </div>
+                            </div>
+                            <div class="p-2">
+                                <span
+                                    class="block text-[13px] font-bold text-gray-900 dark:text-white leading-tight truncate">Butter
+                                    Croissant</span>
+                                <span class="block text-[11px] text-gray-500 font-medium mt-0.5">4.50DH</span>
+                            </div>
+                        </button>
+                        <button
+                            class="flex-shrink-0 w-28 flex flex-col bg-white dark:bg-gray-800 rounded-bento border border-gray-200 dark:border-gray-700 shadow-sm overflow-hidden group hover:border-primary/50 transition text-left">
+                            <div class="aspect-square w-full bg-gray-100 relative">
+                                <img alt="Blueberry Muffin" class="w-full h-full object-cover"
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuAfJcAmV5SlaH4OW5IhP5qLO8uVg1uoxww_w9VgEE0uP8VoX0_VMcnTCPLc2B07SS3vT2yOwABQsmAjMMplsOcdJdvyoJcwO9LqnaSdS4HKcN3TqyEMapSoAP7hWOe75uFCTszadBsd5vqmXUtAXqgChw9onaREU41aAURctEz4JlAxq6fWWhp6PQx8vLpwKnF1hneDDa1TZMBN_N2pCUZvO3zGj_uNyU8uE1a5M6TIeTxnH6ukGOoqtRDOt59ifksgrbqeAh_4XZ4" />
+                                <div
+                                    class="absolute bottom-1.5 right-1.5 w-6 h-6 bg-white/90 backdrop-blur rounded-full flex items-center justify-center shadow-sm text-primary group-hover:bg-primary group-hover:text-white transition-colors">
+                                    <span class="material-symbols-outlined text-[16px]">add</span>
+                                </div>
+                            </div>
+                            <div class="p-2">
+                                <span
+                                    class="block text-[13px] font-bold text-gray-900 dark:text-white leading-tight truncate">Blueberry
+                                    Muffin</span>
+                                <span class="block text-[11px] text-gray-500 font-medium mt-0.5">4.50DH</span>
+                            </div>
+                        </button>
+                        <button
+                            class="flex-shrink-0 w-28 flex flex-col bg-white dark:bg-gray-800 rounded-bento border border-gray-200 dark:border-gray-700 shadow-sm overflow-hidden group hover:border-primary/50 transition text-left">
+                            <div class="aspect-square w-full bg-gray-100 relative">
+                                <img alt="Almond Pain au Chocolat" class="w-full h-full object-cover"
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuAm5_sryhNm6ObKOurf9EN7Q3897rIVTP9vPeIMdMPJ2o6xQ9tCX6-SlvUgy-kQl6_xSPXuI-WB7Tx1Xv-b1QJYLwXIudBYsozoy5NsnMJf9PkUry7Z4yzIfkYignAegv5uVMaIzfm-_XMGaqVj6IB7ITtDVTTnS6TmZX2DVTFGbBXuzm6f5VA3KGRNafTaY_Tu5E7XXru944mA5XWJ8GAwySy26pwnntY-D7mxrrxohY9Biz_-t8M9Kuri5SBrVGZOPIR1t-n-RKY" />
+                                <div
+                                    class="absolute bottom-1.5 right-1.5 w-6 h-6 bg-white/90 backdrop-blur rounded-full flex items-center justify-center shadow-sm text-primary group-hover:bg-primary group-hover:text-white transition-colors">
+                                    <span class="material-symbols-outlined text-[16px]">add</span>
+                                </div>
+                            </div>
+                            <div class="p-2">
+                                <span
+                                    class="block text-[13px] font-bold text-gray-900 dark:text-white leading-tight truncate">Almond
+                                    Pain au Choc</span>
+                                <span class="block text-[11px] text-gray-500 font-medium mt-0.5">5.50DH</span>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div
+            class="absolute bottom-0 left-0 right-0 bg-white dark:bg-background-dark border-t border-gray-100 dark:border-gray-800 p-4 pb-8 z-30 shadow-[0_-4px_20px_rgba(0,0,0,0.05)]">
+            <div class="flex items-center gap-3">
+                <div class="flex items-center bg-gray-100 dark:bg-gray-800 rounded-lg h-12 px-2 shrink-0">
+                    <button
+                        class="w-8 h-full flex items-center justify-center text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition">
+                        <span class="material-symbols-outlined text-[20px]">remove</span>
+                    </button>
+                    <span class="w-6 text-center font-bold text-base text-gray-900 dark:text-white">1</span>
+                    <button
+                        class="w-8 h-full flex items-center justify-center text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition">
+                        <span class="material-symbols-outlined text-[20px]">add</span>
+                    </button>
+                </div>
+                <button
+                    class="flex-1 h-12 bg-primary hover:bg-orange-600 active:scale-[0.98] transition-all rounded-lg flex items-center justify-between px-4 text-white shadow-lg shadow-orange-500/30">
+                    <span class="font-bold text-sm uppercase tracking-wide">Add to Order</span>
+                    <span class="font-bold bg-white/20 px-2 py-0.5 rounded text-xs">7.50DH</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

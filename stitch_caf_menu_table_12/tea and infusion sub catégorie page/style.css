@@ -1,0 +1,38 @@
+body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  background-color: #fafaf5;
+  min-height: 100vh;
+}
+.tea-hero-gradient {
+  background:
+    radial-gradient(circle at 0% 0%, #173022 0%, transparent 65%),
+    radial-gradient(circle at 100% 100%, #0f1b14 0%, transparent 65%),
+    radial-gradient(circle at 50% 50%, #264a35 0%, #13261c 100%);
+}
+.botanical-floats {
+  background-image:
+    radial-gradient(circle at 10% 20%, rgba(255,255,255,0.06) 0, transparent 60%),
+    radial-gradient(circle at 90% 30%, rgba(255,255,255,0.05) 0, transparent 55%),
+    radial-gradient(circle at 50% 80%, rgba(255,255,255,0.04) 0, transparent 50%);
+  background-repeat: no-repeat;
+  background-size: 240px 240px, 200px 200px, 160px 160px;
+  background-position: 10% 20%, 90% 30%, 50% 80%;
+  filter: blur(1px);
+}
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+.filter-btn { transition: all 0.3s ease; }
+.filter-btn.active {
+  background-color: #f2930d;
+  color: white;
+  box-shadow: 0 10px 25px -8px rgba(242, 147, 13, 0.25);
+}
+.filter-btn:not(.active):hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.fade-in-up { animation: fadeInUp 0.35s ease-out forwards; }

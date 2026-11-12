@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html class="light" lang="fr">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Stitch Café — Livraison & Réservation</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap"
+    rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+    rel="stylesheet" />
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            primary: "#FF5200",
+            cream: "#FAF8F5",
+            espresso: "#18120E"
+          },
+          fontFamily: {
+            sans: ["Plus Jakarta Sans", "sans-serif"],
+            serif: ["Instrument Serif", "serif"]
+          },
+          boxShadow: {
+            luxury: "0 24px 60px -15px rgba(24, 18, 14, 0.35)",
+            card: "0 16px 40px -10px rgba(24, 18, 14, 0.12)",
+            glow: "0 12px 30px -6px rgba(255, 82, 0, 0.45)"
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: #120d0a;
+    }
+    .glass-panel {
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid rgba(255, 255, 255, 0.55);
+    }
+    .glass-pill {
+      background: rgba(255, 255, 255, 0.14);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.22);
+    }
+  </style>
+</head>
+
+<body class="min-h-screen text-stone-900 antialiased selection:bg-primary selection:text-white">
+  <div class="relative min-h-screen w-full flex flex-col justify-between overflow-hidden">
+    <!-- Cinematic Video Background -->
+    <div class="fixed inset-0 z-0 pointer-events-none bg-black">
+      <video id="portal-hero-video" autoplay muted loop playsinline preload="auto"
+        poster="../assets/video/hero-poster.jpg"
+        src="../assets/video/hero-desktop.mp4"
+        class="w-full h-full object-cover object-center opacity-75 scale-[1.02] transition-transform duration-1000"></video>
+      <div class="absolute inset-0 bg-gradient-to-b from-black/75 via-black/45 to-[#120d0a]/95"></div>
+    </div>
+
+    <!-- Top Brand Header -->
+    <header class="relative z-10 w-full max-w-xl mx-auto px-6 pt-8 pb-4 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-11 h-11 rounded-2xl bg-primary text-white flex items-center justify-center shadow-glow border border-white/20">
+          <span class="material-symbols-outlined text-[22px]">local_cafe</span>
+        </div>
+        <div>
+          <span class="text-[10px] font-extrabold uppercase tracking-[0.25em] text-amber-300/90 block">Roastery & Kitchen</span>
+          <h1 class="font-serif italic text-2xl text-white tracking-wide leading-none mt-0.5">Stitch Café</h1>
+        </div>
+      </div>
+
+      <div class="glass-pill px-3.5 py-1.5 rounded-full flex items-center gap-2 text-white">
+        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+        <span class="text-[11px] font-bold tracking-wide">Ouvert • 07h30 – 23h30</span>
+      </div>
+    </header>
+
+    <!-- Center Editorial Welcome -->
+    <main class="relative z-10 w-full max-w-xl mx-auto px-5 my-auto py-6">
+      <div class="text-center mb-7">
+        <span class="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full glass-pill text-amber-200 text-[11px] font-bold uppercase tracking-[0.18em] mb-3">
+          <span class="material-symbols-outlined text-[14px]">verified</span>
+          Service Direct Sans Intermédiaire
+        </span>
+        <h2 class="font-serif italic text-4xl sm:text-5xl text-white leading-[1.08] tracking-tight">
+          L'expérience Stitch,<br />où que vous soyez.
+        </h2>
+        <p class="text-white/75 text-xs sm:text-sm font-medium mt-2.5 max-w-md mx-auto leading-relaxed">
+          Choisissez votre mode de service pour accéder à notre carte fraîchement préparée ou réserver votre table.
+        </p>
+      </div>
+
+      <!-- Two Primary Action Cards -->
+      <div class="space-y-4">
+        <!-- Option 1: Delivery & Order -->
+        <button type="button" onclick="startDeliveryFlow()"
+          class="w-full text-left glass-panel rounded-[2rem] p-5 sm:p-6 shadow-luxury hover:scale-[1.01] active:scale-[0.99] transition-all duration-300 group relative overflow-hidden">
+          <div class="absolute -right-8 -top-8 w-32 h-32 rounded-full bg-primary/10 blur-2xl pointer-events-none group-hover:bg-primary/20 transition-all"></div>
+          <div class="flex items-start justify-between gap-4 relative z-10">
+            <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#FF5200] to-amber-600 text-white flex items-center justify-center shadow-glow shrink-0">
+              <span class="material-symbols-outlined text-[28px]">two_wheeler</span>
+            </div>
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center gap-2 mb-1">
+                <span class="px-2.5 py-0.5 rounded-full bg-orange-100 text-[#FF5200] text-[10px] font-extrabold uppercase tracking-wider">Livraison Express</span>
+                <span class="text-[11px] font-bold text-stone-400">• 25–35 min</span>
+              </div>
+              <h3 class="text-lg sm:text-xl font-extrabold text-stone-900 group-hover:text-primary transition-colors">
+                Livraison & Commande
+              </h3>
+              <p class="text-xs text-stone-500 mt-1 leading-relaxed">
+                Parcourez notre menu complet (Brunch, Cafés, Jus frais & Pâtisseries) et faites-vous livrer à domicile ou au bureau.
+              </p>
+              <div class="mt-3.5 inline-flex items-center gap-1.5 text-xs font-extrabold text-primary uppercase tracking-wider">
+                <span>Accéder au Menu Livraison</span>
+                <span class="material-symbols-outlined text-[16px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
+              </div>
+            </div>
+          </div>
+        </button>
+
+        <!-- Option 2: Table Reservation -->
+        <button type="button" onclick="startReservationFlow()"
+          class="w-full text-left glass-panel rounded-[2rem] p-5 sm:p-6 shadow-luxury hover:scale-[1.01] active:scale-[0.99] transition-all duration-300 group relative overflow-hidden">
+          <div class="absolute -right-8 -top-8 w-32 h-32 rounded-full bg-stone-900/5 blur-2xl pointer-events-none"></div>
+          <div class="flex items-start justify-between gap-4 relative z-10">
+            <div class="w-14 h-14 rounded-2xl bg-stone-900 text-white flex items-center justify-center shadow-lg shrink-0 group-hover:bg-primary transition-colors">
+              <span class="material-symbols-outlined text-[27px]">event_seat</span>
+            </div>
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center gap-2 mb-1">
+                <span class="px-2.5 py-0.5 rounded-full bg-stone-100 text-stone-700 text-[10px] font-extrabold uppercase tracking-wider">Confirmation Instantanée</span>
+                <span class="text-[11px] font-bold text-stone-400">• Salle & Terrasse</span>
+              </div>
+              <h3 class="text-lg sm:text-xl font-extrabold text-stone-900 group-hover:text-primary transition-colors">
+                Réserver une Table
+              </h3>
+              <p class="text-xs text-stone-500 mt-1 leading-relaxed">
+                Choisissez votre date, votre heure, le nombre de convives et votre espace préféré en quelques secondes.
+              </p>
+              <div class="mt-3.5 inline-flex items-center gap-1.5 text-xs font-extrabold text-stone-800 group-hover:text-primary uppercase tracking-wider transition-colors">
+                <span>Choisir mon créneau</span>
+                <span class="material-symbols-outlined text-[16px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
+              </div>
+            </div>
+          </div>
+        </button>
+      </div>
+    </main>
+
+    <!-- Footer Info -->
+    <footer class="relative z-10 w-full max-w-xl mx-auto px-6 pb-7 pt-2 text-center">
+      <div class="inline-flex flex-wrap items-center justify-center gap-4 text-white/60 text-[11px] font-semibold">
+        <span class="inline-flex items-center gap-1">
+          <span class="material-symbols-outlined text-[14px] text-primary">payments</span>
+          Paiement Cash ou TPE à la livraison
+        </span>
+        <span>•</span>
+        <span class="inline-flex items-center gap-1">
+          <span class="material-symbols-outlined text-[14px] text-primary">location_on</span>
+          Géolocalisation 1-clic
+        </span>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    (function () {
+      const videoEl = document.getElementById('portal-hero-video');
+      if (videoEl) {
+        const isMobile = window.matchMedia('(max-width: 768px)').matches;
+        const targetSrc = isMobile ? '../assets/video/hero-mobile.mp4' : '../assets/video/hero-desktop.mp4';
+        if (videoEl.getAttribute('src') !== targetSrc) {
+          videoEl.setAttribute('src', targetSrc);
+          videoEl.load();
+        }
+        videoEl.play().catch(() => {});
+      }
+    })();
+
+    function startDeliveryFlow() {
+      try {
+        localStorage.setItem('stitch_order_mode', 'delivery');
+        localStorage.setItem('stitch_qr_branch', 'external');
+      } catch (_) {}
+      window.location.href = '../swiggy-style_elite_main_menu_390x2500/index.html?mode=delivery';
+    }
+
+    function startReservationFlow() {
+      try {
+        localStorage.setItem('stitch_qr_branch', 'external');
+      } catch (_) {}
+      window.location.href = '../reservation_view/index.html';
+    }
+  </script>
+</body>
+
+</html>

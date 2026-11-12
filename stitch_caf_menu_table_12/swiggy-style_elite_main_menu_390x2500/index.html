@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Elite Main Menu — Stitch Café (Updated)</title>
+  <meta name="version" content="1.1">
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap"
+    rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+    rel="stylesheet" />
+  <script src="../i18n.js"></script>
+  <link rel="stylesheet" href="style.css?v=7" />
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            primary: "var(--theme-primary, #FF5200)",
+            "background-light": "#f8f6f5",
+            "background-dark": "#1a100c"
+          },
+          fontFamily: {
+            sans: ["Plus Jakarta Sans", "sans-serif"],
+            serif: ["Instrument Serif", "serif"]
+          },
+          boxShadow: {
+            glow: "0 0 20px var(--theme-primary, rgba(255, 82, 0, 0.35))"
+          }
+        }
+      }
+    };
+  </script>
+</head>
+
+<body class="mesh-bg min-h-screen font-sans text-gray-900 dark:text-white pb-32">
+  <div class="relative mx-auto w-full max-w-md sm:max-w-lg md:max-w-xl min-h-screen flex flex-col overflow-x-hidden bg-white dark:bg-[#1a100c] shadow-2xl">
+    <header class="relative z-20 rounded-b-[2.5rem] md:rounded-b-[3rem] min-h-[310px] md:min-h-[390px] flex flex-col justify-between">
+      <!-- Stark's Hot Chicken Cinematic Video Background -->
+      <div class="absolute inset-0 overflow-hidden rounded-b-[2.5rem] md:rounded-b-[3rem] pointer-events-none bg-black" id="hero-bg-container">
+        <video id="menu-hero-video" autoplay muted loop playsinline preload="auto"
+          poster="../assets/video/hero-poster.jpg"
+          src="../assets/video/hero-desktop.mp4"
+          class="absolute inset-0 w-full h-full object-cover object-center z-0"></video>
+        <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-black/15 to-black/75 z-10 transition-colors duration-1000" id="hero-gradient-overlay"></div>
+      </div>
+
+      <!-- Top bar (Mobile-First Responsive, No Icon Overlap) -->
+      <div class="relative z-10 flex items-center justify-between gap-2 px-3 sm:px-4 pt-3 pb-2 text-white">
+        <!-- Table badge with dynamic zone -->
+        <div id="table-badge"
+          class="hidden flex items-center gap-1.5 sm:gap-2 bg-white/95 backdrop-blur-md text-gray-900 px-3 py-1.5 rounded-full shadow-md cursor-default shrink-0">
+          <div class="w-6 h-6 bg-gradient-to-br from-amber-400 to-amber-500 rounded-full flex items-center justify-center shadow-sm shrink-0">
+            <span class="material-symbols-outlined text-[13px] text-white">restaurant</span>
+          </div>
+          <div class="min-w-0 flex flex-col leading-none">
+            <span class="text-xs font-black tracking-tight text-stone-900 truncate" id="table-number-label">Table 12</span>
+            <span class="text-[9px] font-bold text-amber-700 truncate" id="table-zone-label">1er Étage</span>
+          </div>
+        </div>
+
+        <!-- Right side actions: Language + Location + Waiter (In-Flow, Zero Overlap) -->
+        <div class="flex items-center gap-1.5 sm:gap-2 shrink-0">
+          <!-- Language Toggle -->
+          <div id="language-toggle" class="language-toggle scale-75 ltr:origin-right rtl:origin-left lang-en shrink-0">
+            <div class="toggle-switch">
+              <span class="slider"></span>
+            </div>
+            <span id="current-language" class="hidden sm:inline-block text-[11px] font-bold">EN</span>
+          </div>
+
+          <!-- Restaurant Map Link -->
+          <a href="https://www.bing.com/maps/search?FORM=HDRSC6&q=aposto+restaurant+rabat&cp=33.967154%7E-6.846021&lvl=11.8&style=r"
+            target="_blank"
+            class="flex items-center gap-1 bg-white/15 backdrop-blur-md px-2.5 py-1.5 rounded-full border border-white/25 text-white hover:bg-white/25 transition-all text-xs no-underline shrink-0"
+            title="Localisation Stitch Café">
+            <span class="material-symbols-outlined text-[14px]">location_on</span>
+            <span class="text-[11px] font-bold hidden xs:inline truncate max-w-[70px]">Stitch</span>
+          </a>
+
+          <!-- Waiter Call Avatar (In-flow button, avoids collision) -->
+          <button type="button" onclick="window.openTableServicesModal()" title="Appeler Serveur / Services Table"
+            class="relative shrink-0 cursor-pointer p-0.5 rounded-full hover:scale-105 transition-transform">
+            <img src="assets/waiter.jpg"
+              class="w-9 h-9 sm:w-10 sm:h-10 rounded-full object-cover border-2 border-white/60 shadow-md"
+              alt="Waiter">
+            <div class="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-green-400 rounded-full border-2 border-white shadow-sm"></div>
+          </button>
+        </div>
+      </div>
+
+      <!-- Welcome greeting (Dynamic Theme Hero Banner) -->
+      <div id="theme-hero-banner" class="relative z-10 px-4 pt-3 pb-1 transition-all duration-500">
+        <p class="text-white/70 text-[10px] font-bold uppercase tracking-[0.15em] flex items-center gap-1.5" id="header-greeting">
+          <span class="material-symbols-outlined text-[14px] text-amber-300">auto_awesome</span>
+          <span>Stitch Café &amp; Roastery</span>
+        </p>
+        <h2 id="header-main-title" class="text-white text-xl sm:text-2xl font-black tracking-tight leading-tight mt-1" data-i18n="welcome_message">
+          What would you like today?
+        </h2>
+        <p id="header-theme-tagline" class="text-white/80 text-xs mt-1 font-medium hidden"></p>
+      </div>
+
+      <!-- Search & Actions -->
+      <div class="px-4 md:px-8 relative z-20 flex flex-col gap-4 mt-3 mb-5">
+        <!-- Search bar -->
+        <div class="relative group w-full">
+          <div class="absolute inset-y-0 start-0 ps-3.5 flex items-center pointer-events-none z-10">
+            <span
+              class="material-symbols-outlined text-gray-400 text-[20px] group-focus-within:text-primary transition-colors">search</span>
+          </div>
+          <input id="search-input"
+            class="block w-full ps-11 pe-12 py-3 bg-white/95 backdrop-blur-sm border-transparent rounded-2xl text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-white/50 focus:bg-white shadow-[0_4px_20px_rgba(0,0,0,0.1)] transition-all duration-300 font-medium text-sm relative z-0 rtl:text-right"
+            placeholder="Search for dishes, drinks..." data-i18n-placeholder="search_placeholder" type="text" />
+          
+          <!-- Search Results Dropdown -->
+          <div id="search-results" class="absolute top-full left-0 right-0 mt-3 bg-white dark:bg-[#1a100c] rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.3)] overflow-hidden z-[9999] hidden max-h-[380px] flex flex-col border border-gray-100 dark:border-white/10 backdrop-blur-xl animate-in fade-in slide-in-from-top-2 duration-300">
+            <div class="p-3 border-b border-gray-100 dark:border-white/5 bg-gray-50/50 dark:bg-white/5 flex items-center justify-between">
+              <span class="text-[10px] font-bold text-gray-400 uppercase tracking-widest" data-i18n="search_results">Results</span>
+              <span id="results-count" class="text-[10px] font-bold text-primary px-2 py-0.5 bg-primary/10 rounded-full">0 found</span>
+            </div>
+            <div id="results-list" class="overflow-y-auto hide-scrollbar divide-y divide-gray-50 dark:divide-white/5">
+              <!-- Items will be injected here -->
+            </div>
+          </div>
+          <div class="absolute inset-y-0 end-0 pe-3.5 flex items-center z-10">
+            <button
+              class="w-8 h-8 bg-primary/10 rounded-xl flex items-center justify-center hover:bg-primary/20 transition-all">
+              <span class="material-symbols-outlined text-primary text-[18px]">mic</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Action buttons row (Adaptive: Table QR vs Delivery QR) -->
+        <div class="flex items-center justify-between gap-3" id="header-table-mode-row">
+          <div class="flex items-center gap-1.5 bg-black/35 backdrop-blur-md p-1 rounded-full border border-white/15 shadow-lg">
+            <button type="button" id="header-btn-dinein" onclick="window.setStitchOrderMode('dine_in')"
+              class="header-btn flex items-center gap-1.5 bg-white text-stone-900 px-4 py-2 rounded-full text-xs font-extrabold shadow-md transition-all duration-300">
+              <span class="material-symbols-outlined text-[15px] text-primary">local_dining</span>
+              <span data-i18n="dine_in">Sur Place</span>
+            </button>
+            <button type="button" id="header-btn-takeaway" onclick="window.setStitchOrderMode('takeaway')"
+              class="header-btn flex items-center gap-1.5 bg-transparent text-white/90 px-4 py-2 rounded-full text-xs font-bold transition-all duration-300 hover:bg-white/10">
+              <span class="material-symbols-outlined text-[15px] text-white/75">shopping_bag</span>
+              <span data-i18n="take_away">À Emporter</span>
+            </button>
+          </div>
+          <div class="shrink-0">
+            <button type="button" onclick="window.openTableServicesModal()" title="Services Table"
+              class="bg-white/15 backdrop-blur-md px-3.5 py-2.5 rounded-2xl flex items-center gap-2 hover:bg-white/25 transition-all duration-300 relative shadow-lg border border-white/20 group text-white">
+              <span class="material-symbols-outlined text-[20px] text-amber-300 group-hover:scale-110 transition-transform">room_service</span>
+              <span class="text-xs font-extrabold hidden sm:inline">Services Table</span>
+              <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Delivery Branch Action Row (Shown when ?mode=delivery) -->
+        <div class="hidden items-center justify-between gap-2" id="header-delivery-mode-row">
+          <div class="flex items-center gap-2 bg-black/40 backdrop-blur-md px-3.5 py-2 rounded-full border border-white/15 text-white">
+            <span class="material-symbols-outlined text-[16px] text-primary">two_wheeler</span>
+            <span class="text-xs font-extrabold">Mode Livraison à Domicile</span>
+            <span class="text-[10px] text-amber-300 font-bold">• 25–35 min</span>
+          </div>
+          <div class="flex items-center gap-2 shrink-0">
+            <a href="../reservation_view/index.html"
+              class="bg-white/15 hover:bg-white/25 backdrop-blur-md px-3.5 py-2 rounded-full border border-white/20 text-white text-xs font-extrabold flex items-center gap-1.5 no-underline transition-all">
+              <span class="material-symbols-outlined text-[15px] text-amber-300">event_seat</span>
+              <span>Réserver</span>
+            </a>
+            <a href="../welcome_portal/index.html"
+              class="bg-white/15 hover:bg-white/25 backdrop-blur-md p-2 rounded-full border border-white/20 text-white flex items-center justify-center no-underline transition-all" title="Portail d'accueil">
+              <span class="material-symbols-outlined text-[16px]">home</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+
+
+    <section
+      class="relative pt-4 pb-4 flex flex-col z-10 bg-background-light dark:bg-background-dark shadow-[0_-10px_40px_rgba(0,0,0,0.1)]">
+      <!-- Hero Card Carousel -->
+      <div id="hero-carousel" class="w-full mt-auto relative pt-0">
+        <div class="flex overflow-x-auto hide-scrollbar gap-2 px-[25px] pb-4">
+          <!-- Card 0: Brunch Special -->
+          <div
+            class="w-[85vw] sm:w-[340px] md:w-[45%] lg:w-[32%] h-[160px] flex-shrink-0 bg-gradient-to-r from-emerald-50 via-green-100 to-emerald-200 dark:from-emerald-900/40 dark:via-green-900/40 dark:to-emerald-800/50 rounded-2xl p-4 shadow-xl relative overflow-hidden border border-white/20 backdrop-blur-sm">
+            <div class="relative z-10 flex h-full justify-between items-center">
+              <div class="flex flex-col items-start justify-center h-full w-[45%]">
+                <div class="flex items-center gap-1 mb-1">
+                  <span
+                    class="bg-green-200 dark:bg-green-700/60 text-green-700 dark:text-green-300 text-[9px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider"
+                    data-i18n="chefs_choice">Chef's Choice</span>
+                  <span
+                    class="bg-purple-200 dark:bg-purple-700/60 text-purple-700 dark:text-purple-300 text-[8px] font-bold px-1.5 py-0.5 rounded-full"
+                    data-i18n="no1_seller">N°1 seller</span>
+                </div>
+                <h1
+                  class="font-serif italic font-bold text-xl leading-none text-green-700 dark:text-white mt-1 uppercase tracking-tight">
+                  <span data-i18n="brunch">BRUNCH</span><br><span class="text-green-500 dark:text-green-400"
+                    data-i18n="favorites">FAVORITES</span>
+                </h1>
+                <p class="text-[10px] text-green-700/80 dark:text-green-200/80 mt-1" data-i18n="savory_brunch">Savory
+                  brunch classics.</p>
+                <div class="flex items-center gap-1 mt-2 mb-2">
+                  <div class="flex items-center gap-0.5">
+                    <span class="material-symbols-outlined text-[#FFC107] text-[12px]">star</span>
+                    <span class="text-[10px] font-bold text-green-800 dark:text-green-200">4.8</span>
+                  </div>
+                  <span class="text-[9px] text-green-600 dark:text-green-400">(2.3k+)</span>
+                </div>
+              </div>
+              <div class="flex items-end justify-start h-full w-[55%]">
+                <img alt="Brunch Special" class="w-[140%] h-[140%] object-contain drop-shadow-2xl hero-card-image -ml-3 translate-y-8"
+                  src="../images/brunch image card.png" style="transform-origin: center bottom;" />
+              </div>
+            </div>
+            <div class="absolute top-3 right-3 bg-white/20 dark:bg-white/10 backdrop-blur-sm rounded-full p-1.5">
+              <span class="material-symbols-outlined text-green-600 dark:text-green-400 text-[16px]">favorite</span>
+            </div>
+          </div>
+
+          <!-- Card 1: Velvet Sips -->
+          <div
+            class="w-[85vw] sm:w-[340px] md:w-[45%] lg:w-[32%] h-[160px] flex-shrink-0 snap-center bg-gradient-to-r from-blue-100 via-blue-200 to-blue-300 dark:from-blue-900/40 dark:via-blue-800/40 dark:to-blue-700/50 rounded-2xl p-4 shadow-xl relative overflow-hidden border border-white/20 backdrop-blur-sm">
+            <div class="relative z-10 flex h-full justify-between items-center">
+              <div class="flex flex-col items-start justify-center h-full w-[30%]">
+                <div class="flex items-center gap-1 mb-1">
+                  <span
+                    class="bg-blue-200 dark:bg-blue-700/60 text-blue-700 dark:text-blue-300 text-[9px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider"
+                    data-i18n="new_arrival">New Arrival</span>
+                  <span
+                    class="bg-cyan-200 dark:bg-cyan-700/60 text-cyan-700 dark:text-cyan-300 text-[8px] font-bold px-1.5 py-0.5 rounded-full"
+                    data-i18n="trend">Trend</span>
+                </div>
+                <h1
+                  class="font-serif italic font-bold text-xl leading-none text-blue-600 dark:text-white mt-1 uppercase tracking-tight">
+                  <span data-i18n="velvet">VELVET</span><br><span class="text-amber-500 dark:text-amber-400"
+                    data-i18n="sips">SIPS</span>
+                </h1>
+                <p class="text-[10px] text-blue-800/80 dark:text-blue-200/80 mt-1" data-i18n="smooth_iced_blends">
+                  Smooth iced blends.</p>
+                <div class="flex items-center gap-1 mt-2 mb-2">
+                  <div class="flex items-center gap-0.5">
+                    <span class="material-symbols-outlined text-[#FFC107] text-[12px]">star</span>
+                    <span class="text-[10px] font-bold text-blue-800 dark:text-blue-200">4.9</span>
+                  </div>
+                  <span class="text-[9px] text-blue-600 dark:text-blue-400">(1.8k+)</span>
+                </div>
+              </div>
+              <div class="flex items-start justify-end h-full w-[70%] -mt-4 scale-150 origin-center translate-x-6">
+                <img alt="Velvet Sips" class="w-full h-full object-contain drop-shadow-2xl hero-card-image"
+                  src="../images/Smoothie vard images .png"
+                  onerror="this.onerror=null;this.src='../assets/cold-strawberry-smoothie.jpg';" />
+              </div>
+            </div>
+            <div class="absolute top-3 right-3 bg-white/20 dark:bg-white/10 backdrop-blur-sm rounded-full p-1.5">
+              <span class="material-symbols-outlined text-blue-600 dark:text-blue-400 text-[16px]">favorite</span>
+            </div>
+          </div>
+
+          <!-- Card 2: Morning Brew -->
+          <div
+            class="w-[85vw] sm:w-[340px] md:w-[45%] lg:w-[32%] h-[160px] flex-shrink-0 snap-center bg-gradient-to-r from-amber-100 via-amber-200 to-orange-300 dark:from-amber-900/40 dark:via-amber-800/40 dark:to-orange-700/50 rounded-2xl p-4 shadow-xl relative overflow-hidden border border-white/20 backdrop-blur-sm">
+            <div class="relative z-10 flex h-full justify-between items-center">
+              <div class="flex flex-col items-start justify-center h-full w-[40%]">
+                <div class="flex items-center gap-1 mb-1">
+                  <span
+                    class="bg-amber-200 dark:bg-amber-700/60 text-amber-700 dark:text-amber-300 text-[9px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider"
+                    data-i18n="morning_special">Morning Special</span>
+                  <span class="bg-red-500 text-white text-[8px] font-bold px-1.5 py-0.5 rounded-full inline-flex items-center gap-0.5" data-i18n="hot">
+                    <span class="material-symbols-outlined text-[10px]">local_fire_department</span> Hot</span>
+                </div>
+                <h1
+                  class="font-serif italic font-bold text-xl leading-none text-amber-600 dark:text-white mt-1 uppercase tracking-tight">
+                  <span data-i18n="morning">MORNING</span><br><span class="text-amber-500 dark:text-amber-400"
+                    data-i18n="brew">BREW</span>
+                </h1>
+                <p class="text-[10px] text-amber-800/80 dark:text-amber-200/80 mt-1" data-i18n="freshly_brewed_coffee">
+                  Freshly brewed coffee.</p>
+                <div class="flex items-center gap-1 mt-2 mb-2">
+                  <div class="flex items-center gap-0.5">
+                    <span class="material-symbols-outlined text-[#FFC107] text-[12px]">star</span>
+                    <span class="text-[10px] font-bold text-amber-800 dark:text-amber-200">4.7</span>
+                  </div>
+                  <span class="text-[9px] text-amber-600 dark:text-amber-400">(3.1k+)</span>
+                </div>
+              </div>
+              <div class="flex items-end justify-end h-full w-[60%] scale-150 mt-2">
+                <img alt="Morning Brew" class="w-full h-full object-contain drop-shadow-2xl hero-card-image"
+                  src="../../images/smoothie card imag.png" />
+              </div>
+            </div>
+            <div class="absolute top-3 right-3 bg-white/20 dark:bg-white/10 backdrop-blur-sm rounded-full p-1.5">
+              <span class="material-symbols-outlined text-amber-600 dark:text-amber-400 text-[16px]">favorite</span>
+            </div>
+          </div>
+
+          <!-- Card 3: Sweet Delights -->
+          <div
+            class="w-[85vw] sm:w-[340px] md:w-[45%] lg:w-[32%] h-[160px] flex-shrink-0 bg-gradient-to-r from-pink-100 via-pink-200 to-rose-300 dark:from-pink-900/40 dark:via-pink-800/40 dark:to-rose-700/50 rounded-2xl p-4 shadow-xl relative overflow-hidden border border-white/20 backdrop-blur-sm">
+            <div class="relative z-10 flex h-full justify-between items-center">
+              <div class="flex flex-col items-start justify-center h-full w-[45%]">
+                <div class="flex items-center gap-1 mb-1">
+                  <span
+                    class="bg-green-200 dark:bg-green-700/60 text-green-700 dark:text-green-300 text-[9px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider"
+                    data-i18n="sweet_treats">Sweet Treats</span>
+                  <span class="bg-yellow-400 text-yellow-900 text-[8px] font-bold px-1.5 py-0.5 rounded-full inline-flex items-center gap-0.5"
+                    data-i18n="popular"><span class="material-symbols-outlined text-[10px]">workspace_premium</span> Popular</span>
+                </div>
+                <h1
+                  class="font-serif italic font-bold text-xl leading-none text-pink-600 dark:text-white mt-1 uppercase tracking-tight">
+                  <span data-i18n="sweet">SWEET</span><br><span class="text-pink-500 dark:text-green-400"
+                    data-i18n="delights">DELIGHTS</span>
+                </h1>
+                <p class="text-[10px] text-pink-700/80 dark:text-green-200/80 mt-1" data-i18n="fluffy_pancakes">Fluffy
+                  pancakes, sweet treats.</p>
+                <div class="flex items-center gap-1 mt-2 mb-2">
+                  <div class="flex items-center gap-0.5">
+                    <span class="material-symbols-outlined text-[#FFC107] text-[12px]">star</span>
+                    <span class="text-[10px] font-bold text-green-800 dark:text-green-200">4.9</span>
+                  </div>
+                  <span class="text-[9px] text-green-600 dark:text-green-400">(4.2k+)</span>
+                </div>
+              </div>
+              <div class="flex items-center justify-end h-full w-[55%]">
+                <img alt="Sweet Delights" class="w-[120%] h-[120%] object-contain drop-shadow-2xl hero-card-image -mr-4"
+                  src="../images/sub catégorie images/sweets/panne cake with berries .png" />
+              </div>
+            </div>
+            <div class="absolute top-3 right-3 bg-white/20 dark:bg-white/10 backdrop-blur-sm rounded-full p-1.5">
+              <span class="material-symbols-outlined text-green-600 dark:text-green-400 text-[16px]">favorite</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+
+    <div class="bg-background-light dark:bg-background-dark mt-0 pt-0 pb-4 relative z-0">
+      <section class="px-4 md:px-8 pt-0 md:pt-0 mt-1 max-w-7xl mx-auto w-full">
+        <div class="text-center mb-5">
+          <h3 class="text-xl md:text-2xl font-bold text-gray-900 dark:text-white uppercase tracking-tight mb-1"
+            data-i18n="our_menu">Our Menu</h3>
+          <div class="flex items-center justify-center gap-2 opacity-90">
+            <div class="h-[1px] w-16 bg-gradient-to-r from-transparent via-amber-400 to-amber-400"></div>
+            <div class="w-1.5 h-1.5 rotate-45 bg-amber-400"></div>
+            <div class="h-[1px] w-16 bg-gradient-to-r from-amber-400 via-amber-400 to-transparent"></div>
+          </div>
+        </div>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-3.5">
+          <!-- Brunch -->
+          <div onclick="window.selectTwoLevelCategory('brunch', 'all', true)"
+            class="col-span-1 h-44 md:h-52 relative bg-orange-100 dark:bg-orange-900/20 rounded-[1.75rem] overflow-hidden group shadow-[0_12px_30px_-8px_rgba(24,20,17,0.12)] border border-white/60 cursor-pointer text-white transition-all duration-300 hover:-translate-y-1">
+            <img alt="Brunch" loading="lazy"
+              class="absolute inset-0 w-full h-full object-cover z-0 filter brightness-105 saturate-110 transition-transform duration-700 group-hover:scale-110"
+              src="assets/categories/brunch.jpg">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent z-10"></div>
+            <div class="absolute top-3 left-3 z-20">
+              <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/55 backdrop-blur-md border border-white/20">
+                <span class="material-symbols-outlined text-[14px] text-amber-400">brunch_dining</span>
+                <span class="text-[10px] font-bold tracking-wider uppercase text-amber-200">38 Plats</span>
+              </div>
+            </div>
+            <div class="absolute bottom-3.5 left-3.5 right-3.5 z-20 flex items-end justify-between">
+              <div>
+                <h4 class="text-white text-base md:text-lg font-extrabold tracking-tight leading-tight" data-i18n="brunch">Brunch &amp; Plats</h4>
+                <p class="text-[10px] text-white/75 font-medium mt-0.5">Petit-Déj • Toasts • Burgers</p>
+              </div>
+              <span class="w-8 h-8 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center border border-white/25 group-hover:bg-primary group-hover:border-primary transition-colors">
+                <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+              </span>
+            </div>
+          </div>
+
+          <!-- Brew -->
+          <div onclick="window.selectTwoLevelCategory('brew', 'all', true)"
+            class="col-span-1 h-44 md:h-52 relative bg-[#3E2723] rounded-[1.75rem] overflow-hidden group shadow-[0_12px_30px_-8px_rgba(24,20,17,0.12)] border border-white/60 cursor-pointer text-white transition-all duration-300 hover:-translate-y-1">
+            <img alt="Brew" loading="lazy"
+              class="absolute inset-0 w-full h-full object-cover z-0 filter brightness-105 saturate-110 transition-transform duration-700 group-hover:scale-110"
+              src="assets/categories/hot_drinks.jpg">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent z-10"></div>
+            <div class="absolute top-3 left-3 z-20">
+              <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/55 backdrop-blur-md border border-white/20">
+                <span class="material-symbols-outlined text-[14px] text-amber-400">coffee</span>
+                <span class="text-[10px] font-bold tracking-wider uppercase text-amber-200">24 Boissons</span>
+              </div>
+            </div>
+            <div class="absolute bottom-3.5 left-3.5 right-3.5 z-20 flex items-end justify-between">
+              <div>
+                <h4 class="text-white text-base md:text-lg font-extrabold tracking-tight leading-tight" data-i18n="brew">Cafés &amp; Thés</h4>
+                <p class="text-[10px] text-white/75 font-medium mt-0.5">Espresso • Lattes • Infusions</p>
+              </div>
+              <span class="w-8 h-8 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center border border-white/25 group-hover:bg-primary group-hover:border-primary transition-colors">
+                <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+              </span>
+            </div>
+          </div>
+
+          <!-- Cold Drink -->
+          <div onclick="window.selectTwoLevelCategory('cold', 'all', true)"
+            class="col-span-1 h-44 md:h-52 relative bg-blue-50 dark:bg-blue-900/20 rounded-[1.75rem] overflow-hidden group shadow-[0_12px_30px_-8px_rgba(24,20,17,0.12)] border border-white/60 cursor-pointer text-white transition-all duration-300 hover:-translate-y-1">
+            <img alt="Cold Drink" loading="lazy"
+              class="absolute inset-0 w-full h-full object-cover z-0 filter brightness-105 saturate-110 transition-transform duration-700 group-hover:scale-110"
+              src="assets/categories/cold_drinks.jpg">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent z-10"></div>
+            <div class="absolute top-3 left-3 z-20">
+              <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/55 backdrop-blur-md border border-white/20">
+                <span class="material-symbols-outlined text-[14px] text-amber-400">local_bar</span>
+                <span class="text-[10px] font-bold tracking-wider uppercase text-amber-200">42 Fraîcheurs</span>
+              </div>
+            </div>
+            <div class="absolute bottom-3.5 left-3.5 right-3.5 z-20 flex items-end justify-between">
+              <div>
+                <h4 class="text-white text-base md:text-lg font-extrabold tracking-tight leading-tight" data-i18n="cold_drink">Boissons Fraîches</h4>
+                <p class="text-[10px] text-white/75 font-medium mt-0.5">Jus • Smoothies • Milkshakes</p>
+              </div>
+              <span class="w-8 h-8 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center border border-white/25 group-hover:bg-primary group-hover:border-primary transition-colors">
+                <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+              </span>
+            </div>
+          </div>
+
+          <!-- Pastry -->
+          <div onclick="window.selectTwoLevelCategory('pastry', 'all', true)"
+            class="col-span-1 h-44 md:h-52 relative bg-yellow-50 dark:bg-yellow-900/20 rounded-[1.75rem] overflow-hidden group shadow-[0_12px_30px_-8px_rgba(24,20,17,0.12)] border border-white/60 cursor-pointer text-white transition-all duration-300 hover:-translate-y-1">
+            <img alt="Pastry" loading="lazy"
+              class="absolute inset-0 w-full h-full object-cover z-0 filter brightness-105 saturate-110 transition-transform duration-700 group-hover:scale-110"
+              src="assets/categories/bakery.jpg">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent z-10"></div>
+            <div class="absolute top-3 left-3 z-20">
+              <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/55 backdrop-blur-md border border-white/20">
+                <span class="material-symbols-outlined text-[14px] text-amber-400">bakery_dining</span>
+                <span class="text-[10px] font-bold tracking-wider uppercase text-amber-200">25 Douceurs</span>
+              </div>
+            </div>
+            <div class="absolute bottom-3.5 left-3.5 right-3.5 z-20 flex items-end justify-between">
+              <div>
+                <h4 class="text-white text-base md:text-lg font-extrabold tracking-tight leading-tight" data-i18n="pastry">Pâtisseries</h4>
+                <p class="text-[10px] text-white/75 font-medium mt-0.5">Douceurs • Boulangerie</p>
+              </div>
+              <span class="w-8 h-8 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center border border-white/25 group-hover:bg-primary group-hover:border-primary transition-colors">
+                <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+              </span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="mt-6">
+        <div class="px-4 md:px-8 mb-3 flex items-center justify-between max-w-7xl mx-auto w-full">
+          <div class="flex items-center gap-2">
+            <span class="material-symbols-outlined text-[18px] text-primary">category</span>
+            <h3 class="text-base md:text-lg font-extrabold text-gray-900 dark:text-white uppercase tracking-tight"
+              data-i18n="explore">Spécialités &amp; Sous-Catégories</h3>
+          </div>
+          <button type="button" onclick="window.openStitchCategoryDrawer()"
+            class="inline-flex items-center gap-1 text-primary text-xs font-extrabold uppercase tracking-wider cursor-pointer bg-primary/10 hover:bg-primary/15 px-3 py-1.5 rounded-full transition-colors">
+            <span class="material-symbols-outlined text-[15px]">grid_view</span>
+            <span data-i18n="view_all">Toutes (12)</span>
+          </button>
+        </div>
+        <div id="explore-categories"
+          class="flex overflow-x-auto hide-scrollbar gap-3 px-4 md:px-8 pb-2 max-w-7xl mx-auto w-full">
+        </div>
+      </section>
+
+      <!-- LUXURY 2-LEVEL STICKY CATEGORY & SUB-CATEGORY NAVIGATION -->
+      <div id="menu-sticky-anchor" class="pt-2"></div>
+      <div id="luxury-sticky-nav" class="sticky top-0 z-40 bg-[#FAF8F5]/95 dark:bg-[#1a100c]/95 backdrop-blur-xl border-y border-stone-200/80 dark:border-white/10 shadow-[0_8px_25px_-6px_rgba(24,20,17,0.06)] transition-all">
+        <div class="max-w-7xl mx-auto px-4 md:px-8 py-2.5">
+          <!-- Level 1: Main Categories + All Categories Drawer Trigger -->
+          <div class="flex items-center gap-2 overflow-x-auto hide-scrollbar pb-2" id="sticky-maincat-row">
+            <button type="button" onclick="window.openStitchCategoryDrawer()"
+              class="shrink-0 inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full bg-stone-900 dark:bg-white text-white dark:text-stone-900 text-xs font-extrabold shadow-sm hover:opacity-90 transition-all">
+              <span class="material-symbols-outlined text-[15px] text-amber-400 dark:text-primary">grid_view</span>
+              <span>Catégories</span>
+            </button>
+            <div class="h-5 w-[1px] bg-stone-200 dark:bg-white/10 shrink-0"></div>
+            <button type="button" data-maincat="all" onclick="window.selectTwoLevelCategory('all', 'all', false)"
+              class="sticky-main-pill shrink-0 inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-primary text-white text-xs font-extrabold shadow-sm transition-all">
+              <span class="material-symbols-outlined text-[15px]">restaurant_menu</span>
+              <span>Tout le Menu</span>
+              <span class="text-[10px] px-1.5 py-0.5 rounded-full bg-white/20">129</span>
+            </button>
+            <button type="button" data-maincat="brunch" onclick="window.selectTwoLevelCategory('brunch', 'all', false)"
+              class="sticky-main-pill shrink-0 inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-white dark:bg-white/5 text-stone-700 dark:text-stone-200 border border-stone-200/90 dark:border-white/10 text-xs font-bold hover:border-primary/40 transition-all">
+              <span class="material-symbols-outlined text-[15px] text-primary">brunch_dining</span>
+              <span>Brunch &amp; Plats</span>
+              <span class="text-[10px] text-stone-400">38</span>
+            </button>
+            <button type="button" data-maincat="brew" onclick="window.selectTwoLevelCategory('brew', 'all', false)"
+              class="sticky-main-pill shrink-0 inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-white dark:bg-white/5 text-stone-700 dark:text-stone-200 border border-stone-200/90 dark:border-white/10 text-xs font-bold hover:border-primary/40 transition-all">
+              <span class="material-symbols-outlined text-[15px] text-primary">coffee</span>
+              <span>Cafés &amp; Thés</span>
+              <span class="text-[10px] text-stone-400">24</span>
+            </button>
+            <button type="button" data-maincat="cold" onclick="window.selectTwoLevelCategory('cold', 'all', false)"
+              class="sticky-main-pill shrink-0 inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-white dark:bg-white/5 text-stone-700 dark:text-stone-200 border border-stone-200/90 dark:border-white/10 text-xs font-bold hover:border-primary/40 transition-all">
+              <span class="material-symbols-outlined text-[15px] text-primary">local_bar</span>
+              <span>Boissons Fraîches</span>
+              <span class="text-[10px] text-stone-400">42</span>
+            </button>
+            <button type="button" data-maincat="pastry" onclick="window.selectTwoLevelCategory('pastry', 'all', false)"
+              class="sticky-main-pill shrink-0 inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-white dark:bg-white/5 text-stone-700 dark:text-stone-200 border border-stone-200/90 dark:border-white/10 text-xs font-bold hover:border-primary/40 transition-all">
+              <span class="material-symbols-outlined text-[15px] text-primary">bakery_dining</span>
+              <span>Pâtisseries &amp; Pains</span>
+              <span class="text-[10px] text-stone-400">25</span>
+            </button>
+          </div>
+
+          <!-- Level 2: Dynamic Sub-Category Pills -->
+          <div id="sticky-subcat-row" class="flex items-center gap-2 overflow-x-auto hide-scrollbar pt-1.5 border-t border-stone-200/60 dark:border-white/5">
+            <!-- Populated dynamically by script.js -->
+          </div>
+        </div>
+      </div>
+
+      <section class="px-4 md:px-8 pt-4 pb-6 max-w-7xl mx-auto w-full">
+        <div class="mb-4 flex items-center justify-between">
+          <div>
+            <span id="active-category-kicker" class="text-primary font-extrabold text-[10px] uppercase tracking-[0.2em] block">Carte Complète • 129 Créations</span>
+            <h3 id="active-category-title"
+              class="font-serif italic font-bold text-xl md:text-2xl text-gray-900 dark:text-white leading-tight mt-0.5">
+              Toutes nos Spécialités</h3>
+          </div>
+          <button type="button" onclick="window.openStitchCategoryDrawer()"
+            class="bg-white dark:bg-[#2a1e19] px-3.5 py-2.5 rounded-2xl shadow-sm border border-stone-200/80 dark:border-white/10 flex items-center gap-1.5 text-xs font-extrabold text-stone-700 dark:text-stone-200 hover:border-primary transition-all">
+            <span class="material-symbols-outlined text-[18px] text-primary">tune</span>
+            <span class="hidden sm:inline">Filtrer</span>
+          </button>
+        </div>
+        <div id="bestsellers" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-5">
+        </div>
+      </section>
+    </div>
+
+
+  </div>
+
+  <!-- LUXURY TABLE SERVICES MODAL (Call Waiter / Bill / Wi-Fi) -->
+  <div id="table-services-modal" class="fixed inset-0 z-[80] hidden items-end sm:items-center justify-center p-0 sm:p-4">
+    <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" onclick="window.closeTableServicesModal()"></div>
+    <div class="relative w-full max-w-md bg-white dark:bg-[#1f1612] rounded-t-[2rem] sm:rounded-[2rem] p-6 shadow-2xl border border-stone-100 dark:border-white/10 z-10">
+      <div class="w-12 h-1.5 bg-stone-200 dark:bg-white/10 rounded-full mx-auto mb-4 sm:hidden"></div>
+      <div class="flex items-center justify-between mb-5">
+        <div class="flex items-center gap-3">
+          <div class="w-11 h-11 rounded-2xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-primary">
+            <span class="material-symbols-outlined text-[24px]">room_service</span>
+          </div>
+          <div>
+            <span class="text-[10px] font-extrabold uppercase tracking-widest text-primary block">Conciergerie de Table</span>
+            <h3 class="text-lg font-extrabold text-stone-900 dark:text-white leading-tight" id="service-modal-table-title">Services Table 12</h3>
+          </div>
+        </div>
+        <button type="button" onclick="window.closeTableServicesModal()" class="w-9 h-9 rounded-full bg-stone-100 dark:bg-white/10 flex items-center justify-center text-stone-500 hover:text-stone-900">
+          <span class="material-symbols-outlined text-[20px]">close</span>
+        </button>
+      </div>
+
+      <div class="space-y-2.5">
+        <button type="button" onclick="window.sendTableServiceAlert('waiter', 'Appel Serveur')"
+          class="w-full flex items-center justify-between p-4 rounded-2xl bg-[#FAF8F5] dark:bg-white/5 hover:bg-orange-50/70 border border-stone-200/80 dark:border-white/10 transition-all group text-left">
+          <div class="flex items-center gap-3.5">
+            <div class="w-11 h-11 rounded-xl bg-white dark:bg-white/10 shadow-sm flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-colors">
+              <span class="material-symbols-outlined text-[22px]">notifications_active</span>
+            </div>
+            <div>
+              <h4 class="text-sm font-extrabold text-stone-900 dark:text-white">Appeler le Serveur</h4>
+              <p class="text-[11px] text-stone-500 dark:text-stone-400">Un serveur se présente immédiatement à votre table</p>
+            </div>
+          </div>
+          <span class="material-symbols-outlined text-stone-400 group-hover:text-primary">chevron_right</span>
+        </button>
+
+        <button type="button" onclick="window.sendTableServiceAlert('bill_cash', 'Demande Addition (Espèces)')"
+          class="w-full flex items-center justify-between p-4 rounded-2xl bg-[#FAF8F5] dark:bg-white/5 hover:bg-orange-50/70 border border-stone-200/80 dark:border-white/10 transition-all group text-left">
+          <div class="flex items-center gap-3.5">
+            <div class="w-11 h-11 rounded-xl bg-white dark:bg-white/10 shadow-sm flex items-center justify-center text-emerald-600 group-hover:bg-emerald-600 group-hover:text-white transition-colors">
+              <span class="material-symbols-outlined text-[22px]">payments</span>
+            </div>
+            <div>
+              <h4 class="text-sm font-extrabold text-stone-900 dark:text-white">Demander l'Addition (Espèces)</h4>
+              <p class="text-[11px] text-stone-500 dark:text-stone-400">Règlement en Dirhams (DH) à votre table</p>
+            </div>
+          </div>
+          <span class="material-symbols-outlined text-stone-400 group-hover:text-emerald-600">chevron_right</span>
+        </button>
+
+        <button type="button" onclick="window.sendTableServiceAlert('bill_card', 'Demande Addition (Carte TPE)')"
+          class="w-full flex items-center justify-between p-4 rounded-2xl bg-[#FAF8F5] dark:bg-white/5 hover:bg-orange-50/70 border border-stone-200/80 dark:border-white/10 transition-all group text-left">
+          <div class="flex items-center gap-3.5">
+            <div class="w-11 h-11 rounded-xl bg-white dark:bg-white/10 shadow-sm flex items-center justify-center text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition-colors">
+              <span class="material-symbols-outlined text-[22px]">credit_card</span>
+            </div>
+            <div>
+              <h4 class="text-sm font-extrabold text-stone-900 dark:text-white">Demander l'Addition (Carte TPE)</h4>
+              <p class="text-[11px] text-stone-500 dark:text-stone-400">Le serveur apporte le terminal bancaire sans contact</p>
+            </div>
+          </div>
+          <span class="material-symbols-outlined text-stone-400 group-hover:text-blue-600">chevron_right</span>
+        </button>
+
+        <!-- Wi-Fi Info Box -->
+        <div class="p-4 rounded-2xl bg-stone-900 text-white flex items-center justify-between mt-2">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center text-amber-400">
+              <span class="material-symbols-outlined text-[20px]">wifi</span>
+            </div>
+            <div>
+              <span class="text-[10px] uppercase tracking-widest text-stone-400 font-bold block">Wi-Fi Haut Débit Gratuit</span>
+              <p class="text-xs font-extrabold">Réseau : <span class="text-amber-300">Stitch_Lounge_5G</span> • Code : <span class="underline">stitch2026</span></p>
+            </div>
+          </div>
+          <button type="button" onclick="navigator.clipboard && navigator.clipboard.writeText('stitch2026'); this.textContent='Copié !'"
+            class="px-3 py-1.5 rounded-xl bg-white/15 hover:bg-white/25 text-[11px] font-extrabold transition-colors shrink-0">
+            Copier
+          </button>
+        </div>
+      </div>
+
+      <div id="table-service-feedback" class="hidden mt-4 p-3 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-bold text-center"></div>
+    </div>
+  </div>
+  <div id="order-modal" class="fixed inset-0 z-[60] hidden">
+    <div class="absolute inset-0 bg-black/50"></div>
+    <div
+      class="absolute bottom-0 left-0 right-0 bg-white dark:bg-[#2a1e19] rounded-t-[2rem] border-t border-gray-100 dark:border-white/5 shadow-[0_-10px_30px_rgba(0,0,0,0.15)] p-6 max-w-7xl mx-auto">
+      <div class="w-12 h-1.5 bg-gray-200 dark:bg-gray-700 rounded-full mx-auto mb-6"></div>
+      <div class="flex items-center justify-between mb-4">
+        <h3 id="order-modal-title" class="text-xl font-bold" data-i18n="order_status">Order Status</h3>
+        <span id="order-status-badge"
+          class="px-2 py-0.5 bg-orange-100 dark:bg-orange-900/30 text-primary text-[10px] font-bold rounded-full"
+          data-i18n="received">Received</span>
+      </div>
+      <div class="space-y-3 max-h-[40vh] overflow-y-auto pr-2" id="order-items"></div>
+      <div class="mt-6 pt-4 border-t border-gray-100 dark:border-white/5 space-y-2">
+        <div class="flex justify-between items-center">
+          <span id="subtotal-label" class="text-gray-400 font-bold uppercase tracking-widest text-[10px]"
+            data-i18n="subtotal">Subtotal</span>
+          <span id="modal-subtotal" class="font-bold">0.00DH</span>
+        </div>
+        <div class="flex justify-between items-center">
+          <span id="tax-label" class="text-gray-400 font-bold uppercase tracking-widest text-[10px]" data-i18n="tax">Tax
+            (10%)</span>
+          <span id="modal-tax" class="font-bold">0.00DH</span>
+        </div>
+        <div class="flex justify-between items-center pt-2">
+          <span id="total-label" class="text-xl font-bold" data-i18n="total">Total</span>
+          <span id="modal-total" class="text-2xl font-black text-primary">0.00DH</span>
+        </div>
+      </div>
+      <div class="mt-6 grid grid-cols-2 gap-3">
+        <button id="order-close-btn"
+          class="w-full bg-gray-100 dark:bg-white/5 py-4 rounded-2xl font-bold hover:scale-[1.02] transition-all"
+          data-i18n="close">
+          Close
+        </button>
+        <button id="order-place-btn"
+          class="w-full bg-primary text-white py-4 rounded-2xl font-bold shadow-glow hover:scale-[1.02] transition-all"
+          data-i18n="place_order">
+          Place Order
+        </button>
+      </div>
+    </div>
+  </div>
+  <script src="carousel-auto-loop.js?v=9" defer></script>
+  <script src="header-interactions.js?v=6" defer></script>
+  <script src="../theme-engine.js?v=1"></script>
+  <script src="../nav-bar.js?v=9"></script>
+  <script src="menu.js"></script>
+  <script src="../central_store.js"></script>
+  <script src="./script.js?v=1772070257"></script>
+</body>
+
+</html>

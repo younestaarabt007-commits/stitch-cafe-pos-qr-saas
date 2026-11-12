@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Elite Compact Brew Explorer 1300px</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Playfair+Display:wght@700&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#f2930d",
+                        "background-light": "#fafaf5",
+                        "background-dark": "#1a1612",
+                        "card-tan": "#f4eee7",
+                        "latte-cream": "#fdf8f1",
+                        "dark-roast": "#2d1406",
+                    },
+                    fontFamily: {
+                        "display": ["Plus Jakarta Sans", "sans-serif"],
+                        "serif": ["Playfair Display", "serif"],
+                    },
+                    borderRadius: {
+                        "DEFAULT": "1rem",
+                        "lg": "1.5rem",
+                        "xl": "2rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+    <style type="text/tailwindcss">
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #fafaf5;
+            min-height: 1300px;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .hero-mesh-gradient {
+            background: radial-gradient(circle at 20% 20%, #4a2410 0%, transparent 70%),
+                        radial-gradient(circle at 80% 80%, #1a1612 0%, transparent 70%),
+                        radial-gradient(circle at 50% 50%, #78350f 0%, #2d1406 100%);
+        }
+        .steam-particle {
+            @apply absolute bg-white/10 backdrop-blur-md rounded-full;
+            filter: blur(8px);
+        }
+        .coffee-bean {
+            @apply absolute opacity-90;
+            filter: drop-shadow(0 8px 12px rgba(0,0,0,0.5));
+        }
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .text-shadow-hero {
+            text-shadow: 0 4px 12px rgba(0,0,0,0.5);
+        }
+    </style>
+    <style>
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+    <style>
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+</head>
+
+<body class="bg-background-light dark:bg-background-dark text-[#1c160d] dark:text-[#fcfaf8] antialiased">
+    <div
+        class="relative min-h-[1300px] w-full max-w-[390px] mx-auto flex flex-col bg-background-light dark:bg-background-dark overflow-x-hidden shadow-2xl">
+        <div
+            class="absolute top-0 left-0 right-0 z-30 flex items-center justify-between p-4 bg-gradient-to-b from-black/60 to-transparent">
+            <div
+                class="flex size-10 items-center justify-center rounded-full bg-black/20 backdrop-blur-md text-white border border-white/10">
+                <span class="material-symbols-outlined">arrow_back</span>
+            </div>
+            <div id="search-btn"
+                class="flex size-10 items-center justify-center rounded-full bg-black/20 backdrop-blur-md text-white border border-white/10 cursor-pointer hover:bg-black/30 transition-colors">
+                <span class="material-symbols-outlined">search</span>
+            </div>
+        </div>
+        <div
+            class="relative h-[420px] w-full overflow-hidden hero-mesh-gradient flex flex-col items-center justify-center pt-8 shrink-0">
+            <div class="steam-particle w-32 h-32 -top-10 left-10 opacity-30"></div>
+            <div class="steam-particle w-24 h-24 top-20 -right-4 opacity-20"></div>
+            <div class="steam-particle w-40 h-40 bottom-10 left-1/2 -translate-x-1/2 opacity-10"></div>
+            <div class="coffee-bean w-6 h-8 bg-[#1a0d05] rounded-full rotate-45 top-24 left-8 border-t border-white/5">
+            </div>
+            <div
+                class="coffee-bean w-4 h-6 bg-[#2d1406] rounded-full -rotate-12 top-20 right-16 border-t border-white/5">
+            </div>
+            <div
+                class="coffee-bean w-5 h-7 bg-[#3d1d0a] rounded-full rotate-[110deg] bottom-32 right-8 border-t border-white/5">
+            </div>
+            <div class="relative z-10 flex flex-col items-center justify-center text-center px-6 mt-6">
+                <div class="relative w-[340px] h-[300px] mb-[-20px]">
+                    <div class="w-full h-full bg-center bg-contain bg-no-repeat scale-125 drop-shadow-[0_45px_60px_rgba(0,0,0,0.6)]"
+                        data-alt="Exploding ceramic cup of latte with heart art and floating beans"
+                        style='background-image: url("https://source.unsplash.com/O_7Eev-wA0k/800x800");'>
+                    </div>
+                </div>
+                <div class="z-20 relative">
+                    <h1
+                        class="text-white text-[28px] font-serif font-bold tracking-tight leading-tight text-shadow-hero">
+                        Brew Mastery</h1>
+                    <p
+                        class="text-white/80 text-[13px] font-medium mt-1 bg-black/30 backdrop-blur-md px-4 py-1.5 rounded-full inline-block border border-white/10">
+                        Exquisite Roasts &amp; Artistry</p>
+                </div>
+            </div>
+        </div>
+        <div
+            class="flex w-full overflow-x-auto px-4 py-6 gap-4 no-scrollbar bg-background-light dark:bg-background-dark">
+            <div class="flex flex-col items-center gap-2 min-w-[72px]">
+                <div class="size-[68px] rounded-full border-2 border-primary p-0.5 bg-white shadow-sm">
+                    <div class="w-full h-full rounded-full bg-cover bg-center" data-alt="New Oat Milk"
+                        style='background-image: url("https://source.unsplash.com/SAsyPsQAim8/300x300");'></div>
+                </div>
+                <span class="text-[11px] font-bold text-primary">New Oat Milk</span>
+            </div>
+            <div class="flex flex-col items-center gap-2 min-w-[72px]">
+                <div
+                    class="size-[68px] rounded-full border-2 border-slate-200 dark:border-slate-700 p-0.5 bg-white shadow-sm">
+                    <div class="w-full h-full rounded-full bg-cover bg-center" data-alt="Barista Art"
+                        style='background-image: url("https://source.unsplash.com/nzyzAUsbV0M/300x300");'></div>
+                </div>
+                <span class="text-[11px] font-semibold opacity-80">Barista Art</span>
+            </div>
+            <div class="flex flex-col items-center gap-2 min-w-[72px]">
+                <div
+                    class="size-[68px] rounded-full border-2 border-slate-200 dark:border-slate-700 p-0.5 bg-white shadow-sm">
+                    <div class="w-full h-full rounded-full bg-cover bg-center" data-alt="Offers"
+                        style='background-image: url("https://source.unsplash.com/GDa2HhT9GfQ/300x300");'></div>
+                </div>
+                <span class="text-[11px] font-semibold opacity-80">Offers</span>
+            </div>
+            <div class="flex flex-col items-center gap-2 min-w-[72px]">
+                <div
+                    class="size-[68px] rounded-full border-2 border-slate-200 dark:border-slate-700 p-0.5 bg-white shadow-sm">
+                    <div class="w-full h-full rounded-full bg-cover bg-center" data-alt="Brew Guide"
+                        style='background-image: url("https://source.unsplash.com/YWHK_pePhVw/300x300");'></div>
+                </div>
+                <span class="text-[11px] font-semibold opacity-80">Brew Guide</span>
+            </div>
+        </div>
+        <div class="flex gap-2 px-4 mb-6 overflow-x-auto no-scrollbar">
+            <div
+                class="flex h-9 shrink-0 items-center justify-center rounded-full bg-primary px-5 shadow-lg shadow-primary/20">
+                <p class="text-white text-xs font-extrabold tracking-wide">All</p>
+            </div>
+            <div
+                class="flex h-9 shrink-0 items-center justify-center rounded-full bg-white dark:bg-slate-800 px-5 border border-slate-200 dark:border-slate-700 shadow-sm">
+                <p class="text-[#1c160d] dark:text-white text-xs font-semibold">Classics</p>
+            </div>
+            <div
+                class="flex h-9 shrink-0 items-center justify-center rounded-full bg-white dark:bg-slate-800 px-5 border border-slate-200 dark:border-slate-700 shadow-sm">
+                <p class="text-[#1c160d] dark:text-white text-xs font-semibold">Plant-Based</p>
+            </div>
+            <div
+                class="flex h-9 shrink-0 items-center justify-center rounded-full bg-white dark:bg-slate-800 px-5 border border-slate-200 dark:border-slate-700 shadow-sm">
+                <p class="text-[#1c160d] dark:text-white text-xs font-semibold">Iced</p>
+            </div>
+        </div>
+        <div class="px-4 grid grid-cols-2 gap-3 h-[420px] mb-6">
+            <div
+                class="col-span-1 h-full relative rounded-2xl overflow-hidden bg-white dark:bg-slate-800 p-4 flex flex-col border border-slate-100 dark:border-slate-700 shadow-sm group">
+                <div class="mb-2">
+                    <span
+                        class="bg-primary/10 text-primary text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded-md inline-block mb-1">Bestseller</span>
+                    <h3 class="font-semibold text-base leading-tight">Signature Oat Latte</h3>
+                    <p class="text-[10px] opacity-60 mt-0.5 italic">Creamy &amp; Earthy</p>
+                </div>
+                <div class="flex-1 w-full bg-cover bg-center rounded-xl my-2 shadow-inner group-active:scale-105 transition-transform duration-300"
+                    data-alt="Signature Oat Latte"
+                    style='background-image: url("https://images.unsplash.com/photo-1593443320739-77f74952d060?auto=format&fit=crop&w=800&h=800&q=80");'>
+                </div>
+                <div class="flex justify-between items-center mt-auto pt-2">
+                    <span class="font-bold text-primary text-base">6.50DH</span>
+                    <a href="../fast_food_customization_view/index.html"
+                        class="size-8 rounded-full bg-primary flex items-center justify-center text-white shadow-md active:scale-90 transition-transform"><span
+                            class="material-symbols-outlined text-base">add</span></a>
+                </div>
+            </div>
+            <div class="col-span-1 flex flex-col gap-3 h-full">
+                <div
+                    class="flex-1 rounded-2xl bg-white dark:bg-slate-800 p-3 flex flex-col justify-between border border-slate-100 dark:border-slate-700 shadow-sm">
+                    <div class="flex justify-between items-start">
+                        <div class="w-14 h-14 rounded-lg bg-cover bg-center shadow-sm" data-alt="Vanilla Bean Latte"
+                            style='background-image: url("https://source.unsplash.com/300x300/?vanilla%20latte");'>
+                        </div>
+                        <span class="font-bold text-xs text-primary">5.75DH</span>
+                    </div>
+                    <div class="flex justify-between items-end mt-1">
+                        <div>
+                            <h3 class="font-semibold text-sm leading-tight">Vanilla Bean</h3>
+                            <p class="text-[10px] opacity-50">Smooth</p>
+                        </div>
+                        <a href="../fast_food_customization_view/index.html"
+                            class="size-7 rounded-full bg-primary/10 flex items-center justify-center text-primary active:bg-primary active:text-white transition-colors"><span
+                                class="material-symbols-outlined text-sm">add</span></a>
+                    </div>
+                </div>
+                <div
+                    class="flex-1 rounded-2xl bg-white dark:bg-slate-800 p-3 flex flex-col justify-between border border-slate-100 dark:border-slate-700 shadow-sm">
+                    <div class="flex justify-between items-start">
+                        <div class="w-14 h-14 rounded-lg bg-cover bg-center shadow-sm" data-alt="Caramel Macchiato"
+                            style='background-image: url("https://source.unsplash.com/300x300/?caramel%20macchiato");'>
+                        </div>
+                        <span class="font-bold text-xs text-primary">6.25DH</span>
+                    </div>
+                    <div class="flex justify-between items-end mt-1">
+                        <div>
+                            <h3 class="font-semibold text-sm leading-tight">Macchiato</h3>
+                            <p class="text-[10px] opacity-50">Bold</p>
+                        </div>
+                        <a href="../fast_food_customization_view/index.html"
+                            class="size-7 rounded-full bg-primary/10 flex items-center justify-center text-primary active:bg-primary active:text-white transition-colors"><span
+                                class="material-symbols-outlined text-sm">add</span></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div
+            class="mx-4 mb-6 h-[120px] rounded-2xl bg-[#2d1406] p-5 relative overflow-hidden flex items-center shadow-lg ring-1 ring-white/10">
+            <div class="z-10 w-[70%]">
+                <h3 class="font-black text-primary text-[10px] uppercase tracking-[0.2em] mb-1">Expert Insight</h3>
+                <p class="font-bold text-white text-lg leading-tight mb-3">Alternative Milk Pairing Guide</p>
+                <div
+                    class="inline-flex items-center gap-1 bg-white/10 backdrop-blur-sm text-white text-[10px] font-bold px-3 py-1.5 rounded-full border border-white/20">
+                    VIEW GUIDE <span class="material-symbols-outlined text-[10px]">arrow_forward</span>
+                </div>
+            </div>
+            <div class="absolute -right-8 -bottom-8 w-44 h-44 bg-center bg-contain bg-no-repeat opacity-40 rotate-12 mix-blend-lighten"
+                data-alt="Alternative milk selection"
+                style='background-image: url("https://source.unsplash.com/400x400/?plant%20milk,almond%20milk");'></div>
+        </div>
+        <div class="px-4 flex items-center justify-between mb-4">
+            <h3 class="text-[20px] font-bold tracking-tight text-[#1c160d] dark:text-white">Today's Menu</h3>
+            <div class="flex items-center gap-1 text-primary bg-primary/5 px-2 py-1 rounded-lg">
+                <span class="material-symbols-outlined text-sm">tune</span>
+                <span class="text-[10px] font-black uppercase tracking-widest">Filter</span>
+            </div>
+        </div>
+        <div class="px-4 grid grid-cols-2 gap-x-gutter gap-y-gap-v pb-36" id="product-list">
+            <!-- Products rendered via script.js -->
+        </div>
+        <!-- Hardcoded Nav Bar for Immediate Visibility -->
+        <nav
+            class="standard-nav-bar bg-white dark:bg-[#2a1e19] border-t border-gray-100 dark:border-white/5 shadow-[0_-4px_20px_rgba(0,0,0,0.1)] backdrop-blur-md h-[55px] flex items-stretch justify-between px-6 fixed bottom-0 left-0 right-0 z-50 max-w-[390px] mx-auto">
+            <button onclick="window.location.href='../swiggy-style_elite_main_menu_390x2500/index.html'"
+                class="flex-1 flex flex-col items-center justify-center gap-0.5 text-gray-600 dark:text-gray-300 hover:text-primary transition-colors">
+                <span class="material-symbols-outlined text-[22px]">home</span>
+                <span class="text-[10px] font-bold uppercase tracking-widest">Home</span>
+            </button>
+            <button onclick="window.location.href='../swiggy-style_elite_main_menu_390x2500/index.html#explore'"
+                class="flex-1 flex flex-col items-center justify-center gap-0.5 text-gray-600 dark:text-gray-300 hover:text-primary transition-colors">
+                <span class="material-symbols-outlined text-[22px]">category</span>
+                <span class="text-[10px] font-bold uppercase tracking-widest">Explore</span>
+            </button>
+            <button onclick="window.location.href='../order_success_page/index.html'"
+                class="relative flex-1 flex flex-col items-center justify-center gap-0.5 text-gray-600 dark:text-gray-300 hover:text-primary transition-colors">
+                <span class="material-symbols-outlined text-[22px]">shopping_cart</span>
+                <span class="text-[10px] font-bold uppercase tracking-widest">Cart</span>
+                <span id="global-cart-count"
+                    class="absolute -top-1 right-4 bg-primary text-white text-[10px] font-bold px-1.5 py-[2px] rounded-full hidden">0</span>
+            </button>
+            <button onclick="alert('Profile feature coming soon')"
+                class="flex-1 flex flex-col items-center justify-center gap-0.5 text-gray-600 dark:text-gray-300 hover:text-primary transition-colors">
+                <span class="material-symbols-outlined text-[22px]">person</span>
+                <span class="text-[10px] font-bold uppercase tracking-widest">Profile</span>
+            </button>
+        </nav>
+        <!-- Navigation Bar Script (logic only) -->
+        <script src="../nav-bar.js?v=9"></script>
+</body>
+
+</html>

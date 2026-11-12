@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Login — Stitch Café Platform</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="./style.css"/>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            primary: "#FF5200",
+            "background-light": "#f8f6f5",
+            "background-dark": "#1a100c"
+          },
+          fontFamily: {
+            sans: ["Plus Jakarta Sans", "sans-serif"],
+            serif: ["Instrument Serif", "serif"]
+          }
+        }
+      }
+    };
+  </script>
+</head>
+<body class="mesh-bg min-h-screen font-sans text-gray-900 dark:text-white flex items-center justify-center p-6">
+  <div class="w-full max-w-[400px]">
+    <!-- Logo/Brand Section -->
+    <div class="text-center mb-10">
+      <div class="inline-flex items-center justify-center w-20 h-20 bg-primary rounded-[2rem] shadow-glow mb-4">
+        <span class="material-symbols-outlined text-white text-[40px]">restaurant_menu</span>
+      </div>
+      <h1 class="font-serif italic text-4xl font-bold tracking-tight">Stitch <span class="text-primary">Café</span></h1>
+      <p class="text-gray-500 dark:text-gray-400 mt-2 text-sm font-medium">Platform Management Portal</p>
+    </div>
+
+    <!-- Login Card -->
+    <div class="bg-white/80 dark:bg-[#2a1e19]/80 backdrop-blur-xl rounded-[2.5rem] p-8 shadow-2xl border border-white/20 relative overflow-hidden">
+      <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-primary to-transparent opacity-50"></div>
+      
+      <form id="login-form" class="space-y-6">
+        <div>
+          <label class="block text-xs font-bold uppercase tracking-widest text-gray-400 mb-2 ml-1">Account Email</label>
+          <div class="relative">
+            <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-[20px]">mail</span>
+            <input type="email" id="email" required class="w-full bg-gray-50 dark:bg-black/20 border-none rounded-2xl py-4 pl-12 pr-4 text-sm font-semibold focus:ring-2 focus:ring-primary/50 transition-all placeholder:text-gray-400" placeholder="name@example.com">
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold uppercase tracking-widest text-gray-400 mb-2 ml-1">Password</label>
+          <div class="relative">
+            <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-[20px]">lock</span>
+            <input type="password" id="password" required class="w-full bg-gray-50 dark:bg-black/20 border-none rounded-2xl py-4 pl-12 pr-4 text-sm font-semibold focus:ring-2 focus:ring-primary/50 transition-all placeholder:text-gray-400" placeholder="••••••••">
+            <button type="button" class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-primary transition-colors">
+              <span class="material-symbols-outlined text-[20px]">visibility</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="flex items-center justify-between px-1">
+          <label class="flex items-center gap-2 cursor-pointer group">
+            <input type="checkbox" class="rounded-md border-gray-300 text-primary focus:ring-primary">
+            <span class="text-xs font-bold text-gray-500 group-hover:text-gray-700 dark:group-hover:text-gray-300 transition-colors">Remember me</span>
+          </label>
+          <a href="mailto:support@stitch.cafe" class="text-xs font-bold text-primary hover:underline">Forgot?</a>
+        </div>
+
+        <button type="submit" class="w-full bg-gray-900 dark:bg-white text-white dark:text-gray-900 h-14 rounded-2xl font-bold flex items-center justify-center gap-3 shadow-xl hover:scale-[1.02] active:scale-[0.98] transition-all">
+          Sign In
+          <span class="material-symbols-outlined text-[20px]">login</span>
+        </button>
+      </form>
+
+      <!-- Role Info (Debug/Demo Only) -->
+      <div class="mt-8 pt-6 border-t border-gray-100 dark:border-white/5 text-center">
+        <p class="text-[10px] text-gray-400 font-bold uppercase tracking-widest mb-3">Quick Access (Demo)</p>
+        <div class="flex gap-2 justify-center">
+          <button onclick="fillLogin('admin@stitch.cafe')" class="px-3 py-1.5 bg-orange-50 dark:bg-orange-950/30 text-primary text-[10px] font-bold rounded-full border border-orange-100 dark:border-orange-900/50 hover:bg-orange-100 transition-colors">Super Admin</button>
+          <button onclick="fillLogin('merchant@cafe.com')" class="px-3 py-1.5 bg-gray-50 dark:bg-gray-800 text-gray-500 text-[10px] font-bold rounded-full border border-gray-200 dark:border-gray-700 hover:bg-gray-100 transition-colors">Merchant</button>
+        </div>
+      </div>
+    </div>
+
+    <p class="text-center mt-8 text-[11px] font-bold text-gray-400 uppercase tracking-widest">
+      &copy; 2026 Stitch Café &bull; Elite SaaS MVP
+    </p>
+  </div>
+
+  <script src="./script.js"></script>
+<script src="../nav-bar.js?v=9"></script>
+</body>
+</html>

@@ -1,0 +1,94 @@
+/* Base Styles */
+body {
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+}
+
+/* Scrollbar Hide */
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+
+.no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+/* Organic Shapes */
+.organic-shape {
+    position: absolute;
+    filter: blur(60px);
+    z-index: 0;
+    opacity: 0.6;
+}
+
+/* Line Art */
+.line-art {
+    position: absolute;
+    color: rgba(198, 134, 66, 0.06);
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* Micro Texture */
+.micro-texture {
+    background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuB699Avk3Dagbtm9dLh2Mc0W5pLEitdacfGd07fSYLgQ-fxf8NQVEoYP-cdSjUGCoaRSMCDx9TRAsM14lPpJMz4SdLch8nQeQ2VTyQ8j1ZhuNzNBwZSuoqGVHIjOUAX7K9vg6tpmEFaSSiWg63M-M_7spBTy4sZ5o99nvAFSxKuWUJtZ71KgGbG7qlnjpIaKRavDVnk__c_gYiv2-qG84KsZ02XL-t77INUvmIP3uh9VfcftPLiTYufFpzGhk7miQBQommH7d9CwQw);
+}
+
+/* Hero Croissant Shadow */
+.hero-croissant-shadow {
+    filter: drop-shadow(0 20px 30px rgba(139, 94, 60, 0.4));
+}
+
+/* Crumb Particles */
+.crumb-particle {
+    position: absolute;
+    background: #C68642;
+    border-radius: 50%;
+    filter: blur(1px);
+    animation: float-particle 3s ease-in-out infinite;
+}
+
+@keyframes float-particle {
+
+    0%,
+    100% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-8px);
+    }
+}
+
+/* Filter Button States */
+.filter-btn {
+    transition: all 0.3s ease;
+}
+
+.filter-btn.active {
+    background-color: #3E2723;
+    color: white;
+}
+
+.filter-btn:not(.active):hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Fade In Animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in {
+    animation: fadeIn 0.5s ease-out forwards;
+}

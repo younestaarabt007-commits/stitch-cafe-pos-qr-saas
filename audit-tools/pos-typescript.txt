@@ -1,0 +1,24 @@
+app/menu/page.tsx(97,16): error TS2741: Property 'item' is missing in type '{ onSubmit: (newItem: any) => void; onCancel: () => void; }' but required in type '{ item: any; onSubmit: any; onCancel: any; }'.
+components/ui/calendar.tsx(47,9): error TS2353: Object literal may only specify known properties, and 'IconLeft' does not exist in type 'Partial<CustomComponents>'.
+components/ui/sidebar.tsx(154,8): error TS2322: Type '{ children: ReactNode; disabled?: boolean; form?: string; formAction?: string | ((formData: FormData) => void | Promise<void>); formEncType?: string; formMethod?: string; ... 283 more ...; ref?: ForwardedRef<...>; }' is not assignable to type 'FragmentProps'.
+  Types of property 'ref' are incompatible.
+    Type 'ForwardedRef<HTMLButtonElement>' is not assignable to type 'Ref<FragmentInstance>'.
+      Type '(instance: HTMLButtonElement) => void' is not assignable to type 'Ref<FragmentInstance>'.
+        Type '(instance: HTMLButtonElement) => void' is not assignable to type '(instance: FragmentInstance) => void | (() => VoidOrUndefinedOnly)'.
+          Types of parameters 'instance' and 'instance' are incompatible.
+            Type 'FragmentInstance' is missing the following properties from type 'HTMLButtonElement': disabled, form, formAction, formEnctype, and 325 more.
+components/ui/sidebar.tsx(169,15): error TS2769: No overload matches this call.
+  The last overload gave the following error.
+    Object literal may only specify known properties, and 'className' does not exist in type 'Partial<unknown> & Attributes'.
+components/ui/sidebar.tsx(172,62): error TS2339: Property 'className' does not exist on type 'unknown'.
+components/ui/sidebar.tsx(220,8): error TS2322: Type '{ children: ReactNode; disabled?: boolean; form?: string; formAction?: string | ((formData: FormData) => void | Promise<void>); formEncType?: string; formMethod?: string; ... 283 more ...; ref?: ForwardedRef<...>; }' is not assignable to type 'FragmentProps'.
+  Types of property 'ref' are incompatible.
+    Type 'ForwardedRef<HTMLButtonElement>' is not assignable to type 'Ref<FragmentInstance>'.
+      Type '(instance: HTMLButtonElement) => void' is not assignable to type 'Ref<FragmentInstance>'.
+        Type '(instance: HTMLButtonElement) => void' is not assignable to type '(instance: FragmentInstance) => void | (() => VoidOrUndefinedOnly)'.
+          Types of parameters 'instance' and 'instance' are incompatible.
+            Type 'FragmentInstance' is missing the following properties from type 'HTMLButtonElement': disabled, form, formAction, formEnctype, and 325 more.
+components/ui/sidebar.tsx(227,15): error TS2769: No overload matches this call.
+  The last overload gave the following error.
+    Object literal may only specify known properties, and 'className' does not exist in type 'Partial<unknown> & Attributes'.
+components/ui/sidebar.tsx(229,62): error TS2339: Property 'className' does not exist on type 'unknown'.

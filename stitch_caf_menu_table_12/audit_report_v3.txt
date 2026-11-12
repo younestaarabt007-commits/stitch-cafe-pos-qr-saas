@@ -1,0 +1,32 @@
+Found 77 items in main menu script.
+
+--- Duplicate Images Report ---
+
+Image: assets/brunch-garden-skillet.jpg
+Used by (3): Garden Skillet, Brunch Burrito, Brunch Tacos
+
+Image: assets/smoothie-berry-cream.jpg
+Used by (2): Acai Delight, Berry Burst
+
+Image: assets/coffee-kyoto-cold-brew.jpg
+Used by (3): Nitro Cold Brew, Kyoto Cold Brew, Cold Brew
+
+Image: assets/latte-iced-matcha.jpg
+Used by (2): Matcha Latte, Iced Latte
+
+Image: assets/coffee-single-origin-espresso.jpg
+Used by (2): Ethiopian Yirgacheffe, Single Origin Espresso
+
+Image: assets/tea-masala-chai.jpg
+Used by (2): Dirty Masala Chai, Masala Chai
+
+Image: assets/latte-caramel-macchiato.jpg
+Used by (2): Caramel Macchiato, Caramel Latte
+
+Image: assets/juice-berry-blast.jpg
+Used by (2): Blueberry Infusion, Berry Citrus
+
+Image: assets/juice-mango-glow.jpg
+Used by (2): Mango Cream Fizz, Mango Glow
+
+Found 9 images used multiple times.

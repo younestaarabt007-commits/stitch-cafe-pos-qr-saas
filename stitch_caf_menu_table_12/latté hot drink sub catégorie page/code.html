@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Elite Compact Latte Explorer 1300px</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Playfair+Display:wght@700&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#f2930d",
+                        "background-light": "#fafaf5",
+                        "background-dark": "#1a1612",
+                        "card-tan": "#f4eee7",
+                        "latte-cream": "#fdf8f1",
+                    },
+                    fontFamily: {
+                        "display": ["Plus Jakarta Sans", "sans-serif"],
+                        "serif": ["Playfair Display", "serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "1rem",
+                        "lg": "1.5rem",
+                        "xl": "2rem",
+                        "bento": "20px",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+    <style type="text/tailwindcss">
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #fafaf5;
+            min-height: 1300px;
+        }
+        .hero-gradient {
+            background: radial-gradient(circle at 50% 50%, #fde68a 0%, #f2930d 45%, #78350f 100%);
+        }
+        .foam-swirl {
+            @apply absolute bg-white/40 backdrop-blur-sm rounded-full;
+            filter: blur(8px);
+        }
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+    <style>
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+    <style>
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+</head>
+
+<body class="bg-background-light dark:bg-background-dark text-[#1c160d] dark:text-[#fcfaf8] antialiased">
+    <div
+        class="relative min-h-[1300px] w-full max-w-[390px] mx-auto flex flex-col bg-background-light dark:bg-background-dark overflow-x-hidden shadow-2xl">
+        <div
+            class="absolute top-0 left-0 right-0 z-20 flex items-center justify-between p-4 bg-gradient-to-b from-black/40 to-transparent">
+            <div id="back-btn"
+                class="flex size-10 items-center justify-center rounded-full bg-white/20 backdrop-blur-md text-white cursor-pointer hover:bg-white/30 transition-colors">
+                <span class="material-symbols-outlined">arrow_back</span>
+            </div>
+            <div class="relative group">
+                <input type="text" id="search-input" placeholder="Search..."
+                    class="pl-10 pr-4 py-2 rounded-full bg-white/20 backdrop-blur-md text-white placeholder-white/70 border border-white/20 focus:outline-none focus:ring-2 focus:ring-white/50 w-10 focus:w-48 transition-all duration-300 shadow-lg text-sm cursor-pointer focus:cursor-text peer">
+                <div
+                    class="absolute right-0 top-0 size-10 flex items-center justify-center rounded-full bg-white/20 backdrop-blur-md text-white pointer-events-none transition-opacity duration-300 peer-focus:opacity-0 peer-placeholder-shown:opacity-100">
+                    <span class="material-symbols-outlined">search</span>
+                </div>
+                <span
+                    class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-white/70 text-[18px] opacity-0 peer-focus:opacity-100 transition-opacity duration-300 pointer-events-none">search</span>
+            </div>
+        </div>
+        <div class="relative h-[420px] w-full overflow-hidden hero-gradient flex items-center justify-center">
+            <div class="foam-swirl w-32 h-32 -top-10 -left-10 rotate-45 opacity-60"></div>
+            <div class="foam-swirl w-24 h-24 top-1/2 -right-12 rotate-12 opacity-40"></div>
+            <div class="foam-swirl w-16 h-16 bottom-10 left-10 opacity-30"></div>
+            <div class="relative z-10 flex flex-col items-center justify-center text-center px-6">
+                <div class="w-64 h-64 bg-center bg-contain bg-no-repeat mb-4 scale-125 drop-shadow-[0_25px_25px_rgba(0,0,0,0.4)]"
+                    data-alt="Exploding ceramic cup of latte with heart art and swirling microfoam"
+                    style='background-image: url("https://images.unsplash.com/photo-1541167760496-1613c3434a74?w=500&h=500&fit=crop");'>
+                </div>
+                <h1 class="text-white text-[28px] font-serif font-bold tracking-tight leading-tight">Velvet Milk</h1>
+                <p class="text-white/90 text-sm font-medium mt-1">Velvety microfoam meets specialty roast</p>
+            </div>
+        </div>
+        <div class="flex w-full overflow-x-auto px-4 py-6 gap-5 no-scrollbar">
+            <div class="flex flex-col items-center gap-2 min-w-[72px]">
+                <div class="size-16 rounded-full border-2 border-primary p-0.5">
+                    <div class="w-full h-full rounded-full bg-cover bg-center" data-alt="New Oat Milk Latte"
+                        style='background-image: url("https://images.unsplash.com/photo-1570968993084-a8e384554f1f?w=500&h=500&fit=crop");'>
+                    </div>
+                </div>
+                <span class="text-[11px] font-semibold text-primary">New Oat Milk</span>
+            </div>
+            <div class="flex flex-col items-center gap-2 min-w-[72px]">
+                <div class="size-16 rounded-full border-2 border-slate-200 dark:border-slate-700 p-0.5">
+                    <div class="w-full h-full rounded-full bg-cover bg-center" data-alt="Barista Art"
+                        style='background-image: url("https://images.unsplash.com/photo-1595435934249-5df7ed86e1c0?w=500&h=500&fit=crop");'>
+                    </div>
+                </div>
+                <span class="text-[11px] font-medium opacity-70">Barista Art</span>
+            </div>
+            <div class="flex flex-col items-center gap-2 min-w-[72px]">
+                <div class="size-16 rounded-full border-2 border-slate-200 dark:border-slate-700 p-0.5">
+                    <div class="w-full h-full rounded-full bg-cover bg-center" data-alt="Offers"
+                        style='background-image: url("https://images.unsplash.com/photo-1517701550927-30cfdbfa4624?w=500&h=500&fit=crop");'>
+                    </div>
+                </div>
+                <span class="text-[11px] font-medium opacity-70">Offers</span>
+            </div>
+            <div class="flex flex-col items-center gap-2 min-w-[72px]">
+                <div class="size-16 rounded-full border-2 border-slate-200 dark:border-slate-700 p-0.5">
+                    <div class="w-full h-full rounded-full bg-cover bg-center" data-alt="Brew Guide"
+                        style='background-image: url("https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=500&h=500&fit=crop");'>
+                    </div>
+                </div>
+                <span class="text-[11px] font-medium opacity-70">Brew Guide</span>
+            </div>
+        </div>
+        <div class="flex gap-2 px-4 mb-6 overflow-x-auto no-scrollbar">
+            <div class="filter-btn flex h-10 shrink-0 items-center justify-center rounded-full bg-primary px-6 active"
+                data-filter="all">
+                <p class="text-white text-sm font-bold">All</p>
+            </div>
+            <div class="filter-btn flex h-10 shrink-0 items-center justify-center rounded-full bg-card-tan dark:bg-slate-800 px-6"
+                data-filter="classic">
+                <p class="text-[#1c160d] dark:text-white text-sm font-medium">Classics</p>
+            </div>
+            <div class="filter-btn flex h-10 shrink-0 items-center justify-center rounded-full bg-card-tan dark:bg-slate-800 px-6"
+                data-filter="plant-based">
+                <p class="text-[#1c160d] dark:text-white text-sm font-medium">Plant-Based</p>
+            </div>
+            <div class="filter-btn flex h-10 shrink-0 items-center justify-center rounded-full bg-card-tan dark:bg-slate-800 px-6"
+                data-filter="iced">
+                <p class="text-[#1c160d] dark:text-white text-sm font-medium">Iced</p>
+            </div>
+        </div>
+        <div class="px-4 grid grid-cols-2 gap-3 h-[420px] mb-6">
+            <div onclick="redirectToCustomization('latte_2')"
+                class="col-span-1 h-full relative rounded-bento overflow-hidden bg-card-tan dark:bg-slate-800 p-4 flex flex-col border border-primary/10 cursor-pointer">
+                <div class="mb-2">
+                    <h3 class="font-bold text-lg leading-tight">Signature Oat Latte</h3>
+                    <p class="text-xs opacity-60 mt-1 italic">Creamy &amp; Sustainable</p>
+                </div>
+                <div class="flex-1 w-full bg-cover bg-center rounded-lg my-2" data-alt="Signature Oat Latte"
+                    style='background-image: url("https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=500&h=500&fit=crop");'>
+                </div>
+                <div class="flex justify-between items-center mt-auto">
+                    <span class="font-bold text-primary text-lg">6.50DH</span>
+                    <button onclick="event.stopPropagation(); addToCart('latte_2')"
+                        class="size-8 rounded-full bg-primary flex items-center justify-center text-white"><span
+                            class="material-symbols-outlined text-sm">add</span></button>
+                </div>
+            </div>
+            <div class="col-span-1 flex flex-col gap-3 h-full">
+                <div onclick="redirectToCustomization('latte_3')"
+                    class="flex-1 rounded-bento bg-card-tan dark:bg-slate-800 p-3 flex flex-col justify-between border border-primary/10 cursor-pointer">
+                    <div class="flex justify-between items-start">
+                        <div class="w-14 h-14 rounded-lg bg-cover bg-center" data-alt="Vanilla Bean Latte"
+                            style='background-image: url("https://images.unsplash.com/photo-1511537632536-acc2a4223056?w=500&h=500&fit=crop");'>
+                        </div>
+                        <span class="font-bold text-sm text-primary">5.75DH</span>
+                    </div>
+                    <div class="flex justify-between items-end mt-2">
+                        <h3 class="font-bold text-sm">Vanilla Bean</h3>
+                        <button onclick="event.stopPropagation(); addToCart('latte_3')"
+                            class="size-6 rounded-full bg-primary/20 flex items-center justify-center text-primary"><span
+                                class="material-symbols-outlined text-[16px]">add</span></button>
+                    </div>
+                </div>
+                <div onclick="redirectToCustomization('latte_4')"
+                    class="flex-1 rounded-bento bg-card-tan dark:bg-slate-800 p-3 flex flex-col justify-between border border-primary/10 cursor-pointer">
+                    <div class="flex justify-between items-start">
+                        <div class="w-14 h-14 rounded-lg bg-cover bg-center" data-alt="Caramel Macchiato"
+                            style='background-image: url("https://images.unsplash.com/photo-1461023058943-48db5d469292?w=500&h=500&fit=crop");'>
+                        </div>
+                        <span class="font-bold text-sm text-primary">6.25DH</span>
+                    </div>
+                    <div class="flex justify-between items-end mt-2">
+                        <h3 class="font-bold text-sm">Macchiato</h3>
+                        <button onclick="event.stopPropagation(); addToCart('latte_4')"
+                            class="size-6 rounded-full bg-primary/20 flex items-center justify-center text-primary"><span
+                                class="material-symbols-outlined text-[16px]">add</span></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div
+            class="mx-4 mb-6 h-[120px] rounded-bento bg-primary/10 dark:bg-primary/20 p-5 border border-primary/30 relative overflow-hidden flex items-center">
+            <div class="z-10 w-2/3">
+                <h3 class="font-bold text-primary text-xs uppercase tracking-widest mb-1">Dietary Focus</h3>
+                <p class="font-extrabold text-lg leading-tight">Alternative Milk Guide</p>
+                <div
+                    class="mt-2 inline-flex items-center gap-1 bg-primary text-white text-xs font-bold px-3 py-1.5 rounded-full">
+                    Learn More <span class="material-symbols-outlined text-xs">arrow_forward</span>
+                </div>
+            </div>
+            <div class="absolute -right-2 top-0 bottom-0 w-32 bg-center bg-contain bg-no-repeat opacity-40 rotate-12"
+                data-alt="Alternative milk selection"
+                style='background-image: url("https://images.unsplash.com/photo-1498804103079-a6351b050096?w=500&h=500&fit=crop");'>
+            </div>
+        </div>
+        <div class="px-4 flex items-center justify-between mb-4">
+            <h3 class="text-xl font-extrabold tracking-tight">Today's Selection</h3>
+            <span class="text-primary text-xs font-bold uppercase tracking-wider">Filter</span>
+        </div>
+        <div id="product-list" class="px-4 grid grid-cols-2 gap-x-4 gap-y-6 pb-48">
+            <!-- Dynamic Content -->
+        </div>
+        <!-- Hardcoded Nav Bar for Immediate Visibility -->
+        <nav
+            class="standard-nav-bar bg-white dark:bg-[#2a1e19] border-t border-gray-100 dark:border-white/5 shadow-[0_-4px_20px_rgba(0,0,0,0.1)] backdrop-blur-md h-[55px] flex items-stretch justify-between px-6 fixed bottom-0 left-0 right-0 z-50 max-w-[390px] mx-auto">
+            <button onclick="window.location.href='../swiggy-style_elite_main_menu_390x2500/index.html'"
+                class="flex-1 flex flex-col items-center justify-center gap-0.5 text-gray-600 dark:text-gray-300 hover:text-primary transition-colors">
+                <span class="material-symbols-outlined text-[22px]">home</span>
+                <span class="text-[10px] font-bold uppercase tracking-widest">Home</span>
+            </button>
+            <button onclick="window.location.href='../swiggy-style_elite_main_menu_390x2500/index.html#explore'"
+                class="flex-1 flex flex-col items-center justify-center gap-0.5 text-gray-600 dark:text-gray-300 hover:text-primary transition-colors">
+                <span class="material-symbols-outlined text-[22px]">category</span>
+                <span class="text-[10px] font-bold uppercase tracking-widest">Explore</span>
+            </button>
+            <button onclick="window.location.href='../order_success_page/index.html'"
+                class="relative flex-1 flex flex-col items-center justify-center gap-0.5 text-gray-600 dark:text-gray-300 hover:text-primary transition-colors">
+                <span class="material-symbols-outlined text-[22px]">shopping_cart</span>
+                <span class="text-[10px] font-bold uppercase tracking-widest">Cart</span>
+                <span id="global-cart-count"
+                    class="absolute -top-1 right-4 bg-primary text-white text-[10px] font-bold px-1.5 py-[2px] rounded-full hidden">0</span>
+            </button>
+            <button onclick="alert('Profile feature coming soon')"
+                class="flex-1 flex flex-col items-center justify-center gap-0.5 text-gray-600 dark:text-gray-300 hover:text-primary transition-colors">
+                <span class="material-symbols-outlined text-[22px]">person</span>
+                <span class="text-[10px] font-bold uppercase tracking-widest">Profile</span>
+            </button>
+        </nav>
+        <!-- Navigation Bar -->
+        <script src="script.js"></script>
+        <script src="../nav-bar.js?v=9"></script>
+</body>
+
+</html>

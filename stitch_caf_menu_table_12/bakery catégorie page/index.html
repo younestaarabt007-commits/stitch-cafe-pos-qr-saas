@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Elite Compact Bakery Explorer 3000px</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&amp;family=Poppins:wght@400;500;600;700&amp;family=Playfair+Display:ital,wght@0,700;1,700&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <style type="text/tailwindcss">:root {
+    --primary-caramel: #C68642;
+    --deep-caramel: #8B5E3C;
+    --toasted-beige: #F5EBE0;
+    --cream-bg: #FFFBF5;
+    --soft-cinnamon: #8B5E3C;
+    --dark-espresso: #3E2723;
+    --price-tag-bg: #F3E5D8
+    }
+.no-scrollbar::-webkit-scrollbar {
+    display: none
+    }
+.no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none
+    }
+.organic-shape {
+    position: absolute;
+    filter: blur(60px);
+    z-index: 0;
+    opacity: 0.6
+    }
+.line-art {
+    position: absolute;
+    color: rgba(198, 134, 66, 0.06);
+    pointer-events: none;
+    z-index: 0
+    }
+.micro-texture {
+    background-image: url(https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=800&h=800&q=80)
+    }
+.hero-croissant-shadow {
+    filter: drop-shadow(0 20px 30px rgba(139, 94, 60, 0.4))
+    }
+.crumb-particle {
+    position: absolute;
+    background: #C68642;
+    border-radius: 50%;
+    filter: blur(1px)
+    }
+.stamp-tag {
+    mask-image: url("data:image/svg+xml,%3Csvg width='100%25' height='100%25' viewBox='0 0 100 100' preserveAspectRatio='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0 L100 0 L100 100 L0 100 Z' fill='black'/%3E%3C/svg%3E");
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg width='100%25' height='100%25' viewBox='0 0 100 100' preserveAspectRatio='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0 L100 0 L100 100 L0 100 Z' fill='black'/%3E%3C/svg%3E");
+    background-image: radial-gradient(#8B5E3C 0.5px, transparent 0.5px);
+    background-size: 4px 4px
+    }</style>
+    <style type="text/tailwindcss">
+        .glass-panel { @apply bg-white/60 backdrop-blur-xl border border-white/50; }
+  .material-symbols-outlined { font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+</style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        caramel: "#C68642",
+                        "deep-caramel": "#8B5E3C",
+                        cinnamon: "#8B5E3C",
+                        beige: "#F5EBE0",
+                        cream: "#FFFBF5",
+                        espresso: "#3E2723",
+                    },
+                    fontFamily: {
+                        display: ["Poppins", "sans-serif"],
+                        serif: ["Playfair Display", "serif"],
+                        body: ["DM Sans", "sans-serif"],
+                    },
+                    spacing: {
+                        'gutter': '16px',
+                        'gap-v': '24px',
+                    },
+                    fontSize: {
+                        'hero': ['28px', '1.1'],
+                        'section': ['20px', '1.2'],
+                        'product': ['16px', '1.2'],
+                    },
+                    borderRadius: {
+                        'card': '20px',
+                    }
+                },
+            },
+        };
+    </script>
+    <style>
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+    <style>
+        .glass-search {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+        }
+    </style>
+</head>
+
+<body class="bg-[#FFFDF0] text-stone-800 font-body min-h-screen relative overflow-x-hidden pb-32">
+    <!-- Header with Image Background -->
+    <div class="relative w-full h-[360px] bg-gray-900 overflow-hidden shrink-0">
+        <!-- Background Image -->
+        <img src="../assets/images/sweet pastries header image.jpg" alt="Header"
+            class="absolute inset-0 w-full h-full object-cover opacity-80">
+
+        <!-- Gradient Overlay -->
+        <div class="absolute inset-0 bg-gradient-to-b from-black/60 to-transparent"></div>
+
+        <!-- Navigation -->
+        <div class="absolute top-0 left-0 right-0 z-10 px-4 pt-4 flex items-center justify-between">
+            <button onclick="history.back()"
+                class="w-10 h-10 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white active:scale-95 transition-transform">
+                <span class="material-symbols-outlined">arrow_back</span>
+            </button>
+
+            <div class="flex gap-3">
+                <!-- Language Toggle -->
+                <div id="language-toggle" class="language-toggle scale-90">
+                    <div class="toggle-switch">
+                        <span class="slider"></span>
+                    </div>
+                </div>
+                <button
+                    class="w-10 h-10 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white active:scale-95 transition-transform">
+                    <span class="material-symbols-outlined">search</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Title -->
+        <div class="absolute bottom-6 left-6 text-white">
+            <h1 class="text-3xl font-bold tracking-tight" data-i18n="bakery_title">Artisan Bakery</h1>
+            <p class="text-xs font-medium opacity-90 uppercase tracking-wider mb-1" data-i18n="bakery_subtitle">Golden
+                Mornings Start Here</p>
+        </div>
+    </div>
+
+    
+
+    <!-- Explorer Icons Section -->
+    <section class="pt-6 pb-2">
+        <div class="px-4 md:px-8 mb-3 flex items-center justify-between max-w-7xl mx-auto w-full">
+            <h3 class="text-lg md:text-xl font-bold text-gray-900 dark:text-white uppercase tracking-tight">Explorer</h3>
+            <span class="text-primary text-xs font-extrabold uppercase tracking-wider cursor-pointer">Voir Tout</span>
+        </div>
+        <div class="flex overflow-x-auto no-scrollbar gap-2 px-4 md:px-8 pb-0 w-full">
+          <!-- 1 Tea & Infusion -->
+          <div class="flex flex-col items-center gap-2 shrink-0 cursor-pointer group"
+            onclick="window.location.href='../tea and infusion sub catégorie page/index.html'">
+            <div class="p-[3px] rounded-full bg-gray-200 dark:bg-gray-700 group-hover:bg-primary transition-all">
+              <div class="bg-white dark:bg-[#1a100c] p-1 rounded-full">
+                <div class="w-16 h-16 rounded-full overflow-hidden relative">
+                  <img src="../images/sub catégories icons/tea icon .png" alt="Tea &amp; Infusion" loading="lazy"
+                    class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
+                    onerror="this.onerror=null;this.src='../assets/waiter.jpg'">
+                </div>
+              </div>
+            </div>
+            <p class="text-[10px] text-gray-800 dark:text-white text-center leading-tight max-w-[5rem]"
+              data-i18n="tea_infusion">Tea &amp; Infusion</p>
+          </div>
+
+          <!-- 2 Milkshake -->
+          <div class="flex flex-col items-center gap-2 shrink-0 cursor-pointer group"
+            onclick="window.location.href='../milkshake sub catégorie page/index.html'">
+            <div class="p-[3px] rounded-full bg-gray-200 dark:bg-gray-700 group-hover:bg-primary transition-all">
+              <div class="bg-white dark:bg-[#1a100c] p-1 rounded-full">
+                <div class="w-16 h-16 rounded-full overflow-hidden relative">
+                  <img src="../images/sub catégories icons/milkshake icon.png" alt="Milkshake" loading="lazy"
+                    class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
+                    onerror="this.onerror=null;this.src='../assets/waiter.jpg'">
+                </div>
+              </div>
+            </div>
+            <p class="text-[10px] text-gray-800 dark:text-white text-center leading-tight max-w-[5rem]"
+              data-i18n="milkshake">Milkshake</p>
+          </div>
+
+          <!-- 3 Juice -->
+          <div class="flex flex-col items-center gap-2 shrink-0 cursor-pointer group"
+            onclick="window.location.href='../juces sub catégorie page/index.html'">
+            <div class="p-[3px] rounded-full bg-gray-200 dark:bg-gray-700 group-hover:bg-primary transition-all">
+              <div class="bg-white dark:bg-[#1a100c] p-1 rounded-full">
+                <div class="w-16 h-16 rounded-full overflow-hidden relative">
+                  <img src="../images/sub catégories icons/juces icon.png" alt="Juice" loading="lazy"
+                    class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
+                    onerror="this.onerror=null;this.src='../assets/waiter.jpg'">
+                </div>
+              </div>
+            </div>
+            <p class="text-[10px] text-gray-800 dark:text-white text-center leading-tight max-w-[5rem]"
+              data-i18n="juice">Juice</p>
+          </div>
+
+          <!-- 4 Cold Drinks -->
+          <div class="flex flex-col items-center gap-2 shrink-0 cursor-pointer group"
+            onclick="window.location.href='../cold drinks sub catégorie page/index.html'">
+            <div class="p-[3px] rounded-full bg-gray-200 dark:bg-gray-700 group-hover:bg-primary transition-all">
+              <div class="bg-white dark:bg-[#1a100c] p-1 rounded-full">
+                <div class="w-16 h-16 rounded-full overflow-hidden relative">
+                  <img src="../images/sub catégories icons/Cold drinks icon.jpg" alt="Cold Drinks" loading="lazy"
+                    class="w-full h-full object-cover transform scale-[0.85] group-hover:scale-110 transition-transform duration-500"
+                    onerror="this.onerror=null;this.src='../assets/waiter.jpg'">
+                </div>
+              </div>
+            </div>
+            <p class="text-[10px] text-gray-800 dark:text-white text-center leading-tight max-w-[5rem]"
+              data-i18n="cold_drinks">Cold Drinks</p>
+          </div>
+
+          <!-- 5 Sweet Pastries -->
+          <div class="flex flex-col items-center gap-2 shrink-0 cursor-pointer group"
+            onclick="window.location.href='../sweet pastries sub catégorie page/index.html'">
+            <div class="p-[3px] rounded-full bg-gray-200 dark:bg-gray-700 group-hover:bg-primary transition-all">
+              <div class="bg-white dark:bg-[#1a100c] p-1 rounded-full">
+                <div class="w-16 h-16 rounded-full overflow-hidden relative">
+                  <img src="../images/sub catégories icons/sweet pastry icon.png" alt="Sweet Pastries" loading="lazy"
+                    class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
+                    onerror="this.onerror=null;this.src='../assets/waiter.jpg'">
+                </div>
+              </div>
+            </div>
+            <p class="text-[10px] text-gray-800 dark:text-white text-center leading-tight max-w-[5rem]"
+              data-i18n="sweet_pastries">Sweet Pastries</p>
+          </div>
+
+          <!-- 6 Pastry -->
+          <div class="flex flex-col items-center gap-2 shrink-0 cursor-pointer group"
+            onclick="window.location.href='../artisanal bread sub catégorie page/index.html'">
+            <div class="p-[3px] rounded-full bg-gray-200 dark:bg-gray-700 group-hover:bg-primary transition-all">
+              <div class="bg-white dark:bg-[#1a100c] p-1 rounded-full">
+                <div class="w-16 h-16 rounded-full overflow-hidden relative">
+                  <img src="../images/sub catégories icons/pastry,.jpg" alt="Pastry" loading="lazy"
+                    class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
+                    onerror="this.onerror=null;this.src='../assets/waiter.jpg'">
+                </div>
+              </div>
+            </div>
+            <p class="text-[10px] text-gray-800 dark:text-white text-center leading-tight max-w-[5rem]"
+              data-i18n="pastry">Pastry</p>
+          </div>
+
+          <!-- 8 Fast Food -->
+          <div class="flex flex-col items-center gap-2 shrink-0 cursor-pointer group"
+            onclick="window.location.href='../fast food sub catégorie page/index.html'">
+            <div class="p-[3px] rounded-full bg-gray-200 dark:bg-gray-700 group-hover:bg-primary transition-all">
+              <div class="bg-white dark:bg-[#1a100c] p-1 rounded-full">
+                <div class="w-16 h-16 rounded-full overflow-hidden relative">
+                  <img src="../images/sub catégories icons/Snack Food.jpg" alt="Fast Food" loading="lazy"
+                    class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
+                    onerror="this.onerror=null;this.src='../assets/waiter.jpg'">
+                </div>
+              </div>
+            </div>
+            <p class="text-[10px] text-gray-800 dark:text-white text-center leading-tight max-w-[5rem]"
+              data-i18n="fast_food">Fast Food</p>
+          </div>
+
+          <!-- 9 Black Coffee -->
+          <div class="flex flex-col items-center gap-2 shrink-0 cursor-pointer group"
+            onclick="window.location.href='../black coffee sub catégorie page/index.html'">
+            <div class="p-[3px] rounded-full bg-gray-200 dark:bg-gray-700 group-hover:bg-primary transition-all">
+              <div class="bg-white dark:bg-[#1a100c] p-1 rounded-full">
+                <div class="w-16 h-16 rounded-full overflow-hidden relative">
+                  <img src="../images/sub catégories icons/black coffe icon.jpg" alt="Black Coffee" loading="lazy"
+                    class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
+                    onerror="this.onerror=null;this.src='../assets/waiter.jpg'">
+                </div>
+              </div>
+            </div>
+            <p class="text-[10px] text-gray-800 dark:text-white text-center leading-tight max-w-[5rem]"
+              data-i18n="black_coffee">Black Coffee</p>
+          </div>
+
+          <!-- 10 Latte -->
+          <div class="flex flex-col items-center gap-2 shrink-0 cursor-pointer group"
+            onclick="window.location.href='../latt%C3%A9 hot drink sub cat%C3%A9gorie page/index.html'">
+            <div class="p-[3px] rounded-full bg-gray-200 dark:bg-gray-700 group-hover:bg-primary transition-all">
+              <div class="bg-white dark:bg-[#1a100c] p-1 rounded-full">
+                <div class="w-16 h-16 rounded-full overflow-hidden relative">
+                  <img src="../images/sub catégories icons/latt%C3%A9 icon.jpg" alt="Latte" loading="lazy"
+                    class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
+                    onerror="this.onerror=null;this.src='../assets/waiter.jpg'">
+                </div>
+              </div>
+            </div>
+            <p class="text-[10px] text-gray-800 dark:text-white text-center leading-tight max-w-[5rem]"
+              data-i18n="latte">Latte</p>
+          </div>
+
+          <!-- 11 Smoothie -->
+          <div class="flex flex-col items-center gap-2 shrink-0 cursor-pointer group"
+            onclick="window.location.href='../smothie sub cat%C3%A9gorie page/index.html'">
+            <div class="p-[3px] rounded-full bg-gray-200 dark:bg-gray-700 group-hover:bg-primary transition-all">
+              <div class="bg-white dark:bg-[#1a100c] p-1 rounded-full">
+                <div class="w-16 h-16 rounded-full overflow-hidden relative">
+                  <img src="../images/sub cat%C3%A9gories icons/smoothie icon.png" alt="Smoothie" loading="lazy"
+                    class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
+                    onerror="this.onerror=null;this.src='../assets/waiter.jpg'">
+                </div>
+              </div>
+            </div>
+            <p class="text-[10px] text-gray-800 dark:text-white text-center leading-tight max-w-[5rem]"
+              data-i18n="smoothie">Smoothie</p>
+          </div>
+
+          <!-- 12 Toast -->
+          <div class="flex flex-col items-center gap-2 shrink-0 cursor-pointer group"
+            onclick="window.location.href='../toast brunch sub cat%C3%A9gorie page/index.html'">
+            <div class="p-[3px] rounded-full bg-gray-200 dark:bg-gray-700 group-hover:bg-primary transition-all">
+              <div class="bg-white dark:bg-[#1a100c] p-1 rounded-full">
+                <div class="w-16 h-16 rounded-full overflow-hidden relative">
+                  <img src="../images/sub cat%C3%A9gories icons/sandwich or toast icon .jpg" alt="Toast" loading="lazy"
+                    class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
+                    onerror="this.onerror=null;this.src='../assets/waiter.jpg'">
+                </div>
+              </div>
+            </div>
+            <p class="text-[10px] text-gray-800 dark:text-white text-center leading-tight max-w-[5rem]"
+              data-i18n="toast">Toast</p>
+          </div>
+
+          <!-- 13 Breakfast -->
+          <div class="flex flex-col items-center gap-2 shrink-0 cursor-pointer group"
+            onclick="window.location.href='../petit dejeuner sub cat%C3%A9gorie page/index.html'">
+            <div class="p-[3px] rounded-full bg-gray-200 dark:bg-gray-700 group-hover:bg-primary transition-all">
+              <div class="bg-white dark:bg-[#1a100c] p-1 rounded-full">
+                <div class="w-16 h-16 rounded-full overflow-hidden relative">
+                  <img src="../images/sub cat%C3%A9gories icons/Breakfast.jpg" alt="Breakfast" loading="lazy"
+                    class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
+                    onerror="this.onerror=null;this.src='../assets/waiter.jpg'">
+                </div>
+              </div>
+            </div>
+            <p class="text-[10px] text-gray-800 dark:text-white text-center leading-tight max-w-[5rem]"
+              data-i18n="breakfast">Breakfast</p>
+          </div>
+     </div>
+    </div>
+
+        <div class="px-6 pt-4 pb-1 border-t border-stone-100/50">
+        <div class="flex items-center justify-between mb-3">
+            <h2 class="text-lg font-bold text-gray-800 tracking-tight">Explore Categories</h2>
+            <div class="flex gap-2">
+                <button
+                    class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-600 hover:bg-gray-200 transition-colors">
+                    <span class="material-symbols-outlined text-sm">arrow_back_ios</span>
+                </button>
+                <button
+                    class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-600 hover:bg-gray-200 transition-colors">
+                    <span class="material-symbols-outlined text-sm">arrow_forward_ios</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 4 Category Cards Section -->
+    <div class="flex gap-4 overflow-x-auto pb-4 px-6 no-scrollbar snap-x">
+            <div class="min-w-[140px] h-[180px] rounded-2xl relative overflow-hidden group snap-center cursor-pointer active:scale-95 transition-transform"
+                onclick="window.location.href='../long_scroll_brunch_explorer/index.html'">
+                <img src="../images/header images of sub catégorie/brunch header image.jpg"
+                    class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                    alt="Brunch">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
+                <div class="absolute bottom-4 left-4 text-white">
+                    <p class="text-xs font-medium opacity-80 mb-1">Morning</p>
+                    <h3 class="font-bold text-lg leading-tight">Brunch</h3>
+                </div>
+            </div>
+
+            <div class="min-w-[140px] h-[180px] rounded-2xl relative overflow-hidden group snap-center cursor-pointer active:scale-95 transition-transform"
+                onclick="window.location.href='../cold drinks catégorie page/index.html'">
+                <img src="../assets/categories/cold_drinks.jpg"
+                    class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                    alt="Cold Drinks">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
+                <div class="absolute bottom-4 left-4 text-white">
+                    <p class="text-xs font-medium opacity-80 mb-1" data-i18n="refresh">Refresh</p>
+                    <h3 class="font-bold text-lg leading-tight" data-i18n="cold_drinks">Cold Drinks</h3>
+                </div>
+            </div>
+            <div class="min-w-[140px] h-[180px] rounded-2xl relative overflow-hidden group snap-center cursor-pointer active:scale-95 transition-transform"
+                onclick="window.location.href='../Brew catégorie page/index.html'">
+                <img src="../assets/categories/hot_drinks.jpg"
+                    class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                    alt="Hot Drinks">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
+                <div class="absolute bottom-4 left-4 text-white">
+                    <p class="text-xs font-medium opacity-80 mb-1" data-i18n="warm_up">Warm Up</p>
+                    <h3 class="font-bold text-lg leading-tight" data-i18n="hot_drinks">Hot Drinks</h3>
+                </div>
+            </div>
+            <div class="min-w-[140px] h-[180px] rounded-2xl relative overflow-hidden group snap-center cursor-pointer active:scale-95 transition-transform"
+                onclick="window.location.href='../bakery catégorie page/index.html'">
+                <img src="../assets/categories/bakery.jpg"
+                    class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                    alt="Bakery">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
+                <div class="absolute bottom-4 left-4 text-white">
+                    <p class="text-xs font-medium opacity-80 mb-1" data-i18n="sweet">Sweet</p>
+                    <h3 class="font-bold text-lg leading-tight" data-i18n="bakery">Bakery</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        <div class="px-6 pt-4 pb-1 border-t border-stone-100/50">
+        <div class="flex items-center justify-between mb-3">
+            <h2 class="text-lg font-bold text-gray-800 tracking-tight">Explore Categories</h2>
+            <div class="flex gap-2">
+                <button
+                    class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-600 hover:bg-gray-200 transition-colors">
+                    <span class="material-symbols-outlined text-sm">arrow_back_ios</span>
+                </button>
+                <button
+                    class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-600 hover:bg-gray-200 transition-colors">
+                    <span class="material-symbols-outlined text-sm">arrow_forward_ios</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="z-30 -mx-gutter px-gutter py-2 bg-cream/80 backdrop-blur-md border-b border-stone-100/50">
+        <div class="flex space-x-3 overflow-x-auto no-scrollbar py-1 pl-1">
+            <button
+                class="filter-btn flex-shrink-0 px-5 py-2 rounded-full bg-stone-900 text-white text-sm font-semibold shadow-lg active"
+                data-filter="all">All Items</button>
+            <button
+                class="filter-btn flex-shrink-0 px-5 py-2 rounded-full border border-stone-100 bg-white text-stone-600 text-sm font-semibold whitespace-nowrap"
+                data-filter="viennoiserie">Viennoiserie</button>
+            <button
+                class="filter-btn flex-shrink-0 px-5 py-2 rounded-full border border-stone-100 bg-white text-stone-600 text-sm font-semibold whitespace-nowrap"
+                data-filter="sourdough">Sourdough</button>
+            <button
+                class="filter-btn flex-shrink-0 px-5 py-2 rounded-full border border-stone-100 bg-white text-stone-600 text-sm font-semibold whitespace-nowrap"
+                data-filter="patisserie">Patisserie</button>
+        </div>
+    </div>
+    <div class="px-gutter mb-gap-v">
+        <div class="flex justify-between items-end mb-4">
+            <h2 class="font-serif font-bold text-section text-stone-900 tracking-tight">Collections</h2>
+            <span class="text-xs font-bold text-caramel uppercase tracking-wide">View All</span>
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+            <a href="../artisanal bread sub catégorie page/index.html" class="col-span-1 h-44 md:h-48 relative bg-[#F5EBE0] rounded-[20px] overflow-hidden group shadow-md border border-white/10 block text-white">
+                <img alt="Pastries" loading="lazy" class="absolute inset-0 w-full h-full object-cover z-0" src="../images/su categorie bento cards buttons/Venoisseri bento card.jpg" onerror="this.onerror=null;this.src='../swiggy-style_elite_main_menu_390x2500/assets/pastry.jpg';">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent z-10"></div>
+                <div class="absolute bottom-3 left-3 z-20">
+                    <span class="text-[10px] font-bold text-white/90 bg-white/20 backdrop-blur-sm px-2 py-0.5 rounded-full uppercase tracking-widest">Fresh</span>
+                    <h3 class="font-serif text-[18px] text-white mt-1 leading-tight">Artisanal<br>Bread</h3>
+                </div>
+            </a>
+            <a href="../sweet pastries sub catégorie page/index.html" class="col-span-1 h-44 md:h-48 relative bg-[#FFF8F0] rounded-[20px] overflow-hidden group shadow-md border border-white/10 block text-white">
+                <img alt="Sweet Pastries" loading="lazy" class="absolute inset-0 w-full h-full object-cover z-0" src="../images/su categorie bento cards buttons/Patisserie bento card.jpg" onerror="this.onerror=null;this.src='../swiggy-style_elite_main_menu_390x2500/assets/pastry.jpg';">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent z-10"></div>
+                <div class="absolute bottom-3 left-3 z-20">
+                    <span class="text-[10px] font-bold text-white/90 bg-white/20 backdrop-blur-sm px-2 py-0.5 rounded-full uppercase tracking-widest">Sweet</span>
+                    <h3 class="font-serif text-[18px] text-white mt-1 leading-tight">Sweet<br>Pastries</h3>
+                </div>
+            </a>
+        </div>
+    </div>
+    <div class="px-gutter pb-24">
+        <h2 class="font-serif font-bold text-section text-stone-900 mb-4">Fresh from the Oven</h2>
+        <div id="product-grid" class="px-1.5 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 pb-32">
+            <!-- Products rendered via script.js -->
+        </div>
+    </div>
+    <!-- Navigation Bar -->
+    <script src="script.js"></script>
+    <!-- Hardcoded Nav Bar for Immediate Visibility -->
+    <nav
+        class="standard-nav-bar bg-white dark:bg-[#2a1e19] border-t border-gray-100 dark:border-white/5 shadow-[0_-4px_20px_rgba(0,0,0,0.1)] backdrop-blur-md h-[55px] flex items-stretch justify-between px-6 fixed bottom-0 left-0 right-0 z-50 max-w-[390px] mx-auto">
+        <button onclick="window.location.href='../swiggy-style_elite_main_menu_390x2500/index.html'"
+            class="flex-1 flex flex-col items-center justify-center gap-0.5 text-gray-600 dark:text-gray-300 hover:text-primary transition-colors">
+            <span class="material-symbols-outlined text-[22px]">home</span>
+            <span class="text-[10px] font-bold uppercase tracking-widest">Home</span>
+        </button>
+        <button onclick="window.location.href='../swiggy-style_elite_main_menu_390x2500/index.html#explore'"
+            class="flex-1 flex flex-col items-center justify-center gap-0.5 text-gray-600 dark:text-gray-300 hover:text-primary transition-colors">
+            <span class="material-symbols-outlined text-[22px]">category</span>
+            <span class="text-[10px] font-bold uppercase tracking-widest">Explore</span>
+        </button>
+        <button onclick="window.location.href='../order_success_page/index.html'"
+            class="relative flex-1 flex flex-col items-center justify-center gap-0.5 text-gray-600 dark:text-gray-300 hover:text-primary transition-colors">
+            <span class="material-symbols-outlined text-[22px]">shopping_cart</span>
+            <span class="text-[10px] font-bold uppercase tracking-widest">Cart</span>
+            <span id="global-cart-count"
+                class="absolute -top-1 right-4 bg-primary text-white text-[10px] font-bold px-1.5 py-[2px] rounded-full hidden">0</span>
+        </button>
+        <button onclick="alert('Profile feature coming soon')"
+            class="flex-1 flex flex-col items-center justify-center gap-0.5 text-gray-600 dark:text-gray-300 hover:text-primary transition-colors">
+            <span class="material-symbols-outlined text-[22px]">person</span>
+            <span class="text-[10px] font-bold uppercase tracking-widest">Profile</span>
+        </button>
+    </nav>
+    <!-- Navigation Bar Script (logic only) -->
+    <script src="../nav-bar.js?v=9"></script>
+  <script src="../theme-engine.js?v=1"></script>
+</body>
+
+</html>

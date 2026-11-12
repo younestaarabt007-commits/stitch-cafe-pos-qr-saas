@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Unified Bakery Category</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#f2930d",
+                        "background-light": "#fafaf5",
+                        "background-dark": "#221b10",
+                        "card-tan": "#f4eee7",
+                    },
+                    fontFamily: {
+                        "display": ["Plus Jakarta Sans", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "1rem",
+                        "lg": "1.5rem",
+                        "xl": "2rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #fafaf5;
+        }
+
+        .hero-gradient {
+            background: radial-gradient(circle at center, #f2930d 0%, #d97706 40%, #78350f 100%);
+        }
+
+        .floating-crumb {
+            position: absolute;
+            background: #fde68a;
+            border-radius: 2px;
+            opacity: 0.6;
+        }
+
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+    <style>
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+    <style>
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+</head>
+
+<body class="bg-background-light dark:bg-background-dark text-[#1c160d] dark:text-[#fcfaf8] antialiased">
+    <div
+        class="relative flex min-h-screen w-full max-w-[390px] mx-auto flex-col bg-background-light dark:bg-background-dark overflow-x-hidden shadow-2xl pb-24">
+        <div
+            class="absolute top-0 left-0 right-0 z-20 flex items-center justify-between p-4 bg-gradient-to-b from-black/40 to-transparent">
+            <div class="flex size-10 items-center justify-center rounded-full bg-white/20 backdrop-blur-md text-white">
+                <span class="material-symbols-outlined">arrow_back</span>
+            </div>
+            <div class="flex size-10 items-center justify-center rounded-full bg-white/20 backdrop-blur-md text-white">
+                <span class="material-symbols-outlined">search</span>
+            </div>
+        </div>
+        <div class="relative h-[380px] w-full overflow-hidden hero-gradient flex items-center justify-center">
+            <div class="floating-crumb w-2 h-2 top-20 left-10 rotate-12"></div>
+            <div class="floating-crumb w-3 h-3 top-40 right-20 rotate-45"></div>
+            <div class="floating-crumb w-1.5 h-1.5 bottom-32 left-24 -rotate-12"></div>
+            <div class="floating-crumb w-4 h-4 bottom-20 right-10 rotate-[30deg]"></div>
+            <div class="floating-crumb w-2 h-2 top-1/2 left-5 rotate-12"></div>
+            <div class="relative z-10 flex flex-col items-center justify-center text-center px-6">
+                <div class="w-60 h-60 bg-center bg-contain bg-no-repeat mb-2 scale-110"
+                    data-alt="3D exploding golden croissant with floating crumbs"
+                    style='background-image: url("https://images.unsplash.com/photo-1509440159596-0249088772ff?w=500&h=500&fit=crop");'>
+                </div>
+                <h1 class="text-white text-[28px] font-extrabold tracking-tight leading-tight">Artisan Bakery</h1>
+                <p class="text-white/80 text-sm font-medium mt-1">Baked fresh every morning at 5 AM</p>
+            </div>
+        </div>
+        <div class="flex w-full overflow-x-auto px-4 py-5 gap-4 no-scrollbar">
+            <div class="flex flex-col items-center gap-2 min-w-[72px]">
+                <div class="size-16 rounded-full border-2 border-primary p-0.5">
+                    <div class="w-full h-full rounded-full bg-cover bg-center" data-alt="Freshly baked pastries"
+                        style='background-image: url("https://images.unsplash.com/photo-1549931319-a545dcf3bc73?w=500&h=500&fit=crop");'>
+                    </div>
+                </div>
+                <span class="text-xs font-bold text-primary uppercase tracking-wider">Just In</span>
+            </div>
+            <div class="flex flex-col items-center gap-2 min-w-[72px]">
+                <div class="size-16 rounded-full border-2 border-slate-200 dark:border-slate-700 p-0.5">
+                    <div class="w-full h-full rounded-full bg-cover bg-center" data-alt="Promotional offers display"
+                        style='background-image: url("https://images.unsplash.com/photo-1568254183919-78a4f43a2877?w=500&h=500&fit=crop");'>
+                    </div>
+                </div>
+                <span class="text-xs font-medium opacity-70">Offers</span>
+            </div>
+            <div class="flex flex-col items-center gap-2 min-w-[72px]">
+                <div class="size-16 rounded-full border-2 border-slate-200 dark:border-slate-700 p-0.5">
+                    <div class="w-full h-full rounded-full bg-cover bg-center" data-alt="Chef recommendation highlight"
+                        style='background-image: url("https://images.unsplash.com/photo-1586444248902-2f64eddc13df?w=500&h=500&fit=crop");'>
+                    </div>
+                </div>
+                <span class="text-xs font-medium opacity-70">Chef Pick</span>
+            </div>
+            <div class="flex flex-col items-center gap-2 min-w-[72px]">
+                <div class="size-16 rounded-full border-2 border-slate-200 dark:border-slate-700 p-0.5">
+                    <div class="w-full h-full rounded-full bg-cover bg-center" data-alt="Whole grain bread selection"
+                        style='background-image: url("https://images.unsplash.com/photo-1576458088443-04a19bb13da6?w=500&h=500&fit=crop");'>
+                    </div>
+                </div>
+                <span class="text-xs font-medium opacity-70">Grains</span>
+            </div>
+        </div>
+        <div class="flex gap-2 px-4 mb-3 overflow-x-auto no-scrollbar">
+            <div class="flex h-9 shrink-0 items-center justify-center rounded-full bg-primary px-5">
+                <p class="text-white text-sm font-bold">All</p>
+            </div>
+            <div class="flex h-9 shrink-0 items-center justify-center rounded-full bg-card-tan dark:bg-slate-800 px-5">
+                <p class="text-[#1c160d] dark:text-white text-sm font-medium">Pastries</p>
+            </div>
+            <div class="flex h-9 shrink-0 items-center justify-center rounded-full bg-card-tan dark:bg-slate-800 px-5">
+                <p class="text-[#1c160d] dark:text-white text-sm font-medium">Bread</p>
+            </div>
+            <div class="flex h-9 shrink-0 items-center justify-center rounded-full bg-card-tan dark:bg-slate-800 px-5">
+                <p class="text-[#1c160d] dark:text-white text-sm font-medium">Cakes</p>
+            </div>
+        </div>
+        <div class="px-4 grid grid-cols-2 grid-rows-3 gap-3 h-[460px] mb-5">
+            <div
+                class="row-span-2 col-span-1 relative rounded-[20px] overflow-hidden bg-card-tan dark:bg-slate-800 p-3 flex flex-col justify-between border border-primary/10">
+                <div>
+                    <h3 class="font-bold text-[16px] leading-tight">Signature Sourdough</h3>
+                    <p class="text-[10px] opacity-60 mt-0.5 italic">Naturally leavened</p>
+                </div>
+                <div class="w-full aspect-square bg-cover bg-center rounded-lg my-2"
+                    data-alt="Large loaf of crusty sourdough bread"
+                    style='background-image: url("https://images.unsplash.com/photo-1560155016355-644c330f40b2?w=500&h=500&fit=crop");'>
+                </div>
+                <div class="flex justify-between items-center">
+                    <span class="font-bold text-primary text-sm">8.50DH</span>
+                    <a href="../petit pain bakery_customization_view/code.html"
+                        class="size-7 rounded-full bg-primary flex items-center justify-center text-white shadow-sm"><span
+                            class="material-symbols-outlined text-xs">add</span></a>
+                </div>
+            </div>
+            <div
+                class="col-span-1 rounded-[20px] bg-card-tan dark:bg-slate-800 p-3 flex flex-col justify-between border border-primary/10">
+                <div class="flex justify-between items-start">
+                    <div class="w-10 h-10 rounded-lg bg-cover bg-center" data-alt="Golden butter croissant"
+                        style='background-image: url("https://images.unsplash.com/photo-1530610476181-d8ceb28b5f4f?w=500&h=500&fit=crop");'>
+                    </div>
+                    <span class="font-bold text-sm text-primary">3.50DH</span>
+                </div>
+                <h3 class="font-bold text-[16px] leading-tight mt-1">Butter Croissant</h3>
+            </div>
+            <div
+                class="col-span-1 rounded-[20px] bg-card-tan dark:bg-slate-800 p-3 flex flex-col justify-between border border-primary/10">
+                <div class="flex justify-between items-start">
+                    <div class="w-10 h-10 rounded-lg bg-cover bg-center" data-alt="Pain au chocolat pastry"
+                        style='background-image: url("https://images.unsplash.com/photo-1506224477000-0b28c6d7e082?w=500&h=500&fit=crop");'>
+                    </div>
+                    <span class="font-bold text-sm text-primary">4.25DH</span>
+                </div>
+                <h3 class="font-bold text-[16px] leading-tight mt-1">Pain au Chocolat</h3>
+            </div>
+            <div
+                class="col-span-2 rounded-[20px] bg-primary/10 dark:bg-primary/20 p-3 border border-primary/30 relative overflow-hidden flex items-center">
+                <div class="z-10 w-2/3">
+                    <h3 class="font-bold text-primary text-[10px] uppercase tracking-widest mb-0.5">Morning Bundle</h3>
+                    <p class="font-extrabold text-lg leading-tight">Any Pastry + Large Coffee</p>
+                    <div
+                        class="mt-2 inline-flex items-center gap-1 bg-primary text-white text-[10px] font-bold px-3 py-1 rounded-full shadow-sm">
+                        Order Now <span class="material-symbols-outlined text-[10px]">arrow_forward</span>
+                    </div>
+                </div>
+                <div class="absolute -right-4 top-0 bottom-0 w-32 bg-center bg-contain bg-no-repeat opacity-40 rotate-12 scale-125"
+                    data-alt="Coffee and croissant bundle"
+                    style='background-image: url("https://images.unsplash.com/photo-1517686469429-8bdb88b9f907?w=500&h=500&fit=crop");'>
+                </div>
+            </div>
+        </div>
+        <div class="px-4 flex items-center justify-between mb-2">
+            <h3 class="text-[20px] font-extrabold tracking-tight">Today's Selection</h3>
+            <span class="text-primary text-xs font-bold">View All</span>
+        </div>
+        <div class="px-4 flex flex-col gap-3 pb-8">
+            <div
+                class="flex items-center gap-3 bg-white dark:bg-slate-800 p-3 rounded-[16px] shadow-sm border border-slate-100 dark:border-slate-700">
+                <div class="size-[72px] rounded-lg bg-cover bg-center shrink-0" data-alt="Traditional French baguette"
+                    style='background-image: url("https://images.unsplash.com/photo-1552590673-3f194e478b0c?w=500&h=500&fit=crop");'>
+                </div>
+                <div class="flex-1 flex flex-col justify-center">
+                    <h4 class="font-bold text-[16px] leading-tight">Traditional Baguette</h4>
+                    <p class="text-xs opacity-60 line-clamp-1 mt-0.5">Crispy crust, airy interior</p>
+                    <span class="text-primary font-bold mt-1 text-sm">4.00DH</span>
+                </div>
+                <a href="../petit pain bakery_customization_view/code.html"
+                    class="size-9 rounded-full bg-card-tan dark:bg-slate-700 flex items-center justify-center text-primary shadow-sm"><span
+                        class="material-symbols-outlined text-lg">add</span></a>
+            </div>
+            <div
+                class="flex items-center gap-3 bg-white dark:bg-slate-800 p-3 rounded-[16px] shadow-sm border border-slate-100 dark:border-slate-700">
+                <div class="size-[72px] rounded-lg bg-cover bg-center shrink-0" data-alt="Berry filled muffin"
+                    style='background-image: url("https://images.unsplash.com/photo-1509440159596-0249088772ff?w=500&h=500&fit=crop");'>
+                </div>
+                <div class="flex-1 flex flex-col justify-center">
+                    <h4 class="font-bold text-[16px] leading-tight">Wild Berry Muffin</h4>
+                    <p class="text-xs opacity-60 line-clamp-1 mt-0.5">Bursting with organic berries</p>
+                    <span class="text-primary font-bold mt-1 text-sm">3.75DH</span>
+                </div>
+                <a href="../petit pain bakery_customization_view/code.html"
+                    class="size-9 rounded-full bg-card-tan dark:bg-slate-700 flex items-center justify-center text-primary shadow-sm"><span
+                        class="material-symbols-outlined text-lg">add</span></a>
+            </div>
+            <div
+                class="flex items-center gap-3 bg-white dark:bg-slate-800 p-3 rounded-[16px] shadow-sm border border-slate-100 dark:border-slate-700">
+                <div class="size-[72px] rounded-lg bg-cover bg-center shrink-0" data-alt="Danish pastry with glaze"
+                    style='background-image: url("https://images.unsplash.com/photo-1549931319-a545dcf3bc73?w=500&h=500&fit=crop");'>
+                </div>
+                <div class="flex-1 flex flex-col justify-center">
+                    <h4 class="font-bold text-[16px] leading-tight">Cinnamon Swirl Danish</h4>
+                    <p class="text-xs opacity-60 line-clamp-1 mt-0.5">Warm spices and vanilla glaze</p>
+                    <span class="text-primary font-bold mt-1 text-sm">4.50DH</span>
+                </div>
+                <a href="../petit pain bakery_customization_view/code.html"
+                    class="size-9 rounded-full bg-card-tan dark:bg-slate-700 flex items-center justify-center text-primary shadow-sm"><span
+                        class="material-symbols-outlined text-lg">add</span></a>
+            </div>
+            <div
+                class="flex items-center gap-3 bg-white dark:bg-slate-800 p-3 rounded-[16px] shadow-sm border border-slate-100 dark:border-slate-700">
+                <div class="size-[72px] rounded-lg bg-cover bg-center shrink-0" data-alt="Dark rye bread loaf"
+                    style='background-image: url("https://images.unsplash.com/photo-1568254183919-78a4f43a2877?w=500&h=500&fit=crop");'>
+                </div>
+                <div class="flex-1 flex flex-col justify-center">
+                    <h4 class="font-bold text-[16px] leading-tight">Artisan Rye Bread</h4>
+                    <p class="text-xs opacity-60 line-clamp-1 mt-0.5">Dense, flavorful, and fiber-rich</p>
+                    <span class="text-primary font-bold mt-1 text-sm">7.25DH</span>
+                </div>
+                <a href="../petit pain bakery_customization_view/code.html"
+                    class="size-9 rounded-full bg-card-tan dark:bg-slate-700 flex items-center justify-center text-primary shadow-sm"><span
+                        class="material-symbols-outlined text-lg">add</span></a>
+            </div>
+        </div>
+        <div class="fixed bottom-4 left-0 right-0 flex justify-center z-50 pointer-events-none">
+            <div class="w-[342px] pointer-events-auto shadow-2xl shadow-primary/40 rounded-full">
+                <div class="bg-primary rounded-full h-14 w-full flex items-center justify-between px-5">
+                    <div class="flex items-center gap-3">
+                        <div
+                            class="size-7 rounded-full bg-white/20 flex items-center justify-center text-white font-bold text-xs">
+                            3</div>
+                        <div class="flex flex-col">
+                            <span class="text-white font-bold text-sm leading-tight">View Cart</span>
+                            <span class="text-white/80 text-[10px] uppercase font-bold tracking-widest leading-tight">3
+                                Items</span>
+                        </div>
+                    </div>
+                    <span class="text-white font-bold text-sm">16.25DH</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

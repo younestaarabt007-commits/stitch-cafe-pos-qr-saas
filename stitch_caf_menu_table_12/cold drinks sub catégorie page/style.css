@@ -1,0 +1,92 @@
+body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  background-color: #FAFAF5;
+  min-height: 100vh;
+}
+.hero-gradient {
+  background: radial-gradient(circle at top right, #22c55e, #0ea5e9, #082f49);
+}
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+.filter-btn { transition: all 0.3s ease; }
+.filter-btn.active {
+  background-color: #f2930d;
+  color: white;
+  box-shadow: 0 10px 25px -8px rgba(242, 147, 13, 0.2);
+}
+.filter-btn:not(.active):hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.fade-in { animation: fadeIn 0.4s ease-out forwards; }
+
+[dir="rtl"] .material-symbols-outlined.flip-rtl {
+  transform: scaleX(-1);
+}
+
+/* Language Toggle Button */
+.language-toggle {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.toggle-switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 28px;
+    pointer-events: none;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-size: cover;
+    background-position: center;
+    transition: background-image 0.4s;
+    border-radius: 34px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Flag states */
+.lang-en .slider {
+    background-image: url('https://cdn-icons-png.freepik.com/256/197/197374.png');
+}
+
+.lang-fr .slider {
+    background-image: url('https://cdn-icons-png.freepik.com/256/14010/14010011.png');
+}
+
+.lang-ar .slider {
+    background-image: url('https://img.icons8.com/color/256/morocco.png');
+}
+
+/* RTL Support for hero card images */
+[dir="rtl"] .absolute.-right-4 {
+    right: auto;
+    left: -1rem;
+}
+
+[dir="rtl"] .absolute.right-3 {
+    right: auto;
+    left: 0.75rem;
+}
+
+/* RTL Support for horizontal scroll */
+[dir="rtl"] .overflow-x-auto {
+    direction: rtl;
+}
+
+[dir="rtl"] .flex {
+    direction: rtl;
+}

@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Elite Menu Design Specs Handoff</title>
+  <link href="https://fonts.googleapis.com" rel="preconnect" />
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&amp;family=Instrument+Serif:ital@0;1&amp;display=swap"
+    rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+    rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#FF5200", // Swiggy-orange
+            "background-light": "#f8f6f5",
+            "background-dark": "#1a100c",
+          },
+          fontFamily: {
+            "sans": ["Plus Jakarta Sans", "sans-serif"],
+            "serif": ["Instrument Serif", "serif"]
+          },
+          boxShadow: {
+            'glass': '0 8px 32px 0 rgba(31, 38, 135, 0.07)',
+            'glow': '0 0 20px rgba(255, 82, 0, 0.35)',
+          }
+        },
+      },
+    }
+  </script>
+  <style type="text/tailwindcss">
+    @layer base {
+            body {
+                @apply bg-background-light dark:bg-background-dark font-sans text-gray-900 dark:text-white overflow-x-hidden;
+            }
+        }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .mesh-bg {
+            background-color: hsla(24, 100%, 97%, 1);
+            background-image:
+                radial-gradient(at 40% 20%, hsla(28,100%,74%,0.1) 0px, transparent 50%),
+                radial-gradient(at 80% 0%, hsla(189,100%,56%,0.1) 0px, transparent 50%),
+                radial-gradient(at 0% 50%, hsla(340,100%,76%,0.1) 0px, transparent 50%);
+        }
+        .dark .mesh-bg {
+            background-color: #1a100c;
+            background-image:
+                radial-gradient(at 40% 20%, hsla(28,100%,74%,0.05) 0px, transparent 50%),
+                radial-gradient(at 80% 0%, hsla(189,100%,56%,0.05) 0px, transparent 50%);
+        }
+    </style>
+  <style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+
+<body class="mesh-bg min-h-screen">
+  <header class="bg-primary pt-6 pb-6 rounded-b-[2.5rem] shadow-xl relative z-20">
+    <div class="flex items-center justify-between px-6 mb-4 text-white">
+      <div class="flex items-center gap-2 bg-white/10 backdrop-blur-sm px-3 py-1.5 rounded-full border border-white/20">
+        <span class="material-symbols-outlined text-[20px]">table_restaurant</span>
+        <span class="text-xs font-bold tracking-wide">Table 05</span>
+      </div>
+      <div class="flex items-center gap-1">
+        <span class="material-symbols-outlined text-[20px]">location_on</span>
+        <span class="text-xs font-semibold truncate max-w-[120px]">Downtown Roastery</span>
+      </div>
+      <a href="../latte_customization_view_2/code.html"
+        class="bg-white/20 p-2 rounded-full backdrop-blur-sm flex items-center justify-center text-center decoration-none">
+        <span class="material-symbols-outlined text-[20px]">notifications</span>
+        </button>
+    </div>
+    <div class="px-6">
+      <div class="relative group">
+        <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+          <span class="material-symbols-outlined text-white/70">search</span>
+        </div>
+        <input id="search-input"
+          class="block w-full pl-11 pr-4 py-3.5 bg-white/20 backdrop-blur-md border border-white/20 rounded-2xl text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-white/50 focus:bg-white/30 transition-all font-medium text-sm"
+          placeholder="Search menu..." type="text" />
+      </div>
+    </div>
+  </header>
+  <section class="relative pt-[20px] px-6 z-10">
+    <div
+      class="bg-white dark:bg-[#2a1e19] rounded-[2rem] p-[8px] shadow-glass shadow-lg relative overflow-hidden h-[240px]">
+      <div
+        class="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-orange-50 to-white dark:from-[#2a1e19] dark:to-[#1f1612] opacity-50">
+      </div>
+      <div class="relative z-10 flex flex-col items-start h-full">
+        <span
+          class="bg-orange-100 dark:bg-orange-900/40 text-primary dark:text-orange-400 text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-widest mb-1">New
+          Arrival</span>
+        <h1 class="font-serif italic font-bold text-[40px] leading-[0.9] text-gray-900 dark:text-white mt-0">
+          VELVET<br />
+          <span class="text-primary">SIPS</span>
+        </h1>
+        <p class="text-[12px] font-normal text-gray-500 dark:text-gray-400 mt-1 max-w-[140px]">Rich chocolate shakes
+          &amp; crafted lattes.</p>
+        <a href="../latte_customization_view_2/code.html"
+          class="mt-auto bg-gray-900 dark:bg-white text-white dark:text-gray-900 text-sm font-bold flex items-center justify-center gap-2 shadow-lg text-center decoration-none"
+          id="hero-order-btn" style="width: 160px; height: 48px; border-radius: 24px;">
+          Order Now <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+        </a>
+      </div>
+      <div class="absolute -right-4 -bottom-4 w-64 h-64">
+        <img alt="Hero Milkshake and Latte"
+          class="w-full h-full object-contain drop-shadow-2xl transform rotate-[-12deg]"
+          src="https://images.unsplash.com/photo-1579954115563-e72bf1381629?auto=format&fit=crop&w=500&h=500&q=80" />
+      </div>
+    </div>
+  </section>
+  <section class="pt-[40px]">
+    <div class="px-6 mb-2 flex items-center justify-between">
+      <h3 class="text-lg font-bold text-gray-900 dark:text-white">Chef's Specials</h3>
+      <span class="text-primary text-[12px] font-extrabold uppercase tracking-wider">View All</span>
+    </div>
+    <div class="flex overflow-x-auto hide-scrollbar gap-[8px] px-6 pb-2">
+      <div class="flex flex-col items-center gap-2 shrink-0">
+        <div class="p-[3px] rounded-full bg-gradient-to-tr from-yellow-400 via-primary to-purple-600">
+          <div class="bg-white dark:bg-background-dark p-1 rounded-full">
+            <img alt="Special 1" class="w-16 h-16 rounded-full object-cover"
+              src="https://source.unsplash.com/64x64/?barista,coffee" />
+          </div>
+        </div>
+        <span class="text-[12px] font-normal text-gray-700 dark:text-gray-300">Barista</span>
+      </div>
+      <div class="flex flex-col items-center gap-2 shrink-0">
+        <div class="p-[3px] rounded-full bg-gray-200 dark:bg-gray-700">
+          <div class="bg-white dark:bg-background-dark p-1 rounded-full">
+            <img alt="Special 2" class="w-16 h-16 rounded-full object-cover"
+              src="https://source.unsplash.com/64x64/?healthy,food" />
+          </div>
+        </div>
+        <span class="text-[12px] font-normal text-gray-700 dark:text-gray-300">Healthy</span>
+      </div>
+      <div class="flex flex-col items-center gap-2 shrink-0">
+        <div class="p-[3px] rounded-full bg-gray-200 dark:bg-gray-700">
+          <div class="bg-white dark:bg-background-dark p-1 rounded-full">
+            <img alt="Special 3" class="w-16 h-16 rounded-full object-cover"
+              src="https://source.unsplash.com/64x64/?dessert" />
+          </div>
+        </div>
+        <span class="text-[12px] font-normal text-gray-700 dark:text-gray-300">Sweet</span>
+      </div>
+      <div class="flex flex-col items-center gap-2 shrink-0">
+        <div class="p-[3px] rounded-full bg-gray-200 dark:bg-gray-700">
+          <div class="bg-white dark:bg-background-dark p-1 rounded-full">
+            <img alt="Special 4" class="w-16 h-16 rounded-full object-cover"
+              src="https://source.unsplash.com/64x64/?asian,food" />
+          </div>
+        </div>
+        <span class="text-[12px] font-normal text-gray-700 dark:text-gray-300">Asian</span>
+      </div>
+    </div>
+  </section>
+  <section class="px-6 pt-[20px]">
+    <h3 class="text-[18px] font-bold text-gray-900 dark:text-white mb-4">Curated Collections</h3>
+    <div class="grid grid-cols-2 gap-2">
+      <div class="col-span-1 h-44 relative bg-white dark:bg-[#2a1e19] rounded-[1.5rem] overflow-hidden group shadow-sm">
+        <img alt="Brew" class="absolute inset-0 w-full h-full object-cover"
+          src="https://source.unsplash.com/800x600/?coffee,brewing" />
+        <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
+        <div class="absolute bottom-4 left-4">
+          <h4 class="text-white text-lg font-bold leading-tight">The Brew</h4>
+          <p class="text-white/80 text-[10px] uppercase font-bold tracking-widest mt-1">12 Varieties</p>
+        </div>
+      </div>
+      <div class="col-span-1 flex flex-col gap-3">
+        <div class="h-[84px] relative bg-orange-100 dark:bg-orange-900/20 rounded-[1.25rem] overflow-hidden p-4">
+          <h4 class="text-gray-900 dark:text-white text-sm font-bold relative z-10">Brunch</h4>
+          <img alt="Brunch" class="absolute right-0 top-0 w-20 h-full object-cover opacity-60"
+            src="https://source.unsplash.com/200x200/?brunch" />
+        </div>
+        <div class="h-[84px] relative bg-green-50 dark:bg-green-900/20 rounded-[1.25rem] overflow-hidden p-4">
+          <h4 class="text-gray-900 dark:text-white text-sm font-bold relative z-10">Juices</h4>
+          <img alt="Juice" class="absolute right-0 top-0 w-20 h-full object-contain opacity-60"
+            src="https://source.unsplash.com/200x200/?juice" />
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="px-6 py-[20px] pb-24">
+    <div class="mb-5 flex items-end justify-between">
+      <div>
+        <span class="text-primary font-bold text-[10px] uppercase tracking-[0.2em]">Trending Now</span>
+        <h3 class="font-serif font-black text-[28px] text-gray-900 dark:text-white leading-tight mt-1">Bestsellers</h3>
+      </div>
+      <a href="../latte_customization_view_2/code.html"
+        class="bg-white dark:bg-gray-800 p-2.5 rounded-full shadow-sm flex items-center justify-center text-center decoration-none">
+        <span class="material-symbols-outlined text-[20px] text-gray-600 dark:text-gray-300">tune</span>
+      </a>
+    </div>
+    <div class="flex flex-col gap-[8px]">
+      <div
+        class="bg-white dark:bg-[#2a1e19] p-[12px] rounded-[1.5rem] shadow-sm flex gap-[8px] items-center relative overflow-hidden">
+        <div
+          class="absolute top-0 left-0 bg-primary text-white text-[9px] font-bold px-3 py-1 rounded-br-xl z-10 uppercase">
+          Must Try</div>
+        <div class="w-24 h-24 shrink-0 rounded-xl overflow-hidden bg-gray-100 dark:bg-gray-800">
+          <img alt="Burger" class="w-full h-full object-cover" src="https://source.unsplash.com/300x300/?burger" />
+        </div>
+        <div class="flex-1 min-w-0">
+          <div class="flex justify-between items-start mb-1">
+            <h4 class="text-[18px] font-bold text-gray-900 dark:text-white leading-tight truncate">Smoky Double Burger
+            </h4>
+          </div>
+          <p class="text-gray-500 dark:text-gray-400 text-[12px] font-normal line-clamp-2 leading-relaxed">Angus beef,
+            smoked cheddar, caramelized onions.</p>
+          <div class="flex items-center justify-between mt-3">
+            <span class="text-gray-900 dark:text-white font-black text-[16px]">14.50DH</span>
+            <a href="../latte_customization_view_2/code.html"
+              class="bg-orange-50 text-primary dark:bg-primary/20 dark:text-primary text-[12px] font-black uppercase shadow-sm active:scale-95 transition-transform flex items-center justify-center text-center decoration-none"
+              style="width: 84px; height: 36px; border-radius: 12px;">
+              Add
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="bg-white dark:bg-[#2a1e19] p-[12px] rounded-[1.5rem] shadow-sm flex gap-[8px] items-center relative">
+        <div class="w-24 h-24 shrink-0 rounded-xl overflow-hidden bg-gray-100 dark:bg-gray-800">
+          <img alt="Pancakes" class="w-full h-full object-cover" src="https://source.unsplash.com/300x300/?pancakes" />
+        </div>
+        <div class="flex-1 min-w-0">
+          <h4 class="text-[18px] font-bold text-gray-900 dark:text-white leading-tight truncate">Berry Bliss Pancakes
+          </h4>
+          <div class="flex items-center gap-1 mt-1">
+            <span class="text-yellow-500 material-symbols-outlined text-[14px]"
+              style="font-variation-settings: 'FILL' 1">star</span>
+            <span class="text-[12px] font-normal text-gray-700 dark:text-gray-300">4.8</span>
+            <span class="text-[12px] font-normal text-gray-400">(120+)</span>
+          </div>
+          <div class="flex items-center justify-between mt-3">
+            <span class="text-gray-900 dark:text-white font-black text-[16px]">12.00DH</span>
+            <a href="../latte_customization_view_2/code.html"
+              class="bg-orange-50 text-primary dark:bg-primary/20 dark:text-primary text-[12px] font-black uppercase shadow-sm flex items-center justify-center text-center decoration-none"
+              style="width: 84px; height: 36px; border-radius: 12px;">
+              Add
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="bg-white dark:bg-[#2a1e19] p-[16px] rounded-[1.5rem] shadow-sm flex gap-[16px] items-center relative">
+        <div class="w-24 h-24 shrink-0 rounded-xl overflow-hidden bg-gray-100 dark:bg-gray-800">
+          <img alt="Matcha" class="w-full h-full object-cover"
+            src="https://source.unsplash.com/300x300/?matcha,latte" />
+        </div>
+        <div class="flex-1 min-w-0">
+          <h4 class="text-[18px] font-bold text-gray-900 dark:text-white leading-tight truncate">Kyoto Matcha Latte</h4>
+          <p class="text-gray-500 dark:text-gray-400 text-[12px] font-normal mt-1 truncate">Ceremonial grade matcha, oat
+            milk.</p>
+          <div class="flex items-center justify-between mt-3">
+            <span class="text-gray-900 dark:text-white font-black text-[16px]">6.50DH</span>
+            <a href="../latte_customization_view_2/code.html"
+              class="bg-orange-50 text-primary dark:bg-primary/20 dark:text-primary text-[12px] font-black uppercase shadow-sm flex items-center justify-center text-center decoration-none"
+              style="width: 84px; height: 36px; border-radius: 12px;">
+              Add
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <div id="bottom-tabbar" class="fixed bottom-0 left-0 z-50 w-full">
+    <nav
+      class="bg-white dark:bg-[#2a1e19] border-t border-gray-100 dark:border-white/5 shadow-[0_-4px_20px_rgba(0,0,0,0.1)] backdrop-blur-md h-[64px] flex items-stretch justify-between px-6">
+      <button id="tab-home"
+        class="flex-1 flex flex-col items-center justify-center gap-0.5 text-gray-600 dark:text-gray-300">
+        <span class="material-symbols-outlined text-[22px]">home</span>
+        <span class="text-[10px] font-bold uppercase tracking-widest">Home</span>
+      </button>
+      <button id="view-cart-btn"
+        class="relative flex-1 flex flex-col items-center justify-center gap-0.5 text-gray-600 dark:text-gray-300">
+        <span class="material-symbols-outlined text-[22px]">shopping_cart</span>
+        <span class="text-[10px] font-bold uppercase tracking-widest">Cart</span>
+        <span id="cart-items-text"
+          class="absolute -top-1 right-4 bg-primary text-white text-[10px] font-bold px-1.5 py-[2px] rounded-full">3
+          Items</span>
+        <span id="cart-total" class="text-[10px] font-bold text-primary mt-0.5">33.00DH</span>
+      </button>
+      <button id="tab-call"
+        class="flex-1 flex flex-col items-center justify-center gap-0.5 text-gray-600 dark:text-gray-300">
+        <span class="material-symbols-outlined text-[22px]">support_agent</span>
+        <span class="text-[10px] font-bold uppercase tracking-widest">Waiter</span>
+      </button>
+      <button id="tab-settings"
+        class="flex-1 flex flex-col items-center justify-center gap-0.5 text-gray-600 dark:text-gray-300">
+        <span class="material-symbols-outlined text-[22px]">settings</span>
+        <span class="text-[10px] font-bold uppercase tracking-widest">Settings</span>
+      </button>
+    </nav>
+  </div>
+
+</body>
+
+</html>

@@ -3,5 +3,10 @@ node_modules/
 dist/
 .DS_Store
 .vscode/
+.continue/
 api/output.log
 *.log
+_archive/
+nul
+audit-tools/publish-stitch-menu/
+scratch/

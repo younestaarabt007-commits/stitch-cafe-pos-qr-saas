@@ -29,26 +29,6 @@ const mappings = [
     {
         file: 'stitch_caf_menu_table_12/milkshake sub catégorie page/code.html',
         target: '../smothie customisation review/code.html'
-    },
-    {
-        file: 'stitch_caf_menu_table_12/Brew catégorie page/code.html',
-        target: '../pure_noir_espresso_customization_view_1/code.html'
-    },
-    {
-        file: 'stitch_caf_menu_table_12/creme or latté fuite juces sub catégorie page/code.html',
-        target: '../latte_customization_view_2/code.html'
-    },
-    {
-        file: 'stitch_caf_menu_table_12/tea and infusion sub catégorie page/code.html',
-        target: '../tea_customization_view/code.html'
-    },
-    {
-        file: 'stitch_caf_menu_table_12/toast brunch sub catégorie page/code.html',
-        target: '../toast_brunch_customization_view/index.html'
-    },
-    {
-        file: 'stitch_caf_menu_table_12/smothies and shakes sub catégorie page/code.html',
-        target: '../smothie customisation review/code.html'
     }
 ];
 

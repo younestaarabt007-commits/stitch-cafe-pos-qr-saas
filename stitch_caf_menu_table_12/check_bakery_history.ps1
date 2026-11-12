@@ -1,0 +1,1 @@
+git log -p -n 2 "bakery catégorie page/script.js" > bakery_history.txt

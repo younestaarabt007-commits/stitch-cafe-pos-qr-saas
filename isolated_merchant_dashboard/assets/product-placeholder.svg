@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="480" height="360" viewBox="0 0 480 360" role="img" aria-label="Photo produit indisponible">
+  <rect width="480" height="360" fill="#f4f0e9"/>
+  <circle cx="240" cy="160" r="56" fill="#e9e2d6"/>
+  <g fill="none" stroke="#9b8f7b" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M207 140h55v34a22 22 0 0 1-22 22h-11a22 22 0 0 1-22-22z"/>
+    <path d="M264 146h9a16 16 0 0 1 0 32h-11M202 207h66M222 113v10m20-10v10"/>
+  </g>
+  <text x="240" y="252" font-family="Arial, sans-serif" font-size="16" fill="#857967" text-anchor="middle">Photo à venir</text>
+</svg>

@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+            font-family: 'Manrope', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+            background-color: #F2F2F7;
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .chart-grid {
+            background-image: linear-gradient(#E5E7EB 1px, transparent 1px);
+            background-size: 100% 40px;
+        }
+
+body {
+      min-height: max(884px, 100dvh);
+    }
+

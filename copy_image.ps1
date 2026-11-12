@@ -1,1 +1,0 @@
-Copy-Item ".\image new\item image\Nouveau dossier\tea\*Berrad*" -Destination ".\stitch_caf_menu_table_12\swiggy-style_elite_main_menu_390x2500\assets\tea\berrad-the.jpg" -Force

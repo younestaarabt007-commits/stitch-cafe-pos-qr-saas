@@ -1,0 +1,255 @@
+:root {
+    --primary: #FF5200;
+    --primary-hover: #E64A00;
+    --primary-soft: rgba(255, 82, 0, 0.1);
+    
+    /* Neutrals - Standardized Slate Palette */
+    --slate-50: #f8fafc;
+    --slate-100: #f1f5f9;
+    --slate-200: #e2e8f0;
+    --slate-300: #cbd5e1;
+    --slate-400: #94a3b8;
+    --slate-500: #64748b;
+    --slate-600: #475569;
+    --slate-700: #334155;
+    --slate-800: #1e293b;
+    --slate-900: #0f172a;
+    --slate-950: #020617;
+
+    /* Increased Contrast Backgrounds */
+    --bg-main: var(--slate-200); /* Stronger grey for light mode background */
+    --bg-surface: #ffffff;
+    --text-main: var(--slate-900);
+    --text-muted: var(--slate-500);
+    --border-color: var(--slate-300); /* Darker border for cards */
+    
+    --bg-main-dark: #000000; /* Pure black for maximum contrast */
+    --bg-surface-dark: #1e293b; /* Slate 800 for cards to pop against black */
+    --text-main-dark: var(--slate-50);
+    --text-muted-dark: var(--slate-400);
+    --border-color-dark: rgba(255, 255, 255, 0.12);
+
+    --radius-sm: 12px;
+    --radius-md: 20px;
+    --radius-lg: 28px;
+    --radius-xl: 40px;
+
+    /* Enhanced Elevation System for better depth */
+    --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.15), 0 8px 10px -6px rgba(0, 0, 0, 0.15);
+    --shadow-premium: 0 30px 60px -15px rgba(0, 0, 0, 0.2);
+}
+
+/* --- Core Styles --- */
+body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    transition: background-color 0.3s ease, color 0.3s ease;
+    -webkit-font-smoothing: antialiased;
+}
+
+body.dark {
+    background-color: var(--bg-main-dark);
+    color: var(--text-main-dark);
+}
+
+/* --- Layout Components --- */
+
+#sidebar {
+    background: var(--bg-surface);
+    border-right: 1px solid var(--border-color);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    /* Add a subtle shadow to sidebar */
+    box-shadow: 4px 0 24px -10px rgba(0,0,0,0.1);
+}
+
+body.dark #sidebar {
+    background: var(--bg-surface-dark);
+    border-right: 1px solid var(--border-color-dark);
+}
+
+/* Tab Content Spacing */
+.tab-content {
+    animation: fadeIn 0.4s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(4px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- Premium UI Elements --- */
+
+.premium-card {
+    background: var(--bg-surface);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-color);
+    /* Make default shadow stronger! */
+    box-shadow: var(--shadow-md);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.premium-card:hover {
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-2px);
+}
+
+body.dark .premium-card {
+    background: var(--bg-surface-dark);
+    border: 1px solid var(--border-color-dark);
+    /* Adjust shadow for dark mode */
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+}
+
+body.dark .premium-card:hover {
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.6);
+}
+
+/* --- Navigation --- */
+.nav-btn {
+    color: var(--text-muted);
+    font-weight: 600;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+.nav-btn:hover {
+    color: var(--text-main);
+    background: var(--slate-100) !important;
+}
+
+.nav-btn.active {
+    color: var(--primary);
+    background: var(--primary-soft) !important;
+}
+
+body.dark .nav-btn:hover {
+    background: rgba(255, 255, 255, 0.05) !important;
+}
+
+/* Sidebar Collapsed State */
+body.sidebar-collapsed #sidebar {
+    width: 80px !important;
+}
+
+body.sidebar-collapsed #sidebar .nav-btn {
+    justify-content: center;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+body.sidebar-collapsed #sidebar .nav-btn span:not(.material-symbols-outlined),
+body.sidebar-collapsed #sidebar .nav-btn .ms-auto,
+body.sidebar-collapsed #sidebar h1,
+body.sidebar-collapsed #sidebar h1 + span,
+body.sidebar-collapsed #sidebar .flex-1.min-w-0,
+body.sidebar-collapsed #sidebar button.hover\:text-red-500,
+body.sidebar-collapsed #sidebar .sidebar-footer p {
+    display: none;
+}
+
+body.sidebar-collapsed #sidebar .p-6.shrink-0 > div {
+    padding: 0.5rem;
+    justify-content: center;
+}
+
+body.sidebar-collapsed #sidebar .nav-btn .material-symbols-outlined {
+    margin: 0;
+}
+
+/* --- Header Collapsed State --- */
+body.header-collapsed #glass-header {
+    display: none !important;
+}
+body.header-collapsed #floating-header-btn {
+    display: flex !important;
+}
+
+/* --- POS Components --- */
+.pos-card {
+    background: var(--bg-surface);
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-sm);
+    transition: all 0.2s ease;
+}
+
+body.dark .pos-card {
+    background: var(--bg-surface-dark);
+    border: 1px solid var(--border-color-dark);
+}
+
+/* Forms & Inputs */
+input, textarea, select {
+    background: var(--slate-100);
+    border: 1px solid transparent;
+    border-radius: var(--radius-sm);
+    padding: 0.75rem 1rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+body.dark input, body.dark textarea, body.dark select {
+    background: rgba(255, 255, 255, 0.05);
+    color: white;
+}
+
+input:focus {
+    background: white;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 4px var(--primary-soft);
+    outline: none;
+}
+
+body.dark input:focus {
+    background: rgba(255, 255, 255, 0.08);
+}
+
+/* QR Code Card Premium Style */
+.qr-premium-card {
+    background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+body.dark .qr-premium-card {
+    background: linear-gradient(135deg, #111827 0%, #030712 100%);
+}
+
+.qr-premium-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(to right, var(--primary), #FF8A00);
+}
+
+/* Status Badges */
+.badge {
+    padding: 4px 10px;
+    border-radius: 9999px;
+    font-size: 10px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.badge-success { background: #dcfce7; color: #166534; }
+.badge-warning { background: #fef9c3; color: #854d0e; }
+.badge-danger { background: #fee2e2; color: #991b1b; }
+
+body.dark .badge-success { background: rgba(34, 197, 94, 0.2); color: #4ade80; }
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--slate-300); border-radius: 10px; }
+body.dark ::-webkit-scrollbar-thumb { background: var(--slate-700); }
+
+/* Hide Scrollbar */
+.hide-scrollbar::-webkit-scrollbar { display: none; }
+.hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }

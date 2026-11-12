@@ -10,16 +10,13 @@ const mimeTypes = {
   '.css': 'text/css',
   '.json': 'application/json',
   '.png': 'image/png',
-  '.jpg': 'image/jpeg',
-  '.jpeg': 'image/jpeg',
-  '.webp': 'image/webp',
-  '.avif': 'image/avif',
+  '.jpg': 'image/jpg',
   '.gif': 'image/gif',
   '.svg': 'image/svg+xml',
-  '.ico': 'image/x-icon',
 };
 
 http.createServer(function (request, response) {
+    // Decode the URL to handle spaces (%20) and special characters
     let decodedUrl;
     try {
         decodedUrl = decodeURIComponent(request.url);
@@ -27,41 +24,14 @@ http.createServer(function (request, response) {
         decodedUrl = request.url;
     }
     
-    if (decodedUrl === '/tea' || decodedUrl === '/tea/' || decodedUrl === '/tea-and-infusion' || decodedUrl === '/tea-and-infusion/') {
-        response.writeHead(302, { 'Location': '/stitch_caf_menu_table_12/tea%20and%20infusion%20sub%20cat%C3%A9gorie%20page/index.html' });
-        response.end();
-        return;
-    }
-    if (decodedUrl === '/merchant' || decodedUrl === '/merchant/' || decodedUrl === '/dashboard' || decodedUrl === '/dashboard/' || decodedUrl === '/manager' || decodedUrl === '/manager/') {
-        response.writeHead(302, { 'Location': '/stitch_caf_menu_table_12/dashbord%20insight%20page/index.html' });
-        response.end();
-        return;
-    }
-    if (decodedUrl === '/merchant-dashboard' || decodedUrl === '/merchant-dashboard/') {
-        response.writeHead(302, { 'Location': '/stitch_caf_menu_table_12/merchant_dashboard/index.html' });
-        response.end();
-        return;
-    }
-    if (decodedUrl === '/@vite/client') {
-        response.writeHead(404);
-        response.end('404 Not Found');
-        return;
-    }
     let filePath = '.' + decodedUrl;
     
+    // Remove query parameters if any
     filePath = filePath.split('?')[0];
 
     if (filePath === './') {
         filePath = './index.html';
     }
-
-    if (filePath.includes('tea and infusion sub categorie page')) {
-        filePath = filePath.replace('tea and infusion sub categorie page', 'tea and infusion sub catégorie page');
-    }
-    if (filePath.endsWith('/')) {
-        filePath = path.join(filePath, 'index.html');
-    }
-    
 
     const extname = String(path.extname(filePath)).toLowerCase();
     const contentType = mimeTypes[extname] || 'application/octet-stream';
@@ -69,6 +39,9 @@ http.createServer(function (request, response) {
     fs.readFile(filePath, function(error, content) {
         if (error) {
             if(error.code == 'ENOENT'){
+                // Try adding index.html if it's a directory
+                // We need to check if the path exists as a directory first
+                // But fs.lstatSync might throw if path doesn't exist
                 let isDirectory = false;
                 try {
                     if (fs.existsSync(filePath) && fs.lstatSync(filePath).isDirectory()) {

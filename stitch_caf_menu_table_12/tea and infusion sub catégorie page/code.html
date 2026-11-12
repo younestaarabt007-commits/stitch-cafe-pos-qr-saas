@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Elite Compact Tea Explorer</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Playfair+Display:wght@700&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#f2930d",
+                        "background-light": "#fafaf5",
+                        "background-dark": "#1a1c18",
+                        "card-zen": "#f1f3ec",
+                        "honey-gold": "#fbc02d",
+                        "zen-green": "#4a5d4e"
+                    },
+                    fontFamily: {
+                        "display": ["Plus Jakarta Sans", "sans-serif"],
+                        "serif": ["Playfair Display", "serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "1rem",
+                        "lg": "1.5rem",
+                        "xl": "2rem",
+                        "2xl": "1.25rem",
+                        "3xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+    <style type="text/tailwindcss">
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #fafaf5;
+            min-height: 1300px;
+        }
+        .hero-gradient {
+            background: linear-gradient(135deg, #4a5d4e 0%, #8ca67a 40%, #fbc02d 100%);
+        }
+        .botanical-float {
+            @apply absolute bg-white/20 backdrop-blur-[2px] border border-white/30;
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.15));
+        }
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+    <style>
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+    <style>
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+</head>
+
+<body class="bg-background-light dark:bg-background-dark text-[#1c160d] dark:text-[#fcfaf8] antialiased">
+    <div
+        class="relative min-h-[1300px] w-full max-w-[390px] mx-auto flex flex-col bg-background-light dark:bg-background-dark overflow-x-hidden shadow-2xl">
+        <div
+            class="absolute top-0 left-0 right-0 z-20 flex items-center justify-between p-4 bg-gradient-to-b from-black/40 to-transparent">
+            <div class="flex size-10 items-center justify-center rounded-full bg-white/20 backdrop-blur-md text-white">
+                <span class="material-symbols-outlined">arrow_back_ios_new</span>
+            </div>
+            <div id="search-btn"
+                class="flex size-10 items-center justify-center rounded-full bg-white/20 backdrop-blur-md text-white cursor-pointer hover:bg-white/30 transition-colors">
+                <span class="material-symbols-outlined">search</span>
+            </div>
+        </div>
+        <div class="relative h-[420px] w-full overflow-hidden hero-gradient flex items-center justify-center">
+            <div class="botanical-float w-6 h-8 top-24 left-10 rotate-45 rounded-full opacity-60"></div>
+            <div class="botanical-float w-4 h-4 top-48 right-12 -rotate-12 rounded-sm bg-white/40"></div>
+            <div class="botanical-float w-8 h-8 bottom-32 left-16 rotate-[30deg] rounded-md bg-white/10"></div>
+            <div class="botanical-float w-5 h-3 bottom-24 right-20 -rotate-45 rounded-full opacity-40"></div>
+            <div class="botanical-float w-2 h-2 top-1/2 left-6 rotate-[60deg] rounded-full"></div>
+            <div class="relative z-10 flex flex-col items-center justify-center text-center px-4">
+                <div class="w-72 h-80 bg-center bg-contain bg-no-repeat mb-2 scale-110 drop-shadow-[0_20px_40px_rgba(0,0,0,0.3)]"
+                    data-alt="Exploding glass of iced hibiscus tea with botanical leaves and ice"
+                    style='background-image: url("https://images.unsplash.com/photo-1544787219-7f47ccb76574?auto=format&fit=crop&w=800&h=900&q=80");'>
+                </div>
+                <h1 class="text-white text-[28px] font-serif font-bold tracking-tight leading-tight">Zen Infusions</h1>
+                <p class="text-white/90 text-sm font-medium mt-1">Steeped to perfection, served with soul</p>
+            </div>
+        </div>
+        <div class="flex w-full overflow-x-auto px-4 py-6 gap-5 no-scrollbar">
+            <div class="flex flex-col items-center gap-2 min-w-[72px]">
+                <div class="size-16 rounded-full border-2 border-primary p-0.5">
+                    <div class="w-full h-full rounded-full bg-cover bg-center" data-alt="Zen Time ritual"
+                        style='background-image: url("https://images.unsplash.com/photo-1556679343-c7306c1976bc?auto=format&fit=crop&w=200&h=200&q=80");'>
+                    </div>
+                </div>
+                <span class="text-xs font-semibold text-primary">Zen Time</span>
+            </div>
+            <div class="flex flex-col items-center gap-2 min-w-[72px]">
+                <div class="size-16 rounded-full border-2 border-slate-200 dark:border-slate-700 p-0.5">
+                    <div class="w-full h-full rounded-full bg-cover bg-center" data-alt="Matcha Ritual"
+                        style='background-image: url("https://images.unsplash.com/photo-1582793988951-9aed5509eb97?auto=format&fit=crop&w=200&h=200&q=80");'>
+                    </div>
+                </div>
+                <span class="text-xs font-medium opacity-70">Matcha Ritual</span>
+            </div>
+            <div class="flex flex-col items-center gap-2 min-w-[72px]">
+                <div class="size-16 rounded-full border-2 border-slate-200 dark:border-slate-700 p-0.5">
+                    <div class="w-full h-full rounded-full bg-cover bg-center" data-alt="Offers"
+                        style='background-image: url("https://images.unsplash.com/photo-1597318181409-cf64d0b5d8a2?auto=format&fit=crop&w=200&h=200&q=80");'>
+                    </div>
+                </div>
+                <span class="text-xs font-medium opacity-70">Offers</span>
+            </div>
+            <div class="flex flex-col items-center gap-2 min-w-[72px]">
+                <div class="size-16 rounded-full border-2 border-slate-200 dark:border-slate-700 p-0.5">
+                    <div class="w-full h-full rounded-full bg-cover bg-center" data-alt="Global Blends"
+                        style='background-image: url("https://images.unsplash.com/photo-1576092768241-dec231879fc3?auto=format&fit=crop&w=200&h=200&q=80");'>
+                    </div>
+                </div>
+                <span class="text-xs font-medium opacity-70">Blends</span>
+            </div>
+        </div>
+        <div class="flex gap-2 px-4 mb-6 overflow-x-auto no-scrollbar">
+            <div class="flex h-10 shrink-0 items-center justify-center rounded-full bg-primary px-6">
+                <p class="text-white text-sm font-bold">All</p>
+            </div>
+            <div class="flex h-10 shrink-0 items-center justify-center rounded-full bg-card-zen dark:bg-slate-800 px-6">
+                <p class="text-[#1c160d] dark:text-white text-sm font-medium">Matcha</p>
+            </div>
+            <div class="flex h-10 shrink-0 items-center justify-center rounded-full bg-card-zen dark:bg-slate-800 px-6">
+                <p class="text-[#1c160d] dark:text-white text-sm font-medium">Herbal</p>
+            </div>
+            <div class="flex h-10 shrink-0 items-center justify-center rounded-full bg-card-zen dark:bg-slate-800 px-6">
+                <p class="text-[#1c160d] dark:text-white text-sm font-medium">Iced Teas</p>
+            </div>
+        </div>
+        <div class="px-4 grid grid-cols-2 gap-3 mb-6">
+            <div
+                class="col-span-1 h-[280px] relative rounded-[20px] overflow-hidden bg-card-zen dark:bg-slate-800 p-3 flex flex-col border border-primary/10">
+                <div class="mb-2">
+                    <h3 class="font-bold text-lg leading-tight">Ceremonial Matcha</h3>
+                    <p class="text-xs opacity-60 mt-1 italic">Uji Grade A</p>
+                </div>
+                <div class="flex-1 w-full bg-cover bg-center rounded-2xl my-2"
+                    data-alt="Traditional matcha whisk and bowl"
+                    style='background-image: url("https://images.unsplash.com/photo-1582793988951-9aed5509eb97?auto=format&fit=crop&w=800&h=800&q=80");'>
+                </div>
+                <div class="flex justify-between items-center mt-auto">
+                    <span class="font-bold text-primary text-lg">12.00DH</span>
+                    <a href="../tea_customization_view/code.html"
+                        class="size-8 rounded-full bg-primary flex items-center justify-center text-white">
+                        <span class="material-symbols-outlined text-sm">add</span>
+                    </a>
+                </div>
+            </div>
+            <div class="col-span-1 flex flex-col gap-3 h-[280px]">
+                <div
+                    class="flex-1 rounded-[20px] bg-card-zen dark:bg-slate-800 p-3 flex flex-col justify-between border border-primary/10">
+                    <div class="flex justify-between items-start">
+                        <div class="w-14 h-14 rounded-xl bg-cover bg-center" data-alt="Masala Chai"
+                            style='background-image: url("https://images.unsplash.com/photo-1561336313-0bd5e0b27ec8?auto=format&fit=crop&w=300&h=300&q=80");'>
+                        </div>
+                        <span class="font-bold text-xs text-primary">5.50DH</span>
+                    </div>
+                    <div class="flex justify-between items-end mt-1">
+                        <h3 class="font-bold text-sm">Masala Chai</h3>
+                        <a href="../tea_customization_view/code.html"
+                            class="size-6 rounded-full bg-primary/20 flex items-center justify-center text-primary">
+                            <span class="material-symbols-outlined text-[16px]">add</span>
+                        </a>
+                    </div>
+                </div>
+                <div
+                    class="flex-1 rounded-[20px] bg-card-zen dark:bg-slate-800 p-3 flex flex-col justify-between border border-primary/10">
+                    <div class="flex justify-between items-start">
+                        <div class="w-14 h-14 rounded-xl bg-cover bg-center" data-alt="Ginger Lemon Tea"
+                            style='background-image: url("https://images.unsplash.com/photo-1556679343-c7306c1976bc?auto=format&fit=crop&w=300&h=300&q=80");'>
+                        </div>
+                        <span class="font-bold text-xs text-primary">4.75DH</span>
+                    </div>
+                    <div class="flex justify-between items-end mt-1">
+                        <h3 class="font-bold text-sm">Ginger Lemon</h3>
+                        <a href="../tea_customization_view/code.html"
+                            class="size-6 rounded-full bg-primary/20 flex items-center justify-center text-primary">
+                            <span class="material-symbols-outlined text-[16px]">add</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div
+            class="mx-4 mb-6 h-[100px] rounded-[20px] bg-zen-green/10 dark:bg-zen-green/20 p-4 border border-zen-green/30 relative overflow-hidden flex items-center">
+            <div class="z-10 w-2/3">
+                <h3 class="font-bold text-zen-green dark:text-zen-green text-[10px] uppercase tracking-widest mb-0.5">
+                    Premium Curation</h3>
+                <p class="font-extrabold text-base leading-tight">Loose Leaf Selection</p>
+                <div class="mt-2 inline-flex items-center gap-1 text-primary text-[10px] font-bold uppercase">
+                    Explore Vault <span class="material-symbols-outlined text-[10px]">arrow_right_alt</span>
+                </div>
+            </div>
+            <div class="absolute -right-2 top-0 bottom-0 w-28 bg-center bg-contain bg-no-repeat opacity-40 rotate-6"
+                data-alt="Loose leaf tea variety"
+                style='background-image: url("https://images.unsplash.com/photo-1597481499750-3e6b22637e12?auto=format&fit=crop&w=400&h=400&q=80");'>
+            </div>
+        </div>
+        <div class="px-4 flex items-center justify-between mb-4">
+            <h3 class="text-xl font-extrabold tracking-tight">Daily Brews</h3>
+            <span class="text-primary text-xs font-bold uppercase tracking-wider">Scroll All</span>
+        </div>
+        <div class="px-4 grid grid-cols-2 gap-3 pb-48" id="product-list">
+            <!-- Products rendered via script.js -->
+        </div>
+        <!-- Hardcoded Nav Bar for Immediate Visibility -->
+        <nav
+            class="standard-nav-bar bg-white dark:bg-[#2a1e19] border-t border-gray-100 dark:border-white/5 shadow-[0_-4px_20px_rgba(0,0,0,0.1)] backdrop-blur-md h-[55px] flex items-stretch justify-between px-6 fixed bottom-0 left-0 right-0 z-50 max-w-[390px] mx-auto">
+            <button onclick="window.location.href='../swiggy-style_elite_main_menu_390x2500/index.html'"
+                class="flex-1 flex flex-col items-center justify-center gap-0.5 text-gray-600 dark:text-gray-300 hover:text-primary transition-colors">
+                <span class="material-symbols-outlined text-[22px]">home</span>
+                <span class="text-[10px] font-bold uppercase tracking-widest">Home</span>
+            </button>
+            <button onclick="window.location.href='../swiggy-style_elite_main_menu_390x2500/index.html#explore'"
+                class="flex-1 flex flex-col items-center justify-center gap-0.5 text-gray-600 dark:text-gray-300 hover:text-primary transition-colors">
+                <span class="material-symbols-outlined text-[22px]">category</span>
+                <span class="text-[10px] font-bold uppercase tracking-widest">Explore</span>
+            </button>
+            <button onclick="window.location.href='../order_success_page/index.html'"
+                class="relative flex-1 flex flex-col items-center justify-center gap-0.5 text-gray-600 dark:text-gray-300 hover:text-primary transition-colors">
+                <span class="material-symbols-outlined text-[22px]">shopping_cart</span>
+                <span class="text-[10px] font-bold uppercase tracking-widest">Cart</span>
+                <span id="global-cart-count"
+                    class="absolute -top-1 right-4 bg-primary text-white text-[10px] font-bold px-1.5 py-[2px] rounded-full hidden">0</span>
+            </button>
+            <button onclick="alert('Profile feature coming soon')"
+                class="flex-1 flex flex-col items-center justify-center gap-0.5 text-gray-600 dark:text-gray-300 hover:text-primary transition-colors">
+                <span class="material-symbols-outlined text-[22px]">person</span>
+                <span class="text-[10px] font-bold uppercase tracking-widest">Profile</span>
+            </button>
+        </nav>
+        <!-- Navigation Bar Script (logic only) -->
+        <script src="../nav-bar.js?v=9"></script>
+</body>
+
+</html>

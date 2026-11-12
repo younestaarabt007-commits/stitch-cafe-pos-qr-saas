@@ -1,0 +1,129 @@
+{
+  "date": "2026-10-21",
+  "htmlFiles": 70,
+  "jsFiles": 89,
+  "brokenReferences": 24,
+  "broken": [
+    {
+      "file": "stitch_caf_menu_table_12\\Brew catégorie page\\code.html",
+      "attribute": "src",
+      "url": "/swiggy-style_elite_main_menu_390x2500/assets/coffee-single-origin-espresso.jpg"
+    },
+    {
+      "file": "stitch_caf_menu_table_12\\Brew catégorie page\\code.html",
+      "attribute": "src",
+      "url": "/swiggy-style_elite_main_menu_390x2500/assets/latte-classic.jpg"
+    },
+    {
+      "file": "stitch_caf_menu_table_12\\Brew catégorie page\\code.html",
+      "attribute": "src",
+      "url": "/swiggy-style_elite_main_menu_390x2500/assets/tea-mint.jpg"
+    },
+    {
+      "file": "stitch_caf_menu_table_12\\Brew catégorie page\\code.html",
+      "attribute": "src",
+      "url": "/swiggy-style_elite_main_menu_390x2500/assets/coffee-v60.jpg"
+    },
+    {
+      "file": "stitch_caf_menu_table_12\\old_index.html",
+      "attribute": "href",
+      "url": "style.css?v=7"
+    },
+    {
+      "file": "stitch_caf_menu_table_12\\old_index.html",
+      "attribute": "href",
+      "url": "../milkshake sub cat�gorie page/index.html"
+    },
+    {
+      "file": "stitch_caf_menu_table_12\\old_index.html",
+      "attribute": "href",
+      "url": "../juces sub cat�gorie page/index.html"
+    },
+    {
+      "file": "stitch_caf_menu_table_12\\old_index.html",
+      "attribute": "href",
+      "url": "../fast food sub catégorie page/index.html"
+    },
+    {
+      "file": "stitch_caf_menu_table_12\\old_index.html",
+      "attribute": "href",
+      "url": "../toast brunch sub cat�gorie page/index.html"
+    },
+    {
+      "file": "stitch_caf_menu_table_12\\old_index.html",
+      "attribute": "href",
+      "url": "../long_scroll_brunch_explorer/index.html"
+    },
+    {
+      "file": "stitch_caf_menu_table_12\\old_index.html",
+      "attribute": "href",
+      "url": "../black coffee sub cat�gorie page/index.html"
+    },
+    {
+      "file": "stitch_caf_menu_table_12\\old_index.html",
+      "attribute": "href",
+      "url": "../latt� hot drink sub cat�gorie page/index.html"
+    },
+    {
+      "file": "stitch_caf_menu_table_12\\old_index.html",
+      "attribute": "href",
+      "url": "../smothie sub cat�gorie page/index.html"
+    },
+    {
+      "file": "stitch_caf_menu_table_12\\old_index.html",
+      "attribute": "href",
+      "url": "../tea and infusion sub cat�gorie page/index.html"
+    },
+    {
+      "file": "stitch_caf_menu_table_12\\old_index.html",
+      "attribute": "href",
+      "url": "../artisanal bread sub cat�gorie page/index.html"
+    },
+    {
+      "file": "stitch_caf_menu_table_12\\old_index.html",
+      "attribute": "href",
+      "url": "../Brew cat�gorie page/index.html"
+    },
+    {
+      "file": "stitch_caf_menu_table_12\\old_index.html",
+      "attribute": "href",
+      "url": "../long_scroll_brunch_explorer/index.html"
+    },
+    {
+      "file": "stitch_caf_menu_table_12\\old_index.html",
+      "attribute": "href",
+      "url": "../Brew cat�gorie page/index.html"
+    },
+    {
+      "file": "stitch_caf_menu_table_12\\old_index.html",
+      "attribute": "href",
+      "url": "../cold drinks cat�gorie page/index.html"
+    },
+    {
+      "file": "stitch_caf_menu_table_12\\old_index.html",
+      "attribute": "href",
+      "url": "../bakery catégorie page/index.html"
+    },
+    {
+      "file": "stitch_caf_menu_table_12\\old_index.html",
+      "attribute": "src",
+      "url": "./header-interactions.js"
+    },
+    {
+      "file": "stitch_caf_menu_table_12\\old_index.html",
+      "attribute": "src",
+      "url": "./carousel-auto-loop.js"
+    },
+    {
+      "file": "stitch_caf_menu_table_12\\old_index.html",
+      "attribute": "src",
+      "url": "../nav-bar.js?v=9"
+    },
+    {
+      "file": "stitch_caf_menu_table_12\\swiggy-style_elite_main_menu_390x2500\\index.html",
+      "attribute": "src",
+      "url": "../central_store.js"
+    }
+  ],
+  "syntaxErrors": []
+}

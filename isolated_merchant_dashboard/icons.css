@@ -1,0 +1,31 @@
+/* Self-contained SVG glyphs; utility classes still control color, size and animation. */
+:where(.material-symbols-outlined) {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-family: inherit;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: normal;
+    line-height: 1;
+    letter-spacing: normal;
+    text-transform: none;
+    vertical-align: middle;
+}
+
+.material-symbols-outlined > svg {
+    display: block;
+    width: 1em;
+    height: 1em;
+    flex-shrink: 0;
+    overflow: visible;
+    pointer-events: none;
+}
+
+/* Keep glyphs aligned when printed, including receipt and QR export controls. */
+@media print {
+    .material-symbols-outlined > svg {
+        print-color-adjust: exact;
+    }
+}

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=390, height=844, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;900&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#00A862",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                },
+            },
+        }
+    </script>
+<style type="text/tailwindcss">
+        @layer base {
+            body {
+                @apply bg-[#00A862] overflow-hidden;
+                font-family: 'Inter', sans-serif;
+            }
+        }
+        .progress-ring {
+            transform: rotate(-90deg);
+        }@keyframes pulse-slow {
+            0%, 100% { transform: scale(1); opacity: 0.4; }
+            50% { transform: scale(1.1); opacity: 0.6; }
+        }
+        @keyframes rotate-slow {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        @keyframes morph {
+            0%, 100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+            50% { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; }
+        }
+        @keyframes spin-ring {
+            0% { stroke-dashoffset: 282; transform: rotate(0deg); }
+            50% { stroke-dashoffset: 70; transform: rotate(180deg); }
+            100% { stroke-dashoffset: 282; transform: rotate(360deg); }
+        }
+         @keyframes rotate-entire-ring {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        .animate-pulse-slow {
+            animation: pulse-slow 4s ease-in-out infinite;
+        }
+        .animate-rotate-slow {
+            animation: rotate-slow 12s linear infinite;
+        }
+        .animate-morph {
+            animation: morph 8s ease-in-out infinite;
+        }
+        .animate-spin-ring {
+            transform-origin: center;
+            animation: rotate-entire-ring 2s linear infinite;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="text-white">
+<div class="relative w-[390px] h-[844px] mx-auto flex flex-col items-center justify-center overflow-hidden">
+<div class="relative flex flex-col items-center justify-center">
+<div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+<div class="absolute w-64 h-64 bg-[#00e082] rounded-full opacity-20 blur-3xl"></div>
+<div class="absolute w-48 h-48 bg-[#00c975]/30 animate-morph animate-rotate-slow mix-blend-screen"></div>
+<div class="absolute w-40 h-40 bg-[#008f53]/20 animate-morph animate-rotate-slow" style="animation-direction: reverse; animation-duration: 15s;"></div>
+<div class="absolute w-32 h-32 rounded-full bg-[#33b97f]/30 animate-pulse-slow blur-xl"></div>
+</div>
+<div class="relative z-10 scale-90"> 
+<svg class="progress-ring drop-shadow-md animate-spin-ring" height="180" width="180"> 
+<circle class="text-white/20" cx="90" cy="90" fill="transparent" r="86" stroke="currentColor" stroke-width="1.5"></circle> 
+<circle class="text-white drop-shadow-sm" cx="90" cy="90" fill="transparent" r="86" stroke="currentColor" stroke-dasharray="200 400" stroke-linecap="round" stroke-width="2.5"></circle>
+</svg>
+<div class="absolute inset-0 flex items-center justify-center">
+<div class="relative w-24 h-24 flex items-center justify-center"> 
+<div class="absolute w-24 h-24 bg-white/20 blur-xl rounded-full"></div>
+<div class="absolute transform translate-y-[-3px] translate-x-[-8px] z-10">
+<div class="w-16 h-16 bg-center bg-no-repeat bg-contain" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCz-avf5JIqS8YvHSc9t6mfLcVnM4eHWO1mfYaK6DTiar1Ft8qVBmnHd9hiZTGPdA3oCLtwos5KJXMIM2g8E-tYG6ImddnLRcJ_lft3JVRgPIy5UUTYmhiuz1XVR-LxmU23xMrNFnRhE1XRzncOT_mm2Cqx1skfrT0QHDKqiNBJu7cuj4c8ba9vyTJSvaik0MkaVUFF3vuP0DC60CLHyC7A4-sDpYTEMpln64o8IuCEHh5GT8tVTrsO2UR2Emj-QyA02spAeat7wAQ'); filter: drop-shadow(0 8px 16px rgba(0,0,0,0.2));"> 
+</div>
+</div>
+<div class="absolute transform translate-x-8 translate-y-5 rotate-[25deg] scale-50 z-10">
+<div class="w-12 h-12 bg-center bg-no-repeat bg-contain" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBHWJUmwhpqHUgqH9HvXq2diF0IHjkYS_LxRy1wdZJ2hR1mtQ5Hh3FUH6iJMXNFuBmG3LIxj2sKKa-5pC_KX6Cz1fuETAPIKiWDGZcPAhPY1EVgppNSK3c2lupwoS3TLa1669Mm5iwXr4kyK4Zysq-huG6g7-qC3kkcJIr-ZzH5O_0J3_tVS5tz59Mfvdn4BjrMTe4F2WiKJ-tGOElfNp2I_9S2_GTqGaB6bBIjckHmBp3AbQqFTHDVsubQx5Tb3vaA_jEQKXicmeU'); filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));"> 
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="mt-10 text-center z-20">
+<h3 class="text-white tracking-[0.4em] text-[10px] font-black uppercase opacity-90 drop-shadow-md font-display">
+                    EXPERIENCE BREWING
+                </h3>
+</div>
+</div>
+</div>
+<div class="fixed inset-0 pointer-events-none bg-gradient-to-t from-black/10 to-transparent z-[-1]"></div>
+</body></html>

@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html class="light" lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Détail Produit — Stitch Café</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            primary: "#FF5200",
+            "background-light": "#FDFBF7",
+            "background-dark": "#18181B"
+          },
+          fontFamily: {
+            display: ["Plus Jakarta Sans", "sans-serif"],
+            serif: ["Playfair Display", "serif"]
+          }
+        }
+      }
+    };
+  </script>
+</head>
+<body class="font-display bg-background-light dark:bg-background-dark text-gray-900 dark:text-white antialiased overflow-x-hidden">
+  <div class="relative w-full max-w-[430px] min-h-screen mx-auto flex flex-col bg-white dark:bg-[#1c130d] shadow-2xl pb-32">
+    
+    <!-- Top Floating Action Bar -->
+    <header class="absolute top-0 left-0 right-0 z-30 flex items-center justify-between p-4">
+      <button id="back-btn" type="button" aria-label="Retour"
+        class="w-10 h-10 flex items-center justify-center rounded-full bg-black/45 hover:bg-black/65 backdrop-blur-md text-white shadow-lg border border-white/20 transition-transform active:scale-90">
+        <span class="material-symbols-outlined text-[20px]">arrow_back</span>
+      </button>
+      <div class="flex items-center gap-2.5">
+        <button id="fav-btn" type="button" aria-label="Favoris"
+          class="w-10 h-10 flex items-center justify-center rounded-full bg-black/45 hover:bg-black/65 backdrop-blur-md text-white shadow-lg border border-white/20 transition-transform active:scale-90">
+          <span id="fav-icon" class="material-symbols-outlined text-[20px]">favorite</span>
+        </button>
+        <button id="share-btn" type="button" aria-label="Partager"
+          class="w-10 h-10 flex items-center justify-center rounded-full bg-black/45 hover:bg-black/65 backdrop-blur-md text-white shadow-lg border border-white/20 transition-transform active:scale-90">
+          <span class="material-symbols-outlined text-[20px]">share</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Exact Product Image Hero -->
+    <div id="customization-hero" class="relative h-[320px] w-full overflow-hidden bg-gray-100 dark:bg-zinc-900 shrink-0">
+      <img id="product-hero-img" src="../assets/waiter.jpg" alt="Produit"
+        class="w-full h-full object-cover object-center transition-transform duration-500" />
+      <div class="absolute inset-0 bg-gradient-to-t from-black/65 via-black/15 to-transparent pointer-events-none"></div>
+      <div class="absolute bottom-8 left-4 right-4 z-10 flex items-center justify-between">
+        <span id="product-category-badge" class="px-3 py-1 rounded-full bg-primary text-white text-[11px] font-extrabold uppercase tracking-wider shadow-md">
+          Menu
+        </span>
+        <div class="flex items-center gap-1 bg-black/55 backdrop-blur-md px-2.5 py-1 rounded-full text-white text-xs font-bold border border-white/15">
+          <span class="material-symbols-outlined text-[#FFC107] text-[15px]" style="font-variation-settings: 'FILL' 1">star</span>
+          <span>4.9</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Content Card -->
+    <div class="relative -mt-5 z-20 flex-1 bg-white dark:bg-[#1c130d] rounded-t-[28px] px-5 pt-4 flex flex-col">
+      <div class="w-12 h-1.5 bg-gray-200 dark:bg-zinc-700 rounded-full mx-auto mb-4"></div>
+
+      <!-- Title & Base Price -->
+      <div class="flex items-start justify-between gap-3 mb-2.5">
+        <h1 id="product-title" class="font-serif text-2xl font-bold leading-snug text-gray-900 dark:text-white">
+          Chargement...
+        </h1>
+        <div class="shrink-0 bg-orange-50 dark:bg-orange-950/40 border border-orange-200/70 dark:border-orange-800/40 px-3.5 py-1.5 rounded-2xl">
+          <span id="base-price" class="text-primary font-black text-lg">0.00 DH</span>
+        </div>
+      </div>
+
+      <!-- Rich Valorization & Preparation Storytelling (Shown ONLY on Detail Page) -->
+      <div class="mb-6 space-y-3">
+        <p id="product-desc" class="text-gray-600 dark:text-gray-300 text-[13px] leading-relaxed font-medium">
+          Préparé à la commande avec des ingrédients frais sélectionnés par notre chef.
+        </p>
+
+        <!-- Quality & Preparation Highlights -->
+        <div class="bg-[#FDFBF7] dark:bg-zinc-900/80 border border-orange-100 dark:border-zinc-800 rounded-2xl p-3.5 space-y-2.5">
+          <div id="product-badges" class="flex flex-wrap gap-1.5">
+            <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-orange-100/80 dark:bg-orange-950/50 text-primary text-[10px] font-extrabold uppercase tracking-wider">
+              <span class="material-symbols-outlined text-[13px]">verified</span> Préparé minute
+            </span>
+            <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-amber-100/70 dark:bg-amber-950/40 text-amber-800 dark:text-amber-300 text-[10px] font-bold uppercase tracking-wider">
+              <span class="material-symbols-outlined text-[13px]">eco</span> Ingrédients frais
+            </span>
+            <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-emerald-100/70 dark:bg-emerald-950/40 text-emerald-800 dark:text-emerald-300 text-[10px] font-bold uppercase tracking-wider">
+              <span class="material-symbols-outlined text-[13px]">restaurant</span> Savoir-faire Maison
+            </span>
+          </div>
+          <p id="product-prep-detail" class="text-[11.5px] text-gray-500 dark:text-gray-400 leading-relaxed border-t border-orange-100/60 dark:border-zinc-800 pt-2">
+            Chaque assiette est dressée à la minute dans notre cuisine pour préserver toutes les saveurs, le croquant et la fraîcheur des produits.
+          </p>
+        </div>
+      </div>
+
+      <!-- DRINK-ONLY OPTIONS (Automatically hidden for Food / Dishes / Pastries) -->
+      <div id="drink-options-section" class="space-y-6 mb-6 hidden">
+        <!-- Sugar Level -->
+        <div>
+          <div class="flex items-center justify-between mb-2.5">
+            <h2 class="text-sm font-extrabold uppercase tracking-wider text-gray-800 dark:text-gray-200">Niveau de Sucre</h2>
+            <span class="text-[10px] font-bold text-gray-400 uppercase">Au choix</span>
+          </div>
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-2" id="sugar-options-grid">
+            <button type="button" data-sugar="Sans sucre" class="sugar-btn py-2.5 px-3 rounded-2xl border border-gray-200 dark:border-zinc-700 text-xs font-bold text-gray-700 dark:text-gray-300 transition-all">
+              Sans sucre
+            </button>
+            <button type="button" data-sugar="Peu sucré" class="sugar-btn py-2.5 px-3 rounded-2xl border border-gray-200 dark:border-zinc-700 text-xs font-bold text-gray-700 dark:text-gray-300 transition-all">
+              Peu sucré
+            </button>
+            <button type="button" data-sugar="Sucre normal" class="sugar-btn active-opt py-2.5 px-3 rounded-2xl border-2 border-primary bg-primary/10 text-xs font-extrabold text-primary transition-all">
+              Normal
+            </button>
+            <button type="button" data-sugar="Bien sucré" class="sugar-btn py-2.5 px-3 rounded-2xl border border-gray-200 dark:border-zinc-700 text-xs font-bold text-gray-700 dark:text-gray-300 transition-all">
+              Bien sucré
+            </button>
+          </div>
+        </div>
+
+        <!-- Cup / Serving Format -->
+        <div>
+          <div class="flex items-center justify-between mb-2.5">
+            <h2 class="text-sm font-extrabold uppercase tracking-wider text-gray-800 dark:text-gray-200">Taille du Verre / Tasse</h2>
+            <span class="text-[10px] font-bold text-gray-400 uppercase">Au choix</span>
+          </div>
+          <div class="grid grid-cols-3 gap-2.5" id="size-options-grid">
+            <button type="button" data-size="Standard" data-extra="0" class="size-btn active-opt py-3 px-3 rounded-2xl border-2 border-primary bg-primary/10 text-center transition-all">
+              <span class="block text-xs font-extrabold text-primary">Standard</span>
+              <span class="block text-[10px] text-gray-500 mt-0.5">Sur place</span>
+            </button>
+            <button type="button" data-size="Grand Format" data-extra="3" class="size-btn py-3 px-3 rounded-2xl border border-gray-200 dark:border-zinc-700 text-center transition-all">
+              <span class="block text-xs font-bold text-gray-700 dark:text-gray-300">Grand</span>
+              <span class="block text-[10px] text-primary font-bold mt-0.5">+3.00 DH</span>
+            </button>
+            <button type="button" data-size="À emporter" data-extra="0" class="size-btn py-3 px-3 rounded-2xl border border-gray-200 dark:border-zinc-700 text-center transition-all">
+              <span class="block text-xs font-bold text-gray-700 dark:text-gray-300">À emporter</span>
+              <span class="block text-[10px] text-gray-400 mt-0.5">Gobelet</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Optional Kitchen / Barista Note -->
+      <div class="mb-6">
+        <label for="custom-item-note" class="block text-xs font-extrabold uppercase tracking-wider text-gray-700 dark:text-gray-300 mb-2">
+          Remarque pour la préparation (Optionnel)
+        </label>
+        <textarea id="custom-item-note" rows="2"
+          placeholder="Ex: Sans sauce, bien chaud, allergie particulière..."
+          class="w-full rounded-2xl bg-gray-50 dark:bg-zinc-800/80 border border-gray-200 dark:border-zinc-700 px-4 py-3 text-xs text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary"></textarea>
+      </div>
+
+      <!-- CROSS-SELLING RECOMMENDATIONS SECTION (Drinks <-> Pastries & Dishes) -->
+      <div id="cross-sell-section" class="pt-4 border-t border-gray-100 dark:border-zinc-800 mb-4">
+        <div class="flex items-center justify-between mb-1">
+          <h2 id="cross-sell-title" class="text-sm font-extrabold uppercase tracking-wider text-gray-900 dark:text-white">
+            Parfait pour accompagner
+          </h2>
+          <span class="text-[10px] font-extrabold text-primary bg-orange-50 dark:bg-orange-950/50 px-2 py-0.5 rounded-full">
+            Recommandé
+          </span>
+        </div>
+        <p id="cross-sell-subtitle" class="text-[11px] text-gray-500 dark:text-gray-400 mb-3">
+          Sélectionnez un accompagnement pour compléter votre plaisir :
+        </p>
+
+        <div id="cross-sell-grid" class="grid grid-cols-2 gap-2.5">
+          <!-- Populated dynamically in script.js -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Fixed Bottom Add-to-Order Bar -->
+    <div class="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[430px] z-40 bg-white/95 dark:bg-[#1c130d]/95 backdrop-blur-xl border-t border-gray-100 dark:border-white/10 px-5 py-3.5 shadow-[0_-8px_30px_rgba(0,0,0,0.12)]">
+      <div class="flex items-center gap-3">
+        <!-- Quantity Selector -->
+        <div class="flex items-center bg-gray-100 dark:bg-zinc-800 rounded-2xl p-1 border border-gray-200/60 dark:border-zinc-700 shrink-0">
+          <button id="qty-minus" type="button" aria-label="Diminuer la quantité"
+            class="w-10 h-10 rounded-xl bg-white dark:bg-zinc-700 text-gray-800 dark:text-white font-black text-lg flex items-center justify-center shadow-sm active:scale-90 transition-transform">
+            -
+          </button>
+          <span id="qty-value" class="w-9 text-center font-black text-base text-gray-900 dark:text-white">1</span>
+          <button id="qty-plus" type="button" aria-label="Augmenter la quantité"
+            class="w-10 h-10 rounded-xl bg-primary text-white font-black text-lg flex items-center justify-center shadow-sm active:scale-90 transition-transform">
+            +
+          </button>
+        </div>
+
+        <!-- Add to Order Button -->
+        <button id="add-to-order-btn" type="button"
+          class="flex-1 h-12 bg-primary hover:bg-[#e04800] text-white rounded-2xl px-5 font-extrabold text-sm flex items-center justify-between shadow-[0_8px_25px_rgba(255,82,0,0.35)] active:scale-95 transition-all">
+          <span id="add-btn-label" class="uppercase tracking-wider">Ajouter</span>
+          <span id="total-price" class="font-black text-base">0.00 DH</span>
+        </button>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="script.js?v=11"></script>
+  <script src="../nav-bar.js?v=11"></script>
+  <script src="../theme-engine.js?v=1"></script>
+</body>
+</html>

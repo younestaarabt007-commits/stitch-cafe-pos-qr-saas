@@ -1,0 +1,37 @@
+body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  background-color: #fffcf2;
+  min-height: 100vh;
+}
+.brunch-hero-gradient {
+  background:
+    radial-gradient(circle at 0% 0%, #3a2a12 0%, transparent 65%),
+    radial-gradient(circle at 100% 100%, #22180b 0%, transparent 65%),
+    radial-gradient(circle at 50% 50%, #5a3a16 0%, #2a1908 100%);
+}
+.egg-floats {
+  background-image:
+    radial-gradient(circle at 20% 30%, rgba(255,255,255,0.08) 0, transparent 60%),
+    radial-gradient(circle at 80% 40%, rgba(255,255,255,0.06) 0, transparent 50%);
+  background-repeat: no-repeat;
+  background-size: 180px 180px, 140px 140px;
+  background-position: 20% 30%, 80% 40%;
+  filter: blur(0.5px);
+}
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+.filter-btn { transition: all 0.3s ease; }
+.filter-btn.active {
+  background-color: #f2930d;
+  color: white;
+  box-shadow: 0 10px 25px -8px rgba(242, 147, 13, 0.25);
+}
+.filter-btn:not(.active):hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.fade-in-up { animation: fadeInUp 0.35s ease-out forwards; }

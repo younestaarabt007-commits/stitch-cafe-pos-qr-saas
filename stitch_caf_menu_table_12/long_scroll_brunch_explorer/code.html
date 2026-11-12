@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Elite Compact Brunch Explorer</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#88AB42", // Avocado Green
+                        secondary: "#FFC300", // Egg Yolk Yellow
+                        accent: "#87CEEB", // Sky Blue
+                        "morning-bg": "#FFFDF0", // Sun-drenched light cream
+                    },
+                    fontFamily: {
+                        display: ["Plus Jakarta Sans", "sans-serif"],
+                    },
+                    borderRadius: {
+                        DEFAULT: "1.5rem",
+                    },
+                    boxShadow: {
+                        'clay': '10px 10px 20px #e6e4d8, -10px -10px 20px #ffffff, inset 5px 5px 10px rgba(255,255,255,0.5)',
+                        'clay-button': '5px 5px 10px #7a9a3b, -5px -5px 10px #96bc49',
+                        'dynamic-island': '0px 4px 24px -2px rgba(0, 0, 0, 0.25)',
+                    }
+                },
+            },
+        };
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .glass-blur {
+                backdrop-filter: blur(12px);
+                background: rgba(255, 255, 255, 0.4);
+            }
+            .no-scrollbar::-webkit-scrollbar {
+                display: none;
+            }
+            .no-scrollbar {
+                -ms-overflow-style: none;
+                scrollbar-width: none;
+            }
+            .text-shadow-sm {
+                text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+            }
+            .mask-blob {
+                mask-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill='%23FF0066' d='M47.7,-58.3C60.9,-46.8,69.9,-30.9,73.4,-13.6C76.9,3.7,75,22.3,66.6,38.3C58.2,54.2,43.3,67.5,26.7,73.8C10.1,80.1,-8.2,79.4,-24.6,72.4C-41,65.4,-55.5,52.1,-65.4,36.1C-75.3,20.1,-80.6,1.4,-75.6,-14.6C-70.6,-30.6,-55.3,-43.9,-40.7,-54.9C-26.1,-65.9,-12.2,-74.6,1.9,-76.8C16,-79.1,32,-74.9,47.7,-58.3Z' transform='translate(100 100)' /%3E%3C/svg%3E");
+                mask-size: contain;
+                mask-repeat: no-repeat;
+                mask-position: center;
+            }
+        }
+        body {
+            font-family: "Plus Jakarta Sans", sans-serif;
+            background-color: #FFFDF0;
+            overflow-x: hidden;
+            min-height: 3000px;}
+        .sun-burst {
+            position: fixed;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(255, 245, 157, 0.25) 0%, rgba(255, 255, 255, 0) 70%);
+            border-radius: 50%;
+            z-index: -1;
+            filter: blur(40px);
+        }
+        .monstera-outline {
+            position: fixed;
+            opacity: 0.06;
+            z-index: -1;
+            pointer-events: none;
+            color: #88AB42;
+        }.clay-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 8px 8px 16px rgba(166, 171, 160, 0.15), -8px -8px 16px rgba(255, 255, 255, 0.8);
+            transition: transform 0.2s ease;
+        }
+        .clay-card:active {
+            transform: scale(0.98);
+        }
+    </style>
+    <style>
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+</head>
+
+<body class="text-slate-900 pb-32">
+    <div class="sun-burst -top-20 -left-20"></div>
+    <div class="sun-burst top-[600px] -right-40"></div>
+    <div class="sun-burst top-[1500px] -left-20"></div>
+    <div class="sun-burst bottom-[200px] right-0"></div>
+    <span class="material-symbols-outlined monstera-outline text-[300px] top-40 -left-20 rotate-12">eco</span>
+    <span class="material-symbols-outlined monstera-outline text-[400px] top-[1000px] -right-32 -rotate-45">eco</span>
+    <span class="material-symbols-outlined monstera-outline text-[350px] top-[2200px] -left-16 rotate-90">eco</span>
+    <header
+        class="absolute top-0 left-0 right-0 z-50 px-4 pt-12 pb-4 bg-gradient-to-b from-morning-bg/90 via-morning-bg/50 to-transparent pointer-events-none transition-all duration-300">
+        <div class="flex justify-between items-center pointer-events-auto max-w-[390px] mx-auto">
+            <a href="../brunch_customization_view/code.html"
+                class="w-10 h-10 bg-white/80 backdrop-blur-md rounded-full flex items-center justify-center text-primary shadow-sm border border-white/50 text-center decoration-none">
+                <span class="material-symbols-outlined font-bold text-xl">arrow_back_ios_new</span>
+                </button>
+                <div class="flex gap-3">
+                    <a href="../brunch_customization_view/code.html"
+                        class="w-10 h-10 bg-white/80 backdrop-blur-md rounded-full flex items-center justify-center shadow-sm border border-white/50 text-center decoration-none">
+                        <span class="material-symbols-outlined text-primary text-xl">search</span>
+                        </button>
+                </div>
+        </div>
+    </header>
+    <main class="max-w-[390px] mx-auto relative px-4">
+        <section class="relative pt-24 pb-8 w-full">
+            <div class="relative h-[360px] w-full rounded-[2.5rem] overflow-visible mb-6">
+                <div
+                    class="absolute bottom-4 left-1/2 -translate-x-1/2 w-3/4 h-12 bg-black/20 blur-xl rounded-full z-0">
+                </div>
+                <div class="relative z-10 w-full h-full">
+                    <img alt="Hyper Realistic 3D Avocado Toast"
+                        class="w-full h-full object-contain drop-shadow-2xl scale-110"
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuDsbxmOTk_nqtPI0GPb8vBisSDG5O_2pmZWRadSz9-K0GmybVJkh1u6jDJpHR_GY2uN7QOG03A09ZSf2o42uhbl4BncSp6w30cFphAZFeiqvq9TnLmLr5DCPedpVMQY_9SG3WQFvNqv7idSUkVwoAsm8z7RI0DVB0_5AaVSmAWkOf0nZVIzTKffIJW0QWYbzkQzYatKrhvhlUNyiJCzU2Kjrayis93UmL5bM2ut1io1_6irXSqu5k9yfXGRKZlMZFbkX8eJF1WVpFU" />
+                    <div
+                        class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 bg-secondary/30 blur-2xl rounded-full mix-blend-overlay animate-pulse">
+                    </div>
+                    <div class="absolute top-10 right-10 w-3 h-3 bg-red-500 rounded-full rotate-45 blur-[1px]"></div>
+                    <div class="absolute bottom-20 left-10 w-2 h-2 bg-red-600 rounded-full -rotate-12 blur-[0.5px]">
+                    </div>
+                </div>
+                <div
+                    class="absolute top-0 right-4 bg-white/90 backdrop-blur-md px-4 py-1.5 rounded-full shadow-lg border border-white/50 z-20">
+                    <span class="text-primary text-[10px] font-bold uppercase tracking-widest flex items-center gap-1">
+                        <span class="material-symbols-outlined text-sm">wb_sunny</span> Morning Glow
+                    </span>
+                </div>
+            </div>
+            <div class="space-y-3 px-2">
+                <h1 class="text-[28px] font-extrabold text-slate-900 leading-[1.1] tracking-tight">
+                    Avocado Smash <br />
+                    <span class="text-primary">&amp; Poached Egg</span>
+                </h1>
+                <p class="text-slate-500 text-sm leading-relaxed max-w-[90%]">
+                    Sourdough toasted to perfection, topped with creamy hass avocado, chili flakes, and a runny golden
+                    yolk.
+                </p>
+                <div class="flex items-center gap-4 mt-2">
+                    <div
+                        class="flex items-center gap-1 bg-green-100 text-green-700 px-2 py-1 rounded-lg text-xs font-bold">
+                        <span class="material-symbols-outlined text-sm">timer</span> 15m
+                    </div>
+                    <div
+                        class="flex items-center gap-1 bg-orange-100 text-orange-700 px-2 py-1 rounded-lg text-xs font-bold">
+                        <span class="material-symbols-outlined text-sm">local_fire_department</span> 450 kcal
+                    </div>
+                    <div
+                        class="flex items-center gap-1 bg-yellow-100 text-yellow-700 px-2 py-1 rounded-lg text-xs font-bold">
+                        <span class="material-symbols-outlined text-sm">star</span> 4.9
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section
+            class="mb-8 overflow-visible relative top-0 z-30 py-2 -mx-4 px-4 bg-gradient-to-b from-[#FFFDF0] via-[#FFFDF0] to-transparent">
+            <div class="flex gap-3 overflow-x-auto no-scrollbar pb-2">
+                <button
+                    class="whitespace-nowrap px-5 py-2 rounded-full bg-slate-900 text-white text-sm font-bold shadow-lg shadow-slate-900/20 transform transition-transform active:scale-95">All</button>
+                <button
+                    class="whitespace-nowrap px-5 py-2 rounded-full bg-white text-slate-600 text-sm font-bold shadow-sm border border-slate-200 transform transition-transform active:scale-95">Eggs</button>
+                <button
+                    class="whitespace-nowrap px-5 py-2 rounded-full bg-white text-slate-600 text-sm font-bold shadow-sm border border-slate-200 transform transition-transform active:scale-95">Bowls</button>
+                <button
+                    class="whitespace-nowrap px-5 py-2 rounded-full bg-white text-slate-600 text-sm font-bold shadow-sm border border-slate-200 transform transition-transform active:scale-95">Toasts</button>
+                <button
+                    class="whitespace-nowrap px-5 py-2 rounded-full bg-white text-slate-600 text-sm font-bold shadow-sm border border-slate-200 transform transition-transform active:scale-95">Sides</button>
+            </div>
+        </section>
+        <section class="grid grid-cols-2 gap-4 mb-8">
+            <div
+                class="col-span-1 h-44 rounded-[20px] bg-[#F4F9E9] border border-[#E1EBC8] relative overflow-hidden p-4 group cursor-pointer transition-all hover:shadow-lg">
+                <div
+                    class="absolute top-0 right-0 w-24 h-24 bg-[#DCE8B8] rounded-bl-[60px] opacity-50 transition-all group-hover:scale-110">
+                </div>
+                <h4 class="relative z-10 text-lg font-bold text-primary leading-tight">Green<br />Goddess</h4>
+                <p class="relative z-10 text-[10px] text-primary/70 mt-1 font-semibold">12 Varieties</p>
+                <img alt="Avocado"
+                    class="absolute -bottom-4 -right-4 w-28 h-28 object-cover rounded-full shadow-lg group-hover:rotate-6 transition-transform duration-500 border-4 border-white"
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuDjb0ddqidGke1l0Q50R8yhv0V39RZaCiTjAtQI14qPkmdzkCGsLJSv_h7rgzT-h6F-duY5bVsWMmLiQIfxLRhyn4bGrZQ3s8fSzBGTf3pMwcobnBF5KAnPRN-dxUJuG_J8fYBwRZ_RVacBh_5C9nxee8lbhWRYnWxehvAJskvo3lOM11ekC1e5_Qog2vP-cmIwuzU0dYhUug8NfeHXZpTx6z9NX06LCg7YJ5Pnh01Lt6qs3BgJUzIwZ_fQNCoWgVd9ju6hCnkOLI4" />
+            </div>
+            <div
+                class="col-span-1 h-44 rounded-[20px] bg-[#FFF8E1] border border-[#FDE6A8] relative overflow-hidden p-4 group cursor-pointer transition-all hover:shadow-lg">
+                <div
+                    class="absolute top-0 right-0 w-24 h-24 bg-[#FFE082] rounded-bl-[60px] opacity-40 transition-all group-hover:scale-110">
+                </div>
+                <h4 class="relative z-10 text-lg font-bold text-secondary-600 leading-tight">Sweet<br />Tooth</h4>
+                <p class="relative z-10 text-[10px] text-secondary-600/70 mt-1 font-semibold">8 Options</p>
+                <img alt="Pancakes"
+                    class="absolute -bottom-4 -right-4 w-28 h-28 object-cover rounded-full shadow-lg group-hover:rotate-6 transition-transform duration-500 border-4 border-white"
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuDg-WBVz0CKbZl7yGjuheXa32vESX23Qu8ww4oawHKFPAj1rwcY7tSNc5LFhD23CzOHb4_4wCEEQ9PSeYAo6y3BezyuwdEs9Y3nFqcO7szQitWUcJXoFNtcJytfJ9uH30uFxK95Jq5YNh7ZYHQtX9cq5MlM1QZVFIetuwpE4n7Pg211XTUhkbKe58vugyGxgdLOjd4Cnfykk5k9OVnQq6pxoEvou60x4rdwZP4ii20NdGCE0n4LeRlfly-wPxffj5gHc592IS79bGw" />
+            </div>
+        </section>
+        <section class="space-y-6">
+            <div class="flex items-center justify-between px-1">
+                <h3 class="text-[20px] font-bold text-slate-800">Fresh from Kitchen</h3>
+                <span class="text-xs font-bold text-slate-400 bg-white px-2 py-1 rounded-md shadow-sm">24 ITEMS</span>
+            </div>
+            <div class="grid grid-cols-2 gap-x-4 gap-y-6">
+                <div class="clay-card p-3 flex flex-col h-full group">
+                    <div class="relative mb-3 rounded-2xl overflow-hidden aspect-[4/3]">
+                        <img alt="Farm Omelette"
+                            class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuAZjr-Zrfp07OGgz4C8vwStOVNC-OY18iadJ1wUMy1v460L7VStg90VTodIPS_6sENvwuTbd1sJ1o6ugP5mxfRP9CkvM4JwZNb5WNgCXK1huHbDAlujpCi3cziYAF1bOz3eTR43Y2pERp2plIvlzze_Ib0NB9aF9E8ewUzJADQyulAQAXYoI2fwDSnP6bspEYSgYuoGZxCfJ6H-1NodkJ0WSZaer17xdHcbUwOQRgEPtYGKmGLmp4Ixwu3MPbdCH6d6KQKSfpIg6-c" />
+                        <div
+                            class="absolute top-2 right-2 bg-white/90 backdrop-blur-sm px-2 py-0.5 rounded-md text-[10px] font-bold text-slate-800 shadow-sm">
+                            GF</div>
+                    </div>
+                    <div class="flex-1 flex flex-col">
+                        <h5 class="font-bold text-[16px] text-slate-800 leading-tight mb-1">Farm Omelette</h5>
+                        <p class="text-[11px] text-slate-500 line-clamp-2 leading-relaxed mb-3">Organic eggs, cheddar,
+                            fresh herbs.</p>
+                        <div class="mt-auto flex justify-between items-end">
+                            <span class="text-[15px] font-extrabold text-slate-900">12.50DH</span>
+                            <button
+                                class="w-[84px] h-[36px] bg-white text-primary font-bold text-sm rounded-xl shadow-sm border border-primary/20 hover:bg-primary hover:text-white transition-colors active:scale-95 uppercase tracking-wide">
+                                Add
+                                </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="clay-card p-3 flex flex-col h-full group">
+                    <div class="relative mb-3 rounded-2xl overflow-hidden aspect-[4/3]">
+                        <img alt="Eggs Benedict"
+                            class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuDvoGoZAoFoqEdN8-PNvFMLNdFg0hpyju3C8C-IFWve_UlbNunowdYUWPQeNXLfoI2AXkyKoaXAMPfqkKm5w2mrUmuFgzmcwhZH6j1ljK9czf4yZ5SAbR8L7j7NDHf_-3DS8A8PLYIoRiFiI1qYATeYTfr5NV5ItCfFTxRqcH9iXKUp_MwxY1s3FpfTo6I8fTwD3vHjfSGO6eCT_tYWbxwA2NekDCCdQA34-9Sjbp94hswkP5y8AH3wiM2XKFU2bUkSHk077-AgiAs" />
+                        <div
+                            class="absolute top-2 right-2 bg-white/90 backdrop-blur-sm px-2 py-0.5 rounded-md text-[10px] font-bold text-slate-800 shadow-sm">
+                            Hot</div>
+                    </div>
+                    <div class="flex-1 flex flex-col">
+                        <h5 class="font-bold text-[16px] text-slate-800 leading-tight mb-1">Eggs Benedict</h5>
+                        <p class="text-[11px] text-slate-500 line-clamp-2 leading-relaxed mb-3">English muffin, bacon,
+                            hollandaise sauce.</p>
+                        <div class="mt-auto flex justify-between items-end">
+                            <span class="text-[15px] font-extrabold text-slate-900">16.00DH</span>
+                            <a href="../brunch_customization_view/code.html"
+                                class="w-[84px] h-[36px] bg-white text-primary font-bold text-sm rounded-xl shadow-sm border border-primary/20 hover:bg-primary hover:text-white transition-colors active:scale-95 uppercase tracking-wide flex items-center justify-center text-center decoration-none">
+                                Add
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="clay-card p-3 flex flex-col h-full group">
+                    <div class="relative mb-3 rounded-2xl overflow-hidden aspect-[4/3]">
+                        <img alt="Spicy Shakshuka"
+                            class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuA_q0-EkgBwQJAXYclx5OLXw8-cD7LwkvddEHnaDjqPKvsjhPz28tF6vPF6jiH39kbF2ei3jeSXh6ANDkwyhpVL77YF_LHpFOzHIKYBemFBhSOt4VLXJKt-Unn0aJ9k8Z8wnFuTI6dYZXete4EIlQpb3oM_enYoW2pYyFsBiuSw1zR42kNVWxeoLRwG9-DfB3d3hCg8GJmpDeHqAjPpKz6p1cazoKtwzuFWCeDoIffb0ZQ2zYKJwFA5HhZss1eDIcFYFjNeHOR2xGA" />
+                    </div>
+                    <div class="flex-1 flex flex-col">
+                        <h5 class="font-bold text-[16px] text-slate-800 leading-tight mb-1">Spicy Shakshuka</h5>
+                        <p class="text-[11px] text-slate-500 line-clamp-2 leading-relaxed mb-3">Poached eggs in hearty
+                            spicy tomato sauce.</p>
+                        <div class="mt-auto flex justify-between items-end">
+                            <span class="text-[15px] font-extrabold text-slate-900">15.50DH</span>
+                            <a href="../brunch_customization_view/code.html"
+                                class="w-[84px] h-[36px] bg-white text-primary font-bold text-sm rounded-xl shadow-sm border border-primary/20 hover:bg-primary hover:text-white transition-colors active:scale-95 uppercase tracking-wide flex items-center justify-center text-center decoration-none">
+                                Add
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="clay-card p-3 flex flex-col h-full group">
+                    <div class="relative mb-3 rounded-2xl overflow-hidden aspect-[4/3]">
+                        <img alt="Garden Skillet"
+                            class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuCxWRapn73YBnFZ3jJfEvVUsUqn51AXUaYwl8AFYKtfQzQS2i73T9MHQ64OnL_IOODBgOw6ca4hgMQbySbiERW40eu9pYIZrKkObg6eXazzne5sIUpm8QX2ANhIZrsM31ISqx-b-O-JSxrJLgmMNUgI6BR_ZXkS_48e9E6gAOSyDBIsHeQUnpGezONGQKzvMJEaRgxgpQx7AdMnc6E1C_p4jIOerkNhS1t5ehp-AHb-q6CGf8kE2FBa2sZ1_3lpiLLQJqvYJ9c7CrE" />
+                        <div
+                            class="absolute top-2 right-2 bg-white/90 backdrop-blur-sm px-2 py-0.5 rounded-md text-[10px] font-bold text-green-700 shadow-sm">
+                            Veg</div>
+                    </div>
+                    <div class="flex-1 flex flex-col">
+                        <h5 class="font-bold text-[16px] text-slate-800 leading-tight mb-1">Garden Skillet</h5>
+                        <p class="text-[11px] text-slate-500 line-clamp-2 leading-relaxed mb-3">Roasted potatoes, kale,
+                            peppers.</p>
+                        <div class="mt-auto flex justify-between items-end">
+                            <span class="text-[15px] font-extrabold text-slate-900">14.50DH</span>
+                            <a href="../brunch_customization_view/code.html"
+                                class="w-[84px] h-[36px] bg-white text-primary font-bold text-sm rounded-xl shadow-sm border border-primary/20 hover:bg-primary hover:text-white transition-colors active:scale-95 uppercase tracking-wide flex items-center justify-center text-center decoration-none">
+                                Add
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="clay-card p-3 flex flex-col h-full group">
+                    <div class="relative mb-3 rounded-2xl overflow-hidden aspect-[4/3]">
+                        <img alt="Brunch Burrito"
+                            class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuBSyOCSULNaia0BYs7MTwf4Y8Y1pk9EkALiefgNnDzL8FBCt9WYIug2pX5HZOmQfSwgqfFTchO9W98iIOK4uYsswKmR1E-XlG_ooHr6ve1eDox3Y-V2-RIk5aG2K3OI_3stfwc9aSAc-vEgWyenMKeOt6mRphygQzFLec84Bk3YaL5RTQlDtxQtHw7qQU8mwIMKUqUOhieRk_YCjYOhZIvb3UDxS6dp0hFHmaKj7qRMpOT0lwkyrr4cPM-9Fy3OOuAcurFdWU0ziU4" />
+                    </div>
+                    <div class="flex-1 flex flex-col">
+                        <h5 class="font-bold text-[16px] text-slate-800 leading-tight mb-1">Brunch Burrito</h5>
+                        <p class="text-[11px] text-slate-500 line-clamp-2 leading-relaxed mb-3">Chorizo, scrambled eggs,
+                            beans.</p>
+                        <div class="mt-auto flex justify-between items-end">
+                            <span class="text-[15px] font-extrabold text-slate-900">13.00DH</span>
+                            <a href="../brunch_customization_view/code.html"
+                                class="w-[84px] h-[36px] bg-white text-primary font-bold text-sm rounded-xl shadow-sm border border-primary/20 hover:bg-primary hover:text-white transition-colors active:scale-95 uppercase tracking-wide flex items-center justify-center text-center decoration-none">
+                                Add
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="clay-card p-3 flex flex-col h-full group">
+                    <div class="relative mb-3 rounded-2xl overflow-hidden aspect-[4/3]">
+                        <img alt="Steak &amp; Eggs"
+                            class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuALZi2U7chpZpN189UnjxPWo9wWWYn5u5KBHgUUG_vxI-o4w6cLZyLEB-o0WYejKh67un8RZ2QtFk944F0tEYdPlYHvKj7VN3xbn_kx0_mzI4D5sm5LsYvVdAcSEQFrI_mvZUlNdYowCXcqdY9-X8_EAOZ40tbaENxSF0eYYkqQ8Z5WPouZTyPFMNyFK1XE5EQuUP7hrybl1Xde4JJRKbU25QRtAJJUdOJD-uG4DOkBAehYfhdh2mZkoDA9FixvRWnGmLOivmI0MEM" />
+                        <div
+                            class="absolute top-2 right-2 bg-white/90 backdrop-blur-sm px-2 py-0.5 rounded-md text-[10px] font-bold text-slate-800 shadow-sm">
+                            Prem</div>
+                    </div>
+                    <div class="flex-1 flex flex-col">
+                        <h5 class="font-bold text-[16px] text-slate-800 leading-tight mb-1">Steak &amp; Eggs</h5>
+                        <p class="text-[11px] text-slate-500 line-clamp-2 leading-relaxed mb-3">6oz sirloin, two eggs
+                            any style.</p>
+                        <div class="mt-auto flex justify-between items-end">
+                            <span class="text-[15px] font-extrabold text-slate-900">19.50DH</span>
+                            <a href="../brunch_customization_view/code.html"
+                                class="w-[84px] h-[36px] bg-white text-primary font-bold text-sm rounded-xl shadow-sm border border-primary/20 hover:bg-primary hover:text-white transition-colors active:scale-95 uppercase tracking-wide flex items-center justify-center text-center decoration-none">
+                                Add
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="clay-card p-3 flex flex-col h-full group">
+                    <div class="relative mb-3 rounded-2xl overflow-hidden aspect-[4/3]">
+                        <img alt="Fit Egg-White"
+                            class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuDk-3KQ8sxyq59HNgQW6CNeMRPPpDNwTCzsqPoV8gO2SdK7H1MEt3HGYC2-xaUxDPaStMFnhTXbb0tW3pjow2GfgBto-b_zK0417pEfSsjIBKogrS0WBmZgg7iPXXKEbZIHQRJEeg-q1T8NkZRYj1dtSKjOyYDvd7O1xtdjpYsDalxMb57a_n5RRKJav3kQcZRG3GD3IyfrwRmRQAWTLzn_C59Te0TXoMwJ3OfgieGipNyHNGDbd5JX46PAq4BBuxTosmqk-8JCU7M" />
+                        <div
+                            class="absolute top-2 right-2 bg-white/90 backdrop-blur-sm px-2 py-0.5 rounded-md text-[10px] font-bold text-green-700 shadow-sm">
+                            Keto</div>
+                    </div>
+                    <div class="flex-1 flex flex-col">
+                        <h5 class="font-bold text-[16px] text-slate-800 leading-tight mb-1">Fit Egg-White</h5>
+                        <p class="text-[11px] text-slate-500 line-clamp-2 leading-relaxed mb-3">Spinach, goat cheese,
+                            egg whites.</p>
+                        <div class="mt-auto flex justify-between items-end">
+                            <span class="text-[15px] font-extrabold text-slate-900">13.50DH</span>
+                            <a href="../brunch_customization_view/code.html"
+                                class="w-[84px] h-[36px] bg-white text-primary font-bold text-sm rounded-xl shadow-sm border border-primary/20 hover:bg-primary hover:text-white transition-colors active:scale-95 uppercase tracking-wide flex items-center justify-center text-center decoration-none">
+                                Add
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="clay-card p-3 flex flex-col h-full group">
+                    <div class="relative mb-3 rounded-2xl overflow-hidden aspect-[4/3]">
+                        <img alt="Brunch Tacos"
+                            class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuD39ZrzZxEm7WesbU6pafjnA0px4RmBaaYH8U8a0uduyQjHeOv9o1D_Yii2lrIIp5jVtje9xb3gN4kA8g7pEgg5LsMm05cqkI2_lJq-Zi_UeaqRlnq6_5wTH3WAUhQA3o7tjhi2lByERLA4XzRp4-1VEbHpHFC-_5KJB2M-iBC3y9OUEmJZRAjw7-dRBBEd0YZQUW-JOpBMTX3yjJVQJYF8vwlkuwkFbRKIHzTagIO0C6TXCWTtFxVVssjBxUwhVPzF40l-qvsfQgM" />
+                    </div>
+                    <div class="flex-1 flex flex-col">
+                        <h5 class="font-bold text-[16px] text-slate-800 leading-tight mb-1">Brunch Tacos</h5>
+                        <p class="text-[11px] text-slate-500 line-clamp-2 leading-relaxed mb-3">Corn tortillas, pickled
+                            onions, avocado.</p>
+                        <div class="mt-auto flex justify-between items-end">
+                            <span class="text-[15px] font-extrabold text-slate-900">11.00DH</span>
+                            <a href="../brunch_customization_view/code.html"
+                                class="w-[84px] h-[36px] bg-white text-primary font-bold text-sm rounded-xl shadow-sm border border-primary/20 hover:bg-primary hover:text-white transition-colors active:scale-95 uppercase tracking-wide flex items-center justify-center text-center decoration-none">
+                                Add
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="clay-card p-3 flex flex-col h-full group">
+                    <div class="relative mb-3 rounded-2xl overflow-hidden aspect-[4/3]">
+                        <img alt="Iron Frittata"
+                            class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuAW6K0XyMVtYhiCAxNB3I03vFu_I3KqcnaAxt9VVG-Ksq65fvaP8ep5bDcik7aC_dNzPPy_QXrCY8XnmEWHwfCt76FOAnD5TNl5rIuu-8Q9ZBiQNlcfKHzcS69UVP-2eFVcCssfYPc4cDqLy4TEaQuUB1i7aydr-kl6GrRY7qgBPIiswEp56LZy88TsbdoSaBqPbKGAEw44nhc73HvVYDBxLXEu8QHNIrkD9CI5Ume8SKfAN9krc1txoHAeHHLj9cYuDSsi8E9O98g" />
+                    </div>
+                    <div class="flex-1 flex flex-col">
+                        <h5 class="font-bold text-[16px] text-slate-800 leading-tight mb-1">Iron Frittata</h5>
+                        <p class="text-[11px] text-slate-500 line-clamp-2 leading-relaxed mb-3">Onions, potatoes, aged
+                            cheddar.</p>
+                        <div class="mt-auto flex justify-between items-end">
+                            <span class="text-[15px] font-extrabold text-slate-900">14.75DH</span>
+                            <a href="../brunch_customization_view/code.html"
+                                class="w-[84px] h-[36px] bg-white text-primary font-bold text-sm rounded-xl shadow-sm border border-primary/20 hover:bg-primary hover:text-white transition-colors active:scale-95 uppercase tracking-wide flex items-center justify-center text-center decoration-none">
+                                Add
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="clay-card p-3 flex flex-col h-full group">
+                    <div class="relative mb-3 rounded-2xl overflow-hidden aspect-[4/3]">
+                        <img alt="Berry Bowl"
+                            class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuCYN_CcnvDTJVHRp5FIeYI-DCNQFho44XV44q8YQz8KI-c473bqvyDOshMMi51Lp0Qz5N-G2-8X7Ywo_F8cDTNhgmVkQMzwX6s63WDJ2gmsELHmOn-UIQpWS6YFSY2FPpJvyFrGnLl5jaXqd_r5a43HiekiITd4sFt2Q-DYRzGI69lD7b9AKRwzDYFrbJ_xPBgIZoJpFwnJjeJj4xJsI4ZEMOWC-ISCee32vKDpVwa7d_zM0W7cwafRdPeEoIirKl-rg537XshIiyY" />
+                    </div>
+                    <div class="flex-1 flex flex-col">
+                        <h5 class="font-bold text-[16px] text-slate-800 leading-tight mb-1">Acai Delight</h5>
+                        <p class="text-[11px] text-slate-500 line-clamp-2 leading-relaxed mb-3">Mixed berries, granola,
+                            honey.</p>
+                        <div class="mt-auto flex justify-between items-end">
+                            <span class="text-[15px] font-extrabold text-slate-900">12.00DH</span>
+                            <a href="../brunch_customization_view/code.html"
+                                class="w-[84px] h-[36px] bg-white text-primary font-bold text-sm rounded-xl shadow-sm border border-primary/20 hover:bg-primary hover:text-white transition-colors active:scale-95 uppercase tracking-wide flex items-center justify-center text-center decoration-none">
+                                Add
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="clay-card p-3 flex flex-col h-full group">
+                    <div class="relative mb-3 rounded-2xl overflow-hidden aspect-[4/3]">
+                        <img alt="Waffles"
+                            class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuD39ZrzZxEm7WesbU6pafjnA0px4RmBaaYH8U8a0uduyQjHeOv9o1D_Yii2lrIIp5jVtje9xb3gN4kA8g7pEgg5LsMm05cqkI2_lJq-Zi_UeaqRlnq6_5wTH3WAUhQA3o7tjhi2lByERLA4XzRp4-1VEbHpHFC-_5KJB2M-iBC3y9OUEmJZRAjw7-dRBBEd0YZQUW-JOpBMTX3yjJVQJYF8vwlkuwkFbRKIHzTagIO0C6TXCWTtFxVVssjBxUwhVPzF40l-qvsfQgM" />
+                    </div>
+                    <div class="flex-1 flex flex-col">
+                        <h5 class="font-bold text-[16px] text-slate-800 leading-tight mb-1">Belgian Gold</h5>
+                        <p class="text-[11px] text-slate-500 line-clamp-2 leading-relaxed mb-3">Crispy waffles, berries,
+                            cream.</p>
+                        <div class="mt-auto flex justify-between items-end">
+                            <span class="text-[15px] font-extrabold text-slate-900">11.50DH</span>
+                            <a href="../brunch_customization_view/code.html"
+                                class="w-[84px] h-[36px] bg-white text-primary font-bold text-sm rounded-xl shadow-sm border border-primary/20 hover:bg-primary hover:text-white transition-colors active:scale-95 uppercase tracking-wide flex items-center justify-center text-center decoration-none">
+                                Add
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="clay-card p-3 flex flex-col h-full group">
+                    <div class="relative mb-3 rounded-2xl overflow-hidden aspect-[4/3]">
+                        <img alt="Platter"
+                            class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuAW6K0XyMVtYhiCAxNB3I03vFu_I3KqcnaAxt9VVG-Ksq65fvaP8ep5bDcik7aC_dNzPPy_QXrCY8XnmEWHwfCt76FOAnD5TNl5rIuu-8Q9ZBiQNlcfKHzcS69UVP-2eFVcCssfYPc4cDqLy4TEaQuUB1i7aydr-kl6GrRY7qgBPIiswEp56LZy88TsbdoSaBqPbKGAEw44nhc73HvVYDBxLXEu8QHNIrkD9CI5Ume8SKfAN9krc1txoHAeHHLj9cYuDSsi8E9O98g" />
+                        <div
+                            class="absolute top-2 right-2 bg-white/90 backdrop-blur-sm px-2 py-0.5 rounded-md text-[10px] font-bold text-secondary shadow-sm">
+                            Big</div>
+                    </div>
+                    <div class="flex-1 flex flex-col">
+                        <h5 class="font-bold text-[16px] text-slate-800 leading-tight mb-1">Full English</h5>
+                        <p class="text-[11px] text-slate-500 line-clamp-2 leading-relaxed mb-3">Sausage, bacon, eggs,
+                            beans, toast.</p>
+                        <div class="mt-auto flex justify-between items-end">
+                            <span class="text-[15px] font-extrabold text-slate-900">22.00DH</span>
+                            <a href="../brunch_customization_view/code.html"
+                                class="w-[84px] h-[36px] bg-white text-primary font-bold text-sm rounded-xl shadow-sm border border-primary/20 hover:bg-primary hover:text-white transition-colors active:scale-95 uppercase tracking-wide flex items-center justify-center text-center decoration-none">
+                                Add
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div class="h-32"></div>
+    </main>
+    <nav class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 w-[360px]">
+        <div
+            class="bg-slate-900 text-white rounded-full p-2 pl-4 pr-2 flex items-center justify-between shadow-dynamic-island border border-slate-700/50 backdrop-blur-xl bg-opacity-90">
+            <div class="flex flex-col">
+                <span class="text-[10px] text-slate-400 font-medium uppercase tracking-wider">Your Cart</span>
+                <span class="text-sm font-bold flex items-center gap-2">
+                    2 Items <span class="w-1 h-1 rounded-full bg-slate-500"></span> 26.50DH
+                </span>
+            </div>
+            <div class="flex items-center gap-3">
+                <div
+                    class="w-8 h-8 rounded-full bg-primary flex items-center justify-center animate-bounce shadow-lg shadow-primary/40 relative">
+                    <span class="text-xs font-bold">2</span>
+                </div>
+                <button
+                    class="bg-white text-slate-900 px-5 py-3 rounded-full font-bold text-sm shadow-md hover:bg-slate-100 transition-colors flex items-center gap-2">
+                    Checkout <span class="material-symbols-outlined text-sm font-bold">arrow_forward</span>
+                    </a>
+            </div>
+        </div>
+    </nav>
+
+</body>
+
+</html>

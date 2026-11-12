@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#f47b25",
+                        "background-light": "#f8f7f5",
+                        "background-dark": "#221710",
+                    },
+                    fontFamily: {
+                        "display": ["Plus Jakarta Sans", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "1rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "full": "9999px"
+                    },
+                    fontSize: {
+                        'hero': ['28px', '32px'],
+                        'section': ['20px', '24px'],
+                        'product': ['16px', '20px'],
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            min-height: max(884px, 100dvh);
+        }
+
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+    <style>
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+    <style>
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+</head>
+
+<body
+    class="bg-background-light dark:bg-background-dark text-[#1c130d] dark:text-[#fcfaf8] min-h-screen flex justify-center">
+    <div
+        class="relative w-full max-w-[390px] min-h-screen bg-white dark:bg-[#1c130d] shadow-2xl overflow-hidden flex flex-col">
+        <div class="relative h-[400px] w-full shrink-0">
+            <div class="w-full h-full bg-center bg-no-repeat bg-cover"
+                data-alt="Cold-pressed orange juice with condensation and mint"
+                style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCYVQ98zjITexbCmIFKGku5WxlWcVKBZijr-2H-8tZSxsLoxoTGn4KDlQCGJCiuXQ45bSPjFwxiAnrKLuA36s8wRNYKudDe2RQqp2kxXl2vXmfvF7EZrabISHcBNStVSlYmhEfKWFliYsbwT93LQCIN2YdCuQn7PrqD_4l9j2TV9dBJv9U8sFdUzveJjUC71ManQrrCCJytsjVjBF3DTxVhja1XsgXlX7XCJnGwDHlmy1l8z9E0s_A986aOW6MuiTydd1LtqDDD7Yo");'>
+                <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+            </div>
+            <div class="absolute top-6 left-4 right-4 flex justify-between items-center z-10">
+                <button
+                    class="w-10 h-10 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center text-black shadow-lg">
+                    <span class="material-symbols-outlined">arrow_back_ios_new</span>
+                </button>
+                <button
+                    class="w-10 h-10 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center text-black shadow-lg">
+                    <span class="material-symbols-outlined">share</span>
+                </button>
+            </div>
+        </div>
+        <div class="relative -mt-16 flex-1 bg-white dark:bg-[#1c130d] rounded-t-xl px-4 pt-2 pb-32">
+            <div class="flex h-5 w-full items-center justify-center mb-2">
+                <div class="h-1.5 w-12 rounded-full bg-[#e8d9ce] dark:bg-zinc-700"></div>
+            </div>
+            <div class="flex flex-col gap-1 mb-6">
+                <h1 class="text-[#1c130d] dark:text-white text-hero font-bold leading-tight tracking-tight">Pure Squeeze
+                    Orange</h1>
+                <div class="flex items-center gap-2">
+                    <div class="flex items-center">
+                        <span class="material-symbols-outlined text-primary text-lg"
+                            style="font-variation-settings: 'FILL' 1">star</span>
+                        <span class="text-[#1c130d] dark:text-white text-base font-bold ml-1">4.8</span>
+                    </div>
+                    <span class="text-[#9c6c49] dark:text-zinc-400 text-sm">(85+ reviews)</span>
+                </div>
+                <p class="text-[#1c130d]/70 dark:text-zinc-400 text-base font-normal leading-relaxed mt-2">
+                    100% cold-pressed valencia oranges, served chilled with a sprig of fresh mint.
+                </p>
+            </div>
+            <div class="mb-6">
+                <h2 class="text-[#1c130d] dark:text-white text-section font-bold mb-4">Choose Size</h2>
+                <div class="grid grid-cols-2 gap-4">
+                    <div
+                        class="relative p-4 rounded-[20px] border-2 border-primary bg-primary/5 dark:bg-primary/10 flex flex-col gap-1 cursor-pointer">
+                        <div class="flex justify-between items-start">
+                            <span class="material-symbols-outlined text-primary">local_drink</span>
+                            <span class="material-symbols-outlined text-primary"
+                                style="font-variation-settings: 'FILL' 1">check_circle</span>
+                        </div>
+                        <p class="font-bold text-product text-[#1c130d] dark:text-white mt-2">Regular</p>
+                        <p class="text-sm text-[#9c6c49] dark:text-zinc-400">300ml</p>
+                    </div>
+                    <div
+                        class="relative p-4 rounded-[20px] border border-[#e8d9ce] dark:border-zinc-800 bg-white dark:bg-zinc-900/50 flex flex-col gap-1 cursor-pointer">
+                        <div class="flex justify-between items-start">
+                            <span class="material-symbols-outlined text-[#9c6c49] dark:text-zinc-400">local_drink</span>
+                        </div>
+                        <p class="font-bold text-product text-[#1c130d] dark:text-white mt-2">Large</p>
+                        <p class="text-sm text-[#9c6c49] dark:text-zinc-400">450ml</p>
+                        <p class="text-xs font-bold text-primary mt-1">+1.50DH</p>
+                    </div>
+                </div>
+            </div>
+            <div class="mb-6">
+                <h2 class="text-[#1c130d] dark:text-white text-section font-bold mb-4">Add Extras</h2>
+                <div class="flex flex-col gap-3">
+                    <div
+                        class="flex items-center justify-between p-3 rounded-lg border border-[#e8d9ce] dark:border-zinc-800">
+                        <div class="flex items-center gap-3">
+                            <div
+                                class="w-10 h-10 rounded-full bg-orange-50 dark:bg-orange-900/20 flex items-center justify-center text-orange-600 shrink-0">
+                                <span class="material-symbols-outlined">cannabis</span>
+                            </div>
+                            <div>
+                                <p class="font-bold text-product text-[#1c130d] dark:text-white">Extra Ginger</p>
+                                <p class="text-xs text-primary font-bold">+1.00DH</p>
+                            </div>
+                        </div>
+                        <div class="h-6 w-6 rounded-full border-2 border-[#e8d9ce] dark:border-zinc-700 shrink-0"></div>
+                    </div>
+                    <div
+                        class="flex items-center justify-between p-3 rounded-lg border border-[#e8d9ce] dark:border-zinc-800">
+                        <div class="flex items-center gap-3">
+                            <div
+                                class="w-10 h-10 rounded-full bg-blue-50 dark:bg-blue-900/20 flex items-center justify-center text-blue-500 shrink-0">
+                                <span class="material-symbols-outlined">pill</span>
+                            </div>
+                            <div>
+                                <p class="font-bold text-product text-[#1c130d] dark:text-white">Vitamin C</p>
+                                <p class="text-xs text-primary font-bold">+1.50DH</p>
+                            </div>
+                        </div>
+                        <div class="h-6 w-6 rounded-full border-2 border-[#e8d9ce] dark:border-zinc-700 shrink-0"></div>
+                    </div>
+                    <div
+                        class="flex items-center justify-between p-3 rounded-lg border border-[#e8d9ce] dark:border-zinc-800">
+                        <div class="flex items-center gap-3">
+                            <div
+                                class="w-10 h-10 rounded-full bg-yellow-50 dark:bg-yellow-900/20 flex items-center justify-center text-yellow-600 shrink-0">
+                                <span class="material-symbols-outlined">fluid_med</span>
+                            </div>
+                            <div>
+                                <p class="font-bold text-product text-[#1c130d] dark:text-white">Honey Drizzle</p>
+                                <p class="text-xs text-[#9c6c49] dark:text-zinc-400">Sweet addition</p>
+                            </div>
+                        </div>
+                        <div class="h-6 w-6 rounded-full border-2 border-[#e8d9ce] dark:border-zinc-700 shrink-0"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="mb-8">
+                <h2 class="text-[#1c130d] dark:text-white text-section font-bold mb-4">Perfect To-Go Pairings</h2>
+                <div class="flex gap-4 overflow-x-auto pb-4 hide-scrollbar snap-x -mx-4 px-4">
+                    <div class="flex-none w-[140px] snap-start">
+                        <div
+                            class="bg-background-light dark:bg-zinc-900 rounded-[16px] p-2 shadow-sm border border-[#e8d9ce]/30 dark:border-zinc-800 overflow-hidden h-full">
+                            <div class="aspect-square w-full rounded-[10px] overflow-hidden bg-white mb-2 shadow-inner">
+                                <img alt="Butter Croissant" class="w-full h-full object-cover"
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuDCEzHhVRVlmtWW9_pAOBOngVZEPwLNEa8dmIlDTMnxxWVQjyylQJTq0R8t533g1QNkdoxN7zzb1kDnaUT3F7pEUKnvV0Ugj4lsn4RAdDFB182OKbBOUYW-MiUYMUTEKeuKjig1uEwNbav3N1w0kZdPzd5402FdLVpUwdjgfibLO8NUIluM4E-5DtPSifYTKGjOfQAz4Mh2_4iCxA8db-YOO-zzG9U4Mw6W7XRZzqwo3nVAGpHPpVfinid77vJ8-jF8kDVZnNEaBQM" />
+                            </div>
+                            <div class="px-1">
+                                <p class="font-bold text-product text-[#1c130d] dark:text-white truncate">Butter
+                                    Croissant</p>
+                                <div class="flex items-center justify-between mt-1">
+                                    <p class="text-sm font-bold text-primary">4.50DH</p>
+                                    <button
+                                        class="w-6 h-6 rounded-full bg-white dark:bg-[#1c130d] shadow-md border border-[#e8d9ce] dark:border-zinc-800 flex items-center justify-center text-[#1c130d] dark:text-white active:bg-primary active:text-white">
+                                        <span class="material-symbols-outlined text-[16px]">add</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex-none w-[140px] snap-start">
+                        <div
+                            class="bg-background-light dark:bg-zinc-900 rounded-[16px] p-2 shadow-sm border border-[#e8d9ce]/30 dark:border-zinc-800 overflow-hidden h-full">
+                            <div class="aspect-square w-full rounded-[10px] overflow-hidden bg-white mb-2 shadow-inner">
+                                <img alt="Almond Pain au Chocolat" class="w-full h-full object-cover"
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuBeC_Vjp81zxsLqCzV3zzr4_lvob43RscsQs9Ej7j-_X2MYjxVg0XKdiIRciAKUj5GH5iyCImdy9KvZhDql6iuaq74h8VIblRwEJVvLU4gXMh03aNI80oGfs-GwtIduY1dABNezb6XyUI1TgTh9C6j2UviCHl5yuhffrLspsrPzMo7QwzuAXk-cEZejVZsPOVtNAP5Yv_lqbmg00eRjytJTnBXN3f4OXpNch-pwIUDsqyOHtY1cdTASW2Em2xOVhjU-QumHGP7bQsg" />
+                            </div>
+                            <div class="px-1">
+                                <p class="font-bold text-product text-[#1c130d] dark:text-white truncate">Almond Pain
+                                    au...</p>
+                                <div class="flex items-center justify-between mt-1">
+                                    <p class="text-sm font-bold text-primary">5.50DH</p>
+                                    <button
+                                        class="w-6 h-6 rounded-full bg-white dark:bg-[#1c130d] shadow-md border border-[#e8d9ce] dark:border-zinc-800 flex items-center justify-center text-[#1c130d] dark:text-white active:bg-primary active:text-white">
+                                        <span class="material-symbols-outlined text-[16px]">add</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div
+            class="fixed bottom-0 left-0 right-0 max-w-[390px] mx-auto bg-white/95 dark:bg-[#1c130d]/95 backdrop-blur-xl border-t border-[#e8d9ce] dark:border-zinc-800 px-4 py-3 pb-8 z-50">
+            <div class="flex items-center gap-4">
+                <div
+                    class="flex items-center bg-background-light dark:bg-zinc-900 rounded-full px-2 h-12 border border-[#e8d9ce] dark:border-zinc-800">
+                    <button
+                        class="w-8 h-8 rounded-full flex items-center justify-center text-[#1c130d] dark:text-white hover:bg-zinc-200 dark:hover:bg-zinc-700">
+                        <span class="material-symbols-outlined text-lg">remove</span>
+                    </button>
+                    <span class="w-6 text-center font-bold text-base">1</span>
+                    <button
+                        class="w-8 h-8 rounded-full flex items-center justify-center text-[#1c130d] dark:text-white hover:bg-zinc-200 dark:hover:bg-zinc-700">
+                        <span class="material-symbols-outlined text-lg">add</span>
+                    </button>
+                </div>
+                <button
+                    class="flex-1 h-12 bg-primary hover:bg-primary/90 text-white rounded-full flex items-center justify-center gap-2 shadow-[0_8px_30px_rgb(244,123,37,0.3)] transition-transform active:scale-95">
+                    <span class="font-bold text-base tracking-wide uppercase">Add to Order</span>
+                    <span class="w-1 h-1 rounded-full bg-white/50"></span>
+                    <span class="font-extrabold text-base">6.50DH</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

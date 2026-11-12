@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Super Admin Dashboard — Stitch Café</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap"
+    rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            primary: "#FF5200",
+            "background-light": "#f8f6f5",
+            "background-dark": "#1a100c"
+          },
+          fontFamily: {
+            sans: ["Plus Jakarta Sans", "sans-serif"],
+            serif: ["Instrument Serif", "serif"]
+          }
+        }
+      }
+    };
+  </script>
+</head>
+
+<body class="bg-gray-50 dark:bg-[#1a100c] font-sans text-gray-900 dark:text-white min-h-screen flex">
+  <!-- Sidebar -->
+  <aside
+    class="w-72 bg-white dark:bg-[#2a1e19] border-r border-gray-200 dark:border-white/5 flex flex-col fixed inset-y-0 left-0 z-30 transition-all duration-300 ease-in-out">
+    <div id="sidebar-header" class="p-8 transition-all duration-300">
+      <div class="flex items-center gap-3 mb-10">
+        <button id="sidebar-toggle" class="w-10 h-10 bg-primary rounded-xl flex items-center justify-center shadow-glow hover:scale-105 transition-transform cursor-pointer">
+          <span class="material-symbols-outlined text-white text-[24px]">restaurant_menu</span>
+        </button>
+        <h1 id="sidebar-title" class="font-serif italic text-2xl font-bold transition-opacity duration-300">Stitch <span class="text-primary">Admin</span></h1>
+      </div>
+
+      <nav id="main-nav" class="space-y-1">
+        <button data-tab="overview"
+          class="w-full flex items-center gap-3 px-4 py-3 bg-orange-50 dark:bg-orange-950/30 text-primary rounded-xl font-bold transition-all overflow-hidden whitespace-nowrap">
+          <span class="material-symbols-outlined text-[22px] min-w-[22px]">dashboard</span>
+          <span class="sidebar-text transition-opacity duration-300">Overview</span>
+        </button>
+        <button data-tab="merchants"
+          class="w-full flex items-center gap-3 px-4 py-3 text-gray-500 hover:text-primary hover:bg-orange-50 dark:hover:bg-orange-950/10 rounded-xl font-bold transition-all overflow-hidden whitespace-nowrap">
+          <span class="material-symbols-outlined text-[22px] min-w-[22px]">storefront</span>
+          <span class="sidebar-text transition-opacity duration-300">Merchants</span>
+        </button>
+        <button data-tab="payments"
+          class="w-full flex items-center gap-3 px-4 py-3 text-gray-500 hover:text-primary hover:bg-orange-50 dark:hover:bg-orange-950/10 rounded-xl font-bold transition-all overflow-hidden whitespace-nowrap">
+          <span class="material-symbols-outlined text-[22px] min-w-[22px]">payments</span>
+          <span class="sidebar-text transition-opacity duration-300">Revenue</span>
+        </button>
+        <button data-tab="accounts"
+          class="w-full flex items-center gap-3 px-4 py-3 text-gray-500 hover:text-primary hover:bg-orange-50 dark:hover:bg-orange-950/10 rounded-xl font-bold transition-all overflow-hidden whitespace-nowrap">
+          <span class="material-symbols-outlined text-[22px] min-w-[22px]">group</span>
+          <span class="sidebar-text transition-opacity duration-300">Admin Accounts</span>
+        </button>
+      </nav>
+    </div>
+
+    <div id="sidebar-footer" class="mt-auto p-8 transition-all duration-300">
+      <div id="user-info-card" class="bg-gray-50 dark:bg-black/20 rounded-2xl p-4 mb-4 overflow-hidden whitespace-nowrap transition-all duration-300">
+        <div id="user-info-header" class="flex items-center gap-3 mb-2 transition-all duration-300">
+          <div class="w-8 h-8 min-w-[32px] rounded-full bg-primary/20 flex items-center justify-center">
+            <span class="material-symbols-outlined text-primary text-[18px]">verified_user</span>
+          </div>
+          <span class="sidebar-text text-[10px] font-bold uppercase tracking-widest text-gray-400 transition-opacity duration-300">Super Admin</span>
+        </div>
+        <p class="sidebar-text text-xs font-bold truncate transition-opacity duration-300">admin@stitch.cafe</p>
+      </div>
+      <button id="logout-btn"
+        class="w-full flex items-center justify-center gap-2 px-4 py-3 text-red-500 hover:bg-red-50 dark:hover:bg-red-900/10 rounded-xl font-bold transition-all overflow-hidden whitespace-nowrap">
+        <span class="material-symbols-outlined text-[22px] min-w-[22px]">logout</span>
+        <span class="sidebar-text transition-opacity duration-300">Sign Out</span>
+      </button>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <main id="main-content" class="flex-1 ml-72 p-10 transition-all duration-300 ease-in-out">
+    <!-- Header -->
+    <header class="flex items-center justify-between mb-10">
+      <div>
+        <h2 class="text-3xl font-bold tracking-tight">Platform Overview</h2>
+        <p class="text-gray-500 dark:text-gray-400 font-medium mt-1">Global management and system health.</p>
+      </div>
+      <div class="flex items-center gap-4">
+        <button class="p-3 bg-white dark:bg-[#2a1e19] border border-gray-200 dark:border-white/5 rounded-2xl shadow-sm">
+          <span class="material-symbols-outlined text-gray-500">notifications</span>
+        </button>
+        <button id="theme-toggle"
+          class="p-3 bg-white dark:bg-[#2a1e19] border border-gray-200 dark:border-white/5 rounded-2xl shadow-sm">
+          <span class="material-symbols-outlined text-gray-500">palette</span>
+        </button>
+        <button
+          class="bg-gray-900 dark:bg-white text-white dark:text-gray-900 px-6 py-3 rounded-2xl font-bold flex items-center gap-2 shadow-lg">
+          <span class="material-symbols-outlined">add</span>
+          New Merchant
+        </button>
+      </div>
+    </header>
+
+    <!-- Overview Section -->
+    <div id="overview-content" class="tab-content" style="display: block;">
+      <!-- Stats Grid -->
+      <div class="grid grid-cols-4 gap-6 mb-10">
+        <div class="bg-white dark:bg-[#2a1e19] p-6 rounded-[2rem] border border-gray-200 dark:border-white/5 shadow-sm">
+          <span class="text-[10px] font-bold uppercase tracking-widest text-gray-400">Total Merchants</span>
+          <div class="flex items-end justify-between mt-2">
+            <h3 class="text-4xl font-bold">128</h3>
+            <span class="text-green-500 text-xs font-bold flex items-center gap-1">
+              <span class="material-symbols-outlined text-[16px]">trending_up</span>
+              +12%
+            </span>
+          </div>
+        </div>
+        <div class="bg-white dark:bg-[#2a1e19] p-6 rounded-[2rem] border border-gray-200 dark:border-white/5 shadow-sm">
+          <span class="text-[10px] font-bold uppercase tracking-widest text-gray-400">Monthly Revenue</span>
+          <div class="flex items-end justify-between mt-2">
+            <h3 class="text-4xl font-bold">42.5kDH</h3>
+            <span class="text-green-500 text-xs font-bold flex items-center gap-1">
+              <span class="material-symbols-outlined text-[16px]">trending_up</span>
+              +8.4%
+            </span>
+          </div>
+        </div>
+        <div class="bg-white dark:bg-[#2a1e19] p-6 rounded-[2rem] border border-gray-200 dark:border-white/5 shadow-sm">
+          <span class="text-[10px] font-bold uppercase tracking-widest text-gray-400">Active Tables</span>
+          <div class="flex items-end justify-between mt-2">
+            <h3 class="text-4xl font-bold">1,402</h3>
+            <span class="text-gray-400 text-xs font-bold">Live Now</span>
+          </div>
+        </div>
+        <div class="bg-white dark:bg-[#2a1e19] p-6 rounded-[2rem] border border-gray-200 dark:border-white/5 shadow-sm">
+          <span class="text-[10px] font-bold uppercase tracking-widest text-gray-400">System Uptime</span>
+          <div class="flex items-end justify-between mt-2">
+            <h3 class="text-4xl font-bold">99.9%</h3>
+            <span
+              class="text-primary text-[10px] font-bold px-2 py-0.5 bg-orange-50 dark:bg-orange-950/30 rounded-full">Healthy</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Merchant List Section (Quick View) -->
+      <div
+        class="bg-white dark:bg-[#2a1e19] rounded-[2.5rem] border border-gray-200 dark:border-white/5 shadow-sm overflow-hidden">
+        <div class="p-8 border-b border-gray-100 dark:border-white/5 flex items-center justify-between">
+          <h4 class="text-xl font-bold">Recent Merchants</h4>
+          <button onclick="switchTab('merchants')" class="text-sm font-bold text-primary hover:underline">View
+            All</button>
+        </div>
+        <table class="w-full text-left">
+          <thead>
+            <tr class="text-[10px] font-bold uppercase tracking-widest text-gray-400 bg-gray-50/50 dark:bg-black/10">
+              <th class="px-8 py-4">Merchant Name</th>
+              <th class="px-8 py-4">Plan</th>
+              <th class="px-8 py-4">Status</th>
+              <th class="px-8 py-4 text-right">Actions</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-100 dark:divide-white/5" id="recent-merchants-body">
+            <!-- Populated by JS -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Merchants Management Section -->
+    <div id="merchants-content" class="tab-content" style="display: none;">
+      <div class="flex items-center justify-between mb-8">
+        <h3 class="text-2xl font-bold">All Merchants</h3>
+        <div class="flex gap-3">
+          <input type="text" placeholder="Search stores..."
+            class="bg-white dark:bg-[#2a1e19] border-none rounded-xl px-4 py-2 text-sm shadow-sm focus:ring-2 focus:ring-primary">
+          <select
+            class="bg-white dark:bg-[#2a1e19] border-none rounded-xl px-4 py-2 text-sm shadow-sm focus:ring-2 focus:ring-primary">
+            <option>All Plans</option>
+            <option>Free</option>
+            <option>Starter</option>
+            <option>Pro</option>
+          </select>
+        </div>
+      </div>
+      <div
+        class="bg-white dark:bg-[#2a1e19] rounded-[2.5rem] border border-gray-200 dark:border-white/5 shadow-sm overflow-hidden">
+        <table class="w-full text-left">
+          <thead>
+            <tr class="text-[10px] font-bold uppercase tracking-widest text-gray-400 bg-gray-50/50 dark:bg-black/10">
+              <th class="px-8 py-4">Merchant</th>
+              <th class="px-8 py-4">Location</th>
+              <th class="px-8 py-4">Subscription</th>
+              <th class="px-8 py-4">Revenue (YTD)</th>
+              <th class="px-8 py-4">Status</th>
+              <th class="px-8 py-4 text-right">Actions</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-100 dark:divide-white/5" id="all-merchants-body">
+            <!-- Populated by JS -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Revenue Section -->
+    <div id="payments-content" class="tab-content" style="display: none;">
+      <div class="grid grid-cols-2 gap-8">
+        <div
+          class="bg-white dark:bg-[#2a1e19] p-8 rounded-[2.5rem] border border-gray-200 dark:border-white/5 shadow-sm">
+          <h3 class="text-xl font-bold mb-6">Revenue Breakdown</h3>
+          <div class="space-y-4">
+            <div class="flex items-center justify-between">
+              <span class="text-sm font-bold text-gray-500">Subscription Fees</span>
+              <span class="font-bold">25,400 DH</span>
+            </div>
+            <div class="w-full h-2 bg-gray-100 rounded-full overflow-hidden">
+              <div class="h-full bg-primary w-[60%]"></div>
+            </div>
+
+            <div class="flex items-center justify-between mt-4">
+              <span class="text-sm font-bold text-gray-500">Transaction Commission</span>
+              <span class="font-bold">12,100 DH</span>
+            </div>
+            <div class="w-full h-2 bg-gray-100 rounded-full overflow-hidden">
+              <div class="h-full bg-green-500 w-[30%]"></div>
+            </div>
+
+            <div class="flex items-center justify-between mt-4">
+              <span class="text-sm font-bold text-gray-500">Hardware Sales</span>
+              <span class="font-bold">5,000 DH</span>
+            </div>
+            <div class="w-full h-2 bg-gray-100 rounded-full overflow-hidden">
+              <div class="h-full bg-blue-500 w-[10%]"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-primary p-8 rounded-[2.5rem] text-white shadow-glow flex flex-col justify-between">
+          <div>
+            <h3 class="text-xl font-bold mb-2">Projected MRR</h3>
+            <p class="text-white/80 text-sm">Monthly Recurring Revenue forecast based on current growth.</p>
+          </div>
+          <div>
+            <h2 class="text-5xl font-bold mb-2">58.2k <span class="text-2xl opacity-60">DH</span></h2>
+            <div
+              class="inline-flex items-center gap-2 bg-white/20 px-3 py-1 rounded-full text-xs font-bold backdrop-blur-sm">
+              <span class="material-symbols-outlined text-[14px]">trending_up</span>
+              +18% vs last month
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Accounts Section -->
+    <div id="accounts-content" class="tab-content" style="display: none;">
+      <div
+        class="bg-white dark:bg-[#2a1e19] rounded-[2.5rem] p-10 text-center border border-gray-200 dark:border-white/5">
+        <div class="w-20 h-20 bg-gray-100 dark:bg-white/5 rounded-full flex items-center justify-center mx-auto mb-6">
+          <span class="material-symbols-outlined text-4xl text-gray-400">engineering</span>
+        </div>
+        <h3 class="text-2xl font-bold mb-2">Admin Management</h3>
+        <p class="text-gray-500 max-w-md mx-auto mb-8">Manage other super admins and support staff access levels.</p>
+        <button class="bg-gray-900 dark:bg-white text-white dark:text-gray-900 px-6 py-3 rounded-xl font-bold">Add New
+          Admin</button>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

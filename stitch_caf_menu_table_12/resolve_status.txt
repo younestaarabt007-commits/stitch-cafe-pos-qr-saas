@@ -1,0 +1,27 @@
+Script started
+Starting unique image download...
+Downloaded: brunch-burrito-special.jpg
+Downloaded: brunch-tacos-deluxe.jpg
+Downloaded: smoothie-acai-bowl.jpg
+Downloaded: coffee-nitro-brew.jpg
+Downloaded: coffee-classic-cold-brew.jpg
+Downloaded: coffee-ethiopian-pour-over.jpg
+Downloaded: latte-iced-tall.jpg
+Downloaded: latte-caramel-swirl.jpg
+Downloaded: tea-dirty-chai-espresso.jpg
+Downloaded: juice-blueberry-fresh.jpg
+Downloaded: juice-mango-fizz.jpg
+Updating script.js...
+Updated image for: Brunch Burrito -> assets/brunch-burrito-special.jpg
+Updated image for: Brunch Tacos -> assets/brunch-tacos-deluxe.jpg
+Updated image for: Acai Delight -> assets/smoothie-acai-bowl.jpg
+Updated image for: Nitro Cold Brew -> assets/coffee-nitro-brew.jpg
+Updated image for: Cold Brew -> assets/coffee-classic-cold-brew.jpg
+Updated image for: Ethiopian Yirgacheffe -> assets/coffee-ethiopian-pour-over.jpg
+Updated image for: Iced Latte -> assets/latte-iced-tall.jpg
+Updated image for: Caramel Latte -> assets/latte-caramel-swirl.jpg
+Updated image for: Dirty Masala Chai -> assets/tea-dirty-chai-espresso.jpg
+Updated image for: Blueberry Infusion -> assets/juice-blueberry-fresh.jpg
+Updated image for: Mango Cream Fizz -> assets/juice-mango-fizz.jpg
+
+Done! Updated 11 items in script.js.

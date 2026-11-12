@@ -1,0 +1,76 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+    .glass-blur {
+        backdrop-filter: blur(12px);
+        background: rgba(255, 255, 255, 0.4);
+    }
+    .hide-scrollbar::-webkit-scrollbar {
+        display: none;
+    }
+    .hide-scrollbar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+    .no-scrollbar::-webkit-scrollbar {
+        display: none;
+    }
+    .no-scrollbar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+    .text-shadow-sm {
+        text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+    }
+    .mask-blob {
+        mask-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill='%23FF0066' d='M47.7,-58.3C60.9,-46.8,69.9,-30.9,73.4,-13.6C76.9,3.7,75,22.3,66.6,38.3C58.2,54.2,43.3,67.5,26.7,73.8C10.1,80.1,-8.2,79.4,-24.6,72.4C-41,65.4,-55.5,52.1,-65.4,36.1C-75.3,20.1,-80.6,1.4,-75.6,-14.6C-70.6,-30.6,-55.3,-43.9,-40.7,-54.9C-26.1,-65.9,-12.2,-74.6,1.9,-76.8C16,-79.1,32,-74.9,47.7,-58.3Z' transform='translate(100 100)' /%3E%3C/svg%3E");
+        mask-size: contain;
+        mask-repeat: no-repeat;
+        mask-position: center;
+    }
+}
+
+body {
+    font-family: "Plus Jakarta Sans", sans-serif;
+    background-color: #FFFDF0;
+    overflow-x: hidden;
+    min-height: 3000px;
+}
+
+.sun-burst {
+    position: fixed;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(255, 245, 157, 0.25) 0%, rgba(255, 255, 255, 0) 70%);
+    border-radius: 50%;
+    z-index: -1;
+    filter: blur(40px);
+}
+
+.monstera-outline {
+    position: fixed;
+    opacity: 0.06;
+    z-index: -1;
+    pointer-events: none;
+    color: #88AB42;
+}
+
+.clay-card {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    border: 1px solid rgba(200, 200, 200, 0.5);
+    box-shadow: 8px 8px 16px rgba(166, 171, 160, 0.15), -8px -8px 16px rgba(255, 255, 255, 0.8);
+    transition: transform 0.2s ease;
+}
+
+.clay-card:hover {
+    border: 1px solid rgba(150, 150, 150, 0.7);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.clay-card:active {
+    transform: scale(0.98);
+}

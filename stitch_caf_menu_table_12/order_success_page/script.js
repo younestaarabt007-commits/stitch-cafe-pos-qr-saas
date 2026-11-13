@@ -183,6 +183,17 @@ document.addEventListener('DOMContentLoaded', () => {
     setInterval(pollOrderStatus, 2000);
   }
 
+  // Real-time Cloud Sync Listener (instant status updates from Merchant POS)
+  if (window.stitchSync) {
+    window.stitchSync.onOrderStatus((updatedId, newStatus) => {
+      if (orderId && String(updatedId) === String(orderId)) {
+        if (!activeOrder) activeOrder = { id: orderId, table: tableId };
+        activeOrder.status = newStatus;
+        updateOrderTrackingUI(activeOrder);
+      }
+    });
+  }
+
   if (returnBtn) {
     returnBtn.addEventListener('click', () => {
       window.location.href = (localStorage.getItem('stitch_order_mode') === 'delivery') ? '../swiggy-style_elite_main_menu_390x2500/index.html?mode=delivery' : `../swiggy-style_elite_main_menu_390x2500/index.html?table=${encodeURIComponent(tableId)}`;

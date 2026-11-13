@@ -415,6 +415,13 @@ const DASHBOARD_TRANSLATIONS = {
         delivery_hub: "Deliveries & Reservations",
         tables_plan: "Floor Plan (12 Tables)",
         theme_manager: "Menu Appearance",
+        kds_sound: "KDS Chime",
+        kds_sound_active: "KDS Sound: Active",
+        cloud_live: "Cloud Live",
+        in_stock: "In Stock",
+        out_of_stock: "Out of Stock",
+        mark_out_of_stock: "Mark Out of Stock",
+        mark_in_stock: "Mark Available",
         workspace: "WORKSPACE",
         elite_roastery: "Elite Roastery",
         demo_workspace: "Demo workspace",
@@ -473,6 +480,13 @@ const DASHBOARD_TRANSLATIONS = {
         delivery_hub: "Livraisons & Réservations",
         tables_plan: "Plan des Tables (12)",
         theme_manager: "Apparence du Menu",
+        kds_sound: "Son KDS",
+        kds_sound_active: "Son KDS : Actif",
+        cloud_live: "Cloud Direct",
+        in_stock: "Disponible",
+        out_of_stock: "Épuisé",
+        mark_out_of_stock: "Marquer Épuisé",
+        mark_in_stock: "Rendre Disponible",
         workspace: "ESPACE DE TRAVAIL",
         elite_roastery: "Elite Roastery",
         demo_workspace: "Espace Démo",
@@ -531,6 +545,13 @@ const DASHBOARD_TRANSLATIONS = {
         delivery_hub: "التوصيل والحجوزات",
         tables_plan: "مخطط الطاولات (12)",
         theme_manager: "مظهر القائمة",
+        kds_sound: "صوت المطبخ",
+        kds_sound_active: "صوت المطبخ: نشط",
+        cloud_live: "سحابي مباشر",
+        in_stock: "متوفر",
+        out_of_stock: "نفد المخزون",
+        mark_out_of_stock: "تعيين كنفد المخزون",
+        mark_in_stock: "تعيين كمتوفر",
         workspace: "مساحة العمل",
         elite_roastery: "محمصة النخبة",
         demo_workspace: "مساحة تجريبية",
@@ -719,6 +740,141 @@ function getClientMenuCatalog() {
     }
     return DEMO_MENU;
 }
+
+
+// =========================================================================
+// KITCHEN DISPLAY SOUND ALERTS (CHIME) — ROBUST AUDIO MANAGER
+// Unlocks automatically on first user touch to overcome browser autoplay policies
+// =========================================================================
+let kdsAudioCtx = null;
+let isKdsAudioUnlocked = false;
+let kdsSoundEnabled = localStorage.getItem('stitch_kds_sound_enabled') !== 'false';
+
+function getKdsAudioContext() {
+    if (!kdsAudioCtx) {
+        const AudioClass = window.AudioContext || window.webkitAudioContext;
+        if (AudioClass) {
+            kdsAudioCtx = new AudioClass();
+        }
+    }
+    if (kdsAudioCtx && kdsAudioCtx.state === 'suspended') {
+        kdsAudioCtx.resume().catch(() => {});
+    }
+    return kdsAudioCtx;
+}
+
+function unlockKdsAudio() {
+    if (isKdsAudioUnlocked) return;
+    try {
+        const ctx = getKdsAudioContext();
+        if (ctx) {
+            // Unlock on WebKit / iOS Safari by starting an instantaneous inaudible buffer
+            const buffer = ctx.createBuffer(1, 1, 22050);
+            const src = ctx.createBufferSource();
+            src.buffer = buffer;
+            src.connect(ctx.destination);
+            src.start(0);
+            if (ctx.state === 'suspended') {
+                ctx.resume();
+            }
+            isKdsAudioUnlocked = true;
+            updateKdsSoundUI();
+        }
+    } catch (_) {}
+}
+
+if (typeof document !== 'undefined') {
+    ['click', 'touchstart', 'keydown'].forEach(evt => {
+        document.addEventListener(evt, unlockKdsAudio, { once: true, passive: true });
+    });
+}
+
+function playNewOrderChime() {
+    if (!kdsSoundEnabled) return;
+    try {
+        const ctx = getKdsAudioContext();
+        if (!ctx) return;
+        if (ctx.state === 'suspended') {
+            ctx.resume();
+        }
+
+        const now = ctx.currentTime;
+
+        // Rich Multi-Harmonic Brass Kitchen Service Chime
+        // Tone 1 (Ding 1: 880 Hz Fundamental + 1760 Hz 1st Harmonic)
+        const osc1 = ctx.createOscillator();
+        const harm1 = ctx.createOscillator();
+        const gain1 = ctx.createGain();
+
+        osc1.type = 'triangle';
+        osc1.frequency.setValueAtTime(880, now);
+
+        harm1.type = 'sine';
+        harm1.frequency.setValueAtTime(1760, now);
+
+        gain1.gain.setValueAtTime(0.25, now);
+        gain1.gain.exponentialRampToValueAtTime(0.001, now + 0.55);
+
+        osc1.connect(gain1);
+        harm1.connect(gain1);
+        gain1.connect(ctx.destination);
+
+        osc1.start(now);
+        harm1.start(now);
+        osc1.stop(now + 0.55);
+        harm1.stop(now + 0.55);
+
+        // Tone 2 (Ding 2: 1174.66 Hz D6 + 2349 Hz D7 harmonic, 130ms later)
+        const t2 = now + 0.13;
+        const osc2 = ctx.createOscillator();
+        const harm2 = ctx.createOscillator();
+        const gain2 = ctx.createGain();
+
+        osc2.type = 'triangle';
+        osc2.frequency.setValueAtTime(1174.66, t2);
+
+        harm2.type = 'sine';
+        harm2.frequency.setValueAtTime(2349.32, t2);
+
+        gain2.gain.setValueAtTime(0.35, t2);
+        gain2.gain.exponentialRampToValueAtTime(0.0001, t2 + 0.95);
+
+        osc2.connect(gain2);
+        harm2.connect(gain2);
+        gain2.connect(ctx.destination);
+
+        osc2.start(t2);
+        harm2.start(t2);
+        osc2.stop(t2 + 0.95);
+        harm2.stop(t2 + 0.95);
+    } catch (e) {
+        console.warn('Audio chime warning:', e);
+    }
+}
+window.playNewOrderChime = playNewOrderChime;
+
+window.toggleKdsSound = function() {
+    unlockKdsAudio();
+    kdsSoundEnabled = !kdsSoundEnabled;
+    try {
+        localStorage.setItem('stitch_kds_sound_enabled', String(kdsSoundEnabled));
+    } catch (_) {}
+    if (kdsSoundEnabled) {
+        playNewOrderChime();
+        showMerchantNotice(currentLang === 'ar' ? '🔔 تم تشغيل واختبار صوت المطبخ بنجاح!' : currentLang === 'en' ? '🔔 KDS chime enabled & tested!' : '🔔 Carillon KDS activé et testé !');
+    } else {
+        showMerchantNotice(currentLang === 'ar' ? '🔇 تم كتم صوت المطبخ.' : currentLang === 'en' ? '🔇 KDS chime muted.' : '🔇 Carillon KDS désactivé.');
+    }
+    updateKdsSoundUI();
+};
+
+function updateKdsSoundUI() {
+    const icon = document.getElementById('kds-sound-icon');
+    const text = document.getElementById('kds-sound-text');
+    if (icon) icon.textContent = kdsSoundEnabled ? 'notifications_active' : 'notifications_off';
+    if (text) text.textContent = kdsSoundEnabled ? (currentLang === 'ar' ? 'صوت المطبخ' : currentLang === 'en' ? 'KDS Sound' : 'Son KDS') : (currentLang === 'ar' ? 'مكتوم' : 'Muet');
+}
+window.updateKdsSoundUI = updateKdsSoundUI;
 
 // --- STATE ---
 let posCart = [];
@@ -2568,7 +2724,10 @@ window.updateOrderStatus = (orderId, newStatus) => {
     renderDeliveryTab();
     renderKitchenDisplay();
 
-    // Sync status change with real-time server
+    // Sync status change with real-time server and cloud sync
+    if (window.stitchSync && typeof window.stitchSync.updateOrderStatus === 'function') {
+        try { window.stitchSync.updateOrderStatus(orderId, newStatus); } catch (_) {}
+    }
     fetch(`${liveOrdersApiBase()}/api/live-orders/${encodeURIComponent(orderId)}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
@@ -3848,6 +4007,45 @@ window.deleteProduct = async (id) => {
     switchMenuSubTab(activeMenuSubTab);
 };
 
+window.toggleProductAvailability = (id) => {
+    const item = menuItems.find(i => String(i.id) === String(id));
+    if (!item) return;
+
+    const currentOutOfStock = window.stitchSync 
+        ? window.stitchSync.getOutOfStockIds() 
+        : JSON.parse(localStorage.getItem('stitch_out_of_stock_ids') || '[]');
+    
+    const isCurrentlyOut = currentOutOfStock.includes(String(id));
+    const newAvailable = isCurrentlyOut;
+
+    if (window.stitchSync) {
+        window.stitchSync.setProductStockStatus(id, newAvailable);
+    } else {
+        const set = new Set(currentOutOfStock);
+        if (newAvailable) set.delete(String(id));
+        else set.add(String(id));
+        localStorage.setItem('stitch_out_of_stock_ids', JSON.stringify(Array.from(set)));
+    }
+
+    item.is_available = newAvailable;
+    if (!newAvailable && (item.stock === null || item.stock > 0)) {
+        item._savedStock = item.stock;
+        item.stock = 0;
+    } else if (newAvailable && item.stock === 0) {
+        item.stock = item._savedStock || 25;
+    }
+
+    persistMenuCache(menuItems);
+
+    const localizedName = typeof getLocalizedItemName === 'function' ? getLocalizedItemName(item.name) : item.name;
+    const statusMsg = newAvailable
+        ? (currentLang === 'ar' ? `✅ "${localizedName}" أصبح متوفراً الآن للزبائن.` : currentLang === 'en' ? `✅ "${localizedName}" is now AVAILABLE for customers.` : `✅ "${localizedName}" est maintenant DISPONIBLE pour les clients.`)
+        : (currentLang === 'ar' ? `⚠️ "${localizedName}" تم تعيينه كـ (نفد المخزون) ومُعطَّل في قوائم الهواتف.` : currentLang === 'en' ? `⚠️ "${localizedName}" marked as OUT OF STOCK (disabled on customer menus).` : `⚠️ "${localizedName}" marqué ÉPUISÉ (grisé et désactivé sur les menus mobiles).`);
+    showMerchantNotice(statusMsg);
+
+    switchMenuSubTab(activeMenuSubTab);
+};
+
 function renderMenuManagerItems(items) {
     const grid = document.getElementById('menu-manager-grid');
     if (!grid) return;
@@ -3855,26 +4053,46 @@ function renderMenuManagerItems(items) {
         grid.innerHTML = '<div class="col-span-full text-center py-20 text-gray-400 font-bold uppercase tracking-widest text-xs">Aucun produit dans le menu. Ajoutez votre premier produit !</div>';
         return;
     }
-    grid.innerHTML = items.map(item => `
-        <div class="bg-white dark:bg-[#2a1e19] p-4 rounded-3xl border border-gray-100 dark:border-white/5 shadow-sm hover:shadow-md transition-all">
-            <div class="w-full aspect-square bg-gray-50 dark:bg-black/20 rounded-2xl mb-4 overflow-hidden flex items-center justify-center">
+    const outOfStockIds = window.stitchSync 
+        ? window.stitchSync.getOutOfStockIds() 
+        : JSON.parse(localStorage.getItem('stitch_out_of_stock_ids') || '[]');
+
+    grid.innerHTML = items.map(item => {
+        const isOutOfStock = outOfStockIds.includes(String(item.id)) || item.stock === 0 || item.is_available === false;
+        const localizedName = typeof getLocalizedItemName === 'function' ? getLocalizedItemName(item.name) : item.name;
+        return `
+        <div class="bg-white dark:bg-[#2a1e19] p-4 rounded-3xl border ${isOutOfStock ? 'border-red-300 dark:border-red-900/40 opacity-80' : 'border-gray-100 dark:border-white/5'} shadow-sm hover:shadow-md transition-all relative">
+            <div class="w-full aspect-square bg-gray-50 dark:bg-black/20 rounded-2xl mb-4 overflow-hidden flex items-center justify-center relative">
                 ${item.image_url
-            ? `<img src="${escapeHTML(normalizeProductImage(item.image_url))}" loading="lazy" decoding="async" class="w-full h-full object-cover" onerror="this.onerror=null;this.parentElement.innerHTML='<span class=\\'material-symbols-outlined text-4xl text-gray-300\\'>coffee</span>'">`
+            ? `<img src="${escapeHTML(normalizeProductImage(item.image_url))}" loading="lazy" decoding="async" class="w-full h-full object-cover ${isOutOfStock ? 'grayscale-[40%]' : ''}" onerror="this.onerror=null;this.parentElement.innerHTML='<span class=\\'material-symbols-outlined text-4xl text-gray-300\\'>coffee</span>'">`
             : `<span class="material-symbols-outlined text-4xl text-gray-300">coffee</span>`}
+                <span class="absolute top-2 right-2 px-2.5 py-1 rounded-full text-[10px] font-black uppercase tracking-wider shadow-sm flex items-center gap-1 ${isOutOfStock ? 'bg-red-600 text-white' : 'bg-emerald-600 text-white'}">
+                    <span class="material-symbols-outlined text-[12px]">${isOutOfStock ? 'block' : 'check_circle'}</span>
+                    <span>${isOutOfStock ? (currentLang === 'ar' ? 'نفد المخزون' : currentLang === 'en' ? 'Out of Stock' : 'Épuisé') : (currentLang === 'ar' ? 'متوفر' : currentLang === 'en' ? 'Available' : 'Disponible')}</span>
+                </span>
             </div>
-            <h5 class="font-bold text-sm mb-1 truncate">${escapeHTML(item.name)}</h5>
+            <h5 class="font-bold text-sm mb-1 truncate">${escapeHTML(localizedName)}</h5>
             <span class="text-[10px] font-bold text-gray-400 uppercase tracking-widest">${escapeHTML(item.category)}</span>
             <div class="flex items-center justify-between mt-2 pt-2 border-t border-gray-100 dark:border-white/5">
                 <div>
                     <span class="text-primary font-black">${Number(item.price).toFixed(2)} DH</span>
                     ${item.stock !== null ? `<span class="block text-[10px] text-gray-500 font-bold mt-0.5">Stock: ${item.stock}</span>` : `<span class="block text-[10px] text-gray-400 mt-0.5 italic">Stock Infini</span>`}
                 </div>
-                <button onclick="deleteProduct('${escapeHTML(item.id)}')" class="text-gray-400 hover:bg-red-50 hover:text-red-500 dark:hover:bg-red-900/20 p-2 rounded-lg transition-all" title="Supprimer">
-                    <span class="material-symbols-outlined text-[18px]">delete</span>
-                </button>
+                <div class="flex items-center gap-1">
+                    <button type="button" onclick="toggleProductAvailability('${escapeHTML(item.id)}')" 
+                        class="px-2.5 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1 cursor-pointer ${isOutOfStock ? 'bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200' : 'bg-red-50 hover:bg-red-100 text-red-600 border border-red-200'}"
+                        title="${isOutOfStock ? 'Rendre Disponible' : 'Marquer comme Épuisé'}">
+                        <span class="material-symbols-outlined text-[16px]">${isOutOfStock ? 'toggle_on' : 'toggle_off'}</span>
+                        <span>${isOutOfStock ? (currentLang === 'ar' ? 'تفعيل' : 'Activer') : (currentLang === 'ar' ? 'تعطيل' : 'Épuisé')}</span>
+                    </button>
+                    <button onclick="deleteProduct('${escapeHTML(item.id)}')" class="text-gray-400 hover:bg-red-50 hover:text-red-500 dark:hover:bg-red-900/20 p-2 rounded-lg transition-all" title="Supprimer">
+                        <span class="material-symbols-outlined text-[18px]">delete</span>
+                    </button>
+                </div>
             </div>
         </div>
-    `).join('');
+        `;
+    }).join('');
 }
 
 // --- INVENTORY VIEW ---
@@ -3911,10 +4129,16 @@ function renderInventoryManager(items) {
                         </td>
                         <td class="px-6 py-4 text-xs font-bold text-gray-400 tracking-widest uppercase">${item.category}</td>
                         <td class="px-6 py-4">
-                            ${item.stock === null ? '<span class="px-2 py-1 bg-gray-100 text-gray-500 text-[10px] font-bold rounded-md">Unlimited</span>'
-            : item.stock <= 0 ? '<span class="px-2 py-1 bg-red-100 text-red-600 border border-red-200 text-[10px] font-bold rounded-md uppercase tracking-wider">Out of Stock</span>'
-                : item.stock <= 5 ? '<span class="px-2 py-1 bg-orange-100 text-orange-600 border border-orange-200 text-[10px] font-bold rounded-md uppercase tracking-wider">Low Stock</span>'
-                    : '<span class="px-2 py-1 bg-green-100 text-green-600 border border-green-200 text-[10px] font-bold rounded-md uppercase tracking-wider">In Stock</span>'}
+                            ${(() => {
+                                const outOfStockIds = window.stitchSync ? window.stitchSync.getOutOfStockIds() : JSON.parse(localStorage.getItem('stitch_out_of_stock_ids') || '[]');
+                                const isOut = outOfStockIds.includes(String(item.id)) || item.stock === 0 || item.is_available === false;
+                                return `<button type="button" onclick="toggleProductAvailability('${escapeHTML(item.id)}')"
+                                    class="px-2.5 py-1 rounded-full text-[10px] font-black uppercase tracking-wider transition-all cursor-pointer flex items-center gap-1.5 ${isOut ? 'bg-red-100 text-red-600 border border-red-200 hover:bg-red-200' : 'bg-green-100 text-green-700 border border-green-200 hover:bg-green-200'}"
+                                    title="${isOut ? 'Cliquer pour rendre Disponible' : 'Cliquer pour marquer Épuisé'}">
+                                    <span class="w-2 h-2 rounded-full ${isOut ? 'bg-red-500' : 'bg-green-500'}"></span>
+                                    <span>${isOut ? (currentLang === 'ar' ? 'نفد المخزون' : currentLang === 'en' ? 'Out of Stock' : 'Épuisé') : (currentLang === 'ar' ? 'متوفر' : currentLang === 'en' ? 'In Stock' : 'Disponible')}</span>
+                                </button>`;
+                            })()}
                         </td>
                         <td class="px-6 py-4">
                             ${item.stock !== null ? `
@@ -4314,6 +4538,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     pollLiveOrdersFromServer();
     setInterval(pollLiveOrdersFromServer, 2000);
+    initCloudSyncIntegration();
+    updateKdsSoundUI();
 
     Promise.allSettled([iconFontReadyPromise, ensureMenuData()])
         .then(() => {
@@ -4365,6 +4591,9 @@ window.cancelOrder = function(orderId, reason) {
     completedOrders.push(order);
     liveOrders = liveOrders.filter(o => o.id !== orderId);
     
+    if (window.stitchSync && typeof window.stitchSync.updateOrderStatus === 'function') {
+        try { window.stitchSync.updateOrderStatus(orderId, 'Cancelled'); } catch (_) {}
+    }
     closeOrderDetailsModal();
     autoFreeTableIfNoActiveOrders(order.table);
     persistMerchantSession(true);
@@ -4462,3 +4691,97 @@ window.setPosCustomTip = function(val) {
     });
     renderCart();
 };
+
+
+// =========================================================================
+// REAL-TIME CLOUD SYNC INTEGRATION (CROSS-DEVICE SYNC WITH MOBILE CLIENTS)
+// =========================================================================
+function initCloudSyncIntegration() {
+    if (!window.stitchSync) return;
+
+    window.stitchSync.onNewOrder((order) => {
+        if (!order || !order.id) return;
+        if ([...liveOrders, ...completedOrders].some(o => o.id === order.id)) return;
+
+        if (Array.isArray(order.items)) {
+            order.items.forEach(item => {
+                item.image_url = normalizeProductImage(item.image_url || item.img);
+            });
+        }
+
+        liveOrders.unshift(order);
+
+        // Mark table as Occupied in TABLE_DATA
+        if (order.table && !isDeliveryOrder(order)) {
+            const cleanTbl = String(order.table).replace(/^Table\s+/i, '').trim();
+            Object.keys(TABLE_DATA).forEach(floor => {
+                const tbl = TABLE_DATA[floor].find(t => t.id === cleanTbl);
+                if (tbl) tbl.status = 'Occupied';
+            });
+            saveTableData();
+        }
+
+        persistMerchantSession(true);
+        renderDashboard();
+        renderOrders();
+        renderDeliveryTab();
+        renderKitchenDisplay();
+        if (!document.getElementById('qr-tab')?.classList.contains('hidden')) {
+            renderTableGrid(currentQRFloor);
+        }
+
+        // Chime and Notice
+        playNewOrderChime();
+        const labelPrefix = isDeliveryOrder(order) 
+            ? `Nouvelle Livraison (${order.guestName || order.customerName || 'Client'})` 
+            : `Nouvelle commande Table ${order.table}`;
+        showMerchantNotice(`${labelPrefix} (#${order.id}) · ${order.total.toFixed(2)} DH`);
+    });
+
+    window.stitchSync.onOrderStatus((orderId, status) => {
+        const order = liveOrders.find(o => o.id === orderId);
+        if (order && order.status !== status) {
+            order.status = status;
+            if (status === 'Completed') {
+                completedOrders.push({ ...order, completedAt: Date.now() });
+                liveOrders = liveOrders.filter(o => o.id !== orderId);
+                autoFreeTableIfNoActiveOrders(order.table);
+            }
+            persistMerchantSession(true);
+            renderDashboard();
+            renderOrders();
+            renderKitchenDisplay();
+        }
+    });
+
+    window.stitchSync.onTableAlert((alert) => {
+        if (!alert || !alert.table) return;
+        const alertObj = { id: 'ALT-' + Date.now(), ...alert, time: Date.now() };
+        tableAlerts.unshift(alertObj);
+        try {
+            localStorage.setItem('stitch_table_alerts', JSON.stringify(tableAlerts.slice(0, 30)));
+        } catch (_) {}
+        renderTableServiceAlerts();
+        playNewOrderChime();
+        showMerchantNotice(`Table ${alert.table} : ${alert.label}`);
+    });
+
+    window.stitchSync.onReservation((res) => {
+        if (!res || !res.clientName) return;
+        reservations.unshift(res);
+        try {
+            localStorage.setItem('stitch_reservations', JSON.stringify(reservations));
+        } catch (_) {}
+        renderReservationList();
+        playNewOrderChime();
+        showMerchantNotice(`Nouvelle Réservation : ${res.clientName} (${res.guests || 2} pers.) • ${res.date} à ${res.time}`);
+    });
+
+    window.stitchSync.onConnectionChange((connected) => {
+        const dot = document.getElementById('cloud-sync-dot');
+        const txt = document.getElementById('cloud-sync-text');
+        if (dot) dot.className = connected ? 'w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse' : 'w-2.5 h-2.5 rounded-full bg-amber-500';
+        if (txt) txt.textContent = connected ? (currentLang === 'ar' ? 'سحابي مباشر' : 'Cloud Live') : (currentLang === 'ar' ? 'إعادة الاتصال' : 'Hors-ligne');
+    });
+}
+window.initCloudSyncIntegration = initCloudSyncIntegration;

@@ -1,3 +1,127 @@
+// =========================================================================
+// TABLE CONFLICT WARNING (PREPARING ORDER BANNER) & OUT OF STOCK NOTIFIER
+// =========================================================================
+let tableConflictDismissed = false;
+
+window.dismissTableConflictBanner = function() {
+  tableConflictDismissed = true;
+  const banner = document.getElementById('table-conflict-warning-card');
+  if (banner) {
+    banner.style.opacity = '0';
+    banner.style.transform = 'translateY(-10px)';
+    setTimeout(() => banner.remove(), 300);
+  }
+};
+
+function checkAndRenderTableConflictBanner() {
+  const container = document.getElementById('stitch-table-conflict-container');
+  if (!container) return;
+
+  const mode = (typeof window.getStitchOrderMode === 'function')
+    ? window.getStitchOrderMode()
+    : ((new URLSearchParams(window.location.search).get('mode') === 'delivery') ? 'delivery' : 'dine_in');
+
+  if (mode === 'delivery' || tableConflictDismissed) {
+    container.innerHTML = '';
+    return;
+  }
+
+  const rawTable = String(currentTable || '12').replace(/^Table\s+/i, '').trim().toLowerCase();
+  if (!rawTable || rawTable === 'livraison') {
+    container.innerHTML = '';
+    return;
+  }
+
+  // Check live orders in localStorage or via stitchSync
+  const orders = JSON.parse(localStorage.getItem('stitch_live_orders') || '[]');
+  const preparingOrder = orders.find(o => {
+    if (!o || o.status !== 'Preparing') return false;
+    const oTable = String(o.table || '').replace(/^Table\s+/i, '').trim().toLowerCase();
+    return oTable === rawTable;
+  });
+
+  if (!preparingOrder) {
+    container.innerHTML = '';
+    return;
+  }
+
+  const lang = (typeof getLang === 'function') ? getLang() : (localStorage.getItem('stitch_lang') || 'fr');
+  const isRtl = lang === 'ar';
+
+  const conflictMsg = lang === 'ar'
+    ? `يوجد طلب قيد التحضير بالفعل للطاولة ${currentTable}. يمكنك إضافة عناصر إضافية.`
+    : lang === 'en'
+      ? `An order is already being prepared for Table ${currentTable}. You can add extra items.`
+      : `Une commande est déjà en cours de préparation pour la Table ${currentTable}. Vous pouvez ajouter des articles supplémentaires.`;
+
+  const badgeLabel = lang === 'ar' ? 'قيد التحضير' : lang === 'en' ? 'Preparing' : 'En préparation';
+  const trackLabel = lang === 'ar' ? 'متابعة الطلب' : lang === 'en' ? 'Track Order' : 'Voir le suivi';
+  const dismissLabel = lang === 'ar' ? 'حسناً، متابعة' : lang === 'en' ? 'Got it, add more' : 'Compris, ajouter';
+
+  container.innerHTML = `
+    <div id="table-conflict-warning-card" class="bg-gradient-to-r from-amber-500/15 via-orange-500/10 to-amber-500/15 border-2 border-amber-500/40 backdrop-blur-md rounded-2xl p-4 shadow-lg text-stone-900 dark:text-white my-3 transition-all duration-300" dir="${isRtl ? 'rtl' : 'ltr'}">
+      <div class="flex items-start gap-3">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-amber-500 to-orange-500 text-white flex items-center justify-center shrink-0 shadow-md">
+          <span class="material-symbols-outlined text-[22px] animate-pulse">soup_kitchen</span>
+        </div>
+        <div class="flex-1 min-w-0">
+          <div class="flex items-center gap-2 flex-wrap">
+            <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-amber-500 text-white shadow-xs">
+              <span class="w-1.5 h-1.5 rounded-full bg-white animate-ping"></span>
+              ${badgeLabel}
+            </span>
+            <span class="text-[11px] font-bold text-amber-700 dark:text-amber-400 font-mono">#${preparingOrder.id}</span>
+          </div>
+          <p class="text-xs sm:text-sm font-bold mt-1 text-stone-800 dark:text-stone-100 leading-snug">
+            ${conflictMsg}
+          </p>
+          <div class="mt-2.5 flex items-center gap-2 flex-wrap">
+            <a href="../order_success_page/index.html?orderId=${encodeURIComponent(preparingOrder.id)}&table=${encodeURIComponent(currentTable)}"
+               class="inline-flex items-center gap-1 px-3 py-1.5 rounded-xl bg-stone-900 dark:bg-white text-white dark:text-stone-900 text-xs font-black hover:opacity-90 transition-all no-underline shadow-sm">
+              <span class="material-symbols-outlined text-[14px]">visibility</span>
+              <span>${trackLabel}</span>
+            </a>
+            <button type="button" onclick="window.dismissTableConflictBanner()"
+               class="inline-flex items-center gap-1 px-3 py-1.5 rounded-xl bg-white/80 dark:bg-white/10 border border-stone-200 dark:border-white/10 text-stone-700 dark:text-stone-300 text-xs font-bold hover:bg-stone-100 transition-all cursor-pointer">
+              <span>${dismissLabel}</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+}
+window.checkAndRenderTableConflictBanner = checkAndRenderTableConflictBanner;
+
+window.showOutOfStockAlert = function(productName) {
+  const lang = (typeof getLang === 'function') ? getLang() : (localStorage.getItem('stitch_lang') || 'fr');
+  const msg = lang === 'ar'
+    ? `عذراً، "${productName || 'هذا المنتج'}" غير متوفر حالياً (نفد المخزون).`
+    : lang === 'en'
+      ? `Sorry, "${productName || 'this item'}" is currently out of stock.`
+      : `Désolé, "${productName || 'cet article'}" est actuellement en rupture de stock.`;
+
+  const existingToast = document.getElementById('stitch-stock-toast');
+  if (existingToast) existingToast.remove();
+
+  const toast = document.createElement('div');
+  toast.id = 'stitch-stock-toast';
+  toast.dir = lang === 'ar' ? 'rtl' : 'ltr';
+  toast.className = 'fixed bottom-24 left-1/2 -translate-x-1/2 z-[200] max-w-sm w-[90%] bg-stone-900/95 dark:bg-black/95 text-white px-4 py-3 rounded-2xl shadow-2xl border border-red-500/50 backdrop-blur-md flex items-center gap-3 transition-all duration-300';
+  toast.innerHTML = `
+    <div class="w-8 h-8 rounded-xl bg-red-600/30 text-red-400 flex items-center justify-center shrink-0">
+      <span class="material-symbols-outlined text-[18px]">block</span>
+    </div>
+    <div class="flex-1 text-xs font-bold leading-tight">${msg}</div>
+    <button type="button" onclick="this.parentElement.remove()" class="text-stone-400 hover:text-white text-xs font-black px-1.5 py-0.5">✕</button>
+  `;
+  document.body.appendChild(toast);
+  setTimeout(() => {
+    toast.style.opacity = '0';
+    setTimeout(() => toast.remove(), 400);
+  }, 3500);
+};
+
 function getTableZone(tableNum) {
     const num = parseInt(tableNum, 10);
     if (num >= 1 && num <= 4) return "Terrasse";
@@ -367,9 +491,16 @@ function renderBestsellers(items) {
       const subMeta = SUB_CAT_METADATA[item.subCat] || { label: item.category || 'Spécialité', icon: getCategoryIcon(item.category) };
       const gourmetMeta = getGourmetCategoryMeta(item);
 
+      const outOfStockIds = (window.stitchSync && typeof window.stitchSync.getOutOfStockIds === 'function')
+        ? window.stitchSync.getOutOfStockIds()
+        : JSON.parse(localStorage.getItem('stitch_out_of_stock_ids') || '[]');
+      const isOutOfStock = outOfStockIds.includes(String(item.id)) || item.stock === 0 || item.is_available === false;
+      const langCode = typeof getLang === 'function' ? getLang() : 'fr';
+      const outOfStockLabel = langCode === 'ar' ? 'نفد المخزون' : langCode === 'en' ? 'Out of Stock' : 'Épuisé';
+
       html += `
-      <div onclick="addToCart('${item.id}')"
-        class="gourmet-card gourmet-cat-${gourmetMeta.slug} group cursor-pointer bg-white dark:bg-[#231915] rounded-[1.6rem] p-3.5 shadow-md border border-stone-200/80 dark:border-white/10 hover:border-primary/50 flex gap-3.5 items-center relative transition-all duration-300 hover:-translate-y-1"
+      <div ${isOutOfStock ? `onclick="event.stopPropagation(); window.showOutOfStockAlert('${nameText.replace(/'/g, "\\'")}')"` : `onclick="addToCart('${item.id}')"`}
+        class="gourmet-card gourmet-cat-${gourmetMeta.slug} group ${isOutOfStock ? 'opacity-60 grayscale-[35%] cursor-not-allowed border-red-300/40 dark:border-red-900/30' : 'cursor-pointer'} bg-white dark:bg-[#231915] rounded-[1.6rem] p-3.5 shadow-md border border-stone-200/80 dark:border-white/10 hover:border-primary/50 flex gap-3.5 items-center relative transition-all duration-300 hover:-translate-y-1"
         data-category="${item.category || 'all'}" data-maincat="${item.mainCat || ''}" data-subcat="${item.subCat || ''}">
         
         <div class="swiggy-img-box w-24 h-24 md:w-28 md:h-28 rounded-2xl overflow-hidden bg-stone-100 dark:bg-black/25 relative shrink-0 shadow-inner">
@@ -378,7 +509,10 @@ function renderBestsellers(items) {
             <span class="material-symbols-outlined text-[12px] text-amber-400" style="font-variation-settings: 'FILL' 1">star</span>
             <span class="text-[10px] font-extrabold">${Number(rating).toFixed(1)}</span>
           </div>
-          <span class="swiggy-photo-badge absolute top-1.5 right-1.5 gourmet-tag text-[9px] font-black uppercase tracking-wider px-2 py-0.5 rounded-full shadow-md z-10">${gourmetMeta.tag}</span>
+          ${isOutOfStock
+            ? `<span class="absolute top-1.5 right-1.5 bg-red-600 text-white text-[9px] font-black uppercase tracking-wider px-2 py-0.5 rounded-full shadow-md z-10 flex items-center gap-0.5"><span class="material-symbols-outlined text-[10px]">block</span><span>${outOfStockLabel}</span></span>`
+            : `<span class="swiggy-photo-badge absolute top-1.5 right-1.5 gourmet-tag text-[9px] font-black uppercase tracking-wider px-2 py-0.5 rounded-full shadow-md z-10">${gourmetMeta.tag}</span>`
+          }
         </div>
 
         <div class="flex-1 min-w-0 flex flex-col min-h-[5rem] md:min-h-[5.5rem] justify-between py-0.5 relative z-10">
@@ -399,11 +533,19 @@ function renderBestsellers(items) {
               <span class="text-base md:text-lg font-black text-stone-900 dark:text-white font-outfit">${priceText}</span>
               <span class="text-[11px] font-black text-primary">DH</span>
             </div>
+            ${isOutOfStock ? `
+            <button type="button" onclick="event.stopPropagation(); window.showOutOfStockAlert('${nameText.replace(/'/g, "\\'")}')"
+              class="gourmet-action-btn-disabled px-3.5 py-1.5 rounded-xl bg-stone-200 dark:bg-stone-800 text-stone-500 dark:text-stone-400 text-[11px] font-black uppercase tracking-wider flex items-center gap-1 cursor-not-allowed shadow-none">
+              <span class="material-symbols-outlined text-[14px]">block</span>
+              <span>${outOfStockLabel}</span>
+            </button>
+            ` : `
             <button type="button" onclick="event.stopPropagation(); addToCart('${item.id}')"
               class="gourmet-action-btn px-3.5 py-1.5 rounded-xl text-white text-[11px] font-black uppercase tracking-wider flex items-center gap-1 shadow-sm active:scale-95 transition-all">
               <span class="material-symbols-outlined text-[14px]">add</span>
               <span>${getTranslation('add') || 'Ajouter'}</span>
             </button>
+            `}
           </div>
         </div>
       </div>
@@ -813,6 +955,9 @@ function handleTableContext() {
   if (isReserved) {
     showReservationOverlay();
   }
+
+  // Check Table Conflict Warning (Preparing order on this table)
+  checkAndRenderTableConflictBanner();
 }
 
 window.syncHeaderOrderModeUI = function(mode) {
@@ -910,6 +1055,9 @@ window.sendTableServiceAlert = async function(type, label) {
     const alerts = JSON.parse(localStorage.getItem('stitch_table_alerts') || '[]');
     alerts.unshift({ id: 'ALT-' + Date.now(), ...payload, time: Date.now() });
     localStorage.setItem('stitch_table_alerts', JSON.stringify(alerts.slice(0, 30)));
+    if (window.stitchSync && typeof window.stitchSync.sendTableAlert === 'function') {
+      try { window.stitchSync.sendTableAlert(payload); } catch (_) {}
+    }
   } catch (_) {}
 
   try {
@@ -1066,6 +1214,15 @@ window.filterByCategory = (category) => {
 };
 
 window.addToCart = (id) => {
+  const outOfStockIds = (window.stitchSync && typeof window.stitchSync.getOutOfStockIds === 'function')
+    ? window.stitchSync.getOutOfStockIds()
+    : JSON.parse(localStorage.getItem('stitch_out_of_stock_ids') || '[]');
+
+  if (outOfStockIds.includes(String(id))) {
+    const itemObj = (typeof allMenuItems !== 'undefined' ? allMenuItems.find(i => String(i.id) === String(id)) : null) || (typeof bestsellers !== 'undefined' ? bestsellers.find(i => String(i.id) === String(id)) : null);
+    window.showOutOfStockAlert(itemObj ? itemObj.name : 'Produit');
+    return;
+  }
   const itemFromBestsellers = bestsellers.find(i => i.id === id);
   const itemFromAll = typeof allMenuItems !== 'undefined' ? allMenuItems.find(i => i.id === id) : null;
   const item = itemFromBestsellers || itemFromAll;
@@ -1902,3 +2059,17 @@ window.scrollToMenu = function() {
     target.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 };
+
+
+// Real-Time Cloud Sync Listeners for Customer Menu
+if (window.stitchSync) {
+  window.stitchSync.onStockUpdate(() => {
+    if (typeof renderMenuItems === 'function') renderMenuItems();
+  });
+  window.stitchSync.onOrderStatus(() => {
+    checkAndRenderTableConflictBanner();
+  });
+  window.stitchSync.onNewOrder(() => {
+    checkAndRenderTableConflictBanner();
+  });
+}

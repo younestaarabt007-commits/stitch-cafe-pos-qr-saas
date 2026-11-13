@@ -222,6 +222,19 @@
           </span>
           <span data-i18n="demo_workspace" class="text-xs font-bold">Demo workspace</span>
         </div>
+        <!-- Cloud Sync Status Indicator -->
+        <div id="cloud-sync-status-badge" class="flex items-center gap-1.5 bg-white dark:bg-[#2a1e19] border border-gray-200 dark:border-white/5 px-3 py-1.5 rounded-2xl text-xs font-bold shadow-soft" title="Synchronisation Cloud Multi-Appareils en Temps Réel">
+          <span id="cloud-sync-dot" class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+          <span id="cloud-sync-text" class="text-stone-700 dark:text-stone-200">Cloud Live</span>
+        </div>
+
+        <!-- KDS Sound Bell Toggle & Test Button -->
+        <button id="kds-sound-toggle-btn" onclick="toggleKdsSound()" aria-label="Son KDS" title="Activer / Tester le carillon des commandes"
+          class="flex items-center gap-1.5 px-3 py-1.5 bg-white dark:bg-[#2a1e19] border border-gray-200 dark:border-white/5 rounded-2xl text-xs font-bold text-amber-600 hover:bg-amber-50 dark:hover:bg-amber-950/30 transition-all shadow-soft cursor-pointer">
+          <span class="material-symbols-outlined text-[18px]" id="kds-sound-icon">notifications_active</span>
+          <span id="kds-sound-text">Son KDS</span>
+        </button>
+
         <!-- Language Selector -->
         <button onclick="cycleLanguage()" id="lang-cycle-btn"
           class="px-3 py-1.5 bg-white dark:bg-[#2a1e19] border border-gray-200 dark:border-white/5 rounded-2xl text-xs font-bold transition-all shadow-soft">
@@ -1699,6 +1712,7 @@
   <!-- Client Menu Catalog (Authoritative source for 129 items) -->
   <script src="../stitch_caf_menu_table_12/swiggy-style_elite_main_menu_390x2500/menu.js?v=20261111_v4"></script>
   <script src="./icons.js?v=20261111_v3"></script>
+  <script src="../stitch_caf_menu_table_12/stitch-cloud-sync.js?v=20261113_v1"></script>
   <script src="./script.js?v=20261111_v4"></script>
   <script src="./merchant-ui.js?v=20261111_v4"></script>
 </body>

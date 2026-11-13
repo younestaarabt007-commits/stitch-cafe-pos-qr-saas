@@ -897,6 +897,15 @@
       localStorage.setItem('stitch_active_customer_order', JSON.stringify(createdOrder));
     } catch (_) {}
 
+    // Broadcast order via Real-Time Cloud Sync Engine (Cross-device instant push)
+    if (window.stitchSync && typeof window.stitchSync.sendNewOrder === 'function') {
+      try {
+        window.stitchSync.sendNewOrder(createdOrder);
+      } catch (syncErr) {
+        console.warn('Real-time sync broadcast failed:', syncErr);
+      }
+    }
+
     writeNormalizedCart([]);
     window.closeStitchCartModal();
 

@@ -2601,7 +2601,15 @@ window.openReceiptModal = (orderId) => {
     const sub = order.total / 1.1; // Simple reverse tax calculation for demo
     document.getElementById('receipt-subtotal').textContent = sub.toFixed(2);
     document.getElementById('receipt-tax').textContent = (order.total - sub).toFixed(2);
-    document.getElementById('receipt-total').textContent = order.total.toFixed(2);
+    document.getElementById('receipt-total').textContent = order.total.toFixed(2) + ' DH';
+    const tipRow = document.getElementById('receipt-tip-row');
+    const tipVal = document.getElementById('receipt-tip');
+    if (order.tip && order.tip > 0) {
+        if (tipRow) tipRow.classList.remove('hidden');
+        if (tipVal) tipVal.textContent = `+${order.tip.toFixed(2)} DH`;
+    } else if (tipRow) {
+        tipRow.classList.add('hidden');
+    }
 
     document.getElementById('receipt-modal').classList.remove('hidden');
 };

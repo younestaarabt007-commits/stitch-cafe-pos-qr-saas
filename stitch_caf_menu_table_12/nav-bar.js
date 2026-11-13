@@ -475,6 +475,23 @@
             </div>
           </div>
 
+          <!-- Pourboire Client pour le Serveur (Optionnel) -->
+          <div class="mt-2.5 pt-2 border-t border-stone-200/80 dark:border-white/10 shrink-0">
+            <div class="flex items-center justify-between mb-1.5">
+              <span class="text-[10px] font-extrabold uppercase tracking-wider text-stone-500 dark:text-stone-400 flex items-center gap-1">
+                <span class="material-symbols-outlined text-[14px] text-amber-500">volunteer_activism</span>
+                <span>Pourboire Serveur (Optionnel)</span>
+              </span>
+              <span id="stitch-cart-tip-display" class="text-[11px] font-extrabold text-amber-500">+0.00 DH</span>
+            </div>
+            <div class="grid grid-cols-4 gap-1.5">
+              <button type="button" onclick="window.setClientTip(0)" class="client-tip-btn active py-1.5 px-1 rounded-xl border border-stone-200 dark:border-white/10 text-xs font-bold text-center bg-stone-100 dark:bg-white/10" data-tip="0">0 DH</button>
+              <button type="button" onclick="window.setClientTip(5)" class="client-tip-btn py-1.5 px-1 rounded-xl border border-stone-200 dark:border-white/10 text-xs font-bold text-center bg-stone-50 dark:bg-white/5 hover:border-amber-500" data-tip="5">+5 DH</button>
+              <button type="button" onclick="window.setClientTip(10)" class="client-tip-btn py-1.5 px-1 rounded-xl border border-stone-200 dark:border-white/10 text-xs font-bold text-center bg-stone-50 dark:bg-white/5 hover:border-amber-500" data-tip="10">+10 DH</button>
+              <button type="button" onclick="window.setClientTip(20)" class="client-tip-btn py-1.5 px-1 rounded-xl border border-stone-200 dark:border-white/10 text-xs font-bold text-center bg-stone-50 dark:bg-white/5 hover:border-amber-500" data-tip="20">+20 DH</button>
+            </div>
+          </div>
+
           <!-- Totals -->
           <div class="mt-3 pt-3 border-t border-stone-200/80 dark:border-white/10 space-y-1 shrink-0">
             <div class="flex justify-between items-center text-xs">
@@ -683,6 +700,29 @@
     window.location.href = `../swiggy-style_elite_main_menu_390x2500/index.html${query}#menu-sticky-anchor`;
   };
 
+  
+  window.clientTipAmount = 0;
+  window.setClientTip = function(amount) {
+    window.clientTipAmount = parseFloat(amount) || 0;
+    const tipDisplay = document.getElementById('stitch-cart-tip-display');
+    if (tipDisplay) tipDisplay.textContent = `+${window.clientTipAmount.toFixed(2)} DH`;
+
+    document.querySelectorAll('.client-tip-btn').forEach(btn => {
+      const match = parseFloat(btn.dataset.tip) === window.clientTipAmount;
+      btn.classList.toggle('border-amber-500', match);
+      btn.classList.toggle('bg-amber-50', match);
+      btn.classList.toggle('dark:bg-amber-950/40', match);
+      btn.classList.toggle('text-amber-600', match);
+      btn.classList.toggle('font-black', match);
+    });
+
+    // Recalculate modal total
+    const items = readNormalizedCart();
+    const subtotal = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
+    const totalEl = document.getElementById('stitch-modal-total');
+    if (totalEl) totalEl.textContent = `${(subtotal + window.clientTipAmount).toFixed(2)} DH`;
+  };
+
   function renderStitchCartModalItems() {
     ensureStitchCartModal();
     updateCartModalModeUI();
@@ -732,7 +772,8 @@
     }).join('');
 
     if (subEl) subEl.textContent = `${subtotal.toFixed(2)} DH`;
-    if (totalEl) totalEl.textContent = `${subtotal.toFixed(2)} DH`;
+    const finalTotal = subtotal + (window.clientTipAmount || 0);
+    if (totalEl) totalEl.textContent = `${finalTotal.toFixed(2)} DH`;
   }
 
   window.openStitchCartModal = function () {
@@ -792,7 +833,9 @@
       if (customerName) localStorage.setItem('stitch_customer_name', customerName);
     } catch (_) {}
 
-    const total = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
+    const subtotal = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
+    const tip = window.clientTipAmount || 0;
+    const total = subtotal + tip;
     const orderId = (orderMode === 'delivery' ? 'LIV-' : 'ORD-') + Math.floor(100 + Math.random() * 900) + '-' + String(Date.now()).slice(-3);
 
     const payload = {
@@ -817,6 +860,7 @@
         image_url: i.image_url || i.image || ''
       })),
       total: Number(total.toFixed(2)),
+      tip: Number(tip.toFixed(2)),
       status: 'Received',
       source: 'qr_menu',
       time: Date.now()

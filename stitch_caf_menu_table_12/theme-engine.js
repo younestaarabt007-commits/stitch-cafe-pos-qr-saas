@@ -383,25 +383,27 @@
         flex-direction: column !important;
         align-items: stretch !important;
         padding: 0 !important;
-        border-radius: 2rem !important;
+        border-radius: 1.8rem !important;
         overflow: hidden !important;
-        border: 2px solid rgba(0,0,0,0.06) !important;
-        box-shadow: 0 14px 34px -6px rgba(0, 0, 0, 0.1), 0 2px 6px rgba(0, 0, 0, 0.04) !important;
+        background: #FFFFFF !important;
+        border: 1px solid rgba(0,0,0,0.08) !important;
+        box-shadow: 0 10px 25px -6px rgba(0, 0, 0, 0.08), 0 2px 6px rgba(0, 0, 0, 0.03) !important;
         transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease !important;
       }
 
       body.theme-swiggy-bold .gourmet-card:hover {
-        transform: translateY(-4px) !important;
-        box-shadow: 0 20px 40px -8px rgba(0, 0, 0, 0.16) !important;
+        transform: translateY(-3px) !important;
+        box-shadow: 0 16px 32px -8px rgba(0, 0, 0, 0.12) !important;
       }
 
-      /* Image taking 65-70% in Swiggy Bold */
+      /* Hero Food Image taking prominent appetizing height */
       body.theme-swiggy-bold .gourmet-card > div:first-child {
         width: 100% !important;
-        height: 150px !important;
+        height: 175px !important;
         border-radius: 0 !important;
         position: relative !important;
         overflow: hidden !important;
+        background: #F3F4F6 !important;
       }
 
       body.theme-swiggy-bold .gourmet-card > div:first-child img {
@@ -412,41 +414,53 @@
       }
 
       body.theme-swiggy-bold .gourmet-card:hover > div:first-child img {
-        transform: scale(1.08) !important;
+        transform: scale(1.06) !important;
       }
 
-      /* Card Content in Swiggy Bold */
+      /* Compact, Clean White Text Area (Chopped vertically to leave space for white) */
       body.theme-swiggy-bold .gourmet-card > div:nth-child(2) {
-        padding: 0.75rem 1rem 0.65rem 1rem !important;
+        padding: 0.55rem 0.85rem 0.55rem 0.85rem !important;
         min-height: auto !important;
+        background: #FFFFFF !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: space-between !important;
       }
 
       body.theme-swiggy-bold .gourmet-card h4 {
-        font-size: 1.15rem !important;
-        font-weight: 900 !important;
-        line-height: 1.3 !important;
+        font-size: 0.95rem !important;
+        font-weight: 800 !important;
+        line-height: 1.25 !important;
         color: #111827 !important;
+        margin-bottom: 0.15rem !important;
+        display: -webkit-box !important;
+        -webkit-line-clamp: 1 !important;
+        -webkit-box-orient: vertical !important;
+        overflow: hidden !important;
       }
 
       body.theme-swiggy-bold .gourmet-card p {
-        font-size: 0.85rem !important;
-        line-height: 1.45 !important;
-        color: #4B5563 !important;
-        margin-top: 0.35rem !important;
+        font-size: 0.75rem !important;
+        line-height: 1.3 !important;
+        color: #6B7280 !important;
+        margin-top: 0.15rem !important;
+        display: -webkit-box !important;
+        -webkit-line-clamp: 1 !important;
+        -webkit-box-orient: vertical !important;
+        overflow: hidden !important;
       }
 
-      
-      /* Mobile Compact Food Card */
+      /* Mobile Compact Card */
       @media (max-width: 640px) {
         body.theme-swiggy-bold .gourmet-card > div:first-child {
-          height: 140px !important;
+          height: 160px !important;
         }
         body.theme-swiggy-bold .gourmet-card > div:nth-child(2) {
-          padding: 0.65rem 0.85rem 0.55rem 0.85rem !important;
+          padding: 0.5rem 0.75rem 0.5rem 0.75rem !important;
         }
       }
-    
-      /* Swiggy Big Bold "AJOUTER +" Button */
+
+      /* Swiggy Big Bold Action Button */
       body.theme-swiggy-bold .gourmet-action-btn {
         padding: 0.6rem 1.35rem !important;
         border-radius: 1rem !important;
@@ -467,180 +481,150 @@
       body.theme-gourmet .gourmet-watermark,
       body.theme-swiggy-bold .gourmet-watermark { display: none !important; opacity: 0 !important; visibility: hidden !important; pointer-events: none !important; }
 
-      /* ========================================================= */
-      /* VIBRANT & DISTINCT CATEGORY COLOR PALETTES                */
+      /* =================/* ========================================================= */
+      /* CLEAN WHITE CARDS WITH SUBTLE EXTREMITY ACCENT LISERÉ     */
       /* ========================================================= */
 
-      /* 1. SMOOTHIES & SHAKES — VIBRANT RASPBERRY & MAGENTA */
+      /* 1. SMOOTHIES & SHAKES */
       .gourmet-cat-smoothie {
-        background: linear-gradient(135deg, #FFF5F9 0%, #FCE7F3 60%, #FBCFE8 100%) !important;
-        border: 2px solid rgba(236, 72, 153, 0.45) !important;
-        box-shadow: 0 10px 28px -6px rgba(236, 72, 153, 0.22) !important;
+        background: #FFFFFF !important;
+        border: 1px solid rgba(0, 0, 0, 0.08) !important;
+        border-left: 4.5px solid #F472B6 !important;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04) !important;
       }
-      .gourmet-cat-smoothie .gourmet-tag {
-        background: #F472B6 !important;
-        color: #FFFFFF !important;
-        font-weight: 900 !important;
+      [dir="rtl"] .gourmet-cat-smoothie {
+        border-left: 1px solid rgba(0, 0, 0, 0.08) !important;
+        border-right: 4.5px solid #F472B6 !important;
       }
-      .gourmet-cat-smoothie .gourmet-action-btn {
-        background: linear-gradient(135deg, #DB2777, #BE185D) !important;
-        color: #FFFFFF !important;
-        box-shadow: 0 4px 14px rgba(219, 39, 119, 0.4) !important;
-      }
+      .gourmet-cat-smoothie .gourmet-tag { background: #F472B6 !important; color: #FFFFFF !important; }
+      .gourmet-cat-smoothie .gourmet-action-btn { background: #DB2777 !important; color: #FFFFFF !important; }
 
-      /* 2. JUS FRAIS — SUN-KISSED MANDARIN & BRIGHT ORANGE */
+      /* 2. JUS FRAIS */
       .gourmet-cat-juice {
-        background: linear-gradient(135deg, #FFF9F2 0%, #FFEDD5 60%, #FED7AA 100%) !important;
-        border: 2px solid rgba(249, 115, 22, 0.45) !important;
-        box-shadow: 0 10px 28px -6px rgba(249, 115, 22, 0.22) !important;
+        background: #FFFFFF !important;
+        border: 1px solid rgba(0, 0, 0, 0.08) !important;
+        border-left: 4.5px solid #FB923C !important;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04) !important;
       }
-      .gourmet-cat-juice .gourmet-tag {
-        background: #FB923C !important;
-        color: #FFFFFF !important;
-        font-weight: 900 !important;
+      [dir="rtl"] .gourmet-cat-juice {
+        border-left: 1px solid rgba(0, 0, 0, 0.08) !important;
+        border-right: 4.5px solid #FB923C !important;
       }
-      .gourmet-cat-juice .gourmet-action-btn {
-        background: linear-gradient(135deg, #EA580C, #C2410C) !important;
-        color: #FFFFFF !important;
-        box-shadow: 0 4px 14px rgba(234, 88, 12, 0.4) !important;
-      }
+      .gourmet-cat-juice .gourmet-tag { background: #FB923C !important; color: #FFFFFF !important; }
+      .gourmet-cat-juice .gourmet-action-btn { background: #EA580C !important; color: #FFFFFF !important; }
 
-      /* 3. THÉS & INFUSIONS — FRESH MINT & BOTANICAL EMERALD */
+      /* 3. THÉS & INFUSIONS */
       .gourmet-cat-tea {
-        background: linear-gradient(135deg, #F0FDF4 0%, #DCFCE7 60%, #BBF7D0 100%) !important;
-        border: 2px solid rgba(16, 185, 129, 0.45) !important;
-        box-shadow: 0 10px 28px -6px rgba(16, 185, 129, 0.22) !important;
+        background: #FFFFFF !important;
+        border: 1px solid rgba(0, 0, 0, 0.08) !important;
+        border-left: 4.5px solid #10B981 !important;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04) !important;
       }
-      .gourmet-cat-tea .gourmet-tag {
-        background: #10B981 !important;
-        color: #FFFFFF !important;
-        font-weight: 900 !important;
+      [dir="rtl"] .gourmet-cat-tea {
+        border-left: 1px solid rgba(0, 0, 0, 0.08) !important;
+        border-right: 4.5px solid #10B981 !important;
       }
-      .gourmet-cat-tea .gourmet-action-btn {
-        background: linear-gradient(135deg, #059669, #047857) !important;
-        color: #FFFFFF !important;
-        box-shadow: 0 4px 14px rgba(5, 150, 105, 0.4) !important;
-      }
+      .gourmet-cat-tea .gourmet-tag { background: #10B981 !important; color: #FFFFFF !important; }
+      .gourmet-cat-tea .gourmet-action-btn { background: #059669 !important; color: #FFFFFF !important; }
 
-      /* 4. TOASTS, SALADES & BOWLS — OLIVE GARDEN & AVOCADO LIME */
+      /* 4. TOASTS & TARTINES */
       .gourmet-cat-toast {
-        background: linear-gradient(135deg, #F7FEE7 0%, #ECFCCB 60%, #D9F99D 100%) !important;
-        border: 2px solid rgba(132, 204, 22, 0.45) !important;
-        box-shadow: 0 10px 28px -6px rgba(132, 204, 22, 0.22) !important;
+        background: #FFFFFF !important;
+        border: 1px solid rgba(0, 0, 0, 0.08) !important;
+        border-left: 4.5px solid #84CC16 !important;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04) !important;
       }
-      .gourmet-cat-toast .gourmet-tag {
-        background: #84CC16 !important;
-        color: #FFFFFF !important;
-        font-weight: 900 !important;
+      [dir="rtl"] .gourmet-cat-toast {
+        border-left: 1px solid rgba(0, 0, 0, 0.08) !important;
+        border-right: 4.5px solid #84CC16 !important;
       }
-      .gourmet-cat-toast .gourmet-action-btn {
-        background: linear-gradient(135deg, #65A30D, #4D7C0F) !important;
-        color: #FFFFFF !important;
-        box-shadow: 0 4px 14px rgba(101, 163, 13, 0.4) !important;
-      }
+      .gourmet-cat-toast .gourmet-tag { background: #84CC16 !important; color: #FFFFFF !important; }
+      .gourmet-cat-toast .gourmet-action-btn { background: #65A30D !important; color: #FFFFFF !important; }
 
-      /* 5. MILKSHAKES — DEEP PURPLE BERRY & VELVET SHAKE */
+      /* 5. MILKSHAKES GOURMANDS */
       .gourmet-cat-milkshake {
-        background: linear-gradient(135deg, #FAF5FF 0%, #F3E8FF 60%, #E9D5FF 100%) !important;
-        border: 2px solid rgba(168, 85, 247, 0.45) !important;
-        box-shadow: 0 10px 28px -6px rgba(168, 85, 247, 0.22) !important;
+        background: #FFFFFF !important;
+        border: 1px solid rgba(0, 0, 0, 0.08) !important;
+        border-left: 4.5px solid #A855F7 !important;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04) !important;
       }
-      .gourmet-cat-milkshake .gourmet-tag {
-        background: #A855F7 !important;
-        color: #FFFFFF !important;
-        font-weight: 900 !important;
+      [dir="rtl"] .gourmet-cat-milkshake {
+        border-left: 1px solid rgba(0, 0, 0, 0.08) !important;
+        border-right: 4.5px solid #A855F7 !important;
       }
-      .gourmet-cat-milkshake .gourmet-action-btn {
-        background: linear-gradient(135deg, #7E22CE, #6B21A8) !important;
-        color: #FFFFFF !important;
-        box-shadow: 0 4px 14px rgba(126, 34, 206, 0.4) !important;
-      }
+      .gourmet-cat-milkshake .gourmet-tag { background: #A855F7 !important; color: #FFFFFF !important; }
+      .gourmet-cat-milkshake .gourmet-action-btn { background: #7E22CE !important; color: #FFFFFF !important; }
 
-      /* 6. BURGERS & FAST FOOD — SMOKY RED & PAPRIKA CRIMSON */
+      /* 6. FAST FOOD & BURGERS */
       .gourmet-cat-fastfood {
-        background: linear-gradient(135deg, #FFF1F2 0%, #FFE4E6 60%, #FECDD3 100%) !important;
-        border: 2px solid rgba(239, 68, 68, 0.45) !important;
-        box-shadow: 0 10px 28px -6px rgba(239, 68, 68, 0.22) !important;
+        background: #FFFFFF !important;
+        border: 1px solid rgba(0, 0, 0, 0.08) !important;
+        border-left: 4.5px solid #EF4444 !important;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04) !important;
       }
-      .gourmet-cat-fastfood .gourmet-tag {
-        background: #EF4444 !important;
-        color: #FFFFFF !important;
-        font-weight: 900 !important;
+      [dir="rtl"] .gourmet-cat-fastfood {
+        border-left: 1px solid rgba(0, 0, 0, 0.08) !important;
+        border-right: 4.5px solid #EF4444 !important;
       }
-      .gourmet-cat-fastfood .gourmet-action-btn {
-        background: linear-gradient(135deg, #DC2626, #B91C1C) !important;
-        color: #FFFFFF !important;
-        box-shadow: 0 4px 14px rgba(220, 38, 38, 0.4) !important;
-      }
+      .gourmet-cat-fastfood .gourmet-tag { background: #EF4444 !important; color: #FFFFFF !important; }
+      .gourmet-cat-fastfood .gourmet-action-btn { background: #DC2626 !important; color: #FFFFFF !important; }
 
-      /* 7. CAFÉS NOIRS & ESPRESSO — DEEP ROASTED MOCHA & COPPER */
+      /* 7. CAFÉS NOIRS INTENSES */
       .gourmet-cat-coffee {
-        background: linear-gradient(135deg, #FDF9F5 0%, #F5ECE0 60%, #EBDEC8 100%) !important;
-        border: 2px solid rgba(120, 53, 15, 0.45) !important;
-        box-shadow: 0 10px 28px -6px rgba(120, 53, 15, 0.22) !important;
+        background: #FFFFFF !important;
+        border: 1px solid rgba(0, 0, 0, 0.08) !important;
+        border-left: 4.5px solid #78350F !important;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04) !important;
       }
-      .gourmet-cat-coffee .gourmet-tag {
-        background: #78350F !important;
-        color: #FFFFFF !important;
-        font-weight: 900 !important;
+      [dir="rtl"] .gourmet-cat-coffee {
+        border-left: 1px solid rgba(0, 0, 0, 0.08) !important;
+        border-right: 4.5px solid #78350F !important;
       }
-      .gourmet-cat-coffee .gourmet-action-btn {
-        background: linear-gradient(135deg, #3D2214, #2A170D) !important;
-        color: #FFFFFF !important;
-        box-shadow: 0 4px 14px rgba(61, 34, 20, 0.4) !important;
-      }
+      .gourmet-cat-coffee .gourmet-tag { background: #78350F !important; color: #FFFFFF !important; }
+      .gourmet-cat-coffee .gourmet-action-btn { background: #3D2214 !important; color: #FFFFFF !important; }
 
-      /* 8. LATTÉS & CRÉMEUX — SALTED CARAMEL & VANILLA FROTH */
+      /* 8. LATTÉS & CRÉMEUX */
       .gourmet-cat-latte {
-        background: linear-gradient(135deg, #FFFDF5 0%, #FEF3C7 60%, #FDE68A 100%) !important;
-        border: 2px solid rgba(217, 119, 6, 0.45) !important;
-        box-shadow: 0 10px 28px -6px rgba(217, 119, 6, 0.22) !important;
+        background: #FFFFFF !important;
+        border: 1px solid rgba(0, 0, 0, 0.08) !important;
+        border-left: 4.5px solid #D97706 !important;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04) !important;
       }
-      .gourmet-cat-latte .gourmet-tag {
-        background: #D97706 !important;
-        color: #FFFFFF !important;
-        font-weight: 900 !important;
+      [dir="rtl"] .gourmet-cat-latte {
+        border-left: 1px solid rgba(0, 0, 0, 0.08) !important;
+        border-right: 4.5px solid #D97706 !important;
       }
-      .gourmet-cat-latte .gourmet-action-btn {
-        background: linear-gradient(135deg, #92400E, #78350F) !important;
-        color: #FFFFFF !important;
-        box-shadow: 0 4px 14px rgba(146, 64, 14, 0.4) !important;
-      }
+      .gourmet-cat-latte .gourmet-tag { background: #D97706 !important; color: #FFFFFF !important; }
+      .gourmet-cat-latte .gourmet-action-btn { background: #92400E !important; color: #FFFFFF !important; }
 
-      /* 9. PÂTISSERIES & BOULANGERIE — GOLDEN CRUST & HONEY FLAKE */
+      /* 9. PÂTISSERIES & BOULANGERIE */
       .gourmet-cat-pastry, .gourmet-cat-bread {
-        background: linear-gradient(135deg, #FFFDF6 0%, #FEF9C3 60%, #FEF08A 100%) !important;
-        border: 2px solid rgba(202, 138, 4, 0.45) !important;
-        box-shadow: 0 10px 28px -6px rgba(202, 138, 4, 0.22) !important;
+        background: #FFFFFF !important;
+        border: 1px solid rgba(0, 0, 0, 0.08) !important;
+        border-left: 4.5px solid #CA8A04 !important;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04) !important;
       }
-      .gourmet-cat-pastry .gourmet-tag, .gourmet-cat-bread .gourmet-tag {
-        background: #CA8A04 !important;
-        color: #FFFFFF !important;
-        font-weight: 900 !important;
+      [dir="rtl"] .gourmet-cat-pastry, [dir="rtl"] .gourmet-cat-bread {
+        border-left: 1px solid rgba(0, 0, 0, 0.08) !important;
+        border-right: 4.5px solid #CA8A04 !important;
       }
-      .gourmet-cat-pastry .gourmet-action-btn, .gourmet-cat-bread .gourmet-action-btn {
-        background: linear-gradient(135deg, #A16207, #854D0E) !important;
-        color: #FFFFFF !important;
-        box-shadow: 0 4px 14px rgba(161, 98, 7, 0.4) !important;
-      }
+      .gourmet-cat-pastry .gourmet-tag, .gourmet-cat-bread .gourmet-tag { background: #CA8A04 !important; color: #FFFFFF !important; }
+      .gourmet-cat-pastry .gourmet-action-btn, .gourmet-cat-bread .gourmet-action-btn { background: #A16207 !important; color: #FFFFFF !important; }
 
-      /* 10. BRUNCH SIGNATURE — GOLDEN AMBER & HONEYCOMB */
+      /* 10. BRUNCH SIGNATURE */
       .gourmet-cat-brunch {
-        background: linear-gradient(135deg, #FFFDF8 0%, #FFF8EC 60%, #FFF0D4 100%) !important;
-        border: 2px solid rgba(245, 158, 11, 0.45) !important;
-        box-shadow: 0 10px 28px -6px rgba(245, 158, 11, 0.22) !important;
+        background: #FFFFFF !important;
+        border: 1px solid rgba(0, 0, 0, 0.08) !important;
+        border-left: 4.5px solid #F59E0B !important;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04) !important;
       }
-      .gourmet-cat-brunch .gourmet-tag {
-        background: #F59E0B !important;
-        color: #FFFFFF !important;
-        font-weight: 900 !important;
+      [dir="rtl"] .gourmet-cat-brunch {
+        border-left: 1px solid rgba(0, 0, 0, 0.08) !important;
+        border-right: 4.5px solid #F59E0B !important;
       }
-      .gourmet-cat-brunch .gourmet-action-btn {
-        background: linear-gradient(135deg, #D97706, #B45309) !important;
-        color: #FFFFFF !important;
-        box-shadow: 0 4px 14px rgba(217, 119, 6, 0.4) !important;
-      }
-    `;
+      .gourmet-cat-brunch .gourmet-tag { background: #F59E0B !important; color: #FFFFFF !important; }
+      .gourmet-cat-brunch .gourmet-action-btn { background: #D97706 !important; color: #FFFFFF !important; }
+      `;
     document.head.appendChild(styleEl);
   }
 

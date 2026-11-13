@@ -140,70 +140,199 @@ const ARABIC_PRODUCT_NAMES = {
     "Petit Déjeuner Américain": "فطور أمريكي كامل",
     "Petit Déjeuner Complet": "فطور صباحي متكامل",
     "Petit Déjeuner Marocain": "فطور مغربي بلدي أصيل",
+    "Petit Déjeuner Royal": "فطور ملكي فاخر",
+    "Petit Déjeuner Latino": "فطور لاتيني بنكهات مميزة",
+    "Petit Déjeuner Nordique": "فطور نورديك بالحبوب والجبن",
+    "Petit Déjeuner Turc": "فطور تركي تقليدي منوع",
     "Farm Omelette": "أومليت المزرعة بالأعشاب",
+    "Farm Omelette Fermière": "أومليت فلاحي بالخضار الطازجة",
     "Eggs Benedict": "بيض بينيديكت بصلصة الهولنديز",
+    "Classic Benedict": "بيض بينيديكت كلاسيكي",
+    "Signature Benedict": "بينيديكت فاخر مع الأفوكادو",
+    "Croissant Benedict Salmon": "كرواسون بينيديكت بالسلمون المدخن",
     "Spicy Shakshuka": "شكشوكة مغربية حارة",
+    "Shakshuka": "شكشوكة تقليدية بالصلصة الغنية",
     "Garden Skillet": "مقلاة الخضار الطازجة مع البيض",
     "Brunch Burrito": "بوريتو الفطور المكسيكي",
-    "Citrus Cheese Cake": "تشيز كيك الحمضيات المنعشة",
     "Fit Egg-White": "أومليت بياض البيض الصحي",
-    "Crème Caramel": "كريم كراميل منزلي فاخر",
-    "Signature Benedict": "بينيديكت فاخر مع الأفوكادو",
     "Truffle Omelette": "أومليت الفطر وزيت الكمأة",
-    "Shakshuka": "شكشوكة تقليدية بالصلصة الغنية",
-    "Avocado Toast": "توست الأفوكادو مع خبز المحمص",
-    "Classic Benedict": "بيض بينيديكت كلاسيكي",
+    "Iron Frittata": "فريتاتا الحديد الغنية بالسبانخ",
+    "Toast Frittata": "توست الفريتاتا الإيطالية",
+    "Acai Delight": "وعاء الأساي المثلج بالفواكه",
+    "Belgian Gold": "وافل بلجيكي ذهبي بالعسل",
+    "Full English": "إفطار إنجليزي تقليدي كامل",
+    "Full English Breakfast": "إفطار إنجليزي تقليدي كامل",
+    "Fluffy Scrambled Eggs": "بيض مخفوق كريمي هش",
+    "French Toast": "فرنش توست بالكراميل والقرفة",
+    "Pancake aux Fruits": "بان كيك بالفواكه الطازجة والعسل",
+    "Waffels au Fruits": "وافل مقرمش بالفواكه الموسمية",
+    "Waffels au Miel": "وافل بلجيكي مقرمش بعسل النحل",
+    "Greek Yogurt & Fruits": "زبادي يوناني بالعسل والفواكه",
+    "Soupe de Fèves (Bissara)": "بصارة مغربية بزيت الزيتون والكمون",
+    "Pumpkin Stew": "حساء اليقطين الدافئ بالأعشاب",
+    "Avocado Toast": "توست الأفوكادو مع الخبز المحمص",
+    "Toast Avocat": "توست الأفوكادو الطازج بزيت الزيتون",
+    "Toast Avocat & Saumon Fumé": "توست الأفوكادو والسلمون المدخن",
+    "Toast Champignon Fromage": "توست الفطر البري والجبن الذائب",
+    "Toast Vegan": "توست نباتي صحي بالحمص والأفوكادو",
     "Vegan Power Bowl": "وعاء الحبوب والخضار النباتي",
-    "Mediterranean": "توست البحر المتوسط بالفيتا والزيتون",
-    "Steak & Eggs": "ستيك ريب آي مع بيض مقلي",
-    "Velvet Flat White": "فلات وايت مخملي ناعم",
-    "Kyoto Cold Brew": "كولد برو كيوتو بالتنقيط البطيء",
-    "Oat Milk Latte": "لاتيه حليب الشوفان النباتي",
+    "Sandwich Poulet": "سندويش الدجاج المشوي بالأعشاب",
+    "Sandwich Viande Hachée": "سندويش اللحم المفروم المتبل",
+    "Sandwich Émincé de Viande": "سندويش شرائح اللحم البقري الطرية",
+    "Hot Dog Classique": "هوت دوغ كلاسيكي بالصلصة الخاصة",
+    "American Burger": "برغر أمريكي بالجبن المذاب واللحم المشوي",
+    "Chicken Burger": "برغر الدجاج المقرمش بالمايونيز",
+    "Chicken Crunchy Burger": "برغر الدجاج فائق القرمشة",
+    "Chicken Pickle Burger": "برغر دجاج بصوص المخلل والجبن",
+    "Double Cheese Burger": "دابل تشيز برغر لحم مضاعف",
+    "Burger Viande Bœuf": "برغر لحم بقري بلدي مشوي",
+    "Burger Crevettes": "برغر الجمبري الفاخر بصلصة التارتار",
+    "Chiken Pizaa": "بيتزا الدجاج بجبنة الموتزاريلا",
+    "Tacos Mixte": "تاكوس ميكس فرنسي باللحم والدجاج",
+    "Tacos Viande Hachée": "تاكوس اللحم المفروم بصوص الجبن",
+    "Portion de Frites Maison": "بطاطس مقلية مقرمشة محلية الصنع",
+    "Salade César": "سلطة سيزر بالدجاج والبارميزان",
+    "Salade Marocaine": "سلطة مغربية بلدية طازجة",
+    "Salade Espagnole": "سلطة إسبانية بالتونة والبيض",
+    "Salade Mexicaine": "سلطة مكسيكية بالذرة والفاصوليا",
+    "Salade Mozzarella": "سلطة الموتزاريلا بالطماطم والريحان",
+    "Salade de Poulet Grillé": "سلطة الدجاج المشوي الصحي بالصلصة",
     "Single Origin Espresso": "إسبريسو سينغل أوريجين بنكهات غنية",
-    "Dark Mocha": "موكا شوكولاتة داكنة 70%",
+    "Café Noir Expresso": "إسبريسو أسود مركز كلاسيكي",
+    "Café Noir Italien": "قهوة إيطالية سوداء غنية",
+    "Café Normal": "قهوة عادية متوازنة",
+    "Café Léger": "قهوة خفيفة ناعمة",
+    "Café Américain": "أمريكانو كلاسيكي مخفف",
+    "Café Royal": "قهوة ملكية فاخرة بالرغوة الغنية",
+    "Café Crème": "قهوة بالكريمة الغنية والناعمة",
+    "Café au Lait Artisanal": "قهوة بالحليب المحلى المبخر",
+    "Café au Lait avec la Crème": "قهوة بالحليب والكريمة المخفوقة",
+    "Velvet Flat White": "فلات وايت مخملي ناعم",
     "Classic Latte": "لاتيه كلاسيكي بالحليب المبخر",
-    "Signature Oat Latte": "لاتيه الشوفان الفاخر",
-    "Vanilla Bean": "لاتيه الفانيليا الطبيعية",
+    "Matcha Latte": "ماتشا لاتيه ياباني بالحليب",
+    "Oat Milk Latte": "لاتيه حليب الشوفان النباتي",
+    "Oat Milk Cortado": "كورتادو بحليب الشوفان",
+    "Ethiopian Yirgacheffe": "قهوة إثيوبيا يرغاتشيفي المختصة",
+    "Ethiopian Yirgacheffe Latte": "لاتيه إثيوبيا يرغاتشيفي الفاخر",
+    "Light Black Coffee": "قهوة سوداء مصفاة خفيفة",
+    "Dark Mocha": "موكا شوكولاتة داكنة 70%",
     "Caramel Macchiato": "ماكياتو بصوص الكراميل الذهبي",
-    "Spanish Latte": "سبانش لاتيه بالحليب المكثف",
-    "Rose Water Latte": "لاتيه ماء الورد العطري",
-    "Iced Matcha Latte": "ماتشا مثلجة فاخرة",
-    "Hazelnut Latte": "لاتيه البندق المحمص",
-    "Pumpkin Spice Latte": "لاتيه اليقطين والتوابل الموسمية",
-    "Ceremonial Matcha": "ماتشا يابانية احتفالية فاخرة",
-    "Masala Chai": "شاي ماسالا الهندي بالتوابل والحليب",
-    "Ginger Lemon": "شاي الزنجبيل والليمون الدافئ",
+    "Coffee Latté Lotus": "لاتيه بصوص وبسكويت اللوتس",
+    "Nitro Cold Brew": "كولد برو نيترو بالفقاعات الحريرية",
+    "Kyoto Cold Brew": "كولد برو كيوتو بالتنقيط البطيء",
+    "Chocolat Chaud à la Cannelle": "شوكولاتة ساخنة غنية بالقرفة",
+    "Chocolat Fondu": "شوكولاتة ذائبة بلجيكية فاخرة",
+    "Dark & White Chocolat": "شوكولاتة مزدوجة داكنة وبيضاء",
+    "Golden Turmeric": "مشروب الكركم الذهبي الدافئ",
+    "Golden Turmeric Latte": "لاتيه الكركم الذهبي الصحي",
+    "Thé Marocain à la Menthe": "شاي مغربي أصيل بالنعناع الطازج",
     "Moroccan Mint": "شاي مغربي أصيل بالنعناع الطازج",
-    "Royal Milk Tea": "شاي الحليب الملكي مع الكراميل",
-    "Iced Peach Oolong": "شاي أولونغ مثلج بنكهة الخوخ",
-    "Lavender Earl Grey": "شاي إيرل غري بزهور اللافندر",
+    "Chinese Green Tea": "شاي صيني أخضر نقي ومضاد للأكسدة",
+    "Blue Tea Butterfly Pea": "شاي البازلاء الزرقاء الطبيعي",
+    "Blueberry Infusion": "منقوع التوت الأزرق المنعش",
+    "Lavender Tea": "شاي اللافندر المهدئ للأعصاب",
+    "Lavender Honey": "شاي اللافندر بعسل النحل الطبيعي",
+    "Floral Tea": "شاي الزهور والأعشاب العطرية",
+    "Tea Citron Délice": "شاي الليمون المنعش مع النعناع",
+    "Tea Nordique": "شاي نورديك بالأعشاب البرية",
+    "Thé Médicinal Bien-Être": "شاي الأعشاب الطبية للاسترخاء",
+    "Thé de Grenadine": "شاي الرمان الطبيعي المركز",
+    "Thé de Hibiscus": "كركديه مثلج منعش بالفواكه",
     "Berry Burst": "سموذي التوت المشكل والزبادي",
     "Berry Burst Smoothie": "سموذي التوت المشكل والزبادي",
-    "Green Power": "سموذي الطاقة الأخضر",
-    "Protein Plus": "سموذي البروتين بالموز وزبدة الفول السوداني",
-    "Tropical Smooth": "سموذي استوائي (مانجو وأناناس)",
-    "Fresh Orange": "عصير برتقال طبيعي معصور طازج",
+    "Blue Berry Smoothie": "سموذي التوت البري الأزرق",
+    "Brazilian Smoothie": "سموذي الفواكه البرازيلية الاستوائية",
+    "Dragon Fruit Smoothie": "سموذي فاكهة التنين الوردية",
+    "Golden Turmeric Smoothie": "سموذي الكركم والأناناس المنعش",
+    "Green Power": "سموذي الطاقة الأخضر (كيل وتفاح)",
+    "Kiwi Smoothie": "سموذي الكيوي والليمون الحامض",
+    "Raspberry Smoothie": "سموذي توت العليق الطازج",
+    "Tropical Smoothie": "سموذي الفواكه الاستوائية والموز",
+    "Classic Chocolate Shake": "ميلك شيك الشوكولاتة الكلاسيكي",
+    "Chocolate Milkshake Classique": "ميلك شيك الشوكولاتة الكلاسيكي",
+    "Vanilla Bean Shake": "ميلك شيك الفانيليا الطبيعية",
+    "Strawberry Bliss": "ميلك شيك الفراولة اللذيذ",
+    "Strawberry Ice Milkshake": "ميلك شيك الفراولة بالآيس كريم",
+    "Banana Caramel": "ميلك شيك الموز والكراميل الذهبي",
+    "Milkshake Banane Caramel": "ميلك شيك الموز والكراميل الذهبي",
+    "Milkshake Café Chocolat": "ميلك شيك القهوة والشوكولاتة البلجيكية",
+    "Milkshake Caramel": "ميلك شيك الكراميل المملح",
+    "Milkshake Oreo": "ميلك شيك بسكويت الأوريو والكريمة",
+    "Peanut Milkshake": "ميلك شيك زبدة الفول السوداني الغني",
+    "Kiwi Milkshake": "ميلك شيك الكيوي الكريمي",
+    "Greek Yogurt Fruit Shake": "شيك الزبادي اليوناني بالفواكه",
     "Fresh Orange Juice": "عصير برتقال طبيعي معصور طازج",
-    "Lemon Mint": "عصير الليمون المنعش بالنعناع",
-    "Pineapple Punch": "عصير الأناناس الاستوائي البارد",
-    "Apple Classic": "عصير تفاح طبيعي نقي",
-    "Mango Glow": "عصير المانجو الاستوائي المركز",
-    "Signature Green Juice": "العصير الأخضر الصحي (كيل وتفاح)",
-    "Mango Tango": "سموذي مانجو وتانجو الفواكه الاستوائية",
-    "Cold Pressed Orange": "عصير برتقال معصور على البارد",
-    "Ginger Turmeric Shot": "جرعة مناعة الزنجبيل والكركم",
-    "Beetroot Energizer": "عصير الشمندر والجزر المقوي",
-    "Green Goddess": "عصير آلهة الخضار المنقي",
+    "Jus D'Orange Pressé": "عصير برتقال طبيعي معصور طازج",
+    "Jus D'Ananas": "عصير أناناس استوائي طبيعي",
+    "Jus D'Avocat Onctueux": "عصير أفوكادو كريمي بالحليب والمكسرات",
+    "Jus au Fruit du Dragon": "عصير فاكهة التنين الطبيعي المنعش",
+    "Jus de Banane": "عصير موز بالحليب الطبيعي",
+    "Jus de Fraise": "عصير فراولة طبيعي طازج",
+    "Jus de Kiwi": "عصير كيوي طبيعي منعش",
+    "Jus de Mangue": "عصير مانجو استوائي مركز",
+    "Jus de Papaye": "عصير بابايا طبيعي بارد",
+    "Jus de Pomme": "عصير تفاح طازج معصور",
+    "Jus de Pêche": "عصير خوخ طبيعي منعش",
+    "Lemon Mint": "عصير ليمون بالنعناع الطازج",
+    "Pineapple Punch": "مشروب الأناناس الاستوائي المنعش",
+    "Mango Glow": "عصير مانجو استوائي فاخر",
+    "Mango Indian Drink": "مشروب المانجو الهندي بالتوابل",
+    "Mokhito Classique": "موخيتو ليمون ونعناع منعش",
+    "Cuba Mokhito Citron Menthe": "كوبا موخيتو ليمون ونعناع صيفي",
+    "Cocktail Exotique": "كوكتيل الفواكه الاستوائية المشكلة",
+    "Cocktail Purple Berry Lime": "كوكتيل التوت والليمون المنعش",
+    "Cold Pomelo": "عصير البوملي الحمضي البارد",
+    "Hawaii Tropical": "مشروب هاواي الاستوائي المثلج",
+    "Iced Orange Zest": "مشروب قشر البرتقال المثلج",
+    "Miami Cocktail": "كوكتيل ميامي بالفواكه الحمضية",
+    "Tropical Drink": "مشروب الفواكه الاستوائية البارد",
+    "Wild Berry Drink": "مشروب التوت البري المثلج",
+    "Coca-Cola": "كوكا كولا مثلجة",
+    "Sprite": "سبرايت مثلجة",
     "Butter Croissant": "كرواسون فرنسي بالزبدة الطبيعية",
+    "Croissant": "كرواسون فرنسي هش ومقرمش",
     "Almond Croissant": "كرواسون محشو باللوز والفرانجيبان",
     "Pain au Chocolat": "بان أو شوكولا فرنسي مقرمش",
+    "Pain Suisse": "بان سويس بكريمة الفانيليا وحبيبات الشوكولاتة",
+    "Pain aux Raisins": "بان أو ريزان بالزبيب والكريمة",
     "Chocolate Éclair": "إكلير الشوكولاتة الداكنة والكريمة",
     "Strawberry Tart": "تارت الفراولة الطازجة بكريمة الفانيليا",
     "Lemon Meringue Tart": "تارت الليمون والميرانغ المحروق",
-    "Velvet Cake Slice": "قطعة كيكة المخمل الناعمة",
-    "Signature Sourdough": "خبز العجين المخمر التقليدي",
-    "Traditional Baguette": "باغيت فرنسي مقرمش وهش",
-    "Artisan Rye Bread": "خبز الجاودار الحرفي الغني بالألياف"
+    "Citrus Cheese Cake": "تشيز كيك الحمضيات المنعشة",
+    "Cheese Cake au Citron": "تشيز كيك الليمون المنعش",
+    "Cheese Cake Oreo": "تشيز كيك بسكويت الأوريو الغني",
+    "Cheese Cake au Caramel": "تشيز كيك بصوص الكراميل الذهبي",
+    "Orange Cheese Cake": "تشيز كيك البرتقال الطبيعي",
+    "Crème Caramel": "كريم كراميل منزلي فاخر",
+    "Tiramisu au Chocolat": "تيراميسو إيطالي بمسحوق الكاكاو",
+    "Mille Feuilles": "ميل فوي فرنسي بطبقات الكريمة والمربى",
+    "Chocolat Cake": "كيك الشوكولاتة الفاخرة الذائبة",
+    "Velvet Cake Slice": "قطعة كيكة المخمل الأحمر الناعمة",
+    "Cookies au Chocolat": "كوكيز طازج برقائق الشوكولاتة",
+    "Donuts": "دوناتس مغطاة بالسكر والشوكولاتة",
+    "Banana Split": "بانانا سبليت بالآيس كريم والمكسرات",
+    "Baklawa": "بقلاوة تركية بالفستق والعسل",
+    "Basbousa": "بسبوسة شرقية باللوز والقطر",
+    "Chocolate Babka": "بابكا الشوكولاتة المجدولة الهشة",
+    "Honey Brioche": "بريوش العسل والزبدة الطري",
+    "Herbed Focaccia": "فوكاتشا إيطالية بزيت الزيتون وإكليل الجبل",
+    "Parisian Baguette": "باغيت فرنسي كلاسيكي مقرمش",
+    "Dark Rye Loaf": "رغيف خبز الجاودار الداكن الصحي",
+    "Seeded Multigrain": "خبز الحبوب الكاملة المغذي",
+    "Stoneground Wheat": "خبز القمح الكامل المطحون على الحجر",
+    "Cranberry Walnut": "خبز التوت البري والجوز المحمص",
+    "Formule Matin Royal": "فورمول الفطور الملكي (إسبريسو + كرواسون + عصير برتقال)",
+    "Duo Déjeuner Gourmet": "فورمول دويو الغداء الفاخر (توست أفوكادو + سموذي)",
+    "Pause Goûter Pâtisserie": "فورمول استراحة الشاي (فلات وايت + تشيز كيك)",
+    "Petit-Déj Royal Marocain": "فورمول الفطور المغربي الملكي",
+    "Brunch Signature pour 2": "فورمول برنش سيغنتشر لشخصين",
+    "Duo Pâtisserie & Latte": "فورمول دويو لاتيه وحلوى",
+    "Toast Avocat & Smoothie": "فورمول توست أفوكادو وسموذي",
+    "Thé Menthe & Pâtisseries": "فورمول شاي بالنعناع وحلويات مغربية",
+    "Burger Artisan & Boisson": "فورمول برغر حرفي ومشروب",
+    "Duo Milkshake & Cookie": "فورمول ميلك شيك وكوكيز",
+    "Espresso & Croissant Doré": "فورمول إسبريسو وكرواسون ذهبي",
+    "Panier Boulanger Maison": "سلة مخبوزات المنزل المشكلة"
 };
 
 const POS_CATEGORY_LABELS = {
@@ -241,9 +370,26 @@ const POS_CATEGORY_LABELS = {
 
 function getLocalizedItemName(item) {
     if (!item) return '';
-    const name = item.name || '';
+    const name = typeof item === 'string' ? item : (item.name || '');
     if (currentLang === 'ar') {
-        return ARABIC_PRODUCT_NAMES[name] || name;
+        if (ARABIC_PRODUCT_NAMES[name]) return ARABIC_PRODUCT_NAMES[name];
+        if (/^table\s*\d+/i.test(name)) return name.replace(/^table\s*(\d+)/i, 'طاولة $1');
+        
+        // Intelligent semantic fallback translation for any dynamically created dishes
+        const lower = name.toLowerCase();
+        if (lower.includes('coffee') || lower.includes('café')) return 'قهوة مختصة فاخرة';
+        if (lower.includes('burger')) return 'برغر حرفي مشوي';
+        if (lower.includes('toast')) return 'توست محمص بالأعشاب';
+        if (lower.includes('smoothie')) return 'سموذي الفواكه الطبيعي';
+        if (lower.includes('juice') || lower.includes('jus')) return 'عصير فواكه طازج معصور';
+        if (lower.includes('croissant')) return 'كرواسون مقرمش طازج';
+        if (lower.includes('cake') || lower.includes('tarte')) return 'حلوى منزلية فاخرة';
+        if (lower.includes('salad') || lower.includes('salade')) return 'سلطة طازجة صحية';
+        if (lower.includes('tea') || lower.includes('thé')) return 'شاي أعشاب فاخر';
+        if (lower.includes('shake')) return 'ميلك شيك كريمي';
+        if (lower.includes('pizza')) return 'بيتزا طازجة بالجبن';
+        if (lower.includes('tacos')) return 'تاكوس شهي محمص';
+        return name;
     }
     return name;
 }
@@ -1857,23 +2003,21 @@ async function setMerchantTheme(newTheme) {
     currentMerchantTheme = newTheme;
     try { localStorage.setItem('stitch_menu_theme', newTheme); } catch (_) {}
     updateThemeManagerUI(newTheme);
+
     if (typeof currentQRFloor !== 'undefined' && typeof renderTableGrid === 'function') {
         renderTableGrid(currentQRFloor);
     }
-    const qrLinkEl = document.getElementById('qr-link-text');
-    if (qrLinkEl && typeof selectedTable !== 'undefined') {
-        qrLinkEl.textContent = buildCustomerMenuUrl(selectedTable);
+
+    if (currentViewedTable) {
+        generateQRPreview(currentViewedTable.id);
+    }
+    if (typeof window.renderExternalPortalQR === 'function') {
+        window.renderExternalPortalQR();
     }
 
-    // Sync with backend API
-    try {
-        await fetch(`${liveOrdersApiBase()}/api/settings`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ activeTheme: newTheme })
-        });
-    } catch (e) {
-        console.warn('Erreur synchronisation thème avec API:', e);
+    const qrLinkEl = document.getElementById('qr-link-text');
+    if (qrLinkEl && typeof currentViewedTable !== 'undefined' && currentViewedTable) {
+        qrLinkEl.textContent = buildCustomerMenuUrl(currentViewedTable.id);
     }
 
     // Refresh Simulator Iframe
@@ -1888,11 +2032,11 @@ async function setMerchantTheme(newTheme) {
     }
 
     const names = {
-        'classic': 'Classique Minimaliste',
-        'gourmet': 'Gourmet Reserve ✨',
-        'swiggy-bold': 'Swiggy Bold (Photos XXL) 🚀'
+        'classic': currentLang === 'ar' ? 'كلاسيكي مبسط' : 'Classique Minimaliste',
+        'gourmet': currentLang === 'ar' ? 'غورميه فاخر ✨' : 'Gourmet Reserve ✨',
+        'swiggy-bold': currentLang === 'ar' ? 'سويجي بولد (صور كبيرة) 🚀' : 'Swiggy Bold (Photos XXL) 🚀'
     };
-    showMerchantNotice(`Thème "${names[newTheme] || newTheme}" activé avec succès ! Vos clients QR reçoivent la nouvelle interface en direct.`);
+    showMerchantNotice(currentLang === 'ar' ? `تم تفعيل ثيم "${names[newTheme] || newTheme}" بنجاح! تم تحديث جميع رموز QR للهاتف.` : `Thème "${names[newTheme] || newTheme}" activé avec succès ! Tous les QR codes pour téléphone sont mis à jour.`);
 }
 window.setMerchantTheme = setMerchantTheme;
 
@@ -2374,18 +2518,29 @@ window.openOrderDetailsModal = (orderId) => {
         </div>
     `).join('');
 
-    // Action buttons based on status
+    // Action buttons based on status with Cancel & Arabic localization
     const actions = document.getElementById('order-details-actions');
+    const isAr = currentLang === 'ar';
+    const btnCancel = `<button onclick="cancelOrder('${order.id}')" class="py-3.5 bg-red-500/10 hover:bg-red-500/20 text-red-600 font-bold rounded-2xl border border-red-300 transition-all flex items-center justify-center gap-1.5"><span class="material-symbols-outlined text-base">cancel</span> ${isAr ? 'إلغاء الطلب' : 'Annuler commande'}</button>`;
+
     if (order.status === 'Received') {
-        actions.innerHTML = `<button onclick="updateOrderStatus('${order.id}', 'Preparing')" class="col-span-2 py-4 bg-blue-500 text-white font-bold rounded-2xl shadow-glow transition-transform hover:scale-105">Start Preparing</button>`;
+        actions.innerHTML = `
+            <button onclick="updateOrderStatus('${order.id}', 'Preparing')" class="py-3.5 bg-blue-500 hover:bg-blue-600 text-white font-bold rounded-2xl shadow-glow transition-transform hover:scale-105 flex items-center justify-center gap-1.5"><span class="material-symbols-outlined text-base">soup_kitchen</span> ${isAr ? 'بدء التحضير' : 'Start Preparing'}</button>
+            ${btnCancel}
+        `;
     } else if (order.status === 'Preparing') {
-        actions.innerHTML = `<button onclick="updateOrderStatus('${order.id}', 'Ready')" class="col-span-2 py-4 bg-green-500 text-white font-bold rounded-2xl shadow-glow transition-transform hover:scale-105">Mark as Ready</button>`;
+        actions.innerHTML = `
+            <button onclick="updateOrderStatus('${order.id}', 'Ready')" class="py-3.5 bg-green-500 hover:bg-green-600 text-white font-bold rounded-2xl shadow-glow transition-transform hover:scale-105 flex items-center justify-center gap-1.5"><span class="material-symbols-outlined text-base">check_circle</span> ${isAr ? 'جاهز للتقديم' : 'Mark as Ready'}</button>
+            ${btnCancel}
+        `;
     } else if (order.status === 'Ready') {
         actions.innerHTML = `
-            <button onclick="updateOrderStatus('${order.id}', 'Completed')" class="py-4 bg-gray-800 text-white font-bold rounded-2xl transition-transform hover:scale-105">Complete & Archive</button>
-            <button onclick="openReceiptModal('${order.id}'); closeOrderDetailsModal()" class="py-4 border border-gray-200 text-gray-800 font-bold rounded-2xl transition-transform hover:scale-105 flex items-center justify-center gap-2"><span class="material-symbols-outlined">print</span> Print</button>`;
+            <button onclick="updateOrderStatus('${order.id}', 'Completed')" class="py-3.5 bg-gray-900 dark:bg-black text-white font-bold rounded-2xl transition-transform hover:scale-105 flex items-center justify-center gap-1.5 shadow-md"><span class="material-symbols-outlined text-base">task_alt</span> ${isAr ? 'دفع وإنهاء (تحرير الطاولة)' : 'Payer & Libérer table'}</button>
+            <button onclick="openReceiptModal('${order.id}'); closeOrderDetailsModal()" class="py-3.5 border border-gray-200 dark:border-white/10 text-gray-800 dark:text-white font-bold rounded-2xl transition-transform hover:scale-105 flex items-center justify-center gap-1.5"><span class="material-symbols-outlined text-base">print</span> ${isAr ? 'طباعة' : 'Print'}</button>
+            <div class="col-span-2">${btnCancel}</div>
+        `;
     } else {
-        actions.innerHTML = `<button onclick="openReceiptModal('${order.id}'); closeOrderDetailsModal()" class="col-span-2 py-4 border border-gray-200 text-gray-800 font-bold rounded-2xl flex items-center justify-center gap-2"><span class="material-symbols-outlined">print</span> Print</button>`;
+        actions.innerHTML = `<button onclick="openReceiptModal('${order.id}'); closeOrderDetailsModal()" class="col-span-2 py-4 border border-gray-200 dark:border-white/10 text-gray-800 dark:text-white font-bold rounded-2xl flex items-center justify-center gap-2"><span class="material-symbols-outlined">print</span> ${isAr ? 'طباعة الفاتورة' : 'Imprimer Reçu'}</button>`;
     }
 
     document.getElementById('order-details-modal').classList.remove('hidden');
@@ -2400,10 +2555,10 @@ window.updateOrderStatus = (orderId, newStatus) => {
     order.status = newStatus;
 
     if (newStatus === 'Completed') {
-        // Move from live display to completed history
         completedOrders.push({ ...order, completedAt: Date.now() });
         liveOrders = liveOrders.filter(o => o.id !== orderId);
         closeOrderDetailsModal();
+        autoFreeTableIfNoActiveOrders(order.table);
     } else if (detailsOpen) {
         openOrderDetailsModal(orderId);
     }
@@ -3300,7 +3455,9 @@ function calculateCartTotals() {
     const discountType = document.getElementById('discount-type')?.value || '%';
     globalDiscount = { amount: discountVal, type: discountType };
     const discountAmount = Math.min(subtotal, discountType === '%' ? subtotal * Math.min(discountVal, 100) / 100 : discountVal);
-    return { subtotal, discountAmount, total: Math.round((subtotal - discountAmount) * 100) / 100 };
+    const tip = typeof posTipAmount === 'number' ? posTipAmount : 0;
+    const finalTotal = Math.max(0, Math.round((subtotal - discountAmount + tip) * 100) / 100);
+    return { subtotal, discountAmount, tip, total: finalTotal };
 }
 
 function updateTotals() {
@@ -4156,3 +4313,144 @@ document.addEventListener('DOMContentLoaded', () => {
             finishInitialHydration();
         });
 });
+
+
+// --- INTELLIGENT TABLE LIBERATION & CANCELLATIONS ---
+function autoFreeTableIfNoActiveOrders(tableIdentifier) {
+    if (!tableIdentifier) return;
+    const tableClean = String(tableIdentifier).replace(/^Table\s+/i, '').trim();
+    if (!tableClean || tableClean.toLowerCase().includes('livraison') || tableClean.toLowerCase().includes('emporter')) return;
+
+    // Check if there are other live orders on this table that are not completed/cancelled
+    const otherActive = liveOrders.some(o => {
+        const oTable = String(o.table || '').replace(/^Table\s+/i, '').trim();
+        return oTable === tableClean && o.status !== 'Completed' && o.status !== 'Cancelled';
+    });
+
+    if (!otherActive) {
+        for (const floor of Object.keys(TABLE_DATA)) {
+            const t = TABLE_DATA[floor].find(x => String(x.id).replace(/^Table\s+/i, '').trim() === tableClean);
+            if (t && t.status !== 'Available') {
+                t.status = 'Available';
+                saveTableData();
+                if (typeof renderTableGrid === 'function' && typeof currentQRFloor !== 'undefined') {
+                    renderTableGrid(currentQRFloor);
+                }
+                if (typeof updateQRSelectionPanel === 'function') {
+                    updateQRSelectionPanel();
+                }
+                break;
+            }
+        }
+    }
+}
+
+window.cancelOrder = function(orderId, reason) {
+    const confirmMsg = currentLang === 'ar' ? 'هل أنت متأكد من رغبتك في إلغاء هذا الطلب؟' : 'Confirmer l\'annulation de cette commande ?';
+    if (!confirm(confirmMsg)) return;
+    const order = liveOrders.find(o => o.id === orderId);
+    if (!order) return;
+
+    order.status = 'Cancelled';
+    order.cancelledAt = Date.now();
+    order.cancelReason = reason || (currentLang === 'ar' ? 'أُلغي بواسطة المدير' : 'Annulé par le gérant');
+    completedOrders.push(order);
+    liveOrders = liveOrders.filter(o => o.id !== orderId);
+    
+    closeOrderDetailsModal();
+    autoFreeTableIfNoActiveOrders(order.table);
+    persistMerchantSession(true);
+    renderDashboard();
+    renderOrders();
+    renderDeliveryTab();
+    renderKitchenDisplay();
+
+    showMerchantNotice(currentLang === 'ar' ? 'تم إلغاء الطلب وتحرير الطاولة بنجاح' : 'Commande annulée et table libérée avec succès.');
+};
+
+window.cancelReservation = function(resId) {
+    const confirmMsg = currentLang === 'ar' ? 'هل أنت متأكد من إلغاء هذا الحجز؟' : 'Confirmer l\'annulation de cette réservation ?';
+    if (!confirm(confirmMsg)) return;
+    const idx = reservations.findIndex(r => r.id === resId);
+    if (idx > -1) {
+        const res = reservations[idx];
+        reservations.splice(idx, 1);
+        autoFreeTableIfNoActiveOrders(res.tableId);
+        saveTableData();
+        renderTableGrid(currentQRFloor);
+        showMerchantNotice(currentLang === 'ar' ? 'تم إلغاء الحجز بنجاح' : 'Réservation annulée avec succès.');
+    }
+};
+
+window.cancelDeliveryOrder = function(orderId) {
+    window.cancelOrder(orderId, currentLang === 'ar' ? 'تم إلغاء طلب التوصيل' : 'Livraison annulée');
+};
+
+// --- DYNAMIC ADD & DELETE TABLES ---
+window.openAddTableModal = function() {
+    const promptNum = currentLang === 'ar' ? 'أدخل رقم أو اسم الطاولة الجديدة (مثال: 13):' : 'Numéro ou nom de la nouvelle table (ex: 13) :';
+    const num = prompt(promptNum);
+    if (!num) return;
+    const floor = currentQRFloor || 'Terrasse';
+    const promptSeats = currentLang === 'ar' ? 'عدد المقاعد (افتراضي: 4):' : 'Nombre de places (défaut: 4) :';
+    const seats = prompt(promptSeats, '4') || '4';
+    const id = String(num).trim();
+    if (!TABLE_DATA[floor]) TABLE_DATA[floor] = [];
+    if (TABLE_DATA[floor].some(t => String(t.id).trim() === id)) {
+        alert(currentLang === 'ar' ? 'هذه الطاولة موجودة بالفعل في هذه المنطقة!' : 'Cette table existe déjà dans cette zone !');
+        return;
+    }
+    TABLE_DATA[floor].push({ id: id, seats: parseInt(seats, 10) || 4, status: 'Available' });
+    saveTableData();
+    renderTableGrid(floor);
+    showMerchantNotice(currentLang === 'ar' ? `تمت إضافة الطاولة ${id} بنجاح` : `Table ${id} ajoutée avec succès !`);
+};
+
+window.deleteCurrentTable = function() {
+    if (!currentViewedTable) return;
+    const { id, floor } = currentViewedTable;
+    const confirmMsg = currentLang === 'ar' ? `هل أنت متأكد من رغبتك في حذف الطاولة ${id} نهائياً؟` : `Êtes-vous sûr de vouloir supprimer définitivement la table ${id} ?`;
+    if (!confirm(confirmMsg)) return;
+
+    TABLE_DATA[floor] = TABLE_DATA[floor].filter(t => String(t.id) !== String(id));
+    saveTableData();
+    clearViewedTableSelection();
+    renderTableGrid(floor);
+    showMerchantNotice(currentLang === 'ar' ? `تم حذف الطاولة ${id} بنجاح` : `Table ${id} supprimée avec succès.`);
+};
+
+window.copyPhoneThemeLink = function() {
+    const tableId = currentViewedTable?.id || '12';
+    const url = buildCustomerMenuUrl(tableId);
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(url).then(() => {
+            showMerchantNotice(currentLang === 'ar' ? 'تم نسخ الرابط المباشر للهاتف مع الثيم المختار!' : 'Lien Mobile avec le thème copié dans le presse-papier !');
+        }).catch(() => {
+            prompt(currentLang === 'ar' ? 'انسخ الرابط:' : 'Copiez ce lien :', url);
+        });
+    } else {
+        prompt(currentLang === 'ar' ? 'انسخ الرابط:' : 'Copiez ce lien :', url);
+    }
+};
+
+
+let posTipAmount = 0;
+window.setPosTip = function(amount) {
+    posTipAmount = parseFloat(amount) || 0;
+    const customInp = document.getElementById('pos-custom-tip');
+    if (customInp) customInp.value = posTipAmount > 0 ? posTipAmount : '';
+    document.querySelectorAll('.pos-tip-btn').forEach(btn => {
+        const isMatch = parseFloat(btn.dataset.tip) === posTipAmount;
+        btn.classList.toggle('bg-primary', isMatch);
+        btn.classList.toggle('text-white', isMatch);
+    });
+    renderCart();
+};
+
+window.setPosCustomTip = function(val) {
+    posTipAmount = parseFloat(val) || 0;
+    document.querySelectorAll('.pos-tip-btn').forEach(btn => {
+        btn.classList.remove('bg-primary', 'text-white');
+    });
+    renderCart();
+};

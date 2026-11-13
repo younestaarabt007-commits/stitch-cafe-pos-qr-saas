@@ -127,68 +127,79 @@ function getGourmetCategoryMeta(item) {
   return { slug: 'brunch', tag: 'Signature Stitch', icon: 'restaurant' };
 }
 
+
+const GOURMET_COMBOS = [
+  {
+    id: 'matin-royal',
+    title: "Formule Matin Royal",
+    subtitle: "Espresso Torréfié + Croissant Pur Beurre + Verre d'Orange Pressé",
+    price: "29.00",
+    oldPrice: "48.00",
+    savings: "19.00",
+    badge: "☀️ ÉCONOMISEZ 19 DH",
+    heroImg: "assets/sweet-butter-croissant.jpg",
+    items: [
+      { name: "Single Origin Espresso", price: 18, image: "assets/coffee-single-origin-espresso.jpg" },
+      { name: "Butter Croissant", price: 18, image: "assets/sweet-butter-croissant.jpg" },
+      { name: "Fresh Orange Juice", price: 12, image: "assets/juice-fresh-orange.jpg" }
+    ]
+  },
+  {
+    id: 'duo-dejeuner',
+    title: "Duo Déjeuner Gourmet",
+    subtitle: "Toast Avocat Saumon & Œuf Mollet + Smoothie Baies Sauvages Frais",
+    price: "49.00",
+    oldPrice: "68.00",
+    savings: "19.00",
+    badge: "🥑 COUP DE CŒUR DU CHEF",
+    heroImg: "assets/toast-avocado.jpg",
+    items: [
+      { name: "Toast Avocat & Saumon Fumé", price: 48, image: "assets/toast-avocado.jpg" },
+      { name: "Raspberry Smoothie", price: 20, image: "../images/sub catégorie images/smoothie/raspberry-smoothie_1150-18529.jpg" }
+    ]
+  },
+  {
+    id: 'pause-gouter',
+    title: "Pause Goûter Pâtisserie",
+    subtitle: "Velvet Flat White Artisanal + Part de Cheesecake Citron Frais",
+    price: "32.00",
+    oldPrice: "42.00",
+    savings: "10.00",
+    badge: "☕ 100% PUR PLAISIR",
+    heroImg: "assets/coffee-velvet-flat-white.jpg",
+    items: [
+      { name: "Velvet Flat White", price: 22, image: "assets/coffee-velvet-flat-white.jpg" },
+      { name: "Cheese Cake au Citron", price: 20, image: "../images/sub catégorie images/sweets/Chees Cake au Citron.jpg" }
+    ]
+  }
+];
+
+let currentSelectedComboIndex = null;
+
 function renderGourmetComboCard(comboIndex) {
   const activeTh = (typeof window.getStitchActiveTheme === 'function' ? window.getStitchActiveTheme() : localStorage.getItem('stitch_menu_theme')) || 'swiggy-bold';
   if (activeTh === 'classic') return '';
 
-  const combos = [
-    {
-      title: "Formule Matin Royal",
-      subtitle: "Espresso Torréfié + Croissant Pur Beurre + Verre d'Orange Pressé minute",
-      price: "35.00",
-      oldPrice: "48.00",
-      badge: "☀️ ÉCONOMISEZ 13 DH",
-      bgClass: "from-[#2A170D] via-[#3E2314] to-[#1F120A]",
-      icon: "wb_sunny",
-      items: [
-        { name: "Single Origin Espresso", price: 18, qty: 1, image: "assets/coffee-single-origin-espresso.jpg" },
-        { name: "Butter Croissant", price: 18, qty: 1, image: "assets/sweet-butter-croissant.jpg" },
-        { name: "Fresh Orange Juice", price: 12, qty: 1, image: "assets/juice-fresh-orange.jpg" }
-      ]
-    },
-    {
-      title: "Duo Déjeuner Gourmet",
-      subtitle: "Toast Avocat Saumon & Œuf Mollet + Smoothie Baies Sauvages Frais",
-      price: "68.00",
-      oldPrice: "85.00",
-      badge: "🥑 COUP DE CŒUR DU CHEF",
-      bgClass: "from-[#0F3A2A] via-[#164E38] to-[#0A261C]",
-      icon: "lunch_dining",
-      items: [
-        { name: "Toast Avocat & Saumon Fumé", price: 48, qty: 1, image: "assets/toast-avocado.jpg" },
-        { name: "Raspberry Smoothie", price: 20, qty: 1, image: "../images/sub catégorie images/smoothie/raspberry-smoothie_1150-18529.jpg" }
-      ]
-    },
-    {
-      title: "Pause Goûter Pâtisserie",
-      subtitle: "Velvet Flat White Artisanal + Part de Cheesecake Citron Frais",
-      price: "42.00",
-      oldPrice: "52.00",
-      badge: "☕ 100% PUR PLAISIR",
-      bgClass: "from-[#54210B] via-[#6B2C10] to-[#3B1707]",
-      icon: "cake",
-      items: [
-        { name: "Velvet Flat White", price: 22, qty: 1, image: "assets/coffee-velvet-flat-white.jpg" },
-        { name: "Cheese Cake au Citron", price: 20, qty: 1, image: "../images/sub catégorie images/sweets/Chees Cake au Citron.jpg" }
-      ]
-    }
-  ];
-
-  const combo = combos[comboIndex % combos.length];
-  const itemsJson = JSON.stringify(combo.items).replace(/"/g, '&quot;');
+  const idx = comboIndex % GOURMET_COMBOS.length;
+  const combo = GOURMET_COMBOS[idx];
 
   return `
-    <div class="gourmet-only-section col-span-full my-3 p-5 rounded-[2rem] bg-gradient-to-r ${combo.bgClass} text-white shadow-xl relative overflow-hidden border border-white/15">
-      <div class="absolute -right-10 -bottom-10 w-44 h-44 rounded-full bg-white/5 blur-2xl pointer-events-none"></div>
+    <div onclick="window.openFormulaModal(${idx})"
+      class="gourmet-only-section col-span-full my-3 p-5 rounded-[2.2rem] text-white shadow-2xl relative overflow-hidden border border-white/20 cursor-pointer group hover:scale-[1.01] active:scale-[0.99] transition-all duration-300"
+      style="background: linear-gradient(90deg, rgba(16, 9, 5, 0.94) 0%, rgba(28, 15, 9, 0.88) 55%, rgba(16, 9, 5, 0.65) 100%), url('${combo.heroImg}') center/cover no-repeat;">
+      
+      <div class="absolute -right-10 -bottom-10 w-48 h-48 rounded-full bg-amber-500/10 blur-2xl pointer-events-none"></div>
+
       <div class="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div class="space-y-1.5 flex-1">
-          <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/15 backdrop-blur-md text-amber-300 text-[10px] font-black uppercase tracking-wider">
-            <span class="material-symbols-outlined text-[13px]">${combo.icon}</span>
+          <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-400 text-stone-950 text-[10px] font-black uppercase tracking-wider shadow-md">
+            <span class="material-symbols-outlined text-[13px]">verified</span>
             <span>${combo.badge}</span>
           </div>
-          <h3 class="gourmet-serif text-2xl md:text-3xl font-extrabold tracking-wide text-white leading-tight">${combo.title}</h3>
-          <p class="text-xs text-white/80 font-medium leading-relaxed max-w-xl">${combo.subtitle}</p>
+          <h3 class="gourmet-serif text-2xl md:text-3xl font-black tracking-wide text-white leading-tight drop-shadow-sm group-hover:text-amber-300 transition-colors">${combo.title}</h3>
+          <p class="text-xs text-white/85 font-medium leading-relaxed max-w-xl">${combo.subtitle}</p>
         </div>
+        
         <div class="flex items-center gap-4 shrink-0 pt-2 md:pt-0 border-t md:border-t-0 border-white/10 justify-between md:justify-end">
           <div class="text-left md:text-right">
             <span class="text-[11px] text-white/50 line-through block font-bold">${combo.oldPrice} DH</span>
@@ -197,10 +208,10 @@ function renderGourmetComboCard(comboIndex) {
               <span class="text-xs font-black text-amber-400">DH</span>
             </div>
           </div>
-          <button type="button" onclick="window.addGourmetComboToCart('${itemsJson}')"
+          <button type="button" onclick="event.stopPropagation(); window.openFormulaModal(${idx})"
             class="px-5 py-3 rounded-2xl bg-[#FF5200] hover:bg-[#e04800] text-white text-xs font-black uppercase tracking-wider shadow-lg flex items-center gap-2 active:scale-95 transition-all">
-            <span class="material-symbols-outlined text-[16px]">add_shopping_cart</span>
-            <span>Prendre la formule</span>
+            <span class="material-symbols-outlined text-[16px]">visibility</span>
+            <span>Voir la formule</span>
           </button>
         </div>
       </div>
@@ -208,36 +219,95 @@ function renderGourmetComboCard(comboIndex) {
   `;
 }
 
-window.addGourmetComboToCart = function(itemsJsonStr) {
-  try {
-    const comboItems = JSON.parse(itemsJsonStr);
-    let curCart = getStoredCart();
-    comboItems.forEach(ci => {
-      const existing = curCart.find(x => x.name === ci.name);
-      if (existing) {
-        existing.quantity = (existing.quantity || 1) + 1;
-      } else {
-        curCart.push({
-          id: 'combo-' + Math.floor(1000 + Math.random() * 9000),
-          name: ci.name,
-          price: ci.price,
-          quantity: ci.qty || 1,
-          image: ci.image,
-          image_url: ci.image,
-          category: 'Formule'
-        });
-      }
+window.openFormulaModal = function(comboIndex) {
+  currentSelectedComboIndex = comboIndex;
+  const combo = GOURMET_COMBOS[comboIndex];
+  if (!combo) return;
+
+  const modal = document.getElementById('gourmet-combo-modal');
+  if (!modal) return;
+
+  const imgEl = document.getElementById('combo-modal-img');
+  const titleEl = document.getElementById('combo-modal-title');
+  const subEl = document.getElementById('combo-modal-subtitle');
+  const badgeEl = document.getElementById('combo-modal-badge');
+  const listEl = document.getElementById('combo-modal-items-list');
+  const savingsEl = document.getElementById('combo-modal-savings-text');
+  const oldPriceEl = document.getElementById('combo-modal-old-price');
+  const priceEl = document.getElementById('combo-modal-price');
+  const addLabelEl = document.getElementById('combo-modal-add-label');
+
+  if (imgEl) imgEl.src = combo.heroImg;
+  if (titleEl) titleEl.textContent = combo.title;
+  if (subEl) subEl.textContent = combo.subtitle;
+  if (badgeEl) badgeEl.textContent = combo.badge;
+  if (savingsEl) savingsEl.textContent = `Économisez ${combo.savings} DH avec cette formule !`;
+  if (oldPriceEl) oldPriceEl.textContent = `${combo.oldPrice} DH`;
+  if (priceEl) priceEl.textContent = `${combo.price} DH`;
+  if (addLabelEl) addLabelEl.textContent = `Prendre la formule (${combo.price} DH)`;
+
+  if (listEl) {
+    listEl.innerHTML = combo.items.map(it => `
+      <div class="flex items-center justify-between p-2.5 rounded-2xl bg-stone-50 dark:bg-white/5 border border-stone-200/60 dark:border-white/5">
+        <div class="flex items-center gap-3">
+          <img src="${it.image}" alt="${it.name}" class="w-11 h-11 rounded-xl object-cover shadow-sm shrink-0" onerror="this.onerror=null;this.src='assets/coffee-single-origin-espresso.jpg'" />
+          <div>
+            <h4 class="text-xs font-black text-stone-900 dark:text-white">${it.name}</h4>
+            <span class="text-[10px] text-stone-400 font-bold">Inclus dans la formule</span>
+          </div>
+        </div>
+        <div class="text-right">
+          <span class="text-xs font-black text-stone-700 dark:text-stone-300">${it.price.toFixed(2)} DH</span>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  modal.classList.remove('hidden');
+  modal.classList.add('flex');
+};
+
+window.closeFormulaModal = function() {
+  const modal = document.getElementById('gourmet-combo-modal');
+  if (modal) {
+    modal.classList.add('hidden');
+    modal.classList.remove('flex');
+  }
+  currentSelectedComboIndex = null;
+};
+
+window.confirmAddFormulaToCart = function() {
+  if (currentSelectedComboIndex === null) return;
+  const combo = GOURMET_COMBOS[currentSelectedComboIndex];
+  if (!combo) return;
+
+  let curCart = getStoredCart();
+  const existingIndex = curCart.findIndex(x => x.name === combo.title);
+  if (existingIndex > -1) {
+    curCart[existingIndex].quantity = (curCart[existingIndex].quantity || 1) + 1;
+  } else {
+    curCart.push({
+      id: 'formula-' + combo.id,
+      name: combo.title,
+      description: combo.subtitle,
+      price: parseFloat(combo.price),
+      quantity: 1,
+      image: combo.heroImg,
+      image_url: combo.heroImg,
+      category: 'Formule'
     });
-    localStorage.setItem('stitch_cart', JSON.stringify(curCart));
-    cart = curCart;
-    updateCartUI();
-    if (typeof window.openStitchCartModal === 'function') {
-      window.openStitchCartModal();
-    }
-  } catch (err) {
-    console.warn('Could not add formula to cart:', err);
+  }
+
+  localStorage.setItem('stitch_cart', JSON.stringify(curCart));
+  cart = curCart;
+  updateCartUI();
+  window.closeFormulaModal();
+
+  if (typeof window.showOrderNotification === 'function') {
+    window.showOrderNotification(`✨ ${combo.title} ajoutée au panier (${combo.price} DH)`);
   }
 };
+
 
 window.addEventListener('stitchThemeChanged', () => {
   renderCategories();
@@ -1749,4 +1819,86 @@ window.switchMenuThemeQuick = function(theme) {
         localStorage.setItem('stitch_menu_theme', theme);
         location.reload();
     }
+};
+
+
+// --- THREE-DOTS MENU & MOBILE CONTROLS ---
+window.toggleOptionsMenu = function(show) {
+  const sheet = document.getElementById('menu-options-sheet');
+  if (!sheet) return;
+  const shouldOpen = typeof show === 'boolean' ? show : sheet.classList.contains('hidden');
+  if (shouldOpen) {
+    // Highlight active theme button
+    const curTheme = (typeof window.getStitchActiveTheme === 'function' ? window.getStitchActiveTheme() : localStorage.getItem('stitch_menu_theme')) || 'swiggy-bold';
+    document.querySelectorAll('.theme-opt-btn').forEach(btn => {
+      const match = btn.dataset.theme === curTheme;
+      btn.classList.toggle('border-primary', match);
+      btn.classList.toggle('bg-primary/10', match);
+    });
+
+    // Highlight active lang button
+    const curLang = getLang();
+    document.querySelectorAll('.lang-opt-btn').forEach(btn => {
+      const match = btn.dataset.lang === curLang;
+      btn.classList.toggle('border-primary', match);
+      btn.classList.toggle('bg-primary/10', match);
+      btn.classList.toggle('text-primary', match);
+    });
+
+    sheet.classList.remove('hidden');
+    sheet.classList.add('flex');
+  } else {
+    sheet.classList.add('hidden');
+    sheet.classList.remove('flex');
+  }
+};
+
+window.switchMenuThemeFromMobile = function(theme) {
+  if (typeof window.setStitchActiveTheme === 'function') {
+    window.setStitchActiveTheme(theme, true);
+  } else {
+    localStorage.setItem('stitch_menu_theme', theme);
+  }
+  
+  // Update URL without full reload so sharing/bookmarks keep theme
+  try {
+    const u = new URL(window.location.href);
+    u.searchParams.set('theme', theme);
+    window.history.replaceState({}, '', u.href);
+  } catch (_) {}
+
+  window.toggleOptionsMenu(false);
+  
+  const names = { 'swiggy-bold': 'Swiggy Bold 🚀', 'gourmet': 'Gourmet Reserve ✨', 'classic': 'Classique Minimaliste ☕' };
+  if (typeof window.showOrderNotification === 'function') {
+    window.showOrderNotification(`🎨 Thème activé : ${names[theme] || theme}`);
+  }
+};
+
+window.setMenuLanguage = function(lang) {
+  if (!['fr', 'ar', 'en'].includes(lang)) return;
+  try {
+    localStorage.setItem('stitch_lang', lang);
+  } catch (_) {}
+  
+  // Set html lang and dir
+  document.documentElement.lang = lang;
+  document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+
+  window.toggleOptionsMenu(false);
+  
+  // Re-render items and translations
+  if (typeof renderAllMenuItems === 'function') {
+    renderAllMenuItems(bestsellers);
+  }
+  if (typeof updatePageTranslations === 'function') {
+    updatePageTranslations();
+  }
+};
+
+window.scrollToMenu = function() {
+  const target = document.getElementById('bestsellers') || document.getElementById('bestsellers-grid') || document.querySelector('.main-menu-section');
+  if (target) {
+    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
 };

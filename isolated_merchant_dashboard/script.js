@@ -601,7 +601,16 @@ const DASHBOARD_TRANSLATIONS = {
     }
 };
 
-let currentLang = localStorage.getItem('stitch_dashboard_lang') || 'en';
+let currentLang = (() => {
+    try {
+        if (typeof window !== 'undefined' && window.location && window.location.search) {
+            const urlParams = new URLSearchParams(window.location.search);
+            const l = urlParams.get('lang');
+            if (l && ['fr', 'ar', 'en'].includes(l.toLowerCase())) return l.toLowerCase();
+        }
+    } catch (_) {}
+    return localStorage.getItem('stitch_dashboard_lang') || 'fr';
+})();
 
 function switchLanguage(lang) {
     currentLang = lang;
@@ -2750,7 +2759,7 @@ window.openReceiptModal = (orderId) => {
         <div class="flex justify-between items-start mb-2">
             <div class="w-8 shrink-0">${i.qty}x</div>
             <div class="flex-1 px-2">
-                <div>${i.name}</div>
+                <div>${getLocalizedItemName(i.name)}</div>
                 ${i.mods && i.mods.length > 0 ? `<div class="text-[10px] text-gray-500 italic mt-0.5">• ${i.mods.join(', ')}</div>` : ''}
             </div>
             <div class="w-16 text-right">${(i.price * i.qty).toFixed(2)}</div>
@@ -2760,7 +2769,7 @@ window.openReceiptModal = (orderId) => {
     const sub = order.total / 1.1; // Simple reverse tax calculation for demo
     document.getElementById('receipt-subtotal').textContent = sub.toFixed(2);
     document.getElementById('receipt-tax').textContent = (order.total - sub).toFixed(2);
-    document.getElementById('receipt-total').textContent = order.total.toFixed(2) + ' DH';
+    document.getElementById('receipt-total').textContent = order.total.toFixed(2) + (currentLang === 'ar' ? ' د.م.' : ' DH');
     const tipRow = document.getElementById('receipt-tip-row');
     const tipVal = document.getElementById('receipt-tip');
     if (order.tip && order.tip > 0) {
@@ -3202,7 +3211,7 @@ function renderKitchenDisplay() {
                                 ${item.image_url ? `<img src="${escapeHTML(normalizeProductImage(item.image_url))}" alt="${escapeHTML(item.name)}" class="w-full h-full object-cover rounded-md" onerror="this.onerror=null;this.src='assets/product-placeholder.svg'">` : '<span class="material-symbols-outlined text-gray-400 text-[16px]">restaurant</span>'}
                             </div>
                             <div class="flex-1 min-w-0">
-                                <p class="font-bold text-xs text-gray-800 dark:text-gray-100 truncate">${escapeHTML(item.name)}</p>
+                                <p class="font-bold text-xs text-gray-800 dark:text-gray-100 truncate">${escapeHTML(getLocalizedItemName(item.name))}</p>
                                 ${item.mods ? `<p class="text-[10px] text-gray-500 dark:text-gray-400 truncate font-medium">${escapeHTML(item.mods.join(', '))}</p>` : ''}
                             </div>
                             <div class="flex items-center gap-1.5">

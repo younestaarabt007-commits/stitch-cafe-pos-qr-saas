@@ -252,6 +252,40 @@ function getGourmetCategoryMeta(item) {
 }
 
 
+const ARABIC_GOURMET_TAGS = {
+  'Fait minute': 'تحضير فوري',
+  'Pain Levain & Bio': 'خبز مخمر طبيعي',
+  'Recette Chef': 'وصفة الشيف',
+  '100% Arabica': '100% أرابيكا',
+  'Barista Choice': 'اختيار الباريستا',
+  'Feuilles Entières': 'أوراق شاي كاملة',
+  'Pressé minute': 'معصور طازج',
+  'Superfood Boost': 'طاقة طبيعية',
+  'Glace Artisanale': 'مثلجات حرفية',
+  'Ultra Givré': 'مشروب مثلج',
+  'Pur Beurre AOP': 'زبدة ممتازة',
+  'Farine Meule': 'طحين مطحون',
+  'Signature Stitch': 'توقيع ستيتش'
+};
+
+const ARABIC_COMBOS = {
+  'matin-royal': {
+    title: "باقة الصباح الملكي",
+    subtitle: "إسبريسو محمص + كرواسون بالزبدة الطبيعية + عصير برتقال طبيعي معصور",
+    badge: "☀️ وفر 19 د.م."
+  },
+  'duo-dejeuner': {
+    title: "باقة الغداء الفاخر",
+    subtitle: "توست أفوكادو بالسلمون والبيض + سموذي توت العليق الطازج",
+    badge: "🥑 اختيار الشيف المميز"
+  },
+  'pause-gouter': {
+    title: "باقة استراحة الشاي والحلويات",
+    subtitle: "فلات وايت مخملي ناعم + قطعة تشيز كيك بالليمون المنعش",
+    badge: "☕ متعة المذاق 100%"
+  }
+};
+
 const GOURMET_COMBOS = [
   {
     id: 'matin-royal',
@@ -531,7 +565,7 @@ function renderBestsellers(items) {
           <div class="flex items-center justify-between mt-1 pt-1 border-t border-stone-100/80 dark:border-white/5">
             <div class="flex items-baseline gap-1">
               <span class="text-base md:text-lg font-black text-stone-900 dark:text-white font-outfit">${priceText}</span>
-              <span class="text-[11px] font-black text-primary">DH</span>
+              <span class="text-[11px] font-black text-primary">${itemCurr}</span>
             </div>
             ${isOutOfStock ? `
             <button type="button" onclick="event.stopPropagation(); window.showOutOfStockAlert('${nameText.replace(/'/g, "\\'")}')"
@@ -758,7 +792,7 @@ window.selectTwoLevelCategory = function(mainCat = 'all', subCat = 'all', scroll
       <button type="button" onclick="window.selectTwoLevelCategory('${activeMainCat}', 'all', false)"
         class="shrink-0 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[11px] font-extrabold transition-all ${activeSubCat === 'all' ? 'bg-stone-900 text-white dark:bg-white dark:text-stone-900 shadow-sm' : 'bg-stone-100 dark:bg-white/5 text-stone-600 dark:text-stone-300 hover:bg-stone-200/70'}">
         <span class="material-symbols-outlined text-[13px]">apps</span>
-        <span>Tout (${allCount})</span>
+        <span>${(typeof getLang === 'function' && getLang() === 'ar') ? 'الكل' : 'Tout'} (${allCount})</span>
       </button>
     `;
 
@@ -770,7 +804,7 @@ window.selectTwoLevelCategory = function(mainCat = 'all', subCat = 'all', scroll
         <button type="button" onclick="window.selectTwoLevelCategory('${meta.mainCat}', '${subKey}', false)"
           class="shrink-0 inline-flex items-center gap-1.5 pr-3 pl-1.5 py-1 rounded-full text-[11px] font-bold transition-all border ${isSubActive ? 'bg-primary/10 border-primary text-primary font-extrabold shadow-sm' : 'bg-white dark:bg-white/5 border-stone-200/80 dark:border-white/10 text-stone-700 dark:text-stone-300 hover:border-primary/40'}">
           <img src="${meta.img}" alt="" class="w-5 h-5 rounded-full object-cover" onerror="this.style.display='none'">
-          <span>${meta.label}</span>
+          <span>${(typeof getLang === 'function' && getLang() === 'ar' && typeof ARABIC_SUBCAT_LABELS !== 'undefined' && ARABIC_SUBCAT_LABELS[subKey]) ? ARABIC_SUBCAT_LABELS[subKey] : meta.label}</span>
           <span class="text-[10px] opacity-65">(${count})</span>
         </button>
       `;

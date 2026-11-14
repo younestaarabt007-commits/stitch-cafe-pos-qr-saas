@@ -10,13 +10,26 @@
     return 'http://127.0.0.1:8000';
   }
 
+  function getUiLang() {
+    if (typeof getLang === 'function') return getLang();
+    try {
+      const urlParams = new URLSearchParams(window.location.search);
+      const urlLang = urlParams.get('lang');
+      if (urlLang && ['fr', 'ar', 'en'].includes(urlLang.toLowerCase())) {
+        return urlLang.toLowerCase();
+      }
+      return localStorage.getItem('stitch_lang') || 'fr';
+    } catch (_) {
+      return 'fr';
+    }
+  }
+
   function getActiveOrderMode() {
     const params = new URLSearchParams(window.location.search);
     const urlMode = params.get('mode');
     const urlTable = params.get('table');
 
     if (urlTable && urlTable.trim()) {
-      // Scanning a Table QR always puts the user in Table branch (dine_in or takeaway)
       try {
         localStorage.setItem('stitch_qr_branch', 'table');
         const current = localStorage.getItem('stitch_order_mode');
@@ -148,68 +161,64 @@
       localStorage.setItem('stitch_cart', JSON.stringify(normalized));
       const count = normalized.reduce((s, i) => s + i.quantity, 0);
       const total = normalized.reduce((s, i) => s + i.price * i.quantity, 0);
-      localStorage.setItem('stitch_cart_count', String(count));
-      localStorage.setItem('stitch_cart_total', String(total.toFixed(2)));
+      window.dispatchEvent(new CustomEvent('stitch_cart_updated', {
+        detail: { items: normalized, count, total }
+      }));
     } catch (_) {}
-    if (typeof window.cart !== 'undefined' && Array.isArray(window.cart)) {
-      window.cart = normalized;
-    }
     updateGlobalCartCount();
-    if (typeof window.updateCartUI === 'function') {
-      try { window.updateCartUI(); } catch (_) {}
-    }
-    return normalized;
   }
 
-  window.getStitchCart = readNormalizedCart;
-  window.setStitchCart = writeNormalizedCart;
+  window.changeStitchCartQty = function (id, delta) {
+    const items = readNormalizedCart();
+    const item = items.find(i => String(i.id) === String(id));
+    if (!item) return;
+    item.quantity = (item.quantity || 1) + delta;
+    if (item.quantity <= 0) {
+      window.removeStitchCartItem(id);
+      return;
+    }
+    item.qty = item.quantity;
+    writeNormalizedCart(items);
+    renderStitchCartModalItems();
+  };
 
-  window.updateGlobalCartCount = function () {
-    const cartItems = readNormalizedCart();
-    const count = cartItems.reduce((sum, item) => sum + (item.quantity || item.qty || 1), 0);
-    const total = cartItems.reduce((sum, item) => sum + (item.price * (item.quantity || item.qty || 1)), 0);
+  window.removeStitchCartItem = function (id) {
+    const items = readNormalizedCart().filter(i => String(i.id) !== String(id));
+    writeNormalizedCart(items);
+    renderStitchCartModalItems();
+  };
 
-    document.querySelectorAll('#global-cart-count').forEach(badge => {
-      if (count > 0) {
-        badge.textContent = String(count);
-        badge.classList.remove('hidden');
-      } else {
-        badge.classList.add('hidden');
-      }
-    });
+  function updateGlobalCartCount() {
+    const items = readNormalizedCart();
+    const count = items.reduce((s, i) => s + (i.quantity || 1), 0);
+    const subtotal = items.reduce((s, i) => s + (i.price || 0) * (i.quantity || 1), 0);
+    const isAr = getUiLang() === 'ar';
+    const curr = isAr ? 'د.م.' : 'DH';
 
+    // 1. Bottom Nav Cart Badge
+    const badge = document.getElementById('global-cart-count');
+    if (badge) {
+      badge.textContent = count;
+      badge.classList.toggle('hidden', count === 0);
+    }
+
+    // 2. Floating Cart Bar (Home menu)
     const floatingBar = document.getElementById('stitch-floating-cart-bar');
-    if (floatingBar) {
-      if (count > 0 && isHomeMenuPage()) {
+    const floatingCount = document.getElementById('stitch-floating-cart-count');
+    const floatingTotal = document.getElementById('stitch-floating-cart-total');
+
+    if (floatingBar && isHomeMenuPage()) {
+      if (count > 0) {
         floatingBar.classList.remove('hidden');
-        const countEl = document.getElementById('stitch-floating-cart-count');
-        const totalEl = document.getElementById('stitch-floating-cart-total');
-        if (countEl) countEl.textContent = `${count} article${count > 1 ? 's' : ''}`;
-        if (totalEl) totalEl.textContent = `${total.toFixed(2)} DH`;
+        if (floatingCount) floatingCount.textContent = isAr ? `${count} أصناف` : `${count} article${count > 1 ? 's' : ''}`;
+        if (floatingTotal) floatingTotal.textContent = `${subtotal.toFixed(2)} ${curr}`;
       } else {
         floatingBar.classList.add('hidden');
       }
     }
-  };
+  }
 
-  window.changeStitchCartQty = function (itemId, delta) {
-    const current = readNormalizedCart();
-    const updated = [];
-    for (const item of current) {
-      if (item.id === itemId) {
-        const nextQty = (item.quantity || 1) + delta;
-        if (nextQty > 0) {
-          item.quantity = nextQty;
-          item.qty = nextQty;
-          updated.push(item);
-        }
-      } else {
-        updated.push(item);
-      }
-    }
-    writeNormalizedCart(updated);
-    renderStitchCartModalItems();
-  };
+  window.refreshStitchCartBadge = updateGlobalCartCount;
 
   function updateCartModalModeUI() {
     const mode = getActiveOrderMode();
@@ -221,21 +230,26 @@
     const serviceValue = document.getElementById('stitch-modal-tax');
     const btnDineIn = document.getElementById('cart-mode-dinein');
     const btnTakeaway = document.getElementById('cart-mode-takeaway');
+    const isAr = getUiLang() === 'ar';
 
     if (mode === 'delivery') {
       tablePill?.classList.add('hidden');
       deliveryPill?.classList.remove('hidden');
       tableModeSwitch?.classList.add('hidden');
       deliveryFields?.classList.remove('hidden');
-      if (serviceLabel) serviceLabel.textContent = 'Livraison à domicile';
-      if (serviceValue) serviceValue.textContent = 'Gratuite';
+      if (serviceLabel) serviceLabel.textContent = isAr ? 'التوصيل المنزلي' : 'Livraison à domicile';
+      if (serviceValue) serviceValue.textContent = isAr ? 'مجاني' : 'Gratuite';
     } else {
       tablePill?.classList.remove('hidden');
       deliveryPill?.classList.add('hidden');
       tableModeSwitch?.classList.remove('hidden');
       deliveryFields?.classList.add('hidden');
-      if (serviceLabel) serviceLabel.textContent = mode === 'takeaway' ? 'Préparation À Emporter' : 'Service à table';
-      if (serviceValue) serviceValue.textContent = 'Inclus';
+      if (serviceLabel) {
+        serviceLabel.textContent = mode === 'takeaway' 
+          ? (isAr ? 'تغليف سفري' : 'Préparation À Emporter')
+          : (isAr ? 'خدمة الطاولة' : 'Service à table');
+      }
+      if (serviceValue) serviceValue.textContent = isAr ? 'مشمول' : 'Inclus';
 
       if (btnDineIn && btnTakeaway) {
         if (mode === 'takeaway') {
@@ -250,14 +264,15 @@
   }
 
   window.captureCustomerGpsLocation = function () {
+    const isAr = getUiLang() === 'ar';
     const statusEl = document.getElementById('stitch-gps-status');
     const addressInput = document.getElementById('stitch-cart-delivery-address');
     const gpsHidden = document.getElementById('stitch-cart-delivery-gps');
     if (!navigator.geolocation) {
-      alert('La géolocalisation n’est pas disponible sur cet appareil.');
+      alert(isAr ? 'خاصية تحديد الموقع غير مدعومة على هذا الجهاز.' : 'La géolocalisation n’est pas disponible sur cet appareil.');
       return;
     }
-    if (statusEl) statusEl.textContent = 'Localisation...';
+    if (statusEl) statusEl.textContent = isAr ? 'جارِ التحديد...' : 'Localisation...';
     navigator.geolocation.getCurrentPosition(
       function (pos) {
         const lat = pos.coords.latitude.toFixed(6);
@@ -265,14 +280,14 @@
         const mapsUrl = `https://www.google.com/maps?q=${lat},${lng}`;
         if (gpsHidden) gpsHidden.value = mapsUrl;
         try { localStorage.setItem('stitch_delivery_gps', mapsUrl); } catch (_) {}
-        if (statusEl) statusEl.textContent = 'GPS Ajouté';
+        if (statusEl) statusEl.textContent = isAr ? 'تم تحديد الموقع' : 'GPS Ajouté';
         if (addressInput && !addressInput.value.trim()) {
-          addressInput.value = `Position GPS exacte (${lat}, ${lng})`;
+          addressInput.value = isAr ? `إحداثيات GPS (${lat}, ${lng})` : `Position GPS exacte (${lat}, ${lng})`;
         }
       },
       function () {
-        if (statusEl) statusEl.textContent = 'Position GPS';
-        alert('Impossible de récupérer votre position GPS automatiquement. Veuillez saisir votre adresse.');
+        if (statusEl) statusEl.textContent = isAr ? 'موقعي عبر GPS' : 'Position GPS';
+        alert(isAr ? 'تعذر جلب موقعك تلقائياً، يرجى كتابة العنوان يدوياً.' : 'Impossible de récupérer votre position GPS automatiquement. Veuillez saisir votre adresse.');
       },
       { enableHighAccuracy: true, timeout: 8000 }
     );
@@ -281,6 +296,9 @@
   function ensureStitchCartModal() {
     if (document.getElementById('stitch-universal-cart-modal')) return;
 
+    const lang = getUiLang();
+    const isAr = lang === 'ar';
+    const curr = isAr ? 'د.م.' : 'DH';
     const currentTable = getActiveTable();
     const savedName = localStorage.getItem('stitch_customer_name') || '';
     const savedPhone = localStorage.getItem('stitch_delivery_phone') || '';
@@ -289,42 +307,42 @@
 
     const modalHtml = `
       <!-- Floating Cart Bar (Shown ONLY on Home Menu page, hides on scroll down & reappears on scroll up) -->
-      <div id="stitch-floating-cart-bar" class="fixed bottom-[68px] md:bottom-[76px] left-1/2 -translate-x-1/2 z-[55] w-[92%] max-w-[430px] hidden transition-all duration-300 ease-out">
+      <div id="stitch-floating-cart-bar" class="fixed bottom-[68px] md:bottom-[76px] left-1/2 -translate-x-1/2 z-[55] w-[92%] max-w-[430px] hidden transition-all duration-300 ease-out" dir="${isAr ? 'rtl' : 'ltr'}">
         <button type="button" onclick="window.openStitchCartModal()" class="w-full bg-stone-900 hover:bg-[#FF5200] text-white rounded-2xl px-5 py-3.5 shadow-[0_16px_36px_rgba(24,18,14,0.32)] flex items-center justify-between transition-all active:scale-95 border border-white/15">
           <div class="flex items-center gap-3">
-            <span class="bg-[#FF5200] text-white px-2.5 py-1 rounded-xl text-xs font-extrabold shadow-sm" id="stitch-floating-cart-count">0 articles</span>
-            <span class="text-xs font-extrabold uppercase tracking-wider">Voir le Panier • Commander</span>
+            <span class="bg-[#FF5200] text-white px-2.5 py-1 rounded-xl text-xs font-extrabold shadow-sm" id="stitch-floating-cart-count">0 ${isAr ? 'أصناف' : 'articles'}</span>
+            <span class="text-xs font-extrabold uppercase tracking-wider">${isAr ? 'عرض السلة • إتمام الطلب' : 'Voir le Panier • Commander'}</span>
           </div>
           <div class="flex items-center gap-1.5 font-black text-sm text-amber-300">
-            <span id="stitch-floating-cart-total">0.00 DH</span>
+            <span id="stitch-floating-cart-total">0.00 ${curr}</span>
             <span class="material-symbols-outlined text-[18px] text-white">shopping_bag</span>
           </div>
         </button>
       </div>
 
       <!-- Universal Cart & Checkout Modal -->
-      <div id="stitch-universal-cart-modal" class="fixed inset-0 z-[120] hidden">
+      <div id="stitch-universal-cart-modal" class="fixed inset-0 z-[120] hidden" dir="${isAr ? 'rtl' : 'ltr'}">
         <div class="absolute inset-0 bg-black/65 backdrop-blur-sm" onclick="window.closeStitchCartModal()"></div>
         <div class="absolute bottom-0 left-0 right-0 bg-[#FAF8F5] dark:bg-[#1e1510] text-stone-900 dark:text-white rounded-t-[2.25rem] border-t border-stone-200/80 dark:border-white/10 shadow-[0_-20px_60px_rgba(0,0,0,0.35)] p-5 sm:p-6 max-w-lg mx-auto max-h-[92vh] flex flex-col">
           <div class="w-12 h-1.5 bg-stone-300 dark:bg-stone-700 rounded-full mx-auto mb-4 shrink-0"></div>
           
           <div class="flex items-center justify-between mb-3 shrink-0">
             <div>
-              <h3 class="text-xl font-extrabold tracking-tight">Votre Commande</h3>
-              <p class="text-[11px] text-stone-500 dark:text-stone-400">Transmission instantanée en cuisine</p>
+              <h3 class="text-xl font-extrabold tracking-tight">${isAr ? 'طلبك الحصري' : 'Votre Commande'}</h3>
+              <p class="text-[11px] text-stone-500 dark:text-stone-400">${isAr ? 'إرسال فوري إلى المطبخ للتحضير' : 'Transmission instantanée en cuisine'}</p>
             </div>
 
             <!-- Table Badge (Shown in Table Branch) -->
             <div id="stitch-cart-table-pill" class="flex items-center gap-1.5 bg-white dark:bg-white/10 border border-stone-200 dark:border-white/10 px-3 py-1.5 rounded-xl shadow-sm">
               <span class="material-symbols-outlined text-[#FF5200] text-[16px]">table_restaurant</span>
-              <span class="text-xs font-bold text-stone-700 dark:text-stone-200">Table</span>
+              <span class="text-xs font-bold text-stone-700 dark:text-stone-200">${isAr ? 'طاولة' : 'Table'}</span>
               <input id="stitch-cart-table-input" type="text" value="${currentTable}" class="w-10 bg-transparent border-b border-[#FF5200]/40 text-center font-black text-xs text-[#FF5200] focus:outline-none" title="Numéro de table" />
             </div>
 
             <!-- Delivery Badge (Shown in Delivery Branch) -->
             <div id="stitch-cart-delivery-pill" class="hidden flex items-center gap-1.5 bg-orange-50 dark:bg-orange-950/40 border border-orange-200 dark:border-orange-800/40 px-3 py-1.5 rounded-xl">
               <span class="material-symbols-outlined text-[#FF5200] text-[16px]">two_wheeler</span>
-              <span class="text-xs font-extrabold text-[#FF5200]">Livraison Domicile</span>
+              <span class="text-xs font-extrabold text-[#FF5200]">${isAr ? 'توصيل منزلي' : 'Livraison Domicile'}</span>
             </div>
           </div>
 
@@ -333,12 +351,12 @@
             <button type="button" id="cart-mode-dinein" onclick="window.setStitchOrderMode('dine_in')"
               class="flex-1 py-2 px-3 rounded-xl text-xs font-extrabold bg-stone-900 text-white shadow-sm flex items-center justify-center gap-1.5 transition-all">
               <span class="material-symbols-outlined text-[15px]">local_dining</span>
-              <span>Sur Place</span>
+              <span>${isAr ? 'تناول هنا' : 'Sur Place'}</span>
             </button>
             <button type="button" id="cart-mode-takeaway" onclick="window.setStitchOrderMode('takeaway')"
               class="flex-1 py-2 px-3 rounded-xl text-xs font-bold text-stone-500 hover:text-stone-800 flex items-center justify-center gap-1.5 transition-all">
               <span class="material-symbols-outlined text-[15px]">shopping_bag</span>
-              <span>À Emporter</span>
+              <span>${isAr ? 'طلب سفري' : 'À Emporter'}</span>
             </button>
           </div>
 
@@ -353,26 +371,26 @@
                   <span class="material-symbols-outlined text-[18px]">two_wheeler</span>
                 </div>
                 <div>
-                  <p class="text-xs font-extrabold">Livraison estimée : 30 – 45 min</p>
-                  <p class="text-[10px] text-stone-500" id="stitch-delivery-fee-hint">Livraison offerte dès 150 DH • sinon 15 DH</p>
+                  <p class="text-xs font-extrabold">${isAr ? 'التوصيل التقديري: 30 – 45 دقيقة' : 'Livraison estimée : 30 – 45 min'}</p>
+                  <p class="text-[10px] text-stone-500" id="stitch-delivery-fee-hint">${isAr ? 'توصيل مجاني للطلبات فوق 150 د.م. • أو 15 د.م.' : 'Livraison offerte dès 150 DH • sinon 15 DH'}</p>
                 </div>
               </div>
-              <span class="text-[10px] font-extrabold uppercase tracking-wider text-[#FF5200] bg-white dark:bg-white/10 px-2 py-1 rounded-lg">Rabat</span>
+              <span class="text-[10px] font-extrabold uppercase tracking-wider text-[#FF5200] bg-white dark:bg-white/10 px-2 py-1 rounded-lg">${isAr ? 'الرباط' : 'Rabat'}</span>
             </div>
 
             <!-- Step 1: Contact -->
             <div class="p-3 rounded-2xl bg-white dark:bg-white/5 border border-stone-200/80 dark:border-white/10 space-y-2.5">
               <div class="flex items-center gap-2">
                 <span class="w-5 h-5 rounded-full bg-stone-900 text-white text-[10px] font-black flex items-center justify-center">1</span>
-                <span class="text-[11px] font-extrabold uppercase tracking-wider">Vos coordonnées</span>
+                <span class="text-[11px] font-extrabold uppercase tracking-wider">${isAr ? 'بيانات الاتصال' : 'Vos coordonnées'}</span>
               </div>
               <div class="grid grid-cols-2 gap-2.5">
                 <div>
-                  <label class="text-[10px] font-extrabold uppercase tracking-wider text-stone-500 block mb-1">Nom complet *</label>
-                  <input id="stitch-cart-delivery-name" type="text" value="${savedName.replace(/"/g, '&quot;')}" placeholder="Ex: Salma Bennani" class="w-full px-3 py-2 text-xs font-bold rounded-xl bg-[#FAF8F5] dark:bg-white/5 border border-stone-200 dark:border-white/10 focus:outline-none focus:border-[#FF5200]" />
+                  <label class="text-[10px] font-extrabold uppercase tracking-wider text-stone-500 block mb-1">${isAr ? 'الاسم الكامل *' : 'Nom complet *'}</label>
+                  <input id="stitch-cart-delivery-name" type="text" value="${savedName.replace(/"/g, '&quot;')}" placeholder="${isAr ? 'مثال: سلمى بناني' : 'Ex: Salma Bennani'}" class="w-full px-3 py-2 text-xs font-bold rounded-xl bg-[#FAF8F5] dark:bg-white/5 border border-stone-200 dark:border-white/10 focus:outline-none focus:border-[#FF5200]" />
                 </div>
                 <div>
-                  <label class="text-[10px] font-extrabold uppercase tracking-wider text-stone-500 block mb-1">Téléphone / WhatsApp *</label>
+                  <label class="text-[10px] font-extrabold uppercase tracking-wider text-stone-500 block mb-1">${isAr ? 'الهاتف / واتساب *' : 'Téléphone / WhatsApp *'}</label>
                   <input id="stitch-cart-delivery-phone" type="tel" value="${savedPhone.replace(/"/g, '&quot;')}" placeholder="06 61 23 45 67" class="w-full px-3 py-2 text-xs font-bold rounded-xl bg-[#FAF8F5] dark:bg-white/5 border border-stone-200 dark:border-white/10 focus:outline-none focus:border-[#FF5200]" />
                 </div>
               </div>
@@ -383,37 +401,37 @@
               <div class="flex items-center justify-between">
                 <div class="flex items-center gap-2">
                   <span class="w-5 h-5 rounded-full bg-stone-900 text-white text-[10px] font-black flex items-center justify-center">2</span>
-                  <span class="text-[11px] font-extrabold uppercase tracking-wider">Adresse de livraison</span>
+                  <span class="text-[11px] font-extrabold uppercase tracking-wider">${isAr ? 'عنوان التوصيل' : 'Adresse de livraison'}</span>
                 </div>
                 <button type="button" onclick="window.captureCustomerGpsLocation()" class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-[#FF5200]/10 text-[10px] font-extrabold text-[#FF5200]">
                   <span class="material-symbols-outlined text-[13px]">my_location</span>
-                  <span id="stitch-gps-status">${savedGps ? 'GPS Ajouté' : 'Ma position GPS'}</span>
+                  <span id="stitch-gps-status">${savedGps ? (isAr ? 'تم تحديد GPS' : 'GPS Ajouté') : (isAr ? 'موقعي عبر GPS' : 'Ma position GPS')}</span>
                 </button>
               </div>
               <div class="grid grid-cols-2 gap-2.5">
                 <div>
-                  <label class="text-[10px] font-extrabold uppercase tracking-wider text-stone-500 block mb-1">Quartier *</label>
+                  <label class="text-[10px] font-extrabold uppercase tracking-wider text-stone-500 block mb-1">${isAr ? 'الحي *' : 'Quartier *'}</label>
                   <select id="stitch-cart-delivery-district" class="w-full px-3 py-2 text-xs font-bold rounded-xl bg-[#FAF8F5] dark:bg-white/5 border border-stone-200 dark:border-white/10 focus:outline-none focus:border-[#FF5200]">
-                    <option value="">Choisir...</option>
+                    <option value="">${isAr ? 'اختر الحي...' : 'Choisir...'}</option>
                     <option>Agdal</option><option>Hassan</option><option>Hay Riad</option><option>Souissi</option>
                     <option>L'Océan</option><option>Les Orangers</option><option>Diour Jamaâ</option><option>Akkari</option>
-                    <option>Yacoub El Mansour</option><option>Salé</option><option>Témara</option><option>Autre</option>
+                    <option>Yacoub El Mansour</option><option>Salé</option><option>Témara</option><option>${isAr ? 'أخرى' : 'Autre'}</option>
                   </select>
                 </div>
                 <div>
-                  <label class="text-[10px] font-extrabold uppercase tracking-wider text-stone-500 block mb-1">Type de lieu</label>
+                  <label class="text-[10px] font-extrabold uppercase tracking-wider text-stone-500 block mb-1">${isAr ? 'نوع السكن' : 'Type de lieu'}</label>
                   <select id="stitch-cart-delivery-place" class="w-full px-3 py-2 text-xs font-bold rounded-xl bg-[#FAF8F5] dark:bg-white/5 border border-stone-200 dark:border-white/10 focus:outline-none focus:border-[#FF5200]">
-                    <option>Appartement</option><option>Maison / Villa</option><option>Bureau</option><option>Hôtel</option>
+                    <option>${isAr ? 'شقة' : 'Appartement'}</option><option>${isAr ? 'منزل / فيلا' : 'Maison / Villa'}</option><option>${isAr ? 'مكتب' : 'Bureau'}</option><option>${isAr ? 'فندق' : 'Hôtel'}</option>
                   </select>
                 </div>
               </div>
               <div>
-                <label class="text-[10px] font-extrabold uppercase tracking-wider text-stone-500 block mb-1">Rue, Immeuble, N° *</label>
-                <input id="stitch-cart-delivery-address" type="text" value="${savedAddress.replace(/"/g, '&quot;')}" placeholder="Ex: Rue Oukaimeden, Résidence Les Orangers, Imm. 14" class="w-full px-3 py-2 text-xs font-medium rounded-xl bg-[#FAF8F5] dark:bg-white/5 border border-stone-200 dark:border-white/10 focus:outline-none focus:border-[#FF5200]" />
+                <label class="text-[10px] font-extrabold uppercase tracking-wider text-stone-500 block mb-1">${isAr ? 'الشارع، الإقامة، العمارة، رقم الباب *' : 'Rue, Immeuble, N° *'}</label>
+                <input id="stitch-cart-delivery-address" type="text" value="${savedAddress.replace(/"/g, '&quot;')}" placeholder="${isAr ? 'مثال: شارع أوكايمدن، إقامة البرتقال، عمارة 14' : 'Ex: Rue Oukaimeden, Résidence Les Orangers, Imm. 14'}" class="w-full px-3 py-2 text-xs font-medium rounded-xl bg-[#FAF8F5] dark:bg-white/5 border border-stone-200 dark:border-white/10 focus:outline-none focus:border-[#FF5200]" />
               </div>
               <div class="grid grid-cols-2 gap-2.5">
-                <input id="stitch-cart-delivery-floor" type="text" placeholder="Étage / Appt (ex: 3e, Appt 8)" class="w-full px-3 py-2 text-xs font-medium rounded-xl bg-[#FAF8F5] dark:bg-white/5 border border-stone-200 dark:border-white/10 focus:outline-none focus:border-[#FF5200]" />
-                <input id="stitch-cart-delivery-landmark" type="text" placeholder="Point de repère (ex: face pharmacie)" class="w-full px-3 py-2 text-xs font-medium rounded-xl bg-[#FAF8F5] dark:bg-white/5 border border-stone-200 dark:border-white/10 focus:outline-none focus:border-[#FF5200]" />
+                <input id="stitch-cart-delivery-floor" type="text" placeholder="${isAr ? 'الطابق / الشقة (مثال: الطابق 3، شقة 8)' : 'Étage / Appt (ex: 3e, Appt 8)'}" class="w-full px-3 py-2 text-xs font-medium rounded-xl bg-[#FAF8F5] dark:bg-white/5 border border-stone-200 dark:border-white/10 focus:outline-none focus:border-[#FF5200]" />
+                <input id="stitch-cart-delivery-landmark" type="text" placeholder="${isAr ? 'أقرب معلم بارز (مثال: أمام الصيدلية)' : 'Point de repère (ex: face pharmacie)'}" class="w-full px-3 py-2 text-xs font-medium rounded-xl bg-[#FAF8F5] dark:bg-white/5 border border-stone-200 dark:border-white/10 focus:outline-none focus:border-[#FF5200]" />
               </div>
               <input id="stitch-cart-delivery-gps" type="hidden" value="${savedGps.replace(/"/g, '&quot;')}" />
             </div>
@@ -422,16 +440,16 @@
             <div class="p-3 rounded-2xl bg-white dark:bg-white/5 border border-stone-200/80 dark:border-white/10 space-y-2.5">
               <div class="flex items-center gap-2">
                 <span class="w-5 h-5 rounded-full bg-stone-900 text-white text-[10px] font-black flex items-center justify-center">3</span>
-                <span class="text-[11px] font-extrabold uppercase tracking-wider">Quand livrer ?</span>
+                <span class="text-[11px] font-extrabold uppercase tracking-wider">${isAr ? 'وقت التوصيل المطلوب' : 'Quand livrer ?'}</span>
               </div>
               <div class="grid grid-cols-2 gap-2">
                 <label class="flex items-center gap-2 p-2.5 rounded-xl border border-stone-200 dark:border-white/10 cursor-pointer has-[:checked]:border-[#FF5200] has-[:checked]:bg-orange-50/60">
                   <input type="radio" name="stitch-delivery-when" value="asap" checked class="accent-[#FF5200]" onchange="document.getElementById('stitch-cart-delivery-time').classList.add('hidden')" />
-                  <span class="text-xs font-bold">Dès que possible</span>
+                  <span class="text-xs font-bold">${isAr ? 'في أسرع وقت ممكن (فوري)' : 'Dès que possible'}</span>
                 </label>
                 <label class="flex items-center gap-2 p-2.5 rounded-xl border border-stone-200 dark:border-white/10 cursor-pointer has-[:checked]:border-[#FF5200] has-[:checked]:bg-orange-50/60">
                   <input type="radio" name="stitch-delivery-when" value="later" class="accent-[#FF5200]" onchange="document.getElementById('stitch-cart-delivery-time').classList.remove('hidden')" />
-                  <span class="text-xs font-bold">Programmer</span>
+                  <span class="text-xs font-bold">${isAr ? 'تحديد موعد لاحق' : 'Programmer'}</span>
                 </label>
               </div>
               <input id="stitch-cart-delivery-time" type="time" class="hidden w-full px-3 py-2 text-xs font-bold rounded-xl bg-[#FAF8F5] dark:bg-white/5 border border-stone-200 dark:border-white/10 focus:outline-none focus:border-[#FF5200]" />
@@ -441,24 +459,24 @@
             <div class="p-3 rounded-2xl bg-white dark:bg-white/5 border border-stone-200/80 dark:border-white/10 space-y-2.5">
               <div class="flex items-center gap-2">
                 <span class="w-5 h-5 rounded-full bg-stone-900 text-white text-[10px] font-black flex items-center justify-center">4</span>
-                <span class="text-[11px] font-extrabold uppercase tracking-wider">Paiement à la livraison</span>
+                <span class="text-[11px] font-extrabold uppercase tracking-wider">${isAr ? 'طريقة الدفع عند الاستلام' : 'Paiement à la livraison'}</span>
               </div>
               <div class="grid grid-cols-2 gap-2">
                 <label class="flex items-center gap-2 p-2.5 rounded-xl border border-stone-200 dark:border-white/10 cursor-pointer has-[:checked]:border-[#FF5200] has-[:checked]:bg-orange-50/60">
                   <input type="radio" name="stitch-delivery-pay" value="cash" checked class="accent-[#FF5200]" onchange="document.getElementById('stitch-cash-change-row').classList.remove('hidden')" />
                   <span class="material-symbols-outlined text-[16px] text-emerald-600">payments</span>
-                  <span class="text-xs font-bold">Espèces</span>
+                  <span class="text-xs font-bold">${isAr ? 'نقداً (كاش)' : 'Espèces'}</span>
                 </label>
                 <label class="flex items-center gap-2 p-2.5 rounded-xl border border-stone-200 dark:border-white/10 cursor-pointer has-[:checked]:border-[#FF5200] has-[:checked]:bg-orange-50/60">
                   <input type="radio" name="stitch-delivery-pay" value="card" class="accent-[#FF5200]" onchange="document.getElementById('stitch-cash-change-row').classList.add('hidden')" />
                   <span class="material-symbols-outlined text-[16px] text-blue-600">credit_card</span>
-                  <span class="text-xs font-bold">Carte (TPE)</span>
+                  <span class="text-xs font-bold">${isAr ? 'بطاقة بنكية (TPE)' : 'Carte (TPE)'}</span>
                 </label>
               </div>
               <div id="stitch-cash-change-row">
-                <input id="stitch-cart-cash-change" type="number" min="0" placeholder="Monnaie sur combien ? (ex: 200 DH)" class="w-full px-3 py-2 text-xs font-medium rounded-xl bg-[#FAF8F5] dark:bg-white/5 border border-stone-200 dark:border-white/10 focus:outline-none focus:border-[#FF5200]" />
+                <input id="stitch-cart-cash-change" type="number" min="0" placeholder="${isAr ? 'المبلغ الذي معك لإرجاع الصرف؟ (مثال: 200 د.م.)' : 'Monnaie sur combien ? (ex: 200 DH)'}" class="w-full px-3 py-2 text-xs font-medium rounded-xl bg-[#FAF8F5] dark:bg-white/5 border border-stone-200 dark:border-white/10 focus:outline-none focus:border-[#FF5200]" />
               </div>
-              <input id="stitch-cart-delivery-driver-note" type="text" placeholder="Note pour le livreur (ex: appeler en bas, interphone en panne)" class="w-full px-3 py-2 text-xs font-medium rounded-xl bg-[#FAF8F5] dark:bg-white/5 border border-stone-200 dark:border-white/10 focus:outline-none focus:border-[#FF5200]" />
+              <input id="stitch-cart-delivery-driver-note" type="text" placeholder="${isAr ? 'ملاحظات للسائق (مثال: الاتصال عند الباب السفلي)' : 'Note pour le livreur (ex: appeler en bas, interphone en panne)'}" class="w-full px-3 py-2 text-xs font-medium rounded-xl bg-[#FAF8F5] dark:bg-white/5 border border-stone-200 dark:border-white/10 focus:outline-none focus:border-[#FF5200]" />
               <select id="stitch-cart-payment-method" class="hidden"><option value="cash">cash</option><option value="card">card</option></select>
             </div>
           </div>
@@ -466,12 +484,12 @@
           <!-- Customer Info & Kitchen Notes -->
           <div id="stitch-cart-table-customer-block" class="mt-3 pt-3 border-t border-stone-200/80 dark:border-white/10 grid grid-cols-1 sm:grid-cols-2 gap-2.5 shrink-0">
             <div>
-              <label class="text-[10px] font-extrabold uppercase tracking-wider text-stone-400 block mb-1">Votre Nom / Prénom</label>
-              <input id="stitch-cart-customer-name" type="text" value="${savedName.replace(/"/g, '&quot;')}" placeholder="Ex: Yassine" class="w-full px-3.5 py-2 text-xs font-semibold rounded-xl bg-white dark:bg-white/5 border border-stone-200 dark:border-white/10 focus:outline-none focus:border-[#FF5200]" />
+              <label class="text-[10px] font-extrabold uppercase tracking-wider text-stone-400 block mb-1">${isAr ? 'الاسم الكريم' : 'Votre Nom / Prénom'}</label>
+              <input id="stitch-cart-customer-name" type="text" value="${savedName.replace(/"/g, '&quot;')}" placeholder="${isAr ? 'مثال: ياسين' : 'Ex: Yassine'}" class="w-full px-3.5 py-2 text-xs font-semibold rounded-xl bg-white dark:bg-white/5 border border-stone-200 dark:border-white/10 focus:outline-none focus:border-[#FF5200]" />
             </div>
             <div>
-              <label class="text-[10px] font-extrabold uppercase tracking-wider text-stone-400 block mb-1">Instructions Cuisine</label>
-              <input id="stitch-cart-notes" type="text" placeholder="Ex: Sans sucre, bien chaud..." class="w-full px-3.5 py-2 text-xs font-medium rounded-xl bg-white dark:bg-white/5 border border-stone-200 dark:border-white/10 focus:outline-none focus:border-[#FF5200]" />
+              <label class="text-[10px] font-extrabold uppercase tracking-wider text-stone-400 block mb-1">${isAr ? 'تعليمات للمطبخ' : 'Instructions Cuisine'}</label>
+              <input id="stitch-cart-notes" type="text" placeholder="${isAr ? 'مثال: بدون سكر، ساخن جداً...' : 'Ex: Sans sucre, bien chaud...'}" class="w-full px-3.5 py-2 text-xs font-medium rounded-xl bg-white dark:bg-white/5 border border-stone-200 dark:border-white/10 focus:outline-none focus:border-[#FF5200]" />
             </div>
           </div>
 
@@ -480,56 +498,56 @@
             <div class="flex items-center justify-between mb-1.5">
               <span class="text-[10px] font-extrabold uppercase tracking-wider text-stone-500 dark:text-stone-400 flex items-center gap-1">
                 <span class="material-symbols-outlined text-[14px] text-amber-500">volunteer_activism</span>
-                <span>Pourboire Serveur (Optionnel)</span>
+                <span>${isAr ? 'إكرامية النادل (اختياري)' : 'Pourboire Serveur (Optionnel)'}</span>
               </span>
-              <span id="stitch-cart-tip-display" class="text-[11px] font-extrabold text-amber-500">+0.00 DH</span>
+              <span id="stitch-cart-tip-display" class="text-[11px] font-extrabold text-amber-500">+0.00 ${curr}</span>
             </div>
             <div class="grid grid-cols-4 gap-1.5">
-              <button type="button" onclick="window.setClientTip(0)" class="client-tip-btn active py-1.5 px-1 rounded-xl border border-stone-200 dark:border-white/10 text-xs font-bold text-center bg-stone-100 dark:bg-white/10" data-tip="0">0 DH</button>
-              <button type="button" onclick="window.setClientTip(5)" class="client-tip-btn py-1.5 px-1 rounded-xl border border-stone-200 dark:border-white/10 text-xs font-bold text-center bg-stone-50 dark:bg-white/5 hover:border-amber-500" data-tip="5">+5 DH</button>
-              <button type="button" onclick="window.setClientTip(10)" class="client-tip-btn py-1.5 px-1 rounded-xl border border-stone-200 dark:border-white/10 text-xs font-bold text-center bg-stone-50 dark:bg-white/5 hover:border-amber-500" data-tip="10">+10 DH</button>
-              <button type="button" onclick="window.setClientTip(20)" class="client-tip-btn py-1.5 px-1 rounded-xl border border-stone-200 dark:border-white/10 text-xs font-bold text-center bg-stone-50 dark:bg-white/5 hover:border-amber-500" data-tip="20">+20 DH</button>
+              <button type="button" onclick="window.setClientTip(0)" class="client-tip-btn active py-1.5 px-1 rounded-xl border border-stone-200 dark:border-white/10 text-xs font-bold text-center bg-stone-100 dark:bg-white/10" data-tip="0">0 ${curr}</button>
+              <button type="button" onclick="window.setClientTip(5)" class="client-tip-btn py-1.5 px-1 rounded-xl border border-stone-200 dark:border-white/10 text-xs font-bold text-center bg-stone-50 dark:bg-white/5 hover:border-amber-500" data-tip="5">+5 ${curr}</button>
+              <button type="button" onclick="window.setClientTip(10)" class="client-tip-btn py-1.5 px-1 rounded-xl border border-stone-200 dark:border-white/10 text-xs font-bold text-center bg-stone-50 dark:bg-white/5 hover:border-amber-500" data-tip="10">+10 ${curr}</button>
+              <button type="button" onclick="window.setClientTip(20)" class="client-tip-btn py-1.5 px-1 rounded-xl border border-stone-200 dark:border-white/10 text-xs font-bold text-center bg-stone-50 dark:bg-white/5 hover:border-amber-500" data-tip="20">+20 ${curr}</button>
             </div>
           </div>
 
           <!-- Totals -->
           <div class="mt-3 pt-3 border-t border-stone-200/80 dark:border-white/10 space-y-1 shrink-0">
             <div class="flex justify-between items-center text-xs">
-              <span class="text-stone-400 font-bold uppercase tracking-wider">Sous-total</span>
-              <span id="stitch-modal-subtotal" class="font-bold">0.00 DH</span>
+              <span class="text-stone-400 font-bold uppercase tracking-wider">${isAr ? 'المجموع الفرعي' : 'Sous-total'}</span>
+              <span id="stitch-modal-subtotal" class="font-bold">0.00 ${curr}</span>
             </div>
             <div class="flex justify-between items-center text-xs">
-              <span id="stitch-modal-service-label" class="text-stone-400 font-bold uppercase tracking-wider">Service à table</span>
-              <span id="stitch-modal-tax" class="font-bold text-emerald-600">Inclus</span>
+              <span id="stitch-modal-service-label" class="text-stone-400 font-bold uppercase tracking-wider">${isAr ? 'خدمة الطاولة' : 'Service à table'}</span>
+              <span id="stitch-modal-tax" class="font-bold text-emerald-600">${isAr ? 'مشمول' : 'Inclus'}</span>
             </div>
             <div class="flex justify-between items-center pt-1">
-              <span class="text-base font-extrabold">Total à payer</span>
-              <span id="stitch-modal-total" class="text-2xl font-black text-[#FF5200]">0.00 DH</span>
+              <span class="text-base font-extrabold">${isAr ? 'المجموع الإجمالي للدفع' : 'Total à payer'}</span>
+              <span id="stitch-modal-total" class="text-2xl font-black text-[#FF5200]">0.00 ${curr}</span>
             </div>
           </div>
 
           <!-- Buttons -->
           <div class="mt-4 grid grid-cols-3 gap-3 shrink-0">
             <button type="button" onclick="window.closeStitchCartModal()" class="col-span-1 bg-white dark:bg-white/10 border border-stone-200 dark:border-white/10 py-3.5 rounded-2xl font-bold text-xs hover:bg-stone-100 transition-all">
-              Fermer
+              ${isAr ? 'إغلاق' : 'Fermer'}
             </button>
             <button type="button" id="stitch-submit-order-btn" onclick="window.submitStitchLiveOrder()" class="col-span-2 bg-[#FF5200] hover:bg-[#e04800] text-white py-3.5 rounded-2xl font-extrabold text-sm shadow-[0_10px_24px_rgba(255,82,0,0.35)] flex items-center justify-center gap-2 transition-all active:scale-95">
               <span class="material-symbols-outlined text-[18px]">send</span>
-              <span>Confirmer la commande</span>
+              <span>${isAr ? 'تأكيد الطلب الآن' : 'Confirmer la commande'}</span>
             </button>
           </div>
         </div>
       </div>
 
       <!-- Universal Luxury Category & Sub-Category Drawer -->
-      <div id="stitch-category-drawer" class="fixed inset-0 z-[125] hidden">
+      <div id="stitch-category-drawer" class="fixed inset-0 z-[125] hidden" dir="${isAr ? 'rtl' : 'ltr'}">
         <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" onclick="window.closeStitchCategoryDrawer()"></div>
         <div class="absolute bottom-0 left-0 right-0 bg-[#FAF8F5] dark:bg-[#1e1510] text-stone-900 dark:text-white rounded-t-[2.25rem] border-t border-stone-200/80 shadow-[0_-20px_60px_rgba(0,0,0,0.35)] p-5 sm:p-6 max-w-lg mx-auto max-h-[85vh] flex flex-col">
           <div class="w-12 h-1.5 bg-stone-300 dark:bg-stone-700 rounded-full mx-auto mb-4 shrink-0"></div>
           <div class="flex items-center justify-between mb-4 shrink-0">
             <div>
-              <span class="text-[10px] font-extrabold uppercase tracking-[0.2em] text-[#FF5200] block">Navigation Rapide</span>
-              <h3 class="text-xl font-extrabold tracking-tight">Toutes nos Catégories</h3>
+              <span class="text-[10px] font-extrabold uppercase tracking-[0.2em] text-[#FF5200] block">${isAr ? 'تصفح سريع' : 'Navigation Rapide'}</span>
+              <h3 class="text-xl font-extrabold tracking-tight">${isAr ? 'كافة الأقسام والتصنيفات' : 'Toutes nos Catégories'}</h3>
             </div>
             <button type="button" onclick="window.closeStitchCategoryDrawer()" class="w-9 h-9 rounded-full bg-stone-200/70 dark:bg-white/10 flex items-center justify-center">
               <span class="material-symbols-outlined text-[18px]">close</span>
@@ -545,27 +563,27 @@
                     <span class="material-symbols-outlined text-[20px]">brunch_dining</span>
                   </div>
                   <div>
-                    <h4 class="text-sm font-extrabold">Brunch & Plats Salés</h4>
-                    <p class="text-[10px] text-stone-400 font-semibold">38 recettes préparées minute</p>
+                    <h4 class="text-sm font-extrabold">${isAr ? 'برانش وأطباق مالحة' : 'Brunch & Plats Salés'}</h4>
+                    <p class="text-[10px] text-stone-400 font-semibold">${isAr ? '38 وصفة محضرة عند الطلب' : '38 recettes préparées minute'}</p>
                   </div>
                 </div>
-                <button type="button" onclick="window.jumpToMenuCategory('brunch', 'all')" class="text-xs font-extrabold text-[#FF5200] hover:underline">Tout voir</button>
+                <button type="button" onclick="window.jumpToMenuCategory('brunch', 'all')" class="text-xs font-extrabold text-[#FF5200] hover:underline">${isAr ? 'عرض الكل' : 'Tout voir'}</button>
               </div>
               <div class="grid grid-cols-3 gap-2">
-                <button type="button" onclick="window.jumpToMenuCategory('brunch', 'breakfast')" class="p-2.5 rounded-xl bg-[#FAF8F5] dark:bg-white/5 hover:border-[#FF5200] border border-stone-200/70 text-left transition-all">
+                <button type="button" onclick="window.jumpToMenuCategory('brunch', 'breakfast')" class="p-2.5 rounded-xl bg-[#FAF8F5] dark:bg-white/5 hover:border-[#FF5200] border border-stone-200/70 text-start transition-all">
                   <span class="material-symbols-outlined text-[16px] text-[#FF5200]">egg_alt</span>
-                  <p class="text-xs font-bold mt-1 truncate">Petit-Déjeuner</p>
-                  <p class="text-[10px] text-stone-400">10 articles</p>
+                  <p class="text-xs font-bold mt-1 truncate">${isAr ? 'فطور صباحي' : 'Petit-Déjeuner'}</p>
+                  <p class="text-[10px] text-stone-400">${isAr ? '10 أصناف' : '10 articles'}</p>
                 </button>
-                <button type="button" onclick="window.jumpToMenuCategory('brunch', 'toast')" class="p-2.5 rounded-xl bg-[#FAF8F5] dark:bg-white/5 hover:border-[#FF5200] border border-stone-200/70 text-left transition-all">
+                <button type="button" onclick="window.jumpToMenuCategory('brunch', 'toast')" class="p-2.5 rounded-xl bg-[#FAF8F5] dark:bg-white/5 hover:border-[#FF5200] border border-stone-200/70 text-start transition-all">
                   <span class="material-symbols-outlined text-[16px] text-[#FF5200]">lunch_dining</span>
-                  <p class="text-xs font-bold mt-1 truncate">Toasts & Salades</p>
-                  <p class="text-[10px] text-stone-400">15 articles</p>
+                  <p class="text-xs font-bold mt-1 truncate">${isAr ? 'توست وسلطات' : 'Toasts & Salades'}</p>
+                  <p class="text-[10px] text-stone-400">${isAr ? '15 صنفاً' : '15 articles'}</p>
                 </button>
-                <button type="button" onclick="window.jumpToMenuCategory('brunch', 'fastfood')" class="p-2.5 rounded-xl bg-[#FAF8F5] dark:bg-white/5 hover:border-[#FF5200] border border-stone-200/70 text-left transition-all">
+                <button type="button" onclick="window.jumpToMenuCategory('brunch', 'fastfood')" class="p-2.5 rounded-xl bg-[#FAF8F5] dark:bg-white/5 hover:border-[#FF5200] border border-stone-200/70 text-start transition-all">
                   <span class="material-symbols-outlined text-[16px] text-[#FF5200]">fastfood</span>
-                  <p class="text-xs font-bold mt-1 truncate">Burgers & Tacos</p>
-                  <p class="text-[10px] text-stone-400">13 articles</p>
+                  <p class="text-xs font-bold mt-1 truncate">${isAr ? 'برغر وسناكس' : 'Burgers & Tacos'}</p>
+                  <p class="text-[10px] text-stone-400">${isAr ? '13 صنفاً' : '13 articles'}</p>
                 </button>
               </div>
             </div>
@@ -578,27 +596,27 @@
                     <span class="material-symbols-outlined text-[20px]">coffee</span>
                   </div>
                   <div>
-                    <h4 class="text-sm font-extrabold">Torréfaction & Boissons Chaudes</h4>
-                    <p class="text-[10px] text-stone-400 font-semibold">24 créations barista & infusions</p>
+                    <h4 class="text-sm font-extrabold">${isAr ? 'قهوة مختصة ومشروبات ساخنة' : 'Torréfaction & Boissons Chaudes'}</h4>
+                    <p class="text-[10px] text-stone-400 font-semibold">${isAr ? '24 إبداع باريستا وأعشاب' : '24 créations barista & infusions'}</p>
                   </div>
                 </div>
-                <button type="button" onclick="window.jumpToMenuCategory('brew', 'all')" class="text-xs font-extrabold text-[#FF5200] hover:underline">Tout voir</button>
+                <button type="button" onclick="window.jumpToMenuCategory('brew', 'all')" class="text-xs font-extrabold text-[#FF5200] hover:underline">${isAr ? 'عرض الكل' : 'Tout voir'}</button>
               </div>
               <div class="grid grid-cols-3 gap-2">
-                <button type="button" onclick="window.jumpToMenuCategory('brew', 'black')" class="p-2.5 rounded-xl bg-[#FAF8F5] dark:bg-white/5 hover:border-[#FF5200] border border-stone-200/70 text-left transition-all">
+                <button type="button" onclick="window.jumpToMenuCategory('brew', 'black')" class="p-2.5 rounded-xl bg-[#FAF8F5] dark:bg-white/5 hover:border-[#FF5200] border border-stone-200/70 text-start transition-all">
                   <span class="material-symbols-outlined text-[16px] text-amber-800">local_cafe</span>
-                  <p class="text-xs font-bold mt-1 truncate">Black Coffee</p>
-                  <p class="text-[10px] text-stone-400">6 articles</p>
+                  <p class="text-xs font-bold mt-1 truncate">${isAr ? 'قهوة سوداء' : 'Black Coffee'}</p>
+                  <p class="text-[10px] text-stone-400">${isAr ? '6 أصناف' : '6 articles'}</p>
                 </button>
-                <button type="button" onclick="window.jumpToMenuCategory('brew', 'latte')" class="p-2.5 rounded-xl bg-[#FAF8F5] dark:bg-white/5 hover:border-[#FF5200] border border-stone-200/70 text-left transition-all">
+                <button type="button" onclick="window.jumpToMenuCategory('brew', 'latte')" class="p-2.5 rounded-xl bg-[#FAF8F5] dark:bg-white/5 hover:border-[#FF5200] border border-stone-200/70 text-start transition-all">
                   <span class="material-symbols-outlined text-[16px] text-amber-800">coffee_maker</span>
-                  <p class="text-xs font-bold mt-1 truncate">Lattés & Crème</p>
-                  <p class="text-[10px] text-stone-400">9 articles</p>
+                  <p class="text-xs font-bold mt-1 truncate">${isAr ? 'لاتيه وكريمة' : 'Lattés & Crème'}</p>
+                  <p class="text-[10px] text-stone-400">${isAr ? '9 أصناف' : '9 articles'}</p>
                 </button>
-                <button type="button" onclick="window.jumpToMenuCategory('brew', 'tea')" class="p-2.5 rounded-xl bg-[#FAF8F5] dark:bg-white/5 hover:border-[#FF5200] border border-stone-200/70 text-left transition-all">
+                <button type="button" onclick="window.jumpToMenuCategory('brew', 'tea')" class="p-2.5 rounded-xl bg-[#FAF8F5] dark:bg-white/5 hover:border-[#FF5200] border border-stone-200/70 text-start transition-all">
                   <span class="material-symbols-outlined text-[16px] text-emerald-700">emoji_food_beverage</span>
-                  <p class="text-xs font-bold mt-1 truncate">Thés & Infusions</p>
-                  <p class="text-[10px] text-stone-400">9 articles</p>
+                  <p class="text-xs font-bold mt-1 truncate">${isAr ? 'شاي وأعشاب' : 'Thés & Infusions'}</p>
+                  <p class="text-[10px] text-stone-400">${isAr ? '9 أصناف' : '9 articles'}</p>
                 </button>
               </div>
             </div>
@@ -611,32 +629,32 @@
                     <span class="material-symbols-outlined text-[20px]">local_bar</span>
                   </div>
                   <div>
-                    <h4 class="text-sm font-extrabold">Boissons Froides & Fraîcheur</h4>
-                    <p class="text-[10px] text-stone-400 font-semibold">42 jus pressés, smoothies & shakes</p>
+                    <h4 class="text-sm font-extrabold">${isAr ? 'مشروبات باردة وعصائر منعشة' : 'Boissons Froides & Fraîcheur'}</h4>
+                    <p class="text-[10px] text-stone-400 font-semibold">${isAr ? '42 عصائر طبيعية، سموذي وميلك شيك' : '42 jus pressés, smoothies & shakes'}</p>
                   </div>
                 </div>
-                <button type="button" onclick="window.jumpToMenuCategory('cold', 'all')" class="text-xs font-extrabold text-[#FF5200] hover:underline">Tout voir</button>
+                <button type="button" onclick="window.jumpToMenuCategory('cold', 'all')" class="text-xs font-extrabold text-[#FF5200] hover:underline">${isAr ? 'عرض الكل' : 'Tout voir'}</button>
               </div>
               <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
-                <button type="button" onclick="window.jumpToMenuCategory('cold', 'juice')" class="p-2.5 rounded-xl bg-[#FAF8F5] dark:bg-white/5 hover:border-[#FF5200] border border-stone-200/70 text-left transition-all">
+                <button type="button" onclick="window.jumpToMenuCategory('cold', 'juice')" class="p-2.5 rounded-xl bg-[#FAF8F5] dark:bg-white/5 hover:border-[#FF5200] border border-stone-200/70 text-start transition-all">
                   <span class="material-symbols-outlined text-[16px] text-orange-500">nutrition</span>
-                  <p class="text-xs font-bold mt-1 truncate">Jus Frais</p>
-                  <p class="text-[10px] text-stone-400">11 articles</p>
+                  <p class="text-xs font-bold mt-1 truncate">${isAr ? 'عصائر طبيعية' : 'Jus Frais'}</p>
+                  <p class="text-[10px] text-stone-400">${isAr ? '11 صنفاً' : '11 articles'}</p>
                 </button>
-                <button type="button" onclick="window.jumpToMenuCategory('cold', 'smoothie')" class="p-2.5 rounded-xl bg-[#FAF8F5] dark:bg-white/5 hover:border-[#FF5200] border border-stone-200/70 text-left transition-all">
+                <button type="button" onclick="window.jumpToMenuCategory('cold', 'smoothie')" class="p-2.5 rounded-xl bg-[#FAF8F5] dark:bg-white/5 hover:border-[#FF5200] border border-stone-200/70 text-start transition-all">
                   <span class="material-symbols-outlined text-[16px] text-rose-500">blender</span>
-                  <p class="text-xs font-bold mt-1 truncate">Smoothies</p>
-                  <p class="text-[10px] text-stone-400">11 articles</p>
+                  <p class="text-xs font-bold mt-1 truncate">${isAr ? 'سموذي فواكه' : 'Smoothies'}</p>
+                  <p class="text-[10px] text-stone-400">${isAr ? '11 صنفاً' : '11 articles'}</p>
                 </button>
-                <button type="button" onclick="window.jumpToMenuCategory('cold', 'milkshake')" class="p-2.5 rounded-xl bg-[#FAF8F5] dark:bg-white/5 hover:border-[#FF5200] border border-stone-200/70 text-left transition-all">
+                <button type="button" onclick="window.jumpToMenuCategory('cold', 'milkshake')" class="p-2.5 rounded-xl bg-[#FAF8F5] dark:bg-white/5 hover:border-[#FF5200] border border-stone-200/70 text-start transition-all">
                   <span class="material-symbols-outlined text-[16px] text-pink-500">icecream</span>
-                  <p class="text-xs font-bold mt-1 truncate">Milkshakes</p>
-                  <p class="text-[10px] text-stone-400">8 articles</p>
+                  <p class="text-xs font-bold mt-1 truncate">${isAr ? 'ميلك شيك' : 'Milkshakes'}</p>
+                  <p class="text-[10px] text-stone-400">${isAr ? '8 أصناف' : '8 articles'}</p>
                 </button>
-                <button type="button" onclick="window.jumpToMenuCategory('cold', 'iced')" class="p-2.5 rounded-xl bg-[#FAF8F5] dark:bg-white/5 hover:border-[#FF5200] border border-stone-200/70 text-left transition-all">
+                <button type="button" onclick="window.jumpToMenuCategory('cold', 'iced')" class="p-2.5 rounded-xl bg-[#FAF8F5] dark:bg-white/5 hover:border-[#FF5200] border border-stone-200/70 text-start transition-all">
                   <span class="material-symbols-outlined text-[16px] text-sky-600">ac_unit</span>
-                  <p class="text-xs font-bold mt-1 truncate">Mojitos & Iced</p>
-                  <p class="text-[10px] text-stone-400">12 articles</p>
+                  <p class="text-xs font-bold mt-1 truncate">${isAr ? 'مشروبات مثلجة' : 'Mojitos & Iced'}</p>
+                  <p class="text-[10px] text-stone-400">${isAr ? '12 صنفاً' : '12 articles'}</p>
                 </button>
               </div>
             </div>
@@ -649,22 +667,22 @@
                     <span class="material-symbols-outlined text-[20px]">bakery_dining</span>
                   </div>
                   <div>
-                    <h4 class="text-sm font-extrabold">Boulangerie & Haute Pâtisserie</h4>
-                    <p class="text-[10px] text-stone-400 font-semibold">26 viennoiseries, pains & douceurs</p>
+                    <h4 class="text-sm font-extrabold">${isAr ? 'مخبوزات وحلويات فرنسية' : 'Boulangerie & Haute Pâtisserie'}</h4>
+                    <p class="text-[10px] text-stone-400 font-semibold">${isAr ? '26 صنفاً طازجاً من الفرن والحلويات' : '26 viennoiseries, pains & douceurs'}</p>
                   </div>
                 </div>
-                <button type="button" onclick="window.jumpToMenuCategory('pastry', 'all')" class="text-xs font-extrabold text-[#FF5200] hover:underline">Tout voir</button>
+                <button type="button" onclick="window.jumpToMenuCategory('pastry', 'all')" class="text-xs font-extrabold text-[#FF5200] hover:underline">${isAr ? 'عرض الكل' : 'Tout voir'}</button>
               </div>
               <div class="grid grid-cols-2 gap-2">
-                <button type="button" onclick="window.jumpToMenuCategory('pastry', 'sweet')" class="p-2.5 rounded-xl bg-[#FAF8F5] dark:bg-white/5 hover:border-[#FF5200] border border-stone-200/70 text-left transition-all">
+                <button type="button" onclick="window.jumpToMenuCategory('pastry', 'sweet')" class="p-2.5 rounded-xl bg-[#FAF8F5] dark:bg-white/5 hover:border-[#FF5200] border border-stone-200/70 text-start transition-all">
                   <span class="material-symbols-outlined text-[16px] text-rose-500">cake</span>
-                  <p class="text-xs font-bold mt-1 truncate">Pâtisseries, Crêpes & Pancakes</p>
-                  <p class="text-[10px] text-stone-400">14 articles</p>
+                  <p class="text-xs font-bold mt-1 truncate">${isAr ? 'حلويات، كريب وبان كيك' : 'Pâtisseries, Crêpes & Pancakes'}</p>
+                  <p class="text-[10px] text-stone-400">${isAr ? '14 صنفاً' : '14 articles'}</p>
                 </button>
-                <button type="button" onclick="window.jumpToMenuCategory('pastry', 'bread')" class="p-2.5 rounded-xl bg-[#FAF8F5] dark:bg-white/5 hover:border-[#FF5200] border border-stone-200/70 text-left transition-all">
+                <button type="button" onclick="window.jumpToMenuCategory('pastry', 'bread')" class="p-2.5 rounded-xl bg-[#FAF8F5] dark:bg-white/5 hover:border-[#FF5200] border border-stone-200/70 text-start transition-all">
                   <span class="material-symbols-outlined text-[16px] text-amber-700">breakfast_dining</span>
-                  <p class="text-xs font-bold mt-1 truncate">Viennoiseries & Pains</p>
-                  <p class="text-[10px] text-stone-400">12 articles</p>
+                  <p class="text-xs font-bold mt-1 truncate">${isAr ? 'فطائر ومخبوزات طازجة' : 'Viennoiseries & Pains'}</p>
+                  <p class="text-[10px] text-stone-400">${isAr ? '12 صنفاً' : '12 articles'}</p>
                 </button>
               </div>
             </div>
@@ -700,12 +718,13 @@
     window.location.href = `../swiggy-style_elite_main_menu_390x2500/index.html${query}#menu-sticky-anchor`;
   };
 
-  
   window.clientTipAmount = 0;
   window.setClientTip = function(amount) {
     window.clientTipAmount = parseFloat(amount) || 0;
+    const isAr = getUiLang() === 'ar';
+    const curr = isAr ? 'د.م.' : 'DH';
     const tipDisplay = document.getElementById('stitch-cart-tip-display');
-    if (tipDisplay) tipDisplay.textContent = `+${window.clientTipAmount.toFixed(2)} DH`;
+    if (tipDisplay) tipDisplay.textContent = `+${window.clientTipAmount.toFixed(2)} ${curr}`;
 
     document.querySelectorAll('.client-tip-btn').forEach(btn => {
       const match = parseFloat(btn.dataset.tip) === window.clientTipAmount;
@@ -720,7 +739,7 @@
     const items = readNormalizedCart();
     const subtotal = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
     const totalEl = document.getElementById('stitch-modal-total');
-    if (totalEl) totalEl.textContent = `${(subtotal + window.clientTipAmount).toFixed(2)} DH`;
+    if (totalEl) totalEl.textContent = `${(subtotal + window.clientTipAmount).toFixed(2)} ${curr}`;
   };
 
   function renderStitchCartModalItems() {
@@ -732,17 +751,20 @@
     const submitBtn = document.getElementById('stitch-submit-order-btn');
     if (!listEl) return;
 
+    const isAr = getUiLang() === 'ar';
+    const curr = isAr ? 'د.م.' : 'DH';
     const items = readNormalizedCart();
+
     if (items.length === 0) {
       listEl.innerHTML = `
         <div class="py-10 text-center text-stone-400">
           <span class="material-symbols-outlined text-4xl mb-2 opacity-40">shopping_bag</span>
-          <p class="text-xs font-bold uppercase tracking-wider">Votre panier est vide</p>
-          <p class="text-[11px] mt-1">Ajoutez des articles depuis le menu pour commander.</p>
+          <p class="text-xs font-bold uppercase tracking-wider">${isAr ? 'سلتك فارغة حالياً' : 'Votre panier est vide'}</p>
+          <p class="text-[11px] mt-1">${isAr ? 'أضف أطباقك ومشروباتك المفضلة من القائمة للطلب.' : 'Ajoutez des articles depuis le menu pour commander.'}</p>
         </div>
       `;
-      if (subEl) subEl.textContent = '0.00 DH';
-      if (totalEl) totalEl.textContent = '0.00 DH';
+      if (subEl) subEl.textContent = `0.00 ${curr}`;
+      if (totalEl) totalEl.textContent = `0.00 ${curr}`;
       if (submitBtn) submitBtn.disabled = true;
       return;
     }
@@ -754,13 +776,17 @@
       const lineTotal = item.price * item.quantity;
       subtotal += lineTotal;
       const modsText = Array.isArray(item.mods) && item.mods.length ? item.mods.join(' • ') : '';
+      const localizedName = (typeof getLocalizedItemName === 'function')
+        ? getLocalizedItemName(item.name || item.id)
+        : (item.name || 'Article');
+
       return `
         <div class="flex items-center gap-3 bg-white dark:bg-white/5 p-3 rounded-2xl border border-stone-200/80 dark:border-white/10 shadow-sm">
-          <img src="${item.image}" alt="${item.name}" class="w-12 h-12 rounded-xl object-cover shrink-0 bg-stone-100" onerror="this.onerror=null;this.src='../assets/waiter.jpg'" />
+          <img src="${item.image}" alt="${localizedName}" class="w-12 h-12 rounded-xl object-cover shrink-0 bg-stone-100" onerror="this.onerror=null;this.src='../assets/waiter.jpg'" />
           <div class="flex-1 min-w-0">
-            <h4 class="font-extrabold text-xs sm:text-sm truncate">${item.name}</h4>
+            <h4 class="font-extrabold text-xs sm:text-sm truncate">${localizedName}</h4>
             ${modsText ? `<p class="text-[10px] text-stone-500 dark:text-stone-400 truncate mt-0.5">${modsText}</p>` : ''}
-            <p class="text-xs font-black text-[#FF5200] mt-0.5">${item.price.toFixed(2)} DH</p>
+            <p class="text-xs font-black text-[#FF5200] mt-0.5">${item.price.toFixed(2)} ${curr}</p>
           </div>
           <div class="flex items-center gap-2 shrink-0">
             <button type="button" onclick="window.changeStitchCartQty('${item.id}', -1)" class="w-7 h-7 rounded-full bg-stone-100 dark:bg-white/10 flex items-center justify-center font-bold text-sm hover:bg-stone-200">-</button>
@@ -771,9 +797,9 @@
       `;
     }).join('');
 
-    if (subEl) subEl.textContent = `${subtotal.toFixed(2)} DH`;
+    if (subEl) subEl.textContent = `${subtotal.toFixed(2)} ${curr}`;
     const finalTotal = subtotal + (window.clientTipAmount || 0);
-    if (totalEl) totalEl.textContent = `${finalTotal.toFixed(2)} DH`;
+    if (totalEl) totalEl.textContent = `${finalTotal.toFixed(2)} ${curr}`;
   }
 
   window.openStitchCartModal = function () {
@@ -789,9 +815,10 @@
   };
 
   window.submitStitchLiveOrder = async function () {
+    const isAr = getUiLang() === 'ar';
     const items = readNormalizedCart();
     if (items.length === 0) {
-      alert('Votre panier est vide !');
+      alert(isAr ? 'سلتك فارغة حالياً!' : 'Votre panier est vide !');
       return;
     }
 
@@ -814,7 +841,7 @@
 
     if (orderMode === 'delivery') {
       if (!deliveryPhone || !deliveryAddress) {
-        alert('Pour la livraison, veuillez indiquer votre numéro de téléphone et votre adresse.');
+        alert(isAr ? 'بالنسبة للتوصيل، يرجى ملء رقم الهاتف والعنوان بالتفصيل.' : 'Pour la livraison, veuillez indiquer votre numéro de téléphone et votre adresse.');
         return;
       }
       try {
@@ -825,8 +852,8 @@
 
     const rawTable = (tableInput?.value || getActiveTable() || '12').trim().replace(/^Table\s+/i, '') || '12';
     const tableLabel = orderMode === 'delivery'
-      ? 'Livraison'
-      : (orderMode === 'takeaway' ? `${rawTable} (À Emporter)` : rawTable);
+      ? (isAr ? 'توصيل منزلي' : 'Livraison')
+      : (orderMode === 'takeaway' ? `${rawTable} (${isAr ? 'سفري' : 'À Emporter'})` : rawTable);
 
     try {
       if (orderMode !== 'delivery') localStorage.setItem('stitch_current_table', rawTable);
@@ -848,59 +875,49 @@
       deliveryAddress: orderMode === 'delivery' ? deliveryAddress : undefined,
       deliveryGps: orderMode === 'delivery' ? deliveryGps : undefined,
       paymentMethod,
-      notes: orderMode === 'takeaway' ? `[À EMPORTER] ${notes}`.trim() : notes,
-      items: items.map(i => ({
-        name: i.name,
-        qty: i.quantity,
-        price: i.price,
-        mods: i.mods || [],
-        notes: notes || i.notes || '',
-        category: i.category || 'Menu',
-        img: i.image_url || i.image || '',
-        image_url: i.image_url || i.image || ''
+      items: items.map(it => ({
+        id: it.id,
+        name: it.name,
+        qty: it.quantity,
+        quantity: it.quantity,
+        price: it.price,
+        image_url: it.image || it.image_url,
+        mods: it.mods || []
       })),
-      total: Number(total.toFixed(2)),
-      tip: Number(tip.toFixed(2)),
+      notes: notes || undefined,
+      tip: tip > 0 ? tip : undefined,
+      subtotal,
+      total,
       status: 'Received',
-      source: 'qr_menu',
       time: Date.now()
     };
 
     if (btn) {
       btn.disabled = true;
-      btn.innerHTML = '<span class="material-symbols-outlined animate-spin text-[18px]">sync</span><span>Envoi en cours...</span>';
+      btn.innerHTML = `<span class="material-symbols-outlined text-[18px] animate-spin">progress_activity</span><span>${isAr ? 'جارِ الإرسال...' : 'Envoi en cours...'}</span>`;
     }
 
-    let createdOrder = payload;
+    try {
+      const storedOrders = JSON.parse(localStorage.getItem('stitch_live_orders') || '[]');
+      storedOrders.unshift(payload);
+      localStorage.setItem('stitch_live_orders', JSON.stringify(storedOrders));
+      localStorage.setItem('stitch_active_order_id', orderId);
+    } catch (_) {}
 
     try {
-      const res = await fetch(`${getLiveApiBase()}/api/live-orders`, {
+      await fetch(`${getLiveApiBase()}/api/orders`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
       });
-      if (res.ok) {
-        const data = await res.json();
-        if (data && data.success && data.data) {
-          createdOrder = data.data;
-        }
-      }
-    } catch (err) {
-      console.warn('API live-orders unreachable, using localStorage fallback:', err);
+    } catch (apiErr) {
+      console.warn('API sync failed (fallback to local & cloud sync):', apiErr);
     }
 
-    try {
-      const existing = JSON.parse(localStorage.getItem('stitch_live_orders') || '[]');
-      const filtered = Array.isArray(existing) ? existing.filter(o => o && o.id !== createdOrder.id) : [];
-      filtered.push(createdOrder);
-      localStorage.setItem('stitch_live_orders', JSON.stringify(filtered));
-      localStorage.setItem('stitch_active_customer_order', JSON.stringify(createdOrder));
-    } catch (_) {}
-
-    // Broadcast order via Real-Time Cloud Sync Engine (Cross-device instant push)
+    // Broadcast order via Real-Time Cloud Sync Engine
     if (window.stitchSync && typeof window.stitchSync.sendNewOrder === 'function') {
       try {
-        window.stitchSync.sendNewOrder(createdOrder);
+        window.stitchSync.sendNewOrder(payload);
       } catch (syncErr) {
         console.warn('Real-time sync broadcast failed:', syncErr);
       }
@@ -909,7 +926,7 @@
     writeNormalizedCart([]);
     window.closeStitchCartModal();
 
-    const targetUrl = `../order_success_page/index.html?orderId=${encodeURIComponent(createdOrder.id)}&table=${encodeURIComponent(createdOrder.table)}${orderMode === 'delivery' ? '&mode=delivery' : ''}`;
+    const targetUrl = `../order_success_page/index.html?orderId=${encodeURIComponent(payload.id)}&table=${encodeURIComponent(payload.table)}${orderMode === 'delivery' ? '&mode=delivery' : ''}`;
     window.location.href = targetUrl;
   };
 
@@ -960,16 +977,18 @@
     }, { passive: true });
   }
 
-  document.addEventListener('DOMContentLoaded', function () {
+  function initNavBar() {
     const activeTable = getActiveTable();
     const orderMode = getActiveOrderMode();
+    const lang = getUiLang();
+    const isAr = lang === 'ar';
 
     if (isProductDetailPage()) {
       updateGlobalCartCount();
       return;
     }
 
-    const oldNavs = document.querySelectorAll('nav.standard-nav-bar, nav, .floating-cart, #bottom-tabbar');
+    const oldNavs = document.querySelectorAll('nav.standard-nav-bar, nav.floating-cart, #bottom-tabbar');
     oldNavs.forEach(el => el.remove());
 
     document.body.classList.add('pb-32');
@@ -979,23 +998,23 @@
       : (activeTable ? `?table=${encodeURIComponent(activeTable)}` : '');
 
     const navHTML = `
-      <nav class="standard-nav-bar bg-white/95 dark:bg-[#1e1510]/95 border-t border-stone-200/80 dark:border-white/10 shadow-[0_-8px_30px_rgba(24,18,14,0.08)] backdrop-blur-xl h-[60px] md:h-[66px] flex items-stretch justify-between px-6 md:px-12 fixed bottom-0 left-0 right-0 z-50 w-full transition-transform duration-300 ease-out">
+      <nav class="standard-nav-bar bg-white/95 dark:bg-[#1e1510]/95 border-t border-stone-200/80 dark:border-white/10 shadow-[0_-8px_30px_rgba(24,18,14,0.08)] backdrop-blur-xl h-[60px] md:h-[66px] flex items-stretch justify-between px-6 md:px-12 fixed bottom-0 left-0 right-0 z-50 w-full transition-transform duration-300 ease-out" dir="${isAr ? 'rtl' : 'ltr'}">
         <button type="button" onclick="window.location.href='../swiggy-style_elite_main_menu_390x2500/index.html${homeQuery}'" class="flex-1 flex flex-col items-center justify-center gap-0.5 text-stone-700 dark:text-stone-300 hover:text-[#FF5200] transition-colors">
           <span class="material-symbols-outlined text-[22px]">restaurant_menu</span>
-          <span class="text-[10px] font-extrabold uppercase tracking-wider">Carte</span>
+          <span class="text-[10px] font-extrabold uppercase tracking-wider">${isAr ? 'القائمة' : 'Carte'}</span>
         </button>
         <button type="button" onclick="window.openStitchCategoryDrawer()" class="flex-1 flex flex-col items-center justify-center gap-0.5 text-stone-700 dark:text-stone-300 hover:text-[#FF5200] transition-colors">
           <span class="material-symbols-outlined text-[22px]">grid_view</span>
-          <span class="text-[10px] font-extrabold uppercase tracking-wider">Catégories</span>
+          <span class="text-[10px] font-extrabold uppercase tracking-wider">${isAr ? 'الأقسام' : 'Catégories'}</span>
         </button>
         <button type="button" onclick="window.openStitchCartModal()" class="relative flex-1 flex flex-col items-center justify-center gap-0.5 text-stone-700 dark:text-stone-300 hover:text-[#FF5200] transition-colors">
           <span class="material-symbols-outlined text-[22px]">shopping_bag</span>
-          <span class="text-[10px] font-extrabold uppercase tracking-wider">Panier</span>
+          <span class="text-[10px] font-extrabold uppercase tracking-wider">${isAr ? 'السلة' : 'Panier'}</span>
           <span id="global-cart-count" class="absolute top-1 right-4 md:right-8 bg-[#FF5200] text-white text-[10px] font-extrabold px-1.5 py-[1px] rounded-full hidden">0</span>
         </button>
         <button type="button" onclick="window.location.href='../order_success_page/index.html${homeQuery}'" class="flex-1 flex flex-col items-center justify-center gap-0.5 text-stone-700 dark:text-stone-300 hover:text-[#FF5200] transition-colors">
           <span class="material-symbols-outlined text-[22px]">receipt_long</span>
-          <span class="text-[10px] font-extrabold uppercase tracking-wider">Suivi</span>
+          <span class="text-[10px] font-extrabold uppercase tracking-wider">${isAr ? 'متابعة' : 'Suivi'}</span>
         </button>
       </nav>
     `;
@@ -1004,5 +1023,17 @@
     ensureStitchCartModal();
     updateGlobalCartCount();
     setupSmartScrollHideShow();
+  }
+
+  // Reactive Language Listener
+  document.addEventListener('languageChanged', function () {
+    document.getElementById('stitch-universal-cart-modal')?.remove();
+    document.getElementById('stitch-floating-cart-bar')?.remove();
+    document.getElementById('stitch-category-drawer')?.remove();
+    const nav = document.querySelector('nav.standard-nav-bar');
+    if (nav) nav.remove();
+    initNavBar();
   });
+
+  document.addEventListener('DOMContentLoaded', initNavBar);
 })();

@@ -415,6 +415,8 @@ const DASHBOARD_TRANSLATIONS = {
         delivery_hub: "Deliveries & Reservations",
         tables_plan: "Floor Plan (12 Tables)",
         theme_manager: "Menu Appearance",
+        history: "History & Tracking",
+        z_report: "Z-Report (Cash)",
         kds_sound: "KDS Chime",
         kds_sound_active: "KDS Sound: Active",
         cloud_live: "Cloud Live",
@@ -456,6 +458,8 @@ const DASHBOARD_TRANSLATIONS = {
         end_shift: "End Shift",
         floor_plan: "Floor Plan",
         titles: {
+            history: ["History & Long-Term Tracking", "Complete log of sales, payments, tips and service requests."],
+            'z-report': ["Z-Report (Register Closure)", "Daily financial closure, payment method breakdown and sales analytics."],
             dashboard: ["Today's Summary", "Manage your shop in real-time."],
             pos: ["Point of Sale", "Take manual orders directly from the counter."],
             orders: ["Order History", "Review and manage all past and live orders."],
@@ -480,6 +484,8 @@ const DASHBOARD_TRANSLATIONS = {
         delivery_hub: "Livraisons & Réservations",
         tables_plan: "Plan des Tables (12)",
         theme_manager: "Apparence du Menu",
+        history: "Historique & Suivi",
+        z_report: "Rapport Z (Caisse)",
         kds_sound: "Son KDS",
         kds_sound_active: "Son KDS : Actif",
         cloud_live: "Cloud Direct",
@@ -521,6 +527,8 @@ const DASHBOARD_TRANSLATIONS = {
         end_shift: "Fin de service",
         floor_plan: "Plan de salle",
         titles: {
+            history: ["Historique & Suivi Long Terme", "Consultez l'historique complet des commandes, paiements, pourboires et interventions."],
+            'z-report': ["Rapport Z (Caisse)", "Clôture comptable journalière, ventilation par mode de règlement et statistiques des ventes."],
             dashboard: ["Résumé d'aujourd'hui", "Gérez votre boutique en temps réel."],
             pos: ["Point de Vente", "Prenez les commandes manuelles directement au comptoir."],
             orders: ["Historique des Commandes", "Consultez et gérez toutes les commandes passées et en direct."],
@@ -545,6 +553,8 @@ const DASHBOARD_TRANSLATIONS = {
         delivery_hub: "التوصيل والحجوزات",
         tables_plan: "مخطط الطاولات (12)",
         theme_manager: "مظهر القائمة",
+        history: "سجل العمليات",
+        z_report: "تقرير Z (الصندوق)",
         kds_sound: "صوت المطبخ",
         kds_sound_active: "صوت المطبخ: نشط",
         cloud_live: "سحابي مباشر",
@@ -586,6 +596,8 @@ const DASHBOARD_TRANSLATIONS = {
         end_shift: "إنهاء الوردية",
         floor_plan: "مخطط الطاولات",
         titles: {
+            history: ["سجل المبيعات والعمليات", "سجل كامل ومفصل لجميع المبيعات، المدفوعات، البقشيش وطلبات الخدمة."],
+            'z-report': ["تقرير Z (إغلاق الصندوق)", "الإغلاق المحاسبي اليومي، تفصيل طرق الدفع وإحصائيات المبيعات."],
             dashboard: ["ملخص اليوم", "إدارة متجرك ومتابعة المبيعات في الوقت الفعلي."],
             pos: ["نقطة البيع (POS)", "تسجيل الطلبات المباشرة من الكاونتر."],
             orders: ["سجل وتاريخ الطلبات", "مراجعة وإدارة كافة الطلبات السابقة والحالية."],
@@ -1257,6 +1269,8 @@ function switchTab(tabId) {
     if (tabId === 'menu') { loadMenuManager(); }
     if (tabId === 'tables' || tabId === 'qr') { loadQRTab(); }
     if (tabId === 'theme-manager') { loadThemeManagerTab(); }
+    if (tabId === 'history') { renderHistoryTab(); }
+    if (tabId === 'z-report') { renderZReportTab(); }
 
     // Hide header for POS and Kitchen tabs to maximize screen space
     const pageHeader = document.querySelector('.pos-page-header');
@@ -2274,7 +2288,69 @@ window.addEventListener('storage', (e) => {
     }
 });
 
-// --- TABLE SERVICE ALERTS BANNER ---
+// --- TABLE SERVICE ALERTS (ENHANCED) ---
+// =========================================================================
+// TABLE SERVICE ALERTS (ENHANCED DIFFERENTIATION & VALIDATION MODAL)
+// =========================================================================
+
+function getAlertVisuals(alert) {
+    const type = (alert.type || '').toLowerCase();
+    const label = (alert.label || '').toLowerCase();
+    
+    const isBill = type.includes('bill') || label.includes('addition') || label.includes('facture') || label.includes('payer') || label.includes('حساب') || label.includes('فاتورة');
+    const isWaiter = type.includes('waiter') || label.includes('serveur') || label.includes('نادل');
+    const isWater = type.includes('water') || label.includes('eau') || label.includes('pain') || label.includes('couvert') || label.includes('ماء') || label.includes('خبز');
+    
+    if (isBill) {
+        const isCard = type.includes('card') || label.includes('tpe') || label.includes('carte') || label.includes('بطاقة');
+        return {
+            category: 'bill',
+            bgGradient: 'bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-700 text-white shadow-lg shadow-emerald-700/25 border border-emerald-400/40',
+            badgeBg: 'bg-emerald-950/40 text-emerald-100 border border-emerald-400/30',
+            badgeText: isCard ? "DEMANDE D'ADDITION (CARTE TPE)" : "DEMANDE D'ADDITION (ESPÈCES)",
+            badgeTextAr: isCard ? "طلب الحساب (بطاقة TPE)" : "طلب الحساب (نقداً)",
+            icon: isCard ? 'credit_card' : 'receipt_long',
+            accentColor: '#10B981',
+            btnBg: 'bg-white text-emerald-800 hover:bg-emerald-50'
+        };
+    } else if (isWaiter) {
+        return {
+            category: 'waiter',
+            bgGradient: 'bg-gradient-to-r from-[#FF5200] via-orange-600 to-amber-600 text-white shadow-lg shadow-orange-600/30 border border-orange-400/40',
+            badgeBg: 'bg-orange-950/40 text-orange-100 border border-orange-400/30',
+            badgeText: 'APPEL SERVEUR',
+            badgeTextAr: 'طلب النادل',
+            icon: 'room_service',
+            accentColor: '#FF5200',
+            btnBg: 'bg-white text-orange-700 hover:bg-orange-50'
+        };
+    } else if (isWater) {
+        return {
+            category: 'service',
+            bgGradient: 'bg-gradient-to-r from-sky-600 via-blue-600 to-indigo-700 text-white shadow-lg shadow-blue-600/25 border border-sky-400/40',
+            badgeBg: 'bg-blue-950/40 text-blue-100 border border-blue-400/30',
+            badgeText: 'SERVICE DE TABLE',
+            badgeTextAr: 'خدمة الطاولة',
+            icon: 'water_drop',
+            accentColor: '#0284C7',
+            btnBg: 'bg-white text-sky-800 hover:bg-sky-50'
+        };
+    } else {
+        return {
+            category: 'other',
+            bgGradient: 'bg-gradient-to-r from-purple-700 via-indigo-600 to-violet-800 text-white shadow-lg shadow-purple-600/25 border border-purple-400/40',
+            badgeBg: 'bg-purple-950/40 text-purple-100 border border-purple-400/30',
+            badgeText: 'DEMANDE CLIENT',
+            badgeTextAr: 'طلب الزبون',
+            icon: 'notifications_active',
+            accentColor: '#7C3AED',
+            btnBg: 'bg-white text-purple-800 hover:bg-purple-50'
+        };
+    }
+}
+
+let activeAlertInModal = null;
+
 function renderTableServiceAlerts() {
     const banner = document.getElementById('table-alerts-banner');
     if (!banner) return;
@@ -2284,27 +2360,164 @@ function renderTableServiceAlerts() {
         return;
     }
     banner.classList.remove('hidden');
-    banner.innerHTML = tableAlerts.map(alert => `
-        <div class="flex items-center justify-between gap-4 bg-amber-500 text-white px-5 py-3 rounded-2xl shadow-lg">
-            <div class="flex items-center gap-3">
-                <span class="material-symbols-outlined text-[22px]">notifications_active</span>
+    banner.innerHTML = tableAlerts.map(alert => {
+        const vis = getAlertVisuals(alert);
+        const badgeLabel = (currentLang === 'ar') ? vis.badgeTextAr : vis.badgeText;
+        return `
+        <div onclick="window.openTableAlertModal('${escapeHTML(alert.id)}')"
+             class="flex items-center justify-between gap-4 ${vis.bgGradient} px-5 py-3.5 rounded-2xl cursor-pointer transition-all hover:scale-[1.01] hover:shadow-xl group">
+            <div class="flex items-center gap-3.5">
+                <div class="w-10 h-10 rounded-xl bg-white/20 backdrop-blur-md flex items-center justify-center shrink-0 border border-white/30">
+                    <span class="material-symbols-outlined text-[24px] text-white">${vis.icon}</span>
+                </div>
                 <div>
-                    <span class="text-xs font-black uppercase tracking-wider">Table ${escapeHTML(alert.table)} — ${escapeHTML(alert.label)}</span>
-                    <span class="text-[11px] opacity-90 block">Demande reçue ${timeAgo(alert.time || Date.now())}</span>
+                    <div class="flex items-center gap-2">
+                        <span class="text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded-full ${vis.badgeBg}">${badgeLabel}</span>
+                        <span class="inline-block w-2 h-2 rounded-full bg-white animate-ping"></span>
+                    </div>
+                    <span class="text-sm font-extrabold uppercase tracking-wide block mt-0.5">Table ${escapeHTML(alert.table)} — ${escapeHTML(alert.label)}</span>
+                    <span class="text-[11px] opacity-90 block">Reçu ${timeAgo(alert.time || Date.now())}</span>
                 </div>
             </div>
-            <button onclick="window.dismissTableAlert('${escapeHTML(alert.id)}')" class="px-3.5 py-1.5 rounded-xl bg-white text-amber-600 text-xs font-extrabold hover:bg-amber-50 transition-all">
-                Traité
-            </button>
+            <div class="flex items-center gap-2 shrink-0">
+                <button onclick="event.stopPropagation(); window.openTableAlertModal('${escapeHTML(alert.id)}')"
+                        class="px-4 py-2 rounded-xl ${vis.btnBg} text-xs font-black shadow-md transition-all group-hover:scale-105 flex items-center gap-1.5">
+                    <span class="material-symbols-outlined text-[16px]">touch_app</span>
+                    <span>${currentLang === 'ar' ? 'معالجة / تفاصيل' : 'Traiter / Valider'}</span>
+                </button>
+            </div>
         </div>
-    `).join('');
+        `;
+    }).join('');
 }
 
-window.dismissTableAlert = (id) => {
-    tableAlerts = tableAlerts.filter(a => a.id !== id);
-    renderTableServiceAlerts();
-    fetch(`${liveOrdersApiBase()}/api/table-alerts/${encodeURIComponent(id)}`, { method: 'DELETE' }).catch(() => {});
+window.openTableAlertModal = function(alertId) {
+    const alert = (tableAlerts || []).find(a => a.id === alertId);
+    if (!alert) return;
+    activeAlertInModal = alert;
+
+    const modal = document.getElementById('table-alert-detail-modal');
+    if (!modal) return;
+
+    const vis = getAlertVisuals(alert);
+    const header = document.getElementById('alert-modal-header');
+    if (header) {
+        header.className = `p-6 text-white ${vis.bgGradient} flex items-start justify-between`;
+    }
+
+    const icon = document.getElementById('alert-modal-icon');
+    if (icon) icon.textContent = vis.icon;
+
+    const badge = document.getElementById('alert-modal-badge');
+    if (badge) badge.textContent = (currentLang === 'ar') ? vis.badgeTextAr : vis.badgeText;
+
+    const title = document.getElementById('alert-modal-title');
+    if (title) title.textContent = `Table ${alert.table} — ${alert.label}`;
+
+    const time = document.getElementById('alert-modal-time');
+    if (time) time.textContent = `Reçu ${timeAgo(alert.time || Date.now())} (${new Date(alert.time || Date.now()).toLocaleTimeString()})`;
+
+    // Floor / Zone
+    const tableInfo = (typeof TABLE_DATA !== 'undefined' && Array.isArray(TABLE_DATA)) ? TABLE_DATA.find(t => String(t.id) === String(alert.table)) : null;
+    const location = document.getElementById('alert-modal-location');
+    if (location) {
+        location.textContent = tableInfo ? `Table ${alert.table} (${tableInfo.zone || 'Salle'})` : `Table ${alert.table}`;
+    }
+
+    const typeLabel = document.getElementById('alert-modal-type-label');
+    if (typeLabel) typeLabel.textContent = alert.label || 'Demande de service';
+
+    // Active order check
+    const activeOrder = (liveOrders || []).find(o => String(o.table) === String(alert.table));
+    const orderSection = document.getElementById('alert-modal-order-section');
+    if (orderSection) {
+        if (activeOrder) {
+            orderSection.classList.remove('hidden');
+            const oId = document.getElementById('alert-modal-order-id');
+            if (oId) oId.textContent = `Commande active #${activeOrder.id}`;
+            const oTotal = document.getElementById('alert-modal-order-total');
+            if (oTotal) oTotal.textContent = `${(activeOrder.total || 0).toFixed(2)} DH`;
+            const oItems = document.getElementById('alert-modal-order-items');
+            if (oItems && Array.isArray(activeOrder.items)) {
+                oItems.innerHTML = activeOrder.items.slice(0, 3).map(it => `
+                    <div class="flex justify-between">
+                        <span>${it.quantity || it.qty || 1}x ${escapeHTML(it.name)}</span>
+                        <span class="font-bold">${((it.price || 0) * (it.quantity || it.qty || 1)).toFixed(2)} DH</span>
+                    </div>
+                `).join('') + (activeOrder.items.length > 3 ? `<div class="text-[10px] text-gray-500 italic">+ ${activeOrder.items.length - 3} autre(s) article(s)...</div>` : '');
+            }
+        } else {
+            orderSection.classList.add('hidden');
+        }
+    }
+
+    modal.classList.remove('hidden');
 };
+
+window.closeTableAlertModal = function() {
+    const modal = document.getElementById('table-alert-detail-modal');
+    if (modal) modal.classList.add('hidden');
+    activeAlertInModal = null;
+};
+
+window.validateCurrentAlert = function() {
+    if (!activeAlertInModal) return;
+    window.validateAndResolveAlert(activeAlertInModal.id);
+};
+
+window.validateAndResolveAlert = function(alertId) {
+    const alert = (tableAlerts || []).find(a => a.id === alertId);
+    if (!alert) return;
+
+    // Archive in StitchDatabase
+    if (window.StitchDatabase && typeof window.StitchDatabase.archiveServiceAlert === 'function') {
+        window.StitchDatabase.archiveServiceAlert(alert);
+    }
+
+    // Remove from active
+    tableAlerts = tableAlerts.filter(a => a.id !== alertId);
+    try {
+        localStorage.setItem('stitch_table_alerts', JSON.stringify(tableAlerts.slice(0, 30)));
+    } catch (_) {}
+
+    renderTableServiceAlerts();
+    window.closeTableAlertModal();
+    playNewOrderChime();
+    showMerchantNotice(`✓ Table ${alert.table} : Demande validée et archivée avec succès !`);
+
+    fetch(`${liveOrdersApiBase()}/api/table-alerts/${encodeURIComponent(alertId)}`, { method: 'DELETE' }).catch(() => {});
+
+    // Refresh history service logs if on history tab
+    if (typeof renderHistoryServicesTable === 'function') {
+        renderHistoryServicesTable();
+    }
+};
+
+window.dismissTableAlert = function(id) {
+    window.validateAndResolveAlert(id);
+};
+
+window.printActiveOrderFromAlert = function() {
+    if (!activeAlertInModal) return;
+    const activeOrder = (liveOrders || []).find(o => String(o.table) === String(activeAlertInModal.table));
+    if (activeOrder && window.printThermalTicket) {
+        window.printThermalTicket('order', activeOrder);
+    } else if (activeOrder && typeof showReceiptModal === 'function') {
+        showReceiptModal(activeOrder.id);
+    }
+};
+
+window.checkoutActiveOrderFromAlert = function() {
+    if (!activeAlertInModal) return;
+    const activeOrder = (liveOrders || []).find(o => String(o.table) === String(activeAlertInModal.table));
+    window.closeTableAlertModal();
+    if (activeOrder && typeof openOrderDetailsModal === 'function') {
+        openOrderDetailsModal(activeOrder.id);
+    } else {
+        switchTab('pos');
+    }
+};
+
 
 // --- DELIVERY TAB (DEDICATED EXTERNAL QR DELIVERY SECTION) ---
 function renderDeliveryTab() {
@@ -2720,7 +2933,9 @@ window.updateOrderStatus = (orderId, newStatus) => {
     order.status = newStatus;
 
     if (newStatus === 'Completed') {
-        completedOrders.push({ ...order, completedAt: Date.now() });
+        const completedOrderObj = { ...order, completedAt: Date.now(), status: 'Completed' };
+        completedOrders.push(completedOrderObj);
+        if (window.StitchDatabase) { window.StitchDatabase.addOrder(completedOrderObj); }
         liveOrders = liveOrders.filter(o => o.id !== orderId);
         closeOrderDetailsModal();
         autoFreeTableIfNoActiveOrders(order.table);
@@ -4794,3 +5009,1124 @@ function initCloudSyncIntegration() {
     });
 }
 window.initCloudSyncIntegration = initCloudSyncIntegration;
+
+
+// =========================================================================
+// STITCH PERSISTENT MINI-DATABASE MODULE (StitchDatabase)
+// =========================================================================
+
+window.StitchDatabase = (function() {
+    const STORAGE_KEY_ORDERS = 'stitch_orders_history';
+    const STORAGE_KEY_SERVICES = 'stitch_service_log';
+    const STORAGE_KEY_ZREPORTS = 'stitch_z_reports_db';
+
+    function formatDateKey(timestamp) {
+        const d = new Date(timestamp);
+        const y = d.getFullYear();
+        const m = String(d.getMonth() + 1).padStart(2, '0');
+        const day = String(d.getDate()).padStart(2, '0');
+        return `${y}-${m}-${day}`;
+    }
+
+    function generateRealisticSeedOrders() {
+        const now = Date.now();
+        const DAY_MS = 24 * 60 * 60 * 1000;
+        const catalog = [
+            { name: "Café Latte Spécialité", price: 28.00, cat: "Coffee" },
+            { name: "Espresso Double Origine", price: 20.00, cat: "Coffee" },
+            { name: "V60 Pour-Over Éthiopie", price: 34.00, cat: "Coffee" },
+            { name: "Matcha Latte Cérémonial", price: 38.00, cat: "Signature" },
+            { name: "Formule Matin Royal", price: 29.00, cat: "Formules" },
+            { name: "Duo Déjeuner Gourmet", price: 49.00, cat: "Formules" },
+            { name: "Avocado Sourdough Toast", price: 42.00, cat: "Brunch" },
+            { name: "Smash Burger Truffé", price: 62.00, cat: "Brunch" },
+            { name: "Jus d'Orange Frais Pressé", price: 22.00, cat: "Juice" },
+            { name: "Pain au Chocolat Pur Beurre", price: 18.00, cat: "Bakery" },
+            { name: "Croissant Feuilleté Maison", price: 16.00, cat: "Bakery" }
+        ];
+
+        const clients = [
+            { name: "Younes T.", phone: "+212 661 234 567" },
+            { name: "Soufyane M.", phone: "+212 662 345 678" },
+            { name: "Hamza B.", phone: "+212 663 456 789" },
+            { name: "Sarah K.", phone: "+212 664 567 890" },
+            { name: "Amine L.", phone: "+212 665 678 901" },
+            { name: "Mehdi R.", phone: "+212 666 789 012" }
+        ];
+
+        const methods = ['cash', 'card', 'transfer'];
+        const orders = [];
+        let orderNum = 1000;
+
+        // Generate past 4 days + today
+        for (let dayOffset = 4; dayOffset >= 0; dayOffset--) {
+            const dayBaseTime = now - (dayOffset * DAY_MS);
+            const dateStr = formatDateKey(dayBaseTime);
+            // 8 to 16 orders per day
+            const orderCount = dayOffset === 0 ? 8 : (12 + (dayOffset * 2));
+
+            for (let i = 0; i < orderCount; i++) {
+                orderNum++;
+                const orderHour = 8 + Math.floor((i / orderCount) * 14); // 8:00 to 22:00
+                const orderMin = Math.floor(Math.random() * 60);
+                const orderDate = new Date(dayBaseTime);
+                orderDate.setHours(orderHour, orderMin, 0, 0);
+
+                const client = clients[i % clients.length];
+                const channel = (i % 5 === 0) ? 'delivery' : ((i % 4 === 0) ? 'takeaway' : 'dine-in');
+                const table = channel === 'dine-in' ? String(1 + (i % 12)) : (channel === 'delivery' ? 'Livraison' : 'Emporter');
+                const method = methods[i % methods.length];
+                const tip = (i % 3 === 0) ? 5.00 : ((i % 5 === 0) ? 10.00 : 0.00);
+
+                // 1 to 3 items
+                const itemCount = 1 + (i % 3);
+                const items = [];
+                let subtotal = 0;
+                for (let k = 0; k < itemCount; k++) {
+                    const item = catalog[(i + k) % catalog.length];
+                    const qty = 1 + (k % 2 === 0 && i % 4 === 0 ? 1 : 0);
+                    items.push({
+                        id: `item-${k}-${i}`,
+                        name: item.name,
+                        price: item.price,
+                        quantity: qty,
+                        qty: qty
+                    });
+                    subtotal += item.price * qty;
+                }
+
+                orders.push({
+                    id: `ORD-${orderNum}`,
+                    time: orderDate.getTime(),
+                    date: dateStr,
+                    channel: channel,
+                    type: channel,
+                    table: table,
+                    guestName: client.name,
+                    phone: client.phone,
+                    items: items,
+                    subtotal: subtotal,
+                    discount: 0,
+                    tip: tip,
+                    total: subtotal + tip,
+                    paymentMethod: method,
+                    status: 'Completed',
+                    completedAt: orderDate.getTime() + (15 * 60 * 1000)
+                });
+            }
+        }
+        return orders;
+    }
+
+    function generateRealisticServiceLogs() {
+        const now = Date.now();
+        const logs = [];
+        const types = [
+            { type: 'waiter', label: 'Appel Serveur', dur: 85 },
+            { type: 'bill_cash', label: "Demande Addition (Espèces)", dur: 110 },
+            { type: 'bill_card', label: "Demande Addition (Carte TPE)", dur: 95 },
+            { type: 'water', label: 'Eau & Couverts', dur: 60 }
+        ];
+
+        for (let i = 0; i < 15; i++) {
+            const t = types[i % types.length];
+            const time = now - ((i + 1) * 35 * 60 * 1000);
+            logs.push({
+                id: `ALT-LOG-${100 + i}`,
+                table: String(1 + (i % 12)),
+                type: t.type,
+                label: t.label,
+                time: time,
+                requestedAt: time,
+                resolvedAt: time + (t.dur * 1000),
+                durationSeconds: t.dur,
+                status: 'completed'
+            });
+        }
+        return logs;
+    }
+
+    function init() {
+        try {
+            if (!localStorage.getItem(STORAGE_KEY_ORDERS)) {
+                const seeds = generateRealisticSeedOrders();
+                localStorage.setItem(STORAGE_KEY_ORDERS, JSON.stringify(seeds));
+            }
+            if (!localStorage.getItem(STORAGE_KEY_SERVICES)) {
+                const sLogs = generateRealisticServiceLogs();
+                localStorage.setItem(STORAGE_KEY_SERVICES, JSON.stringify(sLogs));
+            }
+            if (!localStorage.getItem(STORAGE_KEY_ZREPORTS)) {
+                localStorage.setItem(STORAGE_KEY_ZREPORTS, JSON.stringify({}));
+            }
+        } catch (_) {}
+    }
+
+    function getAllOrders() {
+        try {
+            const raw = localStorage.getItem(STORAGE_KEY_ORDERS);
+            return raw ? JSON.parse(raw) : [];
+        } catch (_) {
+            return [];
+        }
+    }
+
+    function saveAllOrders(orders) {
+        try {
+            localStorage.setItem(STORAGE_KEY_ORDERS, JSON.stringify(orders));
+        } catch (_) {}
+    }
+
+    function addOrder(order) {
+        if (!order || !order.id) return;
+        const orders = getAllOrders();
+        const existingIdx = orders.findIndex(o => o.id === order.id);
+        const orderData = {
+            ...order,
+            date: order.date || formatDateKey(order.time || Date.now()),
+            status: order.status || 'Completed',
+            paymentMethod: order.paymentMethod || 'cash'
+        };
+
+        if (existingIdx !== -1) {
+            orders[existingIdx] = orderData;
+        } else {
+            orders.unshift(orderData);
+        }
+        saveAllOrders(orders);
+    }
+
+    function getAllServiceLogs() {
+        try {
+            const raw = localStorage.getItem(STORAGE_KEY_SERVICES);
+            return raw ? JSON.parse(raw) : [];
+        } catch (_) {
+            return [];
+        }
+    }
+
+    function archiveServiceAlert(alert) {
+        if (!alert) return;
+        const logs = getAllServiceLogs();
+        const reqTime = alert.time || (Date.now() - 60000);
+        const dur = Math.max(15, Math.round((Date.now() - reqTime) / 1000));
+        logs.unshift({
+            id: alert.id || `ALT-${Date.now()}`,
+            table: String(alert.table || '12'),
+            type: alert.type || 'waiter',
+            label: alert.label || 'Appel Serveur',
+            time: reqTime,
+            requestedAt: reqTime,
+            resolvedAt: Date.now(),
+            durationSeconds: dur,
+            status: 'completed'
+        });
+        try {
+            localStorage.setItem(STORAGE_KEY_SERVICES, JSON.stringify(logs.slice(0, 100)));
+        } catch (_) {}
+    }
+
+    function getZReportForDate(dateStr) {
+        const allOrders = getAllOrders();
+        const matchingOrders = allOrders.filter(o => o.date === dateStr && o.status !== 'Cancelled');
+
+        let grossTotal = 0;
+        let netTotal = 0;
+        let totalTips = 0;
+        const paymentBreakdown = { cash: 0, card: 0, transfer: 0, cashCount: 0, cardCount: 0, transferCount: 0 };
+        const channelBreakdown = { 'dine-in': 0, takeaway: 0, delivery: 0, dineInCount: 0, takeawayCount: 0, deliveryCount: 0 };
+        const productStats = {};
+
+        matchingOrders.forEach(o => {
+            const t = o.total || 0;
+            const tip = o.tip || 0;
+            grossTotal += t;
+            netTotal += Math.max(0, t - tip);
+            totalTips += tip;
+
+            // Payment
+            const meth = (o.paymentMethod || 'cash').toLowerCase();
+            if (meth.includes('card') || meth.includes('tpe')) {
+                paymentBreakdown.card += t;
+                paymentBreakdown.cardCount++;
+            } else if (meth.includes('transfer') || meth.includes('vir')) {
+                paymentBreakdown.transfer += t;
+                paymentBreakdown.transferCount++;
+            } else {
+                paymentBreakdown.cash += t;
+                paymentBreakdown.cashCount++;
+            }
+
+            // Channel
+            const ch = (o.channel || o.type || 'dine-in').toLowerCase();
+            if (ch.includes('deliv')) {
+                channelBreakdown.delivery += t;
+                channelBreakdown.deliveryCount++;
+            } else if (ch.includes('take') || ch.includes('emport')) {
+                channelBreakdown.takeaway += t;
+                channelBreakdown.takeawayCount++;
+            } else {
+                channelBreakdown['dine-in'] += t;
+                channelBreakdown.dineInCount++;
+            }
+
+            // Products
+            if (Array.isArray(o.items)) {
+                o.items.forEach(it => {
+                    const name = it.name || 'Article';
+                    const qty = it.quantity || it.qty || 1;
+                    const price = it.price || 0;
+                    if (!productStats[name]) productStats[name] = { qty: 0, total: 0 };
+                    productStats[name].qty += qty;
+                    productStats[name].total += price * qty;
+                });
+            }
+        });
+
+        const topProducts = Object.keys(productStats)
+            .map(name => ({ name, qty: productStats[name].qty, total: productStats[name].total }))
+            .sort((a, b) => b.qty - a.qty)
+            .slice(0, 5);
+
+        // Check if day is officially closed
+        let closedReports = {};
+        try { closedReports = JSON.parse(localStorage.getItem(STORAGE_KEY_ZREPORTS) || '{}'); } catch (_) {}
+        const isClosed = !!closedReports[dateStr];
+
+        return {
+            date: dateStr,
+            isClosed: isClosed,
+            closedData: closedReports[dateStr] || null,
+            totalOrders: matchingOrders.length,
+            grossTotal: grossTotal,
+            netTotal: netTotal,
+            totalTips: totalTips,
+            averageTicket: matchingOrders.length > 0 ? (grossTotal / matchingOrders.length) : 0,
+            paymentBreakdown: paymentBreakdown,
+            channelBreakdown: channelBreakdown,
+            topProducts: topProducts
+        };
+    }
+
+    function closeDailyZReport(dateStr, closedBy) {
+        const report = getZReportForDate(dateStr);
+        let closedReports = {};
+        try { closedReports = JSON.parse(localStorage.getItem(STORAGE_KEY_ZREPORTS) || '{}'); } catch (_) {}
+
+        const closedRecord = {
+            id: `Z-${dateStr.replace(/-/g, '')}-01`,
+            date: dateStr,
+            closedAt: Date.now(),
+            closedBy: closedBy || 'Direction Stitch',
+            grossTotal: report.grossTotal,
+            netTotal: report.netTotal,
+            totalTips: report.totalTips,
+            totalOrders: report.totalOrders,
+            averageTicket: report.averageTicket,
+            paymentBreakdown: report.paymentBreakdown,
+            channelBreakdown: report.channelBreakdown,
+            topProducts: report.topProducts
+        };
+
+        closedReports[dateStr] = closedRecord;
+        try {
+            localStorage.setItem(STORAGE_KEY_ZREPORTS, JSON.stringify(closedReports));
+        } catch (_) {}
+
+        return closedRecord;
+    }
+
+    function exportOrdersCSV() {
+        const orders = getAllOrders();
+        if (orders.length === 0) {
+            alert('Aucune commande enregistrée à exporter.');
+            return;
+        }
+
+        const headers = ["ID Commande", "Date", "Heure", "Canal", "Table", "Client", "Telephone", "Articles", "Paiement", "Pourboire DH", "Total DH", "Statut"];
+        const rows = orders.map(o => {
+            const d = new Date(o.time || Date.now());
+            const itemsStr = (o.items || []).map(it => `${it.quantity || it.qty || 1}x ${it.name}`).join(' | ');
+            return [
+                `"${o.id}"`,
+                `"${d.toLocaleDateString()}"`,
+                `"${d.toLocaleTimeString()}"`,
+                `"${o.channel || o.type || 'Sur Place'}"`,
+                `"${o.table || '-'}"`,
+                `"${(o.guestName || '').replace(/"/g, '""')}"`,
+                `"${(o.phone || '').replace(/"/g, '""')}"`,
+                `"${itemsStr.replace(/"/g, '""')}"`,
+                `"${o.paymentMethod || 'Espèces'}"`,
+                (o.tip || 0).toFixed(2),
+                (o.total || 0).toFixed(2),
+                `"${o.status || 'Completed'}"`
+            ].join(';');
+        });
+
+        const csvContent = '\uFEFF' + [headers.join(';'), ...rows].join('\r\n');
+        const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `stitch-commandes-historique-${formatDateKey(Date.now())}.csv`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+    }
+
+    function exportZReportJSON(dateStr) {
+        const report = getZReportForDate(dateStr);
+        const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(report, null, 2));
+        const a = document.createElement('a');
+        a.href = dataStr;
+        a.download = `stitch-rapport-z-${dateStr}.json`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+    }
+
+    return {
+        init,
+        getAllOrders,
+        addOrder,
+        getAllServiceLogs,
+        archiveServiceAlert,
+        getZReportForDate,
+        closeDailyZReport,
+        exportOrdersCSV,
+        exportZReportJSON,
+        formatDateKey
+    };
+})();
+
+// Initialize Database on load
+window.StitchDatabase.init();
+
+
+// =========================================================================
+// NON-DESTRUCTIVE 80MM THERMAL RECEIPT & Z-REPORT PRINTER
+// =========================================================================
+
+window.printThermalTicket = function(type, data) {
+    const iframe = document.createElement('iframe');
+    iframe.style.position = 'fixed';
+    iframe.style.right = '0';
+    iframe.style.bottom = '0';
+    iframe.style.width = '0';
+    iframe.style.height = '0';
+    iframe.style.border = '0';
+    document.body.appendChild(iframe);
+
+    let htmlContent = '';
+
+    if (type === 'order') {
+        const order = data;
+        const d = new Date(order.time || Date.now());
+        const itemsHtml = (order.items || []).map(it => `
+            <div style="display:flex; justify-content:space-between; margin-bottom:3px;">
+                <span>${it.quantity || it.qty || 1}x ${it.name}</span>
+                <span style="font-weight:bold;">${((it.price || 0) * (it.quantity || it.qty || 1)).toFixed(2)} DH</span>
+            </div>
+        `).join('');
+
+        htmlContent = `
+            <div class="text-center" style="margin-bottom:12px;">
+                <h2 style="font-size:18px; font-weight:900; margin:0 0 2px 0;">STITCH CAFÉ & ROASTERY</h2>
+                <div style="font-size:10px; text-transform:uppercase; letter-spacing:1px; color:#555;">Specialty Coffee & Sourdough Bakery</div>
+                <div style="font-size:11px; margin-top:4px;">12 Tables • Casablanca • stitch.cafe</div>
+            </div>
+            <div class="divider"></div>
+            <div class="flex-row" style="font-size:11px;">
+                <span>Ticket N°: <strong>#${order.id}</strong></span>
+                <span>${d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
+            </div>
+            <div class="flex-row" style="font-size:11px; margin-top:2px;">
+                <span>Date: ${d.toLocaleDateString()}</span>
+                <span><strong>${order.channel || order.type || 'Sur Place'}</strong></span>
+            </div>
+            <div class="flex-row" style="font-size:11px; margin-top:2px;">
+                <span>Table / Client: <strong>${order.table ? 'Table ' + order.table : (order.guestName || 'Client')}</strong></span>
+            </div>
+            <div class="divider"></div>
+            <div style="margin: 8px 0;">
+                ${itemsHtml}
+            </div>
+            <div class="divider"></div>
+            <div class="flex-row" style="font-size:11px;">
+                <span>Sous-total HT:</span>
+                <span>${(order.subtotal || order.total || 0).toFixed(2)} DH</span>
+            </div>
+            ${order.tip ? `
+            <div class="flex-row" style="font-size:11px; color:#10b981; font-weight:bold;">
+                <span>Pourboire (Tip):</span>
+                <span>+${order.tip.toFixed(2)} DH</span>
+            </div>` : ''}
+            <div class="divider"></div>
+            <div class="flex-row" style="font-size:16px; font-weight:bold;">
+                <span>TOTAL TTC:</span>
+                <span>${(order.total || 0).toFixed(2)} DH</span>
+            </div>
+            <div class="flex-row" style="font-size:11px; margin-top:4px;">
+                <span>Règlement:</span>
+                <span style="font-weight:bold; text-transform:uppercase;">${order.paymentMethod || 'Espèces'}</span>
+            </div>
+            <div class="double-divider"></div>
+            <div class="text-center" style="font-size:10px; margin-top:10px; color:#444;">
+                <div>Merci de votre visite chez Stitch !</div>
+                <div>À très bientôt ☕</div>
+            </div>
+        `;
+    } else if (type === 'z-report') {
+        const report = data;
+        const now = new Date();
+        const topProdHtml = (report.topProducts || []).map((p, idx) => `
+            <div style="display:flex; justify-content:space-between; margin-bottom:2px;">
+                <span>${idx + 1}. ${p.name} (x${p.qty})</span>
+                <span>${p.total.toFixed(2)} DH</span>
+            </div>
+        `).join('');
+
+        htmlContent = `
+            <div class="text-center" style="margin-bottom:10px;">
+                <h2 style="font-size:18px; font-weight:900; margin:0 0 2px 0;">STITCH CAFÉ & ROASTERY</h2>
+                <div style="font-size:11px; font-weight:bold; letter-spacing:1px;">RAPPORT DE CLÔTURE CAISSE (Z)</div>
+                <div style="font-size:10px; color:#555;">Date d'activité: ${report.date}</div>
+                <div style="font-size:10px; color:#555;">Édité le ${now.toLocaleDateString()} à ${now.toLocaleTimeString()}</div>
+            </div>
+            <div class="double-divider"></div>
+            <div style="font-weight:bold; font-size:12px; margin-bottom:4px;">SYNTHÈSE FINANCIÈRE</div>
+            <div class="flex-row">
+                <span>Total Chiffre d'Affaires Brut:</span>
+                <span style="font-weight:bold; font-size:13px;">${report.grossTotal.toFixed(2)} DH</span>
+            </div>
+            <div class="flex-row">
+                <span>Total Net Hors Pourboires:</span>
+                <span>${report.netTotal.toFixed(2)} DH</span>
+            </div>
+            <div class="flex-row">
+                <span>Total Pourboires Encaissés:</span>
+                <span style="font-weight:bold;">${report.totalTips.toFixed(2)} DH</span>
+            </div>
+            <div class="flex-row">
+                <span>Nombre Total de Tickets:</span>
+                <span style="font-weight:bold;">${report.totalOrders}</span>
+            </div>
+            <div class="flex-row">
+                <span>Panier Moyen par Client:</span>
+                <span>${report.averageTicket.toFixed(2)} DH</span>
+            </div>
+            <div class="divider"></div>
+            <div style="font-weight:bold; font-size:12px; margin-bottom:4px;">VENTILATION PAR MODE DE PAIEMENT</div>
+            <div class="flex-row">
+                <span>Espèces (Cash):</span>
+                <span><strong>${report.paymentBreakdown.cash.toFixed(2)} DH</strong> (${report.paymentBreakdown.cashCount} tks)</span>
+            </div>
+            <div class="flex-row">
+                <span>Carte Bancaire (TPE):</span>
+                <span><strong>${report.paymentBreakdown.card.toFixed(2)} DH</strong> (${report.paymentBreakdown.cardCount} tks)</span>
+            </div>
+            <div class="flex-row">
+                <span>Virement Instantané:</span>
+                <span><strong>${report.paymentBreakdown.transfer.toFixed(2)} DH</strong> (${report.paymentBreakdown.transferCount} tks)</span>
+            </div>
+            <div class="divider"></div>
+            <div style="font-weight:bold; font-size:12px; margin-bottom:4px;">VENTILATION PAR CANAL</div>
+            <div class="flex-row">
+                <span>Sur Place (12 Tables):</span>
+                <span>${report.channelBreakdown['dine-in'].toFixed(2)} DH</span>
+            </div>
+            <div class="flex-row">
+                <span>À Emporter:</span>
+                <span>${report.channelBreakdown.takeaway.toFixed(2)} DH</span>
+            </div>
+            <div class="flex-row">
+                <span>Livraison à Domicile:</span>
+                <span>${report.channelBreakdown.delivery.toFixed(2)} DH</span>
+            </div>
+            <div class="divider"></div>
+            <div style="font-weight:bold; font-size:12px; margin-bottom:4px;">TOP 5 VENTES DU JOUR</div>
+            ${topProdHtml || '<div>Aucune vente enregistrée.</div>'}
+            <div class="double-divider"></div>
+            <div style="margin-top:15px; text-align:center;">
+                <div style="font-size:10px; font-weight:bold;">SIGNATURE DU RESPONSABLE CAISSE</div>
+                <div style="height:35px; border-bottom:1px solid #000; margin:10px 20px;"></div>
+                <div style="font-size:9px; color:#555; margin-top:5px;">Clôture certifiée conforme • Registre Stitch POS</div>
+            </div>
+        `;
+    }
+
+    const doc = iframe.contentWindow.document;
+    doc.open();
+    doc.write(`
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <title>${type === 'order' ? 'Ticket Client Stitch' : 'Rapport Z Stitch'}</title>
+            <style>
+                @page { margin: 0; size: 80mm auto; }
+                body {
+                    margin: 0;
+                    padding: 8px 12px;
+                    font-family: 'Courier New', Courier, monospace;
+                    font-size: 11px;
+                    line-height: 1.35;
+                    color: #000;
+                    width: 74mm;
+                    background: #fff;
+                }
+                .text-center { text-align: center; }
+                .text-right { text-align: right; }
+                .font-bold { font-weight: bold; }
+                .divider { border-top: 1px dashed #000; margin: 6px 0; }
+                .double-divider { border-top: 2px solid #000; margin: 8px 0; }
+                .flex-row { display: flex; justify-content: space-between; }
+            </style>
+        </head>
+        <body>
+            ${htmlContent}
+        </body>
+        </html>
+    `);
+    doc.close();
+
+    iframe.contentWindow.focus();
+    setTimeout(() => {
+        try {
+            iframe.contentWindow.print();
+        } catch (_) {}
+        setTimeout(() => {
+            if (document.body.contains(iframe)) document.body.removeChild(iframe);
+        }, 2000);
+    }, 300);
+};
+
+// =========================================================================
+// SECTION: HISTORIQUE & SUIVI LONG TERME
+// =========================================================================
+
+let historyCurrentSubTab = 'orders';
+let historyCurrentDateFilter = 'all';
+let historyCustomDateValue = null;
+let currentHistoryOrderInModal = null;
+
+window.renderHistoryTab = function() {
+    refreshHistoryCounters();
+    renderHistoryOrdersTable();
+    renderHistoryServicesTable();
+};
+
+function refreshHistoryCounters() {
+    const orders = window.StitchDatabase ? window.StitchDatabase.getAllOrders() : [];
+    const services = window.StitchDatabase ? window.StitchDatabase.getAllServiceLogs() : [];
+
+    const badge = document.getElementById('nav-history-badge');
+    if (badge) badge.textContent = `${orders.length}`;
+
+    const sBadge = document.getElementById('history-services-badge');
+    if (sBadge) sBadge.textContent = `${services.length}`;
+}
+
+window.switchHistorySubTab = function(subTab) {
+    historyCurrentSubTab = subTab;
+    const btnOrders = document.getElementById('history-tab-btn-orders');
+    const btnServices = document.getElementById('history-tab-btn-services');
+    const viewOrders = document.getElementById('history-subview-orders');
+    const viewServices = document.getElementById('history-subview-services');
+
+    if (subTab === 'orders') {
+        if (btnOrders) {
+            btnOrders.className = "px-5 py-2.5 rounded-xl font-extrabold text-xs tracking-wider uppercase transition-all bg-primary text-white shadow-glow flex items-center gap-2";
+        }
+        if (btnServices) {
+            btnServices.className = "px-5 py-2.5 rounded-xl font-extrabold text-xs tracking-wider uppercase transition-all bg-gray-100 dark:bg-white/5 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-white/10 flex items-center gap-2";
+        }
+        if (viewOrders) viewOrders.classList.remove('hidden');
+        if (viewServices) viewServices.classList.add('hidden');
+        renderHistoryOrdersTable();
+    } else {
+        if (btnServices) {
+            btnServices.className = "px-5 py-2.5 rounded-xl font-extrabold text-xs tracking-wider uppercase transition-all bg-primary text-white shadow-glow flex items-center gap-2";
+        }
+        if (btnOrders) {
+            btnOrders.className = "px-5 py-2.5 rounded-xl font-extrabold text-xs tracking-wider uppercase transition-all bg-gray-100 dark:bg-white/5 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-white/10 flex items-center gap-2";
+        }
+        if (viewServices) viewServices.classList.remove('hidden');
+        if (viewOrders) viewOrders.classList.add('hidden');
+        renderHistoryServicesTable();
+    }
+};
+
+window.setHistoryDateFilter = function(period) {
+    historyCurrentDateFilter = period;
+    historyCustomDateValue = null;
+    const dateInput = document.getElementById('history-custom-date');
+    if (dateInput) dateInput.value = '';
+
+    document.querySelectorAll('.history-period-btn').forEach(btn => {
+        btn.className = "history-period-btn px-3 py-1 rounded-lg text-xs font-bold bg-gray-100 dark:bg-white/5 text-gray-700 dark:text-gray-300";
+    });
+    if (event && event.target) {
+        event.target.className = "history-period-btn px-3 py-1 rounded-lg text-xs font-bold bg-primary text-white";
+    }
+    renderHistoryOrdersTable();
+};
+
+window.setHistoryCustomDate = function(dateStr) {
+    if (!dateStr) return;
+    historyCurrentDateFilter = 'custom';
+    historyCustomDateValue = dateStr;
+    document.querySelectorAll('.history-period-btn').forEach(btn => {
+        btn.className = "history-period-btn px-3 py-1 rounded-lg text-xs font-bold bg-gray-100 dark:bg-white/5 text-gray-700 dark:text-gray-300";
+    });
+    renderHistoryOrdersTable();
+};
+
+window.renderHistoryOrdersTable = function() {
+    const tbody = document.getElementById('history-orders-tbody');
+    if (!tbody || !window.StitchDatabase) return;
+
+    let orders = window.StitchDatabase.getAllOrders();
+
+    // 1. Date Filter
+    const todayStr = window.StitchDatabase.formatDateKey(Date.now());
+    const DAY_MS = 24 * 60 * 60 * 1000;
+
+    if (historyCurrentDateFilter === 'today') {
+        orders = orders.filter(o => o.date === todayStr);
+    } else if (historyCurrentDateFilter === 'yesterday') {
+        const yestStr = window.StitchDatabase.formatDateKey(Date.now() - DAY_MS);
+        orders = orders.filter(o => o.date === yestStr);
+    } else if (historyCurrentDateFilter === '7days') {
+        const cutOff = Date.now() - (7 * DAY_MS);
+        orders = orders.filter(o => (o.time || 0) >= cutOff);
+    } else if (historyCurrentDateFilter === 'month') {
+        const cutOff = Date.now() - (30 * DAY_MS);
+        orders = orders.filter(o => (o.time || 0) >= cutOff);
+    } else if (historyCurrentDateFilter === 'custom' && historyCustomDateValue) {
+        orders = orders.filter(o => o.date === historyCustomDateValue);
+    }
+
+    // 2. Channel Filter
+    const channelSelect = document.getElementById('history-channel-filter');
+    const channel = channelSelect ? channelSelect.value : 'all';
+    if (channel !== 'all') {
+        orders = orders.filter(o => (o.channel || o.type || '').toLowerCase().includes(channel));
+    }
+
+    // 3. Payment Filter
+    const paymentSelect = document.getElementById('history-payment-filter');
+    const payment = paymentSelect ? paymentSelect.value : 'all';
+    if (payment !== 'all') {
+        orders = orders.filter(o => (o.paymentMethod || 'cash').toLowerCase().includes(payment));
+    }
+
+    // 4. Search Filter
+    const searchInput = document.getElementById('history-search-input');
+    const query = searchInput ? searchInput.value.trim().toLowerCase() : '';
+    if (query) {
+        orders = orders.filter(o => {
+            const idMatch = (o.id || '').toLowerCase().includes(query);
+            const clientMatch = (o.guestName || '').toLowerCase().includes(query);
+            const tableMatch = String(o.table || '').toLowerCase().includes(query);
+            const phoneMatch = (o.phone || '').toLowerCase().includes(query);
+            const itemsMatch = Array.isArray(o.items) && o.items.some(it => (it.name || '').toLowerCase().includes(query));
+            return idMatch || clientMatch || tableMatch || phoneMatch || itemsMatch;
+        });
+    }
+
+    // Update KPIs
+    let totalRevenue = 0;
+    let totalTips = 0;
+    orders.forEach(o => {
+        totalRevenue += (o.total || 0);
+        totalTips += (o.tip || 0);
+    });
+    const avgTicket = orders.length > 0 ? (totalRevenue / orders.length) : 0;
+
+    const kpiRev = document.getElementById('history-kpi-revenue');
+    if (kpiRev) kpiRev.textContent = totalRevenue.toFixed(2);
+    const kpiCount = document.getElementById('history-kpi-count');
+    if (kpiCount) kpiCount.textContent = orders.length;
+    const kpiAvg = document.getElementById('history-kpi-average');
+    if (kpiAvg) kpiAvg.textContent = avgTicket.toFixed(2);
+    const kpiTips = document.getElementById('history-kpi-tips');
+    if (kpiTips) kpiTips.textContent = totalTips.toFixed(2);
+
+    const countLabel = document.getElementById('history-table-count-label');
+    if (countLabel) countLabel.textContent = `${orders.length} commande(s) trouvée(s)`;
+
+    if (orders.length === 0) {
+        tbody.innerHTML = `
+            <tr>
+                <td colspan="9" class="py-12 text-center text-gray-400">
+                    <span class="material-symbols-outlined text-[36px] mb-2 block">search_off</span>
+                    Aucune commande trouvée pour ces filtres.
+                </td>
+            </tr>
+        `;
+        return;
+    }
+
+    tbody.innerHTML = orders.map(o => {
+        const d = new Date(o.time || Date.now());
+        const dateStr = d.toLocaleDateString();
+        const timeStr = d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+        const ch = (o.channel || o.type || 'dine-in').toLowerCase();
+        let channelBadge = '<span class="px-2 py-0.5 rounded-full text-[10px] font-black bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300">Sur Place</span>';
+        if (ch.includes('deliv')) {
+            channelBadge = '<span class="px-2 py-0.5 rounded-full text-[10px] font-black bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-300">Livraison</span>';
+        } else if (ch.includes('take') || ch.includes('emport')) {
+            channelBadge = '<span class="px-2 py-0.5 rounded-full text-[10px] font-black bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-300">À Emporter</span>';
+        }
+
+        const itemsSummary = (o.items || []).map(it => `${it.quantity || it.qty || 1}x ${it.name}`).slice(0, 2).join(', ') + ((o.items || []).length > 2 ? '...' : '');
+
+        let paymentLabel = 'Espèces';
+        const pm = (o.paymentMethod || 'cash').toLowerCase();
+        if (pm.includes('card') || pm.includes('tpe')) paymentLabel = 'Carte TPE';
+        else if (pm.includes('transfer') || pm.includes('vir')) paymentLabel = 'Virement';
+
+        return `
+            <tr class="hover:bg-gray-50 dark:hover:bg-white/5 transition-colors">
+                <td class="py-3 px-4 font-black text-gray-900 dark:text-white">#${escapeHTML(o.id)}</td>
+                <td class="py-3 px-4 text-gray-500 dark:text-gray-400">${dateStr} à ${timeStr}</td>
+                <td class="py-3 px-4">
+                    <div class="flex items-center gap-1.5">
+                        ${channelBadge}
+                        <span class="font-bold text-gray-800 dark:text-gray-200">${o.table ? 'T.' + o.table : ''}</span>
+                    </div>
+                </td>
+                <td class="py-3 px-4 font-bold text-gray-800 dark:text-gray-200">${escapeHTML(o.guestName || 'Client')}</td>
+                <td class="py-3 px-4 text-gray-600 dark:text-gray-300 max-w-[200px] truncate" title="${escapeHTML(itemsSummary)}">${escapeHTML(itemsSummary)}</td>
+                <td class="py-3 px-4 font-bold text-emerald-600 dark:text-emerald-400">${paymentLabel}</td>
+                <td class="py-3 px-4 text-amber-600 font-bold">${o.tip ? '+' + o.tip.toFixed(2) + ' DH' : '-'}</td>
+                <td class="py-3 px-4 text-right font-black text-gray-900 dark:text-white">${(o.total || 0).toFixed(2)} DH</td>
+                <td class="py-3 px-4 text-center">
+                    <div class="flex items-center justify-center gap-1">
+                        <button onclick="window.openHistoryOrderModal('${escapeHTML(o.id)}')" title="Voir Détails" class="p-1.5 rounded-lg bg-gray-100 dark:bg-white/10 hover:bg-gray-200 dark:hover:bg-white/20 text-gray-700 dark:text-white transition-all">
+                            <span class="material-symbols-outlined text-[16px]">visibility</span>
+                        </button>
+                        <button onclick="window.printThermalTicket('order', window.StitchDatabase.getAllOrders().find(x=>x.id==='${escapeHTML(o.id)}'))" title="Réimprimer Ticket (80mm)" class="p-1.5 rounded-lg bg-primary/10 hover:bg-primary hover:text-white text-primary transition-all">
+                            <span class="material-symbols-outlined text-[16px]">print</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+        `;
+    }).join('');
+};
+
+window.openHistoryOrderModal = function(orderId) {
+    const orders = window.StitchDatabase ? window.StitchDatabase.getAllOrders() : [];
+    const order = orders.find(o => o.id === orderId);
+    if (!order) return;
+    currentHistoryOrderInModal = order;
+
+    const modal = document.getElementById('history-order-modal');
+    if (!modal) return;
+
+    const oId = document.getElementById('hist-modal-order-id');
+    if (oId) oId.textContent = `Commande #${order.id}`;
+
+    const d = new Date(order.time || Date.now());
+    const oDate = document.getElementById('hist-modal-date');
+    if (oDate) oDate.textContent = `${d.toLocaleDateString()} à ${d.toLocaleTimeString()}`;
+
+    const oChannel = document.getElementById('hist-modal-channel');
+    if (oChannel) oChannel.textContent = order.channel || order.type || 'Sur Place';
+
+    const oClient = document.getElementById('hist-modal-client');
+    if (oClient) oClient.textContent = `${order.guestName || 'Client'} ${order.table ? '(Table ' + order.table + ')' : ''}`;
+
+    const oPayment = document.getElementById('hist-modal-payment');
+    if (oPayment) oPayment.textContent = order.paymentMethod || 'Espèces';
+
+    const oItems = document.getElementById('hist-modal-items');
+    if (oItems && Array.isArray(order.items)) {
+        oItems.innerHTML = order.items.map(it => `
+            <div class="flex justify-between items-center py-1">
+                <div>
+                    <span class="font-extrabold text-gray-900 dark:text-white">${it.quantity || it.qty || 1}x ${escapeHTML(it.name)}</span>
+                </div>
+                <span class="font-black text-gray-900 dark:text-white">${((it.price || 0) * (it.quantity || it.qty || 1)).toFixed(2)} DH</span>
+            </div>
+        `).join('');
+    }
+
+    const oSub = document.getElementById('hist-modal-subtotal');
+    if (oSub) oSub.textContent = `${(order.subtotal || order.total || 0).toFixed(2)} DH`;
+
+    const oTip = document.getElementById('hist-modal-tip');
+    if (oTip) oTip.textContent = `+${(order.tip || 0).toFixed(2)} DH`;
+
+    const oTotal = document.getElementById('hist-modal-total');
+    if (oTotal) oTotal.textContent = `${(order.total || 0).toFixed(2)} DH`;
+
+    modal.classList.remove('hidden');
+};
+
+window.closeHistoryOrderModal = function() {
+    const modal = document.getElementById('history-order-modal');
+    if (modal) modal.classList.add('hidden');
+    currentHistoryOrderInModal = null;
+};
+
+window.reprintCurrentHistoryOrder = function() {
+    if (currentHistoryOrderInModal && window.printThermalTicket) {
+        window.printThermalTicket('order', currentHistoryOrderInModal);
+    }
+};
+
+window.renderHistoryServicesTable = function() {
+    const tbody = document.getElementById('history-services-tbody');
+    if (!tbody || !window.StitchDatabase) return;
+
+    const logs = window.StitchDatabase.getAllServiceLogs();
+    if (logs.length === 0) {
+        tbody.innerHTML = `
+            <tr>
+                <td colspan="5" class="py-12 text-center text-gray-400">
+                    <span class="material-symbols-outlined text-[36px] mb-2 block">notifications_paused</span>
+                    Aucun appel ou service enregistré dans le journal.
+                </td>
+            </tr>
+        `;
+        return;
+    }
+
+    tbody.innerHTML = logs.map(l => {
+        const d = new Date(l.time || Date.now());
+        const timeStr = `${d.toLocaleDateString()} à ${d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`;
+        const durSec = l.durationSeconds || 60;
+        const durStr = durSec > 60 ? `${Math.floor(durSec / 60)}m ${durSec % 60}s` : `${durSec}s`;
+
+        return `
+            <tr class="hover:bg-gray-50 dark:hover:bg-white/5 transition-colors">
+                <td class="py-3 px-4 text-gray-500 dark:text-gray-400">${timeStr}</td>
+                <td class="py-3 px-4 font-black text-gray-900 dark:text-white">Table ${escapeHTML(l.table)}</td>
+                <td class="py-3 px-4 font-bold text-gray-800 dark:text-gray-200">${escapeHTML(l.label)}</td>
+                <td class="py-3 px-4 font-bold text-emerald-600 dark:text-emerald-400">⚡ ${durStr}</td>
+                <td class="py-3 px-4">
+                    <span class="px-2.5 py-0.5 rounded-full text-[10px] font-black bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300">
+                        Traité ✓
+                    </span>
+                </td>
+            </tr>
+        `;
+    }).join('');
+};
+
+window.clearServiceLogs = function() {
+    if (!confirm("Voulez-vous réinitialiser le journal des demandes de service ?")) return;
+    try {
+        localStorage.setItem('stitch_service_log', JSON.stringify([]));
+    } catch (_) {}
+    renderHistoryServicesTable();
+    refreshHistoryCounters();
+};
+
+// =========================================================================
+// SECTION: RAPPORT Z (CLÔTURE CAISSE JOURNALIÈRE)
+// =========================================================================
+
+let zReportCurrentDate = null;
+
+window.renderZReportTab = function() {
+    if (!zReportCurrentDate) {
+        zReportCurrentDate = window.StitchDatabase ? window.StitchDatabase.formatDateKey(Date.now()) : new Date().toISOString().slice(0, 10);
+    }
+    const input = document.getElementById('z-report-date-input');
+    if (input) input.value = zReportCurrentDate;
+
+    loadZReportForDate(zReportCurrentDate);
+};
+
+window.loadZReportForDate = function(dateStr) {
+    if (!dateStr || !window.StitchDatabase) return;
+    zReportCurrentDate = dateStr;
+
+    const input = document.getElementById('z-report-date-input');
+    if (input && input.value !== dateStr) input.value = dateStr;
+
+    const report = window.StitchDatabase.getZReportForDate(dateStr);
+
+    // Badge status
+    const statusBadge = document.getElementById('z-report-status-badge');
+    const closeBtn = document.getElementById('z-close-btn');
+    if (statusBadge) {
+        if (report.isClosed) {
+            statusBadge.className = "px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-emerald-500 text-stone-950 shadow-sm";
+            statusBadge.textContent = `Journée Clôturée (${report.closedData?.id || 'Z-Report'})`;
+            if (closeBtn) {
+                closeBtn.innerHTML = '<span class="material-symbols-outlined text-[18px]">verified</span><span>Déjà Clôturée</span>';
+                closeBtn.classList.add('opacity-60', 'pointer-events-none');
+            }
+        } else {
+            statusBadge.className = "px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-amber-500 text-stone-950 shadow-sm";
+            statusBadge.textContent = "Journée En Cours (Z Provisoire)";
+            if (closeBtn) {
+                closeBtn.innerHTML = '<span class="material-symbols-outlined text-[18px]">lock</span><span>Clôturer la Caisse (Z)</span>';
+                closeBtn.classList.remove('opacity-60', 'pointer-events-none');
+            }
+        }
+    }
+
+    // KPIs
+    const kpiGross = document.getElementById('z-kpi-gross');
+    if (kpiGross) kpiGross.textContent = report.grossTotal.toFixed(2);
+    const kpiNet = document.getElementById('z-kpi-net');
+    if (kpiNet) kpiNet.textContent = report.netTotal.toFixed(2);
+    const kpiTips = document.getElementById('z-kpi-tips');
+    if (kpiTips) kpiTips.textContent = report.totalTips.toFixed(2);
+    const kpiOrders = document.getElementById('z-kpi-orders');
+    if (kpiOrders) kpiOrders.textContent = report.totalOrders;
+    const kpiAvg = document.getElementById('z-kpi-average');
+    if (kpiAvg) kpiAvg.textContent = report.averageTicket.toFixed(2);
+
+    // Payments Breakdown
+    const payList = document.getElementById('z-payment-breakdown-list');
+    if (payList) {
+        const totalP = report.grossTotal || 1; // avoid division by 0
+        const pb = report.paymentBreakdown;
+        const cashPct = Math.round((pb.cash / totalP) * 100);
+        const cardPct = Math.round((pb.card / totalP) * 100);
+        const transPct = Math.round((pb.transfer / totalP) * 100);
+
+        payList.innerHTML = `
+            <div>
+                <div class="flex justify-between text-xs font-bold mb-1">
+                    <span class="flex items-center gap-1.5"><span class="material-symbols-outlined text-emerald-600 text-[16px]">payments</span> Espèces (Cash) :</span>
+                    <span><strong>${pb.cash.toFixed(2)} DH</strong> (${pb.cashCount} tickets • ${cashPct}%)</span>
+                </div>
+                <div class="w-full bg-gray-100 dark:bg-white/10 rounded-full h-2.5 overflow-hidden">
+                    <div class="bg-emerald-500 h-2.5 rounded-full" style="width: ${cashPct}%"></div>
+                </div>
+            </div>
+            <div>
+                <div class="flex justify-between text-xs font-bold mb-1">
+                    <span class="flex items-center gap-1.5"><span class="material-symbols-outlined text-blue-600 text-[16px]">credit_card</span> Carte Bancaire (TPE) :</span>
+                    <span><strong>${pb.card.toFixed(2)} DH</strong> (${pb.cardCount} tickets • ${cardPct}%)</span>
+                </div>
+                <div class="w-full bg-gray-100 dark:bg-white/10 rounded-full h-2.5 overflow-hidden">
+                    <div class="bg-blue-500 h-2.5 rounded-full" style="width: ${cardPct}%"></div>
+                </div>
+            </div>
+            <div>
+                <div class="flex justify-between text-xs font-bold mb-1">
+                    <span class="flex items-center gap-1.5"><span class="material-symbols-outlined text-amber-500 text-[16px]">account_balance</span> Virement Bancaire :</span>
+                    <span><strong>${pb.transfer.toFixed(2)} DH</strong> (${pb.transferCount} tickets • ${transPct}%)</span>
+                </div>
+                <div class="w-full bg-gray-100 dark:bg-white/10 rounded-full h-2.5 overflow-hidden">
+                    <div class="bg-amber-500 h-2.5 rounded-full" style="width: ${transPct}%"></div>
+                </div>
+            </div>
+        `;
+    }
+
+    // Channels Breakdown
+    const chList = document.getElementById('z-channel-breakdown-list');
+    if (chList) {
+        const totalP = report.grossTotal || 1;
+        const cb = report.channelBreakdown;
+        const dinePct = Math.round((cb['dine-in'] / totalP) * 100);
+        const takePct = Math.round((cb.takeaway / totalP) * 100);
+        const delivPct = Math.round((cb.delivery / totalP) * 100);
+
+        chList.innerHTML = `
+            <div>
+                <div class="flex justify-between text-xs font-bold mb-1">
+                    <span class="flex items-center gap-1.5"><span class="material-symbols-outlined text-primary text-[16px]">table_restaurant</span> Sur Place (12 Tables) :</span>
+                    <span><strong>${cb['dine-in'].toFixed(2)} DH</strong> (${cb.dineInCount} cmd • ${dinePct}%)</span>
+                </div>
+                <div class="w-full bg-gray-100 dark:bg-white/10 rounded-full h-2.5 overflow-hidden">
+                    <div class="bg-primary h-2.5 rounded-full" style="width: ${dinePct}%"></div>
+                </div>
+            </div>
+            <div>
+                <div class="flex justify-between text-xs font-bold mb-1">
+                    <span class="flex items-center gap-1.5"><span class="material-symbols-outlined text-purple-600 text-[16px]">shopping_bag</span> À Emporter :</span>
+                    <span><strong>${cb.takeaway.toFixed(2)} DH</strong> (${cb.takeawayCount} cmd • ${takePct}%)</span>
+                </div>
+                <div class="w-full bg-gray-100 dark:bg-white/10 rounded-full h-2.5 overflow-hidden">
+                    <div class="bg-purple-500 h-2.5 rounded-full" style="width: ${takePct}%"></div>
+                </div>
+            </div>
+            <div>
+                <div class="flex justify-between text-xs font-bold mb-1">
+                    <span class="flex items-center gap-1.5"><span class="material-symbols-outlined text-amber-500 text-[16px]">moped</span> Livraison à Domicile :</span>
+                    <span><strong>${cb.delivery.toFixed(2)} DH</strong> (${cb.deliveryCount} cmd • ${delivPct}%)</span>
+                </div>
+                <div class="w-full bg-gray-100 dark:bg-white/10 rounded-full h-2.5 overflow-hidden">
+                    <div class="bg-amber-500 h-2.5 rounded-full" style="width: ${delivPct}%"></div>
+                </div>
+            </div>
+        `;
+    }
+
+    // Top 5 Products
+    const topGrid = document.getElementById('z-top-products-grid');
+    if (topGrid) {
+        if (!report.topProducts || report.topProducts.length === 0) {
+            topGrid.innerHTML = '<div class="col-span-5 text-center text-xs text-gray-400 py-6">Aucun produit vendu pour cette date.</div>';
+        } else {
+            topGrid.innerHTML = report.topProducts.map((p, idx) => `
+                <div class="p-4 rounded-xl bg-gray-50 dark:bg-white/5 border border-gray-100 dark:border-white/5 text-center">
+                    <span class="w-6 h-6 rounded-full bg-amber-500/20 text-amber-500 font-black text-xs inline-flex items-center justify-center mb-2">#${idx + 1}</span>
+                    <h4 class="text-xs font-extrabold text-gray-900 dark:text-white truncate" title="${escapeHTML(p.name)}">${escapeHTML(p.name)}</h4>
+                    <span class="text-xs font-black text-primary mt-1 block">${p.qty} vendus</span>
+                    <span class="text-[11px] text-gray-400">${p.total.toFixed(2)} DH</span>
+                </div>
+            `).join('');
+        }
+    }
+};
+
+window.navigateZReportDay = function(delta) {
+    if (!zReportCurrentDate) zReportCurrentDate = new Date().toISOString().slice(0, 10);
+    const d = new Date(zReportCurrentDate + 'T12:00:00');
+    d.setDate(d.getDate() + delta);
+    const newDateStr = window.StitchDatabase ? window.StitchDatabase.formatDateKey(d.getTime()) : d.toISOString().slice(0, 10);
+    loadZReportForDate(newDateStr);
+};
+
+window.setZReportQuickDate = function(period) {
+    const DAY_MS = 24 * 60 * 60 * 1000;
+    let targetTime = Date.now();
+    if (period === 'yesterday') targetTime -= DAY_MS;
+    if (period === '2daysago') targetTime -= (2 * DAY_MS);
+
+    const dateStr = window.StitchDatabase ? window.StitchDatabase.formatDateKey(targetTime) : new Date(targetTime).toISOString().slice(0, 10);
+    loadZReportForDate(dateStr);
+};
+
+window.executeDailyZClosure = function() {
+    if (!zReportCurrentDate) return;
+    const report = window.StitchDatabase.getZReportForDate(zReportCurrentDate);
+    if (report.isClosed) {
+        alert(`La journée du ${zReportCurrentDate} est déjà définitivement clôturée.`);
+        return;
+    }
+
+    if (!confirm(`Confirmez-vous la clôture définitive du registre de caisse (Rapport Z) pour la date du ${zReportCurrentDate} ?\n\nChiffre d'Affaires Brut: ${report.grossTotal.toFixed(2)} DH\nTickets: ${report.totalOrders}`)) {
+        return;
+    }
+
+    const closed = window.StitchDatabase.closeDailyZReport(zReportCurrentDate, 'Direction Stitch');
+    loadZReportForDate(zReportCurrentDate);
+
+    // Print Thermal Z-Ticket immediately
+    window.printThermalZReport();
+
+    showMerchantNotice(`✓ Rapport Z N° ${closed.id} clôturé et certifié avec succès !`);
+};
+
+window.printThermalZReport = function() {
+    if (!zReportCurrentDate || !window.StitchDatabase) return;
+    const report = window.StitchDatabase.getZReportForDate(zReportCurrentDate);
+    if (window.printThermalTicket) {
+        window.printThermalTicket('z-report', report);
+    }
+};
+

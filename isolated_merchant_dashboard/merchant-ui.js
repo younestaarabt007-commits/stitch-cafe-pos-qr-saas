@@ -1,5 +1,5 @@
 (() => {
-  const tabs = new Set(['dashboard','pos','orders','delivery','kitchen','menu','qr','reservations','theme-manager','delivery-hub','tables']);
+  const tabs = new Set(['dashboard','pos','orders','delivery','kitchen','menu','qr','reservations','theme-manager','delivery-hub','tables','history','z-report']);
   const requestedTab = location.hash.slice(1);
   let expandedOrderWorkspace = false;
   function updateOrderWorkspace() {

@@ -70,17 +70,17 @@
     <!-- Middle: Navigation (scrollable) -->
     <nav aria-label="Merchant navigation" class="flex-1 overflow-y-auto px-4 py-2 space-y-1.5 min-h-0">
       <p class="merchant-nav-label" data-i18n="workspace">WORKSPACE</p>
-      <button data-tab="dashboard"
+      <button data-tab="dashboard" onclick="switchTab('dashboard')"
         class="w-full flex items-center gap-3 px-4 py-2.5 text-primary hover:text-orange-500 hover:bg-white dark:hover:bg-white/90 rounded-xl font-bold transition-all nav-btn pos-button">
         <span class="material-symbols-outlined text-[20px] text-primary">dashboard</span>
         <span data-i18n="dashboard" class="text-primary text-sm">Dashboard</span>
       </button>
-      <button data-tab="pos"
+      <button data-tab="pos" onclick="switchTab('pos')"
         class="w-full flex items-center gap-3 px-4 py-2.5 text-primary hover:text-orange-500 hover:bg-white dark:hover:bg-white/90 rounded-xl font-bold transition-all nav-btn pos-button">
         <span class="material-symbols-outlined text-[20px] text-primary">shopping_cart_checkout</span>
         <span data-i18n="take_order" class="text-primary text-sm">Take Order</span>
       </button>
-      <button data-tab="orders"
+      <button data-tab="orders" onclick="switchTab('orders')"
         class="w-full flex items-center gap-3 px-4 py-2.5 text-primary hover:text-orange-500 hover:bg-white dark:hover:bg-white/90 rounded-xl font-bold transition-all nav-btn pos-button">
         <span class="material-symbols-outlined text-[20px] text-primary">list_alt</span>
         <span data-i18n="live_orders" class="text-primary text-sm">Live Orders</span>
@@ -92,13 +92,13 @@
         <span data-i18n="delivery_hub" class="text-primary text-sm">Livraisons &amp; Réservations</span>
         <span id="delivery-res-count-badge" class="ml-auto bg-amber-500 text-white text-[10px] px-2 py-0.5 rounded-full shadow-glow">0</span>
       </button>
-      <button data-tab="kitchen"
+      <button data-tab="kitchen" onclick="switchTab('kitchen')"
         class="w-full flex items-center gap-3 px-4 py-2.5 text-primary hover:text-orange-500 hover:bg-white dark:hover:bg-white/90 rounded-xl font-bold transition-all nav-btn pos-button">
         <span class="material-symbols-outlined text-[20px] text-primary">restaurant</span>
         <span data-i18n="kitchen_display" class="text-primary text-sm">Kitchen Display</span>
         <span class="ml-auto bg-white text-orange-500 text-[10px] px-2 py-0.5 rounded-full shadow-glow">2</span>
       </button>
-      <button data-tab="menu"
+      <button data-tab="menu" onclick="switchTab('menu')"
         class="w-full flex items-center gap-3 px-4 py-2.5 text-primary hover:text-orange-500 hover:bg-white dark:hover:bg-white/90 rounded-xl font-bold transition-all nav-btn pos-button">
         <span class="material-symbols-outlined text-[20px] text-primary">menu_book</span>
         <span data-i18n="menu_manager" class="text-primary text-sm">Menu Manager</span>
@@ -171,15 +171,15 @@
     </button>
     <div class="mt-6 mb-2 h-px w-8 bg-gray-200 dark:bg-white/10"></div>
     <div class="flex flex-col items-center gap-4">
-      <button data-tab="dashboard" title="Dashboard" aria-label="Dashboard"
+      <button data-tab="dashboard" onclick="switchTab('dashboard')" title="Dashboard" aria-label="Dashboard"
         class="collapsed-nav-btn w-10 h-10 rounded-xl bg-gray-100 dark:bg-[#3a2b24] hover:bg-gray-200 dark:hover:bg-[#4a352c] border-2 border-gray-200 dark:border-white/10 text-primary flex items-center justify-center transition-all">
         <span class="material-symbols-outlined text-[21px] text-ultra-contrast">dashboard</span>
       </button>
-      <button data-tab="pos" title="Take Order" aria-label="Take Order"
+      <button data-tab="pos" onclick="switchTab('pos')" title="Take Order" aria-label="Take Order"
         class="collapsed-nav-btn w-10 h-10 rounded-xl bg-gray-100 dark:bg-[#3a2b24] hover:bg-gray-200 dark:hover:bg-[#4a352c] border-2 border-gray-200 dark:border-white/10 text-primary flex items-center justify-center transition-all">
         <span class="material-symbols-outlined text-[21px] text-ultra-contrast">shopping_cart_checkout</span>
       </button>
-      <button data-tab="orders" title="Live Orders" aria-label="Live Orders"
+      <button data-tab="orders" onclick="switchTab('orders')" title="Live Orders" aria-label="Live Orders"
         class="collapsed-nav-btn w-10 h-10 rounded-xl bg-gray-100 dark:bg-[#3a2b24] hover:bg-gray-200 dark:hover:bg-[#4a352c] border-2 border-gray-200 dark:border-white/10 text-primary flex items-center justify-center transition-all">
         <span class="material-symbols-outlined text-[21px] text-ultra-contrast">list_alt</span>
       </button>
@@ -187,11 +187,11 @@
         class="collapsed-nav-btn w-10 h-10 rounded-xl bg-gray-100 dark:bg-[#3a2b24] hover:bg-gray-200 dark:hover:bg-[#4a352c] border-2 border-gray-200 dark:border-white/10 text-primary flex items-center justify-center transition-all">
         <span class="material-symbols-outlined text-[21px] text-ultra-contrast">moped</span>
       </button>
-      <button data-tab="kitchen" title="Kitchen Display" aria-label="Kitchen Display"
+      <button data-tab="kitchen" onclick="switchTab('kitchen')" title="Kitchen Display" aria-label="Kitchen Display"
         class="collapsed-nav-btn w-10 h-10 rounded-xl bg-gray-100 dark:bg-[#3a2b24] hover:bg-gray-200 dark:hover:bg-[#4a352c] border-2 border-gray-200 dark:border-white/10 text-primary flex items-center justify-center transition-all">
         <span class="material-symbols-outlined text-[21px] text-ultra-contrast">restaurant</span>
       </button>
-      <button data-tab="menu" title="Menu Manager" aria-label="Menu Manager"
+      <button data-tab="menu" onclick="switchTab('menu')" title="Menu Manager" aria-label="Menu Manager"
         class="collapsed-nav-btn w-10 h-10 rounded-xl bg-gray-100 dark:bg-[#3a2b24] hover:bg-gray-200 dark:hover:bg-[#4a352c] border-2 border-gray-200 dark:border-white/10 text-primary flex items-center justify-center transition-all">
         <span class="material-symbols-outlined text-[21px] text-ultra-contrast">restaurant_menu</span>
       </button>

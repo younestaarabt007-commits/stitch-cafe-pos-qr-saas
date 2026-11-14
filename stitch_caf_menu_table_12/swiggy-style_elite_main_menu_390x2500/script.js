@@ -138,7 +138,7 @@ function apiBase() {
   }
 }
 
-let bestsellers = [];
+let bestsellers = (typeof window !== 'undefined' && Array.isArray(window.allMenuItems) && window.allMenuItems.length > 0) ? window.allMenuItems : [];
 let cart = [];
 const _urlParams = new URLSearchParams(window.location.search);
 const _isExplicitDelivery = _urlParams.get('mode') === 'delivery' || (!_urlParams.get('table') && localStorage.getItem('stitch_order_mode') === 'delivery');
@@ -761,7 +761,7 @@ window.selectTwoLevelCategory = function(mainCat = 'all', subCat = 'all', scroll
   activeMainCat = mainCat || 'all';
   activeSubCat = subCat || 'all';
 
-  const sourceItems = (typeof allMenuItems !== 'undefined' && Array.isArray(allMenuItems)) ? allMenuItems : bestsellers;
+  const sourceItems = (typeof window !== 'undefined' && Array.isArray(window.allMenuItems) && window.allMenuItems.length > 0) ? window.allMenuItems : ((typeof allMenuItems !== 'undefined' && Array.isArray(allMenuItems) && allMenuItems.length > 0) ? allMenuItems : (bestsellers || []));
   let filtered = sourceItems;
 
   if (activeMainCat !== 'all') {
@@ -1825,7 +1825,8 @@ function initSearch() {
       return;
     }
 
-    const matches = allMenuItems.filter(item => {
+    const catalog = (typeof window !== 'undefined' && Array.isArray(window.allMenuItems)) ? window.allMenuItems : bestsellers;
+    const matches = catalog.filter(item => {
       const name = (getMenuTranslation(item, 'name') || item.name || '').toLowerCase();
       const desc = (getMenuTranslation(item, 'description') || item.description || '').toLowerCase();
       const cat = (item.category || '').toLowerCase();
@@ -1894,7 +1895,8 @@ function renderSearchResults(matches) {
 }
 
 window.navigateToProduct = (id) => {
-  const item = allMenuItems.find(i => i.id === id);
+  const catalog = (typeof window !== 'undefined' && Array.isArray(window.allMenuItems)) ? window.allMenuItems : bestsellers;
+  const item = catalog.find(i => i.id === id);
   if (item) {
     localStorage.setItem('stitch_customizing_item', JSON.stringify(item));
     window.location.href = buildCustomizationUrl(item);

@@ -459,25 +459,42 @@
             <div class="p-3 rounded-2xl bg-white dark:bg-white/5 border border-stone-200/80 dark:border-white/10 space-y-2.5">
               <div class="flex items-center gap-2">
                 <span class="w-5 h-5 rounded-full bg-stone-900 text-white text-[10px] font-black flex items-center justify-center">4</span>
-                <span class="text-[11px] font-extrabold uppercase tracking-wider">${isAr ? 'طريقة الدفع عند الاستلام' : 'Paiement à la livraison'}</span>
+                <span class="text-[11px] font-extrabold uppercase tracking-wider">${isAr ? 'طريقة الدفع والتسوية' : 'Mode de Paiement'}</span>
               </div>
-              <div class="grid grid-cols-2 gap-2">
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
                 <label class="flex items-center gap-2 p-2.5 rounded-xl border border-stone-200 dark:border-white/10 cursor-pointer has-[:checked]:border-[#FF5200] has-[:checked]:bg-orange-50/60">
-                  <input type="radio" name="stitch-delivery-pay" value="cash" checked class="accent-[#FF5200]" onchange="document.getElementById('stitch-cash-change-row').classList.remove('hidden')" />
+                  <input type="radio" name="stitch-delivery-pay" value="cash" checked class="accent-[#FF5200]" onchange="document.getElementById('stitch-cash-change-row').classList.remove('hidden'); document.getElementById('stitch-bank-transfer-details')?.classList.add('hidden')" />
                   <span class="material-symbols-outlined text-[16px] text-emerald-600">payments</span>
-                  <span class="text-xs font-bold">${isAr ? 'نقداً (كاش)' : 'Espèces'}</span>
+                  <span class="text-xs font-bold">${isAr ? 'الدفع بعد الاستلام (نقداً)' : 'Payer après livraison (Espèces)'}</span>
                 </label>
                 <label class="flex items-center gap-2 p-2.5 rounded-xl border border-stone-200 dark:border-white/10 cursor-pointer has-[:checked]:border-[#FF5200] has-[:checked]:bg-orange-50/60">
-                  <input type="radio" name="stitch-delivery-pay" value="card" class="accent-[#FF5200]" onchange="document.getElementById('stitch-cash-change-row').classList.add('hidden')" />
+                  <input type="radio" name="stitch-delivery-pay" value="card" class="accent-[#FF5200]" onchange="document.getElementById('stitch-cash-change-row').classList.add('hidden'); document.getElementById('stitch-bank-transfer-details')?.classList.add('hidden')" />
                   <span class="material-symbols-outlined text-[16px] text-blue-600">credit_card</span>
-                  <span class="text-xs font-bold">${isAr ? 'بطاقة بنكية (TPE)' : 'Carte (TPE)'}</span>
+                  <span class="text-xs font-bold">${isAr ? 'بطاقة بنكية (TPE)' : 'Carte bancaire (TPE)'}</span>
+                </label>
+                <label class="flex items-center gap-2 p-2.5 rounded-xl border border-stone-200 dark:border-white/10 cursor-pointer has-[:checked]:border-[#FF5200] has-[:checked]:bg-orange-50/60">
+                  <input type="radio" name="stitch-delivery-pay" value="transfer" class="accent-[#FF5200]" onchange="document.getElementById('stitch-cash-change-row').classList.add('hidden'); document.getElementById('stitch-bank-transfer-details')?.classList.remove('hidden')" />
+                  <span class="material-symbols-outlined text-[16px] text-amber-600">account_balance</span>
+                  <span class="text-xs font-bold">${isAr ? 'تحويل بنكي فوري' : 'Virement instantané'}</span>
                 </label>
               </div>
               <div id="stitch-cash-change-row">
                 <input id="stitch-cart-cash-change" type="number" min="0" placeholder="${isAr ? 'المبلغ الذي معك لإرجاع الصرف؟ (مثال: 200 د.م.)' : 'Monnaie sur combien ? (ex: 200 DH)'}" class="w-full px-3 py-2 text-xs font-medium rounded-xl bg-[#FAF8F5] dark:bg-white/5 border border-stone-200 dark:border-white/10 focus:outline-none focus:border-[#FF5200]" />
               </div>
+              <!-- Bank Transfer Details Row -->
+              <div id="stitch-bank-transfer-details" class="hidden p-3 rounded-xl bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800/40 text-[11px] text-amber-900 dark:text-amber-200 space-y-1">
+                <div class="font-extrabold flex items-center gap-1.5 text-xs text-amber-800 dark:text-amber-300">
+                  <span class="material-symbols-outlined text-[15px]">verified_user</span>
+                  <span>${isAr ? 'بيانات التحويل البنكي الفوري' : 'Coordonnées Bancaires Stitch Café'}</span>
+                </div>
+                <p><strong>Banque :</strong> Attijariwafa Bank / CIH Bank</p>
+                <p><strong>RIB :</strong> <code class="font-mono bg-white dark:bg-black/30 px-1.5 py-0.5 rounded font-bold">230 780 0001234567890123 45</code></p>
+                <p class="text-[10px] text-stone-500 dark:text-stone-400 mt-1">
+                  ${isAr ? '⚠️ يرجى إرسال لقطة شاشة لوصل التحويل عبر واتساب إلى 0661000000 بعد النقر على إتمام الطلب.' : '⚠️ Envoyez une capture du virement sur WhatsApp au 06 61 00 00 00 après confirmation.'}
+                </p>
+              </div>
               <input id="stitch-cart-delivery-driver-note" type="text" placeholder="${isAr ? 'ملاحظات للسائق (مثال: الاتصال عند الباب السفلي)' : 'Note pour le livreur (ex: appeler en bas, interphone en panne)'}" class="w-full px-3 py-2 text-xs font-medium rounded-xl bg-[#FAF8F5] dark:bg-white/5 border border-stone-200 dark:border-white/10 focus:outline-none focus:border-[#FF5200]" />
-              <select id="stitch-cart-payment-method" class="hidden"><option value="cash">cash</option><option value="card">card</option></select>
+              <select id="stitch-cart-payment-method" class="hidden"><option value="cash">cash</option><option value="card">card</option><option value="transfer">transfer</option></select>
             </div>
           </div>
 
@@ -837,15 +854,23 @@
     const deliveryPhone = (phoneInput?.value || '').trim();
     const deliveryAddress = (addressInput?.value || '').trim();
     const deliveryGps = (gpsInput?.value || '').trim();
-    const paymentMethod = paymentSelect?.value || 'cash';
+    const payRadio = document.querySelector('input[name="stitch-delivery-pay"]:checked');
+    const paymentMethod = (orderMode === 'delivery' && payRadio) ? payRadio.value : (paymentSelect?.value || 'cash');
 
     if (orderMode === 'delivery') {
       if (!deliveryPhone || !deliveryAddress) {
         alert(isAr ? 'بالنسبة للتوصيل، يرجى ملء رقم الهاتف والعنوان بالتفصيل.' : 'Pour la livraison, veuillez indiquer votre numéro de téléphone et votre adresse.');
         return;
       }
+      const cleanDeliveryPhone = deliveryPhone.replace(/[\s\.\-\(\)]/g, '');
+      const moroccanPhoneRegex = /^(?:(?:\+|00)212|0)[5-7]\d{8}$/;
+      if (!moroccanPhoneRegex.test(cleanDeliveryPhone)) {
+        alert(isAr ? 'يرجى إدخال رقم هاتف مغربي صحيح من 10 أرقام (مثال: 0661234567 أو 212661234567+).' : 'Numéro de téléphone marocain invalide pour la livraison (ex: 06 61 23 45 67 ou +212 661 23 45 67).');
+        phoneInput?.focus();
+        return;
+      }
       try {
-        localStorage.setItem('stitch_delivery_phone', deliveryPhone);
+        localStorage.setItem('stitch_delivery_phone', cleanDeliveryPhone);
         localStorage.setItem('stitch_delivery_address', deliveryAddress);
       } catch (_) {}
     }

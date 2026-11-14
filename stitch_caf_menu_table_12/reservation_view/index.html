@@ -292,24 +292,43 @@
         </div>
       </div>
 
-      <!-- Contact Form -->
+      <!-- Contact Form (Nom & Prénom séparés + validation stricte) -->
       <div class="bg-white rounded-[2rem] p-5 sm:p-6 shadow-luxury border border-stone-200/70 space-y-4">
-        <div>
-          <label class="text-[11px] font-extrabold uppercase tracking-wider text-stone-500 block mb-1.5">Nom & Prénom *</label>
-          <div class="relative">
-            <span class="material-symbols-outlined text-stone-400 text-[18px] absolute left-4 top-1/2 -translate-y-1/2">person</span>
-            <input type="text" id="res-name" placeholder="Ex: Yassine El Amrani"
-              class="w-full pl-11 pr-4 py-3.5 rounded-2xl bg-[#FAF8F5] border border-stone-200 text-sm font-bold text-stone-900 focus:outline-none focus:border-primary" />
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label class="text-[11px] font-extrabold uppercase tracking-wider text-stone-500 block mb-1.5">Nom de Famille *</label>
+            <div class="relative">
+              <span class="material-symbols-outlined text-stone-400 text-[18px] absolute left-4 top-1/2 -translate-y-1/2">person</span>
+              <input type="text" id="res-lastname" placeholder="Ex: El Amrani"
+                class="w-full pl-11 pr-4 py-3.5 rounded-2xl bg-[#FAF8F5] border border-stone-200 text-sm font-bold text-stone-900 focus:outline-none focus:border-primary" />
+            </div>
+          </div>
+          <div>
+            <label class="text-[11px] font-extrabold uppercase tracking-wider text-stone-500 block mb-1.5">Prénom *</label>
+            <div class="relative">
+              <span class="material-symbols-outlined text-stone-400 text-[18px] absolute left-4 top-1/2 -translate-y-1/2">badge</span>
+              <input type="text" id="res-firstname" placeholder="Ex: Yassine"
+                class="w-full pl-11 pr-4 py-3.5 rounded-2xl bg-[#FAF8F5] border border-stone-200 text-sm font-bold text-stone-900 focus:outline-none focus:border-primary" />
+            </div>
           </div>
         </div>
 
         <div>
-          <label class="text-[11px] font-extrabold uppercase tracking-wider text-stone-500 block mb-1.5">Téléphone / WhatsApp *</label>
+          <label class="text-[11px] font-extrabold uppercase tracking-wider text-stone-500 block mb-1.5">Téléphone / WhatsApp Marocain *</label>
           <div class="relative">
             <span class="material-symbols-outlined text-stone-400 text-[18px] absolute left-4 top-1/2 -translate-y-1/2">call</span>
-            <input type="tel" id="res-phone" placeholder="Ex: 06 61 23 45 67"
+            <input type="tel" id="res-phone" placeholder="Ex: 06 61 23 45 67 ou +212 6..."
               class="w-full pl-11 pr-4 py-3.5 rounded-2xl bg-[#FAF8F5] border border-stone-200 text-sm font-bold text-stone-900 focus:outline-none focus:border-primary" />
           </div>
+          <p id="res-phone-error" class="text-xs font-bold text-red-500 mt-1.5 hidden"></p>
+        </div>
+
+        <!-- Service & Payment Notice -->
+        <div class="p-3.5 rounded-2xl bg-amber-500/10 border border-amber-500/25 flex items-start gap-2.5">
+          <span class="material-symbols-outlined text-primary text-[20px] shrink-0 mt-0.5">room_service</span>
+          <p class="text-[11px] text-stone-700 font-medium leading-relaxed">
+            <strong>Service &amp; Paiement :</strong> Le service s'effectue directement à votre table réservée par votre serveur. Le paiement s'effectue sur place au restaurant à la fin de votre visite (Espèces ou Carte Bancaire TPE).
+          </p>
         </div>
       </div>
 
@@ -344,14 +363,25 @@
           <div class="flex justify-between"><span class="text-stone-400 font-bold">Table & Espace :</span><span class="font-extrabold text-primary" id="conf-zone">—</span></div>
         </div>
 
+        <!-- Notice Service & Règlement à part -->
+        <div class="my-4 p-4 rounded-2xl bg-amber-500/10 border border-amber-500/30 text-left space-y-1">
+          <div class="flex items-center gap-2 text-amber-800 font-extrabold text-xs uppercase tracking-wider">
+            <span class="material-symbols-outlined text-[17px] text-primary">room_service</span>
+            <span>Service &amp; Paiement sur Place</span>
+          </div>
+          <p class="text-xs text-stone-600 font-medium leading-relaxed">
+            Votre serveur dédié sera à votre disposition dès votre arrivée. Le paiement de vos consommations se fera sur place à table (Espèces ou TPE).
+          </p>
+        </div>
+
         <div class="space-y-3">
-          <a href="../swiggy-style_elite_main_menu_390x2500/index.html?mode=delivery"
-            class="w-full py-4 rounded-2xl bg-stone-900 text-white font-extrabold text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg">
+          <a href="../swiggy-style_elite_main_menu_390x2500/index.html?mode=dine_in"
+            class="w-full py-4 rounded-2xl bg-primary text-white font-extrabold text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-glow hover:scale-[1.01] transition-all no-underline">
             <span class="material-symbols-outlined text-[18px]">restaurant_menu</span>
-            <span>Découvrir notre Carte en attendant</span>
+            <span>Explorer la Carte Restaurant en attendant</span>
           </a>
           <a href="../welcome_portal/index.html"
-            class="block py-3 text-xs font-bold text-stone-500 hover:text-stone-900">
+            class="block py-3 text-xs font-bold text-stone-500 hover:text-stone-900 no-underline">
             Retour à l'accueil
           </a>
         </div>
@@ -495,14 +525,34 @@
     }
 
     async function submitReservation() {
-      const name = document.getElementById('res-name').value.trim();
-      const phone = document.getElementById('res-phone').value.trim();
-      const extraNotes = document.getElementById('res-notes').value.trim();
+      const lastname = (document.getElementById('res-lastname')?.value || '').trim();
+      const firstname = (document.getElementById('res-firstname')?.value || '').trim();
+      const phoneRaw = (document.getElementById('res-phone')?.value || '').trim();
+      const extraNotes = (document.getElementById('res-notes')?.value || '').trim();
+      const phoneErrorEl = document.getElementById('res-phone-error');
 
-      if (!name || !phone) {
-        alert('Veuillez renseigner votre nom et votre numéro de téléphone.');
+      if (!lastname || !firstname) {
+        alert('Veuillez renseigner votre Nom et votre Prénom dans les champs séparés.');
         return;
       }
+
+      // Moroccan phone validation: accepts 06/07/05XXXXXXXX (10 digits) or +212/00212 6/7/5XXXXXXXX
+      const cleanPhone = phoneRaw.replace(/[\s\.\-\(\)]/g, '');
+      const moroccanPhoneRegex = /^(?:(?:\+|00)212|0)[5-7]\d{8}$/;
+
+      if (!moroccanPhoneRegex.test(cleanPhone)) {
+        if (phoneErrorEl) {
+          phoneErrorEl.textContent = '⚠️ Numéro de téléphone marocain invalide. Veuillez entrer un numéro valide (ex: 06 61 23 45 67 ou +212 661 23 45 67).';
+          phoneErrorEl.classList.remove('hidden');
+        }
+        document.getElementById('res-phone')?.focus();
+        alert('Numéro de téléphone marocain invalide.\nVeuillez entrer un numéro valide à 10 chiffres (ex: 06 61 23 45 67 ou +212 661 23 45 67).');
+        return;
+      }
+      if (phoneErrorEl) phoneErrorEl.classList.add('hidden');
+
+      const name = `${firstname} ${lastname}`.trim();
+      const phone = cleanPhone;
 
       const btn = document.getElementById('submit-res-btn');
       btn.disabled = true;

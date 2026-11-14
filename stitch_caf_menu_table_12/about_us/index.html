@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="fr" class="light" dir="ltr">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>À Propos de Stitch Café &amp; Roastery — Notre Histoire &amp; Philosophie</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            primary: "#FF5200",
+            amber: { 500: "#F59E0B", 600: "#D97706" }
+          },
+          fontFamily: {
+            sans: ["Plus Jakarta Sans", "sans-serif"],
+            serif: ["Instrument Serif", "Georgia", "serif"]
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    .font-serif { font-family: 'Instrument Serif', Georgia, serif; }
+    .glass-card {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+    .dark .glass-card {
+      background: rgba(26, 17, 12, 0.85);
+    }
+  </style>
+</head>
+
+<body class="bg-[#FAF8F5] dark:bg-[#140D0A] text-stone-900 dark:text-stone-100 min-h-screen flex flex-col antialiased transition-colors duration-300">
+
+  <!-- Floating Navigation Header -->
+  <header class="sticky top-0 z-40 bg-white/90 dark:bg-[#1a110c]/90 backdrop-blur-md border-b border-stone-200/80 dark:border-white/10 px-4 py-3 sm:px-6">
+    <div class="max-w-4xl mx-auto flex items-center justify-between">
+      <a href="../swiggy-style_elite_main_menu_390x2500/index.html" class="inline-flex items-center gap-2 text-stone-700 dark:text-stone-300 hover:text-primary transition-colors text-xs font-bold no-underline">
+        <span class="material-symbols-outlined text-[18px]">arrow_back</span>
+        <span id="nav-back-label">Retour au Menu</span>
+      </a>
+
+      <!-- Language Switcher Pill -->
+      <div class="flex items-center gap-1 bg-stone-100 dark:bg-white/10 p-1 rounded-full text-[11px] font-bold">
+        <button type="button" onclick="setLang('fr')" id="btn-lang-fr" class="px-2.5 py-1 rounded-full bg-white dark:bg-black/30 shadow-xs text-primary font-extrabold">FR</button>
+        <button type="button" onclick="setLang('ar')" id="btn-lang-ar" class="px-2.5 py-1 rounded-full text-stone-600 dark:text-stone-300">العربية</button>
+        <button type="button" onclick="setLang('en')" id="btn-lang-en" class="px-2.5 py-1 rounded-full text-stone-600 dark:text-stone-300">EN</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Banner -->
+  <div class="relative overflow-hidden bg-gradient-to-br from-[#1c120c] via-[#2d1b11] to-[#120a07] text-white py-14 sm:py-20 px-4 text-center">
+    <div class="absolute inset-0 opacity-20 bg-[radial-gradient(#FF5200_1px,transparent_1px)] [background-size:16px_16px]"></div>
+    <div class="relative z-10 max-w-2xl mx-auto space-y-4">
+      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-primary/20 border border-primary/30 text-amber-300 text-xs font-extrabold uppercase tracking-widest">
+        <span class="material-symbols-outlined text-[15px]">verified</span>
+        <span id="hero-kicker">Atelier Artisanal &amp; Torréfaction Pure</span>
+      </div>
+      <h1 class="font-serif italic text-4xl sm:text-6xl text-white leading-[1.08] tracking-tight" id="hero-title">
+        L'Art du Café &amp; l'Élégance du Brunch
+      </h1>
+      <p class="text-stone-300 text-sm sm:text-base leading-relaxed max-w-lg mx-auto" id="hero-desc">
+        Né à Rabat d'une passion inconditionnelle pour les grands crus et la cuisine fraîche, Stitch Café vous accueille dans un univers chaleureux pensé pour l'excellence et le partage.
+      </p>
+    </div>
+  </div>
+
+  <!-- Content Container -->
+  <main class="flex-1 max-w-4xl mx-auto w-full px-4 sm:px-6 py-8 sm:py-12 space-y-10">
+
+    <!-- 1. Notre Philosophie & Histoire -->
+    <section class="glass-card rounded-[2.2rem] p-6 sm:p-8 border border-stone-200/80 dark:border-white/10 shadow-sm space-y-4">
+      <div class="flex items-center gap-3">
+        <div class="w-12 h-12 rounded-2xl bg-amber-500/10 text-primary flex items-center justify-center shrink-0">
+          <span class="material-symbols-outlined text-[26px]">coffee_maker</span>
+        </div>
+        <div>
+          <span class="text-[10px] font-extrabold uppercase tracking-widest text-primary block" id="sec1-kicker">Notre Histoire</span>
+          <h2 class="text-xl sm:text-2xl font-black text-stone-900 dark:text-white" id="sec1-title">La Torréfaction Artisanale au Cœur de Notre Métier</h2>
+        </div>
+      </div>
+      <p class="text-xs sm:text-sm text-stone-600 dark:text-stone-300 leading-relaxed" id="sec1-p1">
+        Chez Stitch Café, chaque tasse raconte le voyage d'un terroir. Nous sélectionnons méticuleusement nos grains verts 100% Arabica auprès de coopératives éthiques situées sur les hauts plateaux d'Éthiopie (Yirgacheffe), de Colombie (Huila) et du Brésil (Cerrado). Torréfiés lentement sur place, nos cafés révèlent des notes aromatiques d'une pureté rare : agrumes délicats, chocolat noir fondant et caramel doux.
+      </p>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
+        <div class="p-3.5 rounded-2xl bg-stone-50 dark:bg-white/5 border border-stone-200/60 dark:border-white/5 text-center">
+          <span class="text-2xl font-black text-primary">85+</span>
+          <p class="text-[11px] font-bold text-stone-500 dark:text-stone-400 mt-0.5" id="stat-sca">Score SCA Spécialité</p>
+        </div>
+        <div class="p-3.5 rounded-2xl bg-stone-50 dark:bg-white/5 border border-stone-200/60 dark:border-white/5 text-center">
+          <span class="text-2xl font-black text-primary">100%</span>
+          <p class="text-[11px] font-bold text-stone-500 dark:text-stone-400 mt-0.5" id="stat-fresh">Fait Maison &amp; Minute</p>
+        </div>
+        <div class="p-3.5 rounded-2xl bg-stone-50 dark:bg-white/5 border border-stone-200/60 dark:border-white/5 text-center">
+          <span class="text-2xl font-black text-primary">3 Niveaux</span>
+          <p class="text-[11px] font-bold text-stone-500 dark:text-stone-400 mt-0.5" id="stat-floors">Terrasse, Salle &amp; Étage</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. Notre Cuisine & Brunch Gourmet -->
+    <section class="glass-card rounded-[2.2rem] p-6 sm:p-8 border border-stone-200/80 dark:border-white/10 shadow-sm space-y-4">
+      <div class="flex items-center gap-3">
+        <div class="w-12 h-12 rounded-2xl bg-emerald-500/10 text-emerald-600 flex items-center justify-center shrink-0">
+          <span class="material-symbols-outlined text-[26px]">restaurant</span>
+        </div>
+        <div>
+          <span class="text-[10px] font-extrabold uppercase tracking-widest text-emerald-600 block" id="sec2-kicker">Cuisine &amp; Pâtisserie</span>
+          <h2 class="text-xl sm:text-2xl font-black text-stone-900 dark:text-white" id="sec2-title">Un Brunch Créatif, Chaud et Savoureux</h2>
+        </div>
+      </div>
+      <p class="text-xs sm:text-sm text-stone-600 dark:text-stone-300 leading-relaxed" id="sec2-p1">
+        Notre boulangerie artisanale pétrit chaque nuit des pains au levain naturel et façonne des croissants pur beurre AOP croustillants. Du toast avocat hass au saumon fumé d'Écosse, en passant par nos œufs bénédictine nappés de hollandaise minute, notre carte est un hymne aux produits frais de saison.
+      </p>
+    </section>
+
+    <!-- 3. Nos 3 Espaces & Tables -->
+    <section class="glass-card rounded-[2.2rem] p-6 sm:p-8 border border-stone-200/80 dark:border-white/10 shadow-sm space-y-4">
+      <div class="flex items-center gap-3">
+        <div class="w-12 h-12 rounded-2xl bg-amber-500/10 text-amber-500 flex items-center justify-center shrink-0">
+          <span class="material-symbols-outlined text-[26px]">table_restaurant</span>
+        </div>
+        <div>
+          <span class="text-[10px] font-extrabold uppercase tracking-widest text-amber-600 block" id="sec3-kicker">L'Espace Stitch</span>
+          <h2 class="text-xl sm:text-2xl font-black text-stone-900 dark:text-white" id="sec3-title">12 Tables Réparties sur 3 Ambiances Uniques</h2>
+        </div>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-3 pt-2">
+        <div class="p-4 rounded-2xl bg-stone-50 dark:bg-white/5 border border-stone-200/60 dark:border-white/5 space-y-1.5">
+          <div class="w-7 h-7 rounded-xl bg-orange-100 dark:bg-orange-950 text-primary flex items-center justify-center font-black text-xs">1</div>
+          <h3 class="font-extrabold text-sm text-stone-900 dark:text-white" id="zone1-title">La Terrasse Ensoleillée</h3>
+          <p class="text-[11px] text-stone-500 dark:text-stone-400 leading-snug" id="zone1-desc">Tables 1 à 4. Idéale pour savourer votre espresso du matin au grand air et profiter de la brise de Rabat.</p>
+        </div>
+        <div class="p-4 rounded-2xl bg-stone-50 dark:bg-white/5 border border-stone-200/60 dark:border-white/5 space-y-1.5">
+          <div class="w-7 h-7 rounded-xl bg-amber-100 dark:bg-amber-950 text-amber-600 flex items-center justify-center font-black text-xs">2</div>
+          <h3 class="font-extrabold text-sm text-stone-900 dark:text-white" id="zone2-title">La Salle Principale</h3>
+          <p class="text-[11px] text-stone-500 dark:text-stone-400 leading-snug" id="zone2-desc">Tables 5 à 8. Ambiance feutrée, arômes de café fraîchement moulu et banquettes moelleuses.</p>
+        </div>
+        <div class="p-4 rounded-2xl bg-stone-50 dark:bg-white/5 border border-stone-200/60 dark:border-white/5 space-y-1.5">
+          <div class="w-7 h-7 rounded-xl bg-purple-100 dark:bg-purple-950 text-purple-600 flex items-center justify-center font-black text-xs">3</div>
+          <h3 class="font-extrabold text-sm text-stone-900 dark:text-white" id="zone3-title">Le 1er Étage Lounge</h3>
+          <p class="text-[11px] text-stone-500 dark:text-stone-400 leading-snug" id="zone3-desc">Tables 9 à 12. Espace calme et connecté (Wi-Fi fibre gratuit, prises), parfait pour le travail et les échanges.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. Nos Services : Sur Place, Livraison & Réservation -->
+    <section class="glass-card rounded-[2.2rem] p-6 sm:p-8 border border-stone-200/80 dark:border-white/10 shadow-sm space-y-4">
+      <div class="flex items-center gap-3">
+        <div class="w-12 h-12 rounded-2xl bg-blue-500/10 text-blue-600 flex items-center justify-center shrink-0">
+          <span class="material-symbols-outlined text-[26px]">room_service</span>
+        </div>
+        <div>
+          <span class="text-[10px] font-extrabold uppercase tracking-widest text-blue-600 block" id="sec4-kicker">Expérience Complète</span>
+          <h2 class="text-xl sm:text-2xl font-black text-stone-900 dark:text-white" id="sec4-title">Trois Façons de Profiter de Stitch Café</h2>
+        </div>
+      </div>
+      <div class="space-y-3">
+        <div class="p-4 rounded-2xl bg-[#FAF8F5] dark:bg-white/5 border border-stone-200/70 dark:border-white/5 flex items-start gap-3">
+          <span class="material-symbols-outlined text-primary text-[22px] shrink-0 mt-0.5">qr_code_scanner</span>
+          <div>
+            <h4 class="font-bold text-xs sm:text-sm text-stone-900 dark:text-white" id="srv1-title">Commande QR Code à Table</h4>
+            <p class="text-[11px] text-stone-500 dark:text-stone-400 mt-0.5 leading-relaxed" id="srv1-desc">Scannez le QR Code de votre table, personnalisez vos boissons et commandez sans attendre. Notre conciergerie digitale vous permet d'appeler votre serveur en 1 clic.</p>
+          </div>
+        </div>
+        <div class="p-4 rounded-2xl bg-[#FAF8F5] dark:bg-white/5 border border-stone-200/70 dark:border-white/5 flex items-start gap-3">
+          <span class="material-symbols-outlined text-emerald-600 text-[22px] shrink-0 mt-0.5">two_wheeler</span>
+          <div>
+            <h4 class="font-bold text-xs sm:text-sm text-stone-900 dark:text-white" id="srv2-title">Livraison Express à Domicile &amp; Bureau</h4>
+            <p class="text-[11px] text-stone-500 dark:text-stone-400 mt-0.5 leading-relaxed" id="srv2-desc">Commandez toute notre carte livrée en 25–35 min avec suivi en direct, localisation GPS et paiement à la réception (Espèces, Carte TPE ou Virement).</p>
+          </div>
+        </div>
+        <div class="p-4 rounded-2xl bg-[#FAF8F5] dark:bg-white/5 border border-stone-200/70 dark:border-white/5 flex items-start gap-3">
+          <span class="material-symbols-outlined text-amber-600 text-[22px] shrink-0 mt-0.5">event_seat</span>
+          <div>
+            <h4 class="font-bold text-xs sm:text-sm text-stone-900 dark:text-white" id="srv3-title">Réservation Instantanée de Table</h4>
+            <p class="text-[11px] text-stone-500 dark:text-stone-400 mt-0.5 leading-relaxed" id="srv3-desc">Choisissez votre jour, créneau horaire et votre zone préférée. Votre table sera réservée et dressée avant votre arrivée, avec service sur place.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. Informations Pratiques & Horaires -->
+    <section class="glass-card rounded-[2.2rem] p-6 sm:p-8 border border-stone-200/80 dark:border-white/10 shadow-sm space-y-4">
+      <div class="flex items-center gap-3">
+        <div class="w-12 h-12 rounded-2xl bg-stone-900 dark:bg-white/10 text-white flex items-center justify-center shrink-0">
+          <span class="material-symbols-outlined text-[26px]">schedule</span>
+        </div>
+        <div>
+          <span class="text-[10px] font-extrabold uppercase tracking-widest text-stone-500 block" id="sec5-kicker">Infos &amp; Horaires</span>
+          <h2 class="text-xl sm:text-2xl font-black text-stone-900 dark:text-white" id="sec5-title">Nous Rendre Visite</h2>
+        </div>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-1 text-xs">
+        <div class="p-4 rounded-2xl bg-stone-50 dark:bg-white/5 border border-stone-200/60 dark:border-white/5 space-y-2">
+          <div class="flex items-center gap-2 font-bold text-stone-900 dark:text-white">
+            <span class="material-symbols-outlined text-primary text-[18px]">access_time</span>
+            <span id="label-hours">Horaires d'Ouverture</span>
+          </div>
+          <p class="text-stone-600 dark:text-stone-300"><strong>Lundi – Dimanche :</strong> 07h30 – 23h00</p>
+          <p class="text-stone-600 dark:text-stone-300"><strong>Brunch Continu :</strong> 08h00 – 18h00</p>
+          <p class="text-[11px] text-emerald-600 font-bold">● Ouvert 7 jours sur 7 en service continu</p>
+        </div>
+        <div class="p-4 rounded-2xl bg-stone-50 dark:bg-white/5 border border-stone-200/60 dark:border-white/5 space-y-2">
+          <div class="flex items-center gap-2 font-bold text-stone-900 dark:text-white">
+            <span class="material-symbols-outlined text-primary text-[18px]">location_on</span>
+            <span id="label-location">Adresse &amp; Contact</span>
+          </div>
+          <p class="text-stone-600 dark:text-stone-300">Avenue Mohammed VI, Souissi / Agdal, Rabat</p>
+          <p class="text-stone-600 dark:text-stone-300"><strong>Tél :</strong> +212 5 37 00 00 00</p>
+          <p class="text-stone-600 dark:text-stone-300"><strong>WhatsApp :</strong> +212 6 61 00 00 00</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Action Buttons CTA -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4">
+      <a href="../swiggy-style_elite_main_menu_390x2500/index.html"
+        class="py-4 px-6 rounded-2xl bg-primary text-white font-extrabold text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-glow hover:scale-[1.01] transition-all no-underline text-center">
+        <span class="material-symbols-outlined text-[18px]">menu_book</span>
+        <span id="btn-explore-menu">Explorer Notre Menu en Ligne</span>
+      </a>
+      <a href="../reservation_view/index.html"
+        class="py-4 px-6 rounded-2xl bg-stone-900 dark:bg-white text-white dark:text-stone-900 font-extrabold text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg hover:scale-[1.01] transition-all no-underline text-center">
+        <span class="material-symbols-outlined text-[18px]">event_seat</span>
+        <span id="btn-book-table">Réserver une Table</span>
+      </a>
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="mt-12 py-6 border-t border-stone-200/80 dark:border-white/10 text-center text-[11px] text-stone-500 dark:text-stone-400">
+    <p>Stitch Café &amp; Roastery • Rabat, Maroc • Tous droits réservés</p>
+  </footer>
+
+  <script>
+    const I18N = {
+      fr: {
+        back: "Retour au Menu",
+        hero_kicker: "Atelier Artisanal & Torréfaction Pure",
+        hero_title: "L'Art du Café & l'Élégance du Brunch",
+        hero_desc: "Né à Rabat d'une passion inconditionnelle pour les grands crus et la cuisine fraîche, Stitch Café vous accueille dans un univers chaleureux pensé pour l'excellence et le partage.",
+        sec1_kicker: "Notre Histoire",
+        sec1_title: "La Torréfaction Artisanale au Cœur de Notre Métier",
+        sec1_p1: "Chez Stitch Café, chaque tasse raconte le voyage d'un terroir. Nous sélectionnons méticuleusement nos grains verts 100% Arabica auprès de coopératives éthiques situées sur les hauts plateaux d'Éthiopie (Yirgacheffe), de Colombie (Huila) et du Brésil (Cerrado). Torréfiés lentement sur place, nos cafés révèlent des notes aromatiques d'une pureté rare : agrumes délicats, chocolat noir fondant et caramel doux.",
+        stat_sca: "Score SCA Spécialité",
+        stat_fresh: "Fait Maison & Minute",
+        stat_floors: "Terrasse, Salle & Étage",
+        sec2_kicker: "Cuisine & Pâtisserie",
+        sec2_title: "Un Brunch Créatif, Chaud et Savoureux",
+        sec2_p1: "Notre boulangerie artisanale pétrit chaque nuit des pains au levain naturel et façonne des croissants pur beurre AOP croustillants. Du toast avocat hass au saumon fumé d'Écosse, en passant par nos œufs bénédictine nappés de hollandaise minute, notre carte est un hymne aux produits frais de saison.",
+        sec3_kicker: "L'Espace Stitch",
+        sec3_title: "12 Tables Réparties sur 3 Ambiances Uniques",
+        zone1_title: "La Terrasse Ensoleillée",
+        zone1_desc: "Tables 1 à 4. Idéale pour savourer votre espresso du matin au grand air et profiter de la brise de Rabat.",
+        zone2_title: "La Salle Principale",
+        zone2_desc: "Tables 5 à 8. Ambiance feutrée, arômes de café fraîchement moulu et banquettes moelleuses.",
+        zone3_title: "Le 1er Étage Lounge",
+        zone3_desc: "Tables 9 à 12. Espace calme et connecté (Wi-Fi fibre gratuit, prises), parfait pour le travail et les échanges.",
+        sec4_kicker: "Expérience Complète",
+        sec4_title: "Trois Façons de Profiter de Stitch Café",
+        srv1_title: "Commande QR Code à Table",
+        srv1_desc: "Scannez le QR Code de votre table, personnalisez vos boissons et commandez sans attendre. Notre conciergerie digitale vous permet d'appeler votre serveur en 1 clic.",
+        srv2_title: "Livraison Express à Domicile & Bureau",
+        srv2_desc: "Commandez toute notre carte livrée en 25–35 min avec suivi en direct, localisation GPS et paiement à la réception (Espèces, Carte TPE ou Virement).",
+        srv3_title: "Réservation Instantanée de Table",
+        srv3_desc: "Choisissez votre jour, créneau horaire et votre zone préférée. Votre table sera réservée et dressée avant votre arrivée, avec service sur place.",
+        sec5_kicker: "Infos & Horaires",
+        sec5_title: "Nous Rendre Visite",
+        label_hours: "Horaires d'Ouverture",
+        label_location: "Adresse & Contact",
+        btn_explore: "Explorer Notre Menu en Ligne",
+        btn_book: "Réserver une Table"
+      },
+      ar: {
+        back: "العودة إلى القائمة",
+        hero_kicker: "محمصة حرفية وقهوة مختصة نقية",
+        hero_title: "فن القهوة وأناقة البرانش الفاخر",
+        hero_desc: "انطلق ستيتش كافيه في الرباط بشغف مطلق بالبن الفاخر والمأكولات الطازجة، ليرحب بكم في فضاء دافئ مفعم بالتميز والمذاق الرفيع.",
+        sec1_kicker: "قصتنا وفلسفتنا",
+        sec1_title: "التحميص الحرفي في صلب هويتنا",
+        sec1_p1: "في ستيتش كافيه، كل فنجان يحكي قصة موطن أصيل. نختار بعناية فائقة حبوب البن الأخضر 100% أرابيكا من مزارع أخلاقية في مرتفعات إثيوبيا (يرغاتشيفي)، كولومبيا (هويلا) والبرازيل (سيرادو). يتم تحميص البن ببطء داخل المحمصة لتستمتع بنكهات نقية: حمضيات لطيفة، شوكولاتة داكنة وكاراميل ناعم.",
+        stat_sca: "تقييم الجودة العالمية SCA",
+        stat_fresh: "تحضير طازج وفوري 100%",
+        stat_floors: "تراس، قاعة وطابق علوي",
+        sec2_kicker: "المطبخ والحلويات الحرفية",
+        sec2_title: "برانش متجدد بمكونات طازجة ووصفات شيف",
+        sec2_p1: "نخبز يومياً في مخبزتنا الحرفية خبز الخميرة الطبيعية (الساوردو) وكرواسون الزبدة الممتازة الهش. من توست الأفوكادو الطازج مع السلمون المدخن، إلى بيض بينيديكت بصلصة الهولنديز الفورية، نلتزم بتقديم أطباق غنية بالصحة والمذاق.",
+        sec3_kicker: "فضاء ستيتش كافيه",
+        sec3_title: "12 طاولة موزعة على 3 أجواء استثنائية",
+        zone1_title: "التراس المشمس",
+        zone1_desc: "الطاولات 1 إلى 4. للاستمتاع بقهوة الصباح تحت أشعة الشمس والنسيم العليل للرباط.",
+        zone2_title: "القاعة الرئيسية",
+        zone2_desc: "الطاولات 5 إلى 8. أجواء دافئة مريحة وعبق القهوة المحمصة الطازجة.",
+        zone3_title: "طابق اللاونج الأول",
+        zone3_desc: "الطاولات 9 إلى 12. فضاء هادئ متصل (واي فاي فايبر فائق السرعة ومنافذ شحن) مثالي للعمل أو اللقاءات.",
+        sec4_kicker: "خدماتنا المتكاملة",
+        sec4_title: "ثلاث طرق للاستمتاع بتجربة ستيتش كافيه",
+        srv1_title: "الطلب الفوري عبر كود الـ QR على الطاولة",
+        srv1_desc: "امسح الرمز على طاولتك، خصص مشروباتك واطلب مباشرة، مع خدمة طلب النادل بنقرة واحدة.",
+        srv2_title: "التوصيل السريع للمنزل والمكتب",
+        srv2_desc: "اطلب كل ما تشتهيه ليصلك في 25-35 دقيقة مع تتبع مباشر وتحديد الموقع عبر GPS والدفع عند الاستلام (كاش، بطاقة أو تحويل).",
+        srv3_title: "الحجز الفوري للطاولات",
+        srv3_desc: "اختر التاريخ والوقت والمنطقة المفضلة. يتم تحضير طاولتك واستقبالك بكل عناية مع خدمة راقية.",
+        sec5_kicker: "معلومات وأوقات العمل",
+        sec5_title: "زيارتنا والتواصل معنا",
+        label_hours: "أوقات العمل",
+        label_location: "العنوان والتواصل",
+        btn_explore: "تصفح القائمة الكاملة",
+        btn_book: "حجز طاولة الآن"
+      },
+      en: {
+        back: "Back to Menu",
+        hero_kicker: "Artisanal Roastery & Pure Specialty Coffee",
+        hero_title: "The Art of Coffee & Gourmet Brunch",
+        hero_desc: "Born in Rabat out of unconditional passion for specialty single-origin beans and freshly crafted food, Stitch Café welcomes you into a warm, refined haven.",
+        sec1_kicker: "Our Story",
+        sec1_title: "Artisanal Slow Roasting at Heart",
+        sec1_p1: "At Stitch Café, every cup tells a terroir's journey. We meticulously source 100% Arabica specialty green beans from ethical farms in Ethiopia, Colombia, and Brazil, roasting them in-house to reveal exquisite notes of citrus, dark chocolate, and silky caramel.",
+        stat_sca: "SCA Specialty Score",
+        stat_fresh: "100% Fresh & House-made",
+        stat_floors: "Terrace, Main Hall & Lounge",
+        sec2_kicker: "Kitchen & Bakery",
+        sec2_title: "Creative, Wholesome & Indulgent Brunch",
+        sec2_p1: "Our bakers craft fresh artisanal sourdough and buttery croissants daily. From fresh avocado salmon toast to golden eggs benedict, each dish honors seasonal freshness.",
+        sec3_kicker: "The Space",
+        sec3_title: "12 Tables Across 3 Distinct Ambiances",
+        zone1_title: "Sunny Terrace",
+        zone1_desc: "Tables 1 to 4. Ideal for morning brews in the fresh Rabat breeze.",
+        zone2_title: "Main Dining Hall",
+        zone2_desc: "Tables 5 to 8. Cozy, plush seating surrounded by the rich aroma of freshly roasted coffee.",
+        zone3_title: "1st Floor Lounge",
+        zone3_desc: "Tables 9 to 12. Quiet workspace with high-speed fiber Wi-Fi and power outlets.",
+        sec4_kicker: "Full Ecosystem",
+        sec4_title: "Three Ways to Savor Stitch",
+        srv1_title: "In-Table QR Ordering",
+        srv1_desc: "Scan your table's code, customize items, and order seamlessly with 1-click waiter concierge.",
+        srv2_title: "Express Home Delivery",
+        srv2_desc: "25–35 min delivery with GPS tracking and pay-on-arrival options (Cash, Card, Transfer).",
+        srv3_title: "Instant Table Reservation",
+        srv3_desc: "Reserve your preferred slot and zone in seconds with on-site service upon arrival.",
+        sec5_kicker: "Information",
+        sec5_title: "Visit Us",
+        label_hours: "Opening Hours",
+        label_location: "Address & Contact",
+        btn_explore: "Explore Online Menu",
+        btn_book: "Reserve a Table"
+      }
+    };
+
+    function setLang(lang) {
+      if (!I18N[lang]) lang = 'fr';
+      try { localStorage.setItem('stitch_lang', lang); } catch (_) {}
+      const dict = I18N[lang];
+      const isRtl = lang === 'ar';
+
+      document.documentElement.setAttribute('lang', lang);
+      document.documentElement.setAttribute('dir', isRtl ? 'rtl' : 'ltr');
+
+      ['fr', 'ar', 'en'].forEach(l => {
+        const btn = document.getElementById(`btn-lang-${l}`);
+        if (!btn) return;
+        if (l === lang) {
+          btn.className = "px-2.5 py-1 rounded-full bg-white dark:bg-black/30 shadow-xs text-primary font-extrabold";
+        } else {
+          btn.className = "px-2.5 py-1 rounded-full text-stone-600 dark:text-stone-300";
+        }
+      });
+
+      document.getElementById('nav-back-label').textContent = dict.back;
+      document.getElementById('hero-kicker').textContent = dict.hero_kicker;
+      document.getElementById('hero-title').textContent = dict.hero_title;
+      document.getElementById('hero-desc').textContent = dict.hero_desc;
+      document.getElementById('sec1-kicker').textContent = dict.sec1_kicker;
+      document.getElementById('sec1-title').textContent = dict.sec1_title;
+      document.getElementById('sec1-p1').textContent = dict.sec1_p1;
+      document.getElementById('stat-sca').textContent = dict.stat_sca;
+      document.getElementById('stat-fresh').textContent = dict.stat_fresh;
+      document.getElementById('stat-floors').textContent = dict.stat_floors;
+      document.getElementById('sec2-kicker').textContent = dict.sec2_kicker;
+      document.getElementById('sec2-title').textContent = dict.sec2_title;
+      document.getElementById('sec2-p1').textContent = dict.sec2_p1;
+      document.getElementById('sec3-kicker').textContent = dict.sec3_kicker;
+      document.getElementById('sec3-title').textContent = dict.sec3_title;
+      document.getElementById('zone1-title').textContent = dict.zone1_title;
+      document.getElementById('zone1-desc').textContent = dict.zone1_desc;
+      document.getElementById('zone2-title').textContent = dict.zone2_title;
+      document.getElementById('zone2-desc').textContent = dict.zone2_desc;
+      document.getElementById('zone3-title').textContent = dict.zone3_title;
+      document.getElementById('zone3-desc').textContent = dict.zone3_desc;
+      document.getElementById('sec4-kicker').textContent = dict.sec4_kicker;
+      document.getElementById('sec4-title').textContent = dict.sec4_title;
+      document.getElementById('srv1-title').textContent = dict.srv1_title;
+      document.getElementById('srv1-desc').textContent = dict.srv1_desc;
+      document.getElementById('srv2-title').textContent = dict.srv2_title;
+      document.getElementById('srv2-desc').textContent = dict.srv2_desc;
+      document.getElementById('srv3-title').textContent = dict.srv3_title;
+      document.getElementById('srv3-desc').textContent = dict.srv3_desc;
+      document.getElementById('sec5-kicker').textContent = dict.sec5_kicker;
+      document.getElementById('sec5-title').textContent = dict.sec5_title;
+      document.getElementById('label-hours').textContent = dict.label_hours;
+      document.getElementById('label-location').textContent = dict.label_location;
+      document.getElementById('btn-explore-menu').textContent = dict.btn_explore;
+      document.getElementById('btn-book-table').textContent = dict.btn_book;
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const savedLang = localStorage.getItem('stitch_lang') || 'fr';
+      setLang(savedLang);
+    });
+  </script>
+</body>
+
+</html>

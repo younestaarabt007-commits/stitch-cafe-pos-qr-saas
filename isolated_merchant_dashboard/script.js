@@ -1210,6 +1210,14 @@ function renderFigmaDeliveryQueue() {
 }
 
 function switchTab(tabId) {
+    // Security check: Protect sensitive tabs with Manager PIN
+    if ((tabId === 'z-report' || tabId === 'history') && !window.isManagerUnlocked) {
+        window.requireManagerPin(() => {
+            window.switchTab(tabId);
+        }, tabId === 'z-report' ? 'Accès Rapport Z' : 'Accès Historique & Audit');
+        return;
+    }
+
     const sidebar = document.getElementById('sidebar');
     if (sidebar && window.innerWidth < 768) {
         sidebar.classList.add('-translate-x-full');
@@ -6144,3 +6152,315 @@ window.printThermalZReport = function() {
     }
 };
 
+
+
+// =========================================================================
+// STITCH CAFÉ — MANAGER SECURITY PIN & CAISSE BACKUP/RESTORE ENGINE
+// Protects sensitive cash registers, audit logs & provides full JSON backup/restore
+// =========================================================================
+
+(function() {
+    'use strict';
+
+    const STORAGE_KEY_PIN = 'stitch_manager_pin';
+    const DEFAULT_PIN = '1234';
+    let managerPinCallback = null;
+    let currentEnteredPin = '';
+
+    window.isManagerUnlocked = (function() {
+        try {
+            return sessionStorage.getItem('stitch_manager_unlocked') === 'true';
+        } catch (_) {
+            return false;
+        }
+    })();
+
+    function getManagerPIN() {
+        try {
+            return localStorage.getItem(STORAGE_KEY_PIN) || DEFAULT_PIN;
+        } catch (_) {
+            return DEFAULT_PIN;
+        }
+    }
+
+    window.updateManagerLockUI = function() {
+        const icon = document.getElementById('manager-lock-icon');
+        const text = document.getElementById('manager-lock-text');
+        const btn = document.getElementById('manager-lock-btn');
+        if (!icon || !text) return;
+
+        if (window.isManagerUnlocked) {
+            icon.textContent = 'lock_open';
+            icon.className = 'material-symbols-outlined text-[18px] text-emerald-500';
+            text.textContent = 'Gérant (Actif)';
+            if (btn) {
+                btn.classList.add('border-emerald-500/40', 'bg-emerald-50/50', 'dark:bg-emerald-950/20');
+            }
+        } else {
+            icon.textContent = 'lock';
+            icon.className = 'material-symbols-outlined text-[18px] text-amber-500';
+            text.textContent = 'Gérant';
+            if (btn) {
+                btn.classList.remove('border-emerald-500/40', 'bg-emerald-50/50', 'dark:bg-emerald-950/20');
+            }
+        }
+    };
+
+    window.requireManagerPin = function(onSuccess, title = 'Accès Sécurisé Gérant') {
+        if (window.isManagerUnlocked) {
+            if (typeof onSuccess === 'function') onSuccess();
+            return;
+        }
+
+        managerPinCallback = onSuccess;
+        currentEnteredPin = '';
+        renderPinDots();
+
+        const titleEl = document.getElementById('pin-modal-title');
+        if (titleEl) titleEl.textContent = title;
+
+        const errorEl = document.getElementById('pin-error-msg');
+        if (errorEl) errorEl.classList.add('hidden');
+
+        const modal = document.getElementById('manager-pin-modal');
+        if (modal) modal.classList.remove('hidden');
+    };
+
+    window.handlePinDigit = function(digit) {
+        if (currentEnteredPin.length >= 4) return;
+        currentEnteredPin += String(digit);
+        renderPinDots();
+
+        const errorEl = document.getElementById('pin-error-msg');
+        if (errorEl) errorEl.classList.add('hidden');
+
+        if (currentEnteredPin.length === 4) {
+            setTimeout(verifyEnteredPin, 150);
+        }
+    };
+
+    window.handlePinBackspace = function() {
+        if (currentEnteredPin.length > 0) {
+            currentEnteredPin = currentEnteredPin.slice(0, -1);
+            renderPinDots();
+        }
+    };
+
+    window.handlePinClear = function() {
+        currentEnteredPin = '';
+        renderPinDots();
+    };
+
+    function renderPinDots() {
+        for (let i = 1; i <= 4; i++) {
+            const dot = document.getElementById('pin-dot-' + i);
+            if (dot) {
+                if (i <= currentEnteredPin.length) {
+                    dot.className = 'w-4 h-4 rounded-full bg-primary border-2 border-primary scale-110 transition-all duration-150';
+                } else {
+                    dot.className = 'w-4 h-4 rounded-full border-2 border-gray-300 dark:border-white/20 transition-all duration-150';
+                }
+            }
+        }
+    }
+
+    function verifyEnteredPin() {
+        const correctPin = getManagerPIN();
+        if (currentEnteredPin === correctPin) {
+            window.isManagerUnlocked = true;
+            try {
+                sessionStorage.setItem('stitch_manager_unlocked', 'true');
+            } catch (_) {}
+
+            window.updateManagerLockUI();
+            window.closeManagerPinModal();
+
+            if (typeof window.showMerchantNotice === 'function') {
+                window.showMerchantNotice('✓ Session Gérant déverrouillée avec succès');
+            }
+
+            if (typeof managerPinCallback === 'function') {
+                const cb = managerPinCallback;
+                managerPinCallback = null;
+                cb();
+            }
+        } else {
+            const errorEl = document.getElementById('pin-error-msg');
+            if (errorEl) errorEl.classList.remove('hidden');
+
+            const container = document.getElementById('pin-dots-container');
+            if (container) {
+                container.classList.add('animate-shake');
+                setTimeout(() => container.classList.remove('animate-shake'), 400);
+            }
+
+            currentEnteredPin = '';
+            setTimeout(renderPinDots, 250);
+        }
+    }
+
+    window.closeManagerPinModal = function() {
+        const modal = document.getElementById('manager-pin-modal');
+        if (modal) modal.classList.add('hidden');
+        currentEnteredPin = '';
+        managerPinCallback = null;
+    };
+
+    window.toggleManagerLock = function() {
+        if (window.isManagerUnlocked) {
+            if (confirm('Voulez-vous verrouiller la session Gérant ? Les accès aux rapports financiers seront de nouveau protégés par code PIN.')) {
+                window.isManagerUnlocked = false;
+                try {
+                    sessionStorage.removeItem('stitch_manager_unlocked');
+                } catch (_) {}
+                window.updateManagerLockUI();
+                if (typeof window.showMerchantNotice === 'function') {
+                    window.showMerchantNotice('Session Gérant verrouillée.');
+                }
+                // If on sensitive tab, switch back to dashboard
+                const mainContent = document.getElementById('main-content');
+                const activeTab = mainContent ? mainContent.getAttribute('data-active-tab') : '';
+                if (activeTab === 'z-report' || activeTab === 'history') {
+                    window.switchTab('dashboard');
+                }
+            }
+        } else {
+            window.requireManagerPin(() => {}, 'Déverrouiller Mode Gérant');
+        }
+    };
+
+    // --- BACKUP & RESTORE ---
+    window.openBackupModal = function() {
+        window.requireManagerPin(() => {
+            const modal = document.getElementById('backup-restore-modal');
+            if (modal) modal.classList.remove('hidden');
+        }, 'Sauvegarde & Sécurité Caisse');
+    };
+
+    window.closeBackupModal = function() {
+        const modal = document.getElementById('backup-restore-modal');
+        if (modal) modal.classList.add('hidden');
+    };
+
+    window.exportCaisseBackup = function() {
+        try {
+            const backupPayload = {
+                app: 'Stitch Café POS & QR SaaS',
+                version: '2.5.0',
+                exportDate: new Date().toISOString(),
+                exportedTimestamp: Date.now(),
+                data: {}
+            };
+
+            const keysToExport = [
+                'stitch_live_orders',
+                'stitch_orders',
+                'stitch_history_orders',
+                'stitch_tables',
+                'stitch_reservations',
+                'stitch_daily_zreports',
+                'stitch_service_log',
+                'stitch_out_of_stock_ids',
+                'stitch_menu_theme',
+                'stitch_table_alerts',
+                'stitch_custom_categories',
+                'stitch_manager_pin'
+            ];
+
+            keysToExport.forEach(k => {
+                const val = localStorage.getItem(k);
+                if (val !== null) {
+                    try {
+                        backupPayload.data[k] = JSON.parse(val);
+                    } catch (_) {
+                        backupPayload.data[k] = val;
+                    }
+                }
+            });
+
+            const dataStr = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(backupPayload, null, 2));
+            const dlAnchor = document.createElement('a');
+            const dateStr = new Date().toISOString().slice(0, 10);
+            dlAnchor.setAttribute('href', dataStr);
+            dlAnchor.setAttribute('download', `stitch-caisse-backup-${dateStr}.json`);
+            document.body.appendChild(dlAnchor);
+            dlAnchor.click();
+            dlAnchor.remove();
+
+            if (typeof window.showMerchantNotice === 'function') {
+                window.showMerchantNotice('✓ Fichier de sauvegarde de la caisse exporté avec succès !');
+            }
+        } catch (err) {
+            alert('Erreur lors de la sauvegarde: ' + err.message);
+        }
+    };
+
+    window.handleBackupFileSelected = function(event) {
+        const file = event.target.files && event.target.files[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            try {
+                const parsed = JSON.parse(e.target.result);
+                if (!parsed || !parsed.data) {
+                    throw new Error('Format de fichier de sauvegarde invalide.');
+                }
+
+                if (!confirm(`Êtes-vous sûr de vouloir restaurer cette sauvegarde créée le ${parsed.exportDate || 'date inconnue'} ?\n\nCette action écrasera les données actuelles de la caisse par les données du fichier.`)) {
+                    event.target.value = '';
+                    return;
+                }
+
+                // Restore all keys
+                Object.keys(parsed.data).forEach(k => {
+                    const val = parsed.data[k];
+                    if (typeof val === 'object') {
+                        localStorage.setItem(k, JSON.stringify(val));
+                    } else {
+                        localStorage.setItem(k, String(val));
+                    }
+                });
+
+                alert('✓ Sauvegarde restaurée avec succès ! La page va se recharger pour appliquer toutes les données.');
+                window.location.reload();
+            } catch (err) {
+                alert('Erreur lors de la restauration: ' + err.message);
+            }
+        };
+        reader.readAsText(file);
+    };
+
+    window.changeManagerPinPrompt = function() {
+        const currentPin = getManagerPIN();
+        const enteredCurrent = prompt('Veuillez saisir votre code PIN Gérant actuel :');
+        if (enteredCurrent === null) return;
+        if (enteredCurrent !== currentPin) {
+            alert('Code PIN actuel incorrect.');
+            return;
+        }
+
+        const newPin = prompt('Entrez votre NOUVEAU code PIN à 4 chiffres :');
+        if (newPin === null) return;
+        if (!/^\d{4}$/.test(newPin.trim())) {
+            alert('Le code PIN doit comporter exactement 4 chiffres numériques.');
+            return;
+        }
+
+        const confirmPin = prompt('Confirmez votre nouveau code PIN :');
+        if (confirmPin !== newPin.trim()) {
+            alert('La confirmation ne correspond pas au nouveau code PIN.');
+            return;
+        }
+
+        localStorage.setItem(STORAGE_KEY_PIN, newPin.trim());
+        alert('✓ Code PIN Gérant modifié avec succès ! Gardez votre nouveau code en lieu sûr.');
+    };
+
+    // Auto-init UI when DOM ready
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', window.updateManagerLockUI);
+    } else {
+        window.updateManagerLockUI();
+    }
+})();

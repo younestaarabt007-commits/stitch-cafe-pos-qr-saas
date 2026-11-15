@@ -180,7 +180,7 @@
       <div class="flex items-center justify-between mb-8">
         <h3 class="text-2xl font-bold">All Merchants</h3>
         <div class="flex gap-3">
-          <input type="text" placeholder="Search stores..."
+          <input type="text" id="merchant-search" placeholder="Search stores..."
             class="bg-white dark:bg-[#2a1e19] border-none rounded-xl px-4 py-2 text-sm shadow-sm focus:ring-2 focus:ring-primary">
           <select
             class="bg-white dark:bg-[#2a1e19] border-none rounded-xl px-4 py-2 text-sm shadow-sm focus:ring-2 focus:ring-primary">
@@ -276,6 +276,128 @@
     </div>
 
     <script src="script.js"></script>
+
+  <!-- EDIT / NEW MERCHANT MODAL -->
+  <div id="edit-modal" class="hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-white dark:bg-[#2a1e19] rounded-[2.5rem] border border-gray-200 dark:border-white/10 shadow-2xl w-full max-w-lg overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+      <div class="p-6 border-b border-gray-200 dark:border-white/10 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
+            <span class="material-symbols-outlined text-[22px]">storefront</span>
+          </div>
+          <div>
+            <h3 class="text-lg font-black" id="modal-merchant-title">Modifier le Restaurant</h3>
+            <p class="text-xs text-gray-500">Paramètres de licence et profil marchand</p>
+          </div>
+        </div>
+        <button onclick="closeModal()" class="p-2 text-gray-400 hover:text-gray-600 rounded-xl">
+          <span class="material-symbols-outlined">close</span>
+        </button>
+      </div>
+      <form id="merchant-form" onsubmit="saveMerchantForm(event)" class="p-6 space-y-4">
+        <input type="hidden" id="edit-merchant-id" value="" />
+        <div>
+          <label class="block text-xs font-bold uppercase text-gray-400 mb-1">Nom de l'établissement</label>
+          <input type="text" id="edit-merchant-name" required
+            class="w-full bg-gray-50 dark:bg-black/20 border border-gray-200 dark:border-white/10 rounded-xl px-4 py-2.5 text-sm font-bold focus:ring-2 focus:ring-primary" />
+        </div>
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-bold uppercase text-gray-400 mb-1">Email de contact</label>
+            <input type="email" id="edit-merchant-email" required
+              class="w-full bg-gray-50 dark:bg-black/20 border border-gray-200 dark:border-white/10 rounded-xl px-4 py-2.5 text-sm font-bold focus:ring-2 focus:ring-primary" />
+          </div>
+          <div>
+            <label class="block text-xs font-bold uppercase text-gray-400 mb-1">Ville / Emplacement</label>
+            <input type="text" id="edit-merchant-location" required
+              class="w-full bg-gray-50 dark:bg-black/20 border border-gray-200 dark:border-white/10 rounded-xl px-4 py-2.5 text-sm font-bold focus:ring-2 focus:ring-primary" />
+          </div>
+        </div>
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-bold uppercase text-gray-400 mb-1">Formule / Abonnement</label>
+            <select id="edit-merchant-plan"
+              class="w-full bg-gray-50 dark:bg-black/20 border border-gray-200 dark:border-white/10 rounded-xl px-4 py-2.5 text-sm font-bold focus:ring-2 focus:ring-primary">
+              <option value="Starter">Starter (299 DH/m)</option>
+              <option value="Pro">Pro (599 DH/m)</option>
+              <option value="Gold SaaS">Gold SaaS (999 DH/m)</option>
+              <option value="Enterprise">Enterprise (Sur mesure)</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-bold uppercase text-gray-400 mb-1">Statut Licence</label>
+            <select id="edit-merchant-status"
+              class="w-full bg-gray-50 dark:bg-black/20 border border-gray-200 dark:border-white/10 rounded-xl px-4 py-2.5 text-sm font-bold focus:ring-2 focus:ring-primary">
+              <option value="Active">Active (Opérationnel)</option>
+              <option value="Suspended">Suspendue (Impayé / Bloqué)</option>
+            </select>
+          </div>
+        </div>
+        <div>
+          <label class="block text-xs font-bold uppercase text-gray-400 mb-1">Chiffre d'Affaires généré (DH)</label>
+          <input type="text" id="edit-merchant-revenue" value="0 DH"
+            class="w-full bg-gray-50 dark:bg-black/20 border border-gray-200 dark:border-white/10 rounded-xl px-4 py-2.5 text-sm font-bold focus:ring-2 focus:ring-primary" />
+        </div>
+        <div class="pt-4 border-t border-gray-100 dark:border-white/5 flex items-center justify-end gap-3">
+          <button type="button" onclick="closeModal()" class="px-5 py-2.5 rounded-xl text-xs font-bold text-gray-500 hover:bg-gray-100 dark:hover:bg-white/5">
+            Annuler
+          </button>
+          <button type="submit" class="px-6 py-2.5 rounded-xl bg-primary hover:bg-orange-600 text-white font-extrabold text-xs shadow-glow">
+            Enregistrer
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- BROADCAST FLEET UPDATE MODAL -->
+  <div id="broadcast-modal" class="hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-white dark:bg-[#2a1e19] rounded-[2.5rem] border border-gray-200 dark:border-white/10 shadow-2xl w-full max-w-lg overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+      <div class="p-6 border-b border-gray-200 dark:border-white/10 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
+            <span class="material-symbols-outlined text-[22px]">campaign</span>
+          </div>
+          <div>
+            <h3 class="text-lg font-black">Diffusion à Distance sur la Flotte</h3>
+            <p class="text-xs text-gray-500">Mise à jour en temps réel sur tous les PC de caisse et smartphones clients</p>
+          </div>
+        </div>
+        <button onclick="closeBroadcastModal()" class="p-2 text-gray-400 hover:text-gray-600 rounded-xl">
+          <span class="material-symbols-outlined">close</span>
+        </button>
+      </div>
+      <div class="p-6 space-y-4">
+        <div>
+          <label class="block text-xs font-bold uppercase text-gray-400 mb-1">Type d'action à distance</label>
+          <select id="broadcast-action-type" class="w-full bg-gray-50 dark:bg-black/20 border border-gray-200 dark:border-white/10 rounded-xl px-4 py-2.5 text-sm font-bold">
+            <option value="FORCE_REFRESH">Forcer le rechargement immédiat (Appliquer MàJ de code)</option>
+            <option value="ANNOUNCEMENT">Envoyer une alerte / annonce sur tous les écrans</option>
+            <option value="SYNC_CATALOG">Forcer la resynchronisation du catalogue produits</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-xs font-bold uppercase text-gray-400 mb-1">Message d'annonce (Optionnel)</label>
+          <textarea id="broadcast-message-text" rows="3" placeholder="Ex: Maintenance programmée ce soir à 23h, ou nouvelle mise à jour disponible..."
+            class="w-full bg-gray-50 dark:bg-black/20 border border-gray-200 dark:border-white/10 rounded-xl px-4 py-2.5 text-sm font-medium"></textarea>
+        </div>
+        <div class="p-4 bg-orange-50 dark:bg-orange-950/20 border border-orange-200 dark:border-orange-900/30 rounded-2xl flex items-center gap-3">
+          <span class="material-symbols-outlined text-primary text-[22px]">sensors</span>
+          <p class="text-xs text-stone-700 dark:text-stone-300">Ce signal sera diffusé instantanément via le canal WebSocket Cloud à toutes les instances connectées.</p>
+        </div>
+      </div>
+      <div class="p-4 bg-gray-50 dark:bg-white/5 border-t border-gray-200 dark:border-white/10 flex justify-end gap-3">
+        <button type="button" onclick="closeBroadcastModal()" class="px-5 py-2.5 rounded-xl text-xs font-bold text-gray-500 hover:bg-gray-100">
+          Annuler
+        </button>
+        <button type="button" onclick="executeFleetBroadcast()" class="px-6 py-2.5 rounded-xl bg-primary hover:bg-orange-600 text-white font-extrabold text-xs shadow-glow flex items-center gap-2">
+          <span class="material-symbols-outlined text-[18px]">send</span>
+          <span>Diffuser Maintenant</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
 </body>
 
 </html>

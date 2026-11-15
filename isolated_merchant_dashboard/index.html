@@ -261,6 +261,20 @@
           <span id="lang-cycle-text">EN</span>
         </button>
 
+        <!-- Manager Security Lock / PIN Status Button -->
+        <button id="manager-lock-btn" onclick="toggleManagerLock()" aria-label="Mode Gérant" title="Verrouillage / Déverrouillage sécurisé par code PIN"
+          class="flex items-center gap-1.5 px-3 py-1.5 bg-white dark:bg-[#2a1e19] border border-gray-200 dark:border-white/5 rounded-2xl text-xs font-bold text-stone-600 dark:text-stone-300 hover:bg-orange-50 dark:hover:bg-white/5 transition-all shadow-soft cursor-pointer">
+          <span class="material-symbols-outlined text-[18px] text-amber-500" id="manager-lock-icon">lock</span>
+          <span id="manager-lock-text">Gérant</span>
+        </button>
+
+        <!-- Backup & Restore Button -->
+        <button id="backup-open-btn" onclick="openBackupModal()" aria-label="Sauvegarde et Restauration" title="Exporter ou restaurer une sauvegarde de la caisse"
+          class="flex items-center gap-1.5 px-3 py-1.5 bg-white dark:bg-[#2a1e19] border border-gray-200 dark:border-white/5 rounded-2xl text-xs font-bold text-stone-600 dark:text-stone-300 hover:bg-orange-50 dark:hover:bg-white/5 transition-all shadow-soft cursor-pointer">
+          <span class="material-symbols-outlined text-[18px] text-primary">backup</span>
+          <span class="hidden sm:inline">Sauvegarde</span>
+        </button>
+
         
 
         <button id="theme-toggle" aria-label="Change accent color" title="Change accent color"
@@ -2219,6 +2233,128 @@
         <button id="hist-modal-reprint-btn" onclick="reprintCurrentHistoryOrder()" class="px-5 py-2.5 rounded-xl bg-primary hover:bg-orange-600 text-white font-extrabold text-xs flex items-center gap-2 shadow-glow">
           <span class="material-symbols-outlined text-[18px]">print</span>
           <span>Réimprimer Ticket Thermique (80mm)</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- MANAGER SECURITY PIN MODAL -->
+  <div id="manager-pin-modal" class="hidden fixed inset-0 z-[120] bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-white dark:bg-[#2a1e19] rounded-[2rem] border border-gray-200 dark:border-white/10 shadow-2xl w-full max-w-sm overflow-hidden p-6 text-center animate-in fade-in zoom-in-95 duration-200">
+      <div class="w-14 h-14 mx-auto mb-3 rounded-2xl bg-amber-500/10 dark:bg-amber-500/20 flex items-center justify-center text-amber-500 shadow-glow">
+        <span class="material-symbols-outlined text-[28px]" id="pin-modal-lock-icon">lock</span>
+      </div>
+      <h3 class="text-lg font-black text-gray-900 dark:text-white" id="pin-modal-title">Accès Sécurisé Gérant</h3>
+      <p class="text-xs text-gray-500 dark:text-gray-400 mt-1 mb-5" id="pin-modal-subtitle">Veuillez composer votre code PIN à 4 chiffres (défaut : 1234)</p>
+
+      <!-- PIN Dots -->
+      <div class="flex items-center justify-center gap-3 mb-6" id="pin-dots-container">
+        <div class="w-4 h-4 rounded-full border-2 border-gray-300 dark:border-white/20 transition-all duration-200" id="pin-dot-1"></div>
+        <div class="w-4 h-4 rounded-full border-2 border-gray-300 dark:border-white/20 transition-all duration-200" id="pin-dot-2"></div>
+        <div class="w-4 h-4 rounded-full border-2 border-gray-300 dark:border-white/20 transition-all duration-200" id="pin-dot-3"></div>
+        <div class="w-4 h-4 rounded-full border-2 border-gray-300 dark:border-white/20 transition-all duration-200" id="pin-dot-4"></div>
+      </div>
+
+      <div id="pin-error-msg" class="hidden text-xs font-bold text-red-500 mb-4 animate-shake">
+        Code PIN erroné. Veuillez réessayer.
+      </div>
+
+      <!-- Tactile Numpad -->
+      <div class="grid grid-cols-3 gap-2.5 max-w-[260px] mx-auto mb-4">
+        <button type="button" onclick="handlePinDigit('1')" class="h-12 rounded-xl bg-gray-100 dark:bg-white/5 hover:bg-gray-200 dark:hover:bg-white/10 text-lg font-extrabold text-gray-800 dark:text-white transition-all active:scale-95">1</button>
+        <button type="button" onclick="handlePinDigit('2')" class="h-12 rounded-xl bg-gray-100 dark:bg-white/5 hover:bg-gray-200 dark:hover:bg-white/10 text-lg font-extrabold text-gray-800 dark:text-white transition-all active:scale-95">2</button>
+        <button type="button" onclick="handlePinDigit('3')" class="h-12 rounded-xl bg-gray-100 dark:bg-white/5 hover:bg-gray-200 dark:hover:bg-white/10 text-lg font-extrabold text-gray-800 dark:text-white transition-all active:scale-95">3</button>
+        <button type="button" onclick="handlePinDigit('4')" class="h-12 rounded-xl bg-gray-100 dark:bg-white/5 hover:bg-gray-200 dark:hover:bg-white/10 text-lg font-extrabold text-gray-800 dark:text-white transition-all active:scale-95">4</button>
+        <button type="button" onclick="handlePinDigit('5')" class="h-12 rounded-xl bg-gray-100 dark:bg-white/5 hover:bg-gray-200 dark:hover:bg-white/10 text-lg font-extrabold text-gray-800 dark:text-white transition-all active:scale-95">5</button>
+        <button type="button" onclick="handlePinDigit('6')" class="h-12 rounded-xl bg-gray-100 dark:bg-white/5 hover:bg-gray-200 dark:hover:bg-white/10 text-lg font-extrabold text-gray-800 dark:text-white transition-all active:scale-95">6</button>
+        <button type="button" onclick="handlePinDigit('7')" class="h-12 rounded-xl bg-gray-100 dark:bg-white/5 hover:bg-gray-200 dark:hover:bg-white/10 text-lg font-extrabold text-gray-800 dark:text-white transition-all active:scale-95">7</button>
+        <button type="button" onclick="handlePinDigit('8')" class="h-12 rounded-xl bg-gray-100 dark:bg-white/5 hover:bg-gray-200 dark:hover:bg-white/10 text-lg font-extrabold text-gray-800 dark:text-white transition-all active:scale-95">8</button>
+        <button type="button" onclick="handlePinDigit('9')" class="h-12 rounded-xl bg-gray-100 dark:bg-white/5 hover:bg-gray-200 dark:hover:bg-white/10 text-lg font-extrabold text-gray-800 dark:text-white transition-all active:scale-95">9</button>
+        <button type="button" onclick="handlePinClear()" class="h-12 rounded-xl bg-gray-100 dark:bg-white/5 hover:bg-gray-200 dark:hover:bg-white/10 text-xs font-bold text-gray-500 dark:text-gray-400 transition-all active:scale-95">C</button>
+        <button type="button" onclick="handlePinDigit('0')" class="h-12 rounded-xl bg-gray-100 dark:bg-white/5 hover:bg-gray-200 dark:hover:bg-white/10 text-lg font-extrabold text-gray-800 dark:text-white transition-all active:scale-95">0</button>
+        <button type="button" onclick="handlePinBackspace()" class="h-12 rounded-xl bg-gray-100 dark:bg-white/5 hover:bg-gray-200 dark:hover:bg-white/10 text-sm font-bold text-gray-500 dark:text-gray-400 transition-all active:scale-95 flex items-center justify-center">
+          <span class="material-symbols-outlined text-[20px]">backspace</span>
+        </button>
+      </div>
+
+      <button type="button" onclick="closeManagerPinModal()" class="w-full py-2.5 rounded-xl text-xs font-bold text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 transition-all">
+        Annuler
+      </button>
+    </div>
+  </div>
+
+  <!-- CAISSE BACKUP & RESTORE MODAL -->
+  <div id="backup-restore-modal" class="hidden fixed inset-0 z-[120] bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-white dark:bg-[#2a1e19] rounded-[2.5rem] border border-gray-200 dark:border-white/10 shadow-2xl w-full max-w-lg overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+      <div class="p-6 border-b border-gray-200 dark:border-white/10 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
+            <span class="material-symbols-outlined text-[22px]">database</span>
+          </div>
+          <div>
+            <h3 class="text-base font-black text-gray-900 dark:text-white">Sauvegarde &amp; Sécurité Caisse</h3>
+            <p class="text-xs text-gray-500 dark:text-gray-400">Protection contre la perte de données et migration de poste</p>
+          </div>
+        </div>
+        <button onclick="closeBackupModal()" class="p-2 rounded-xl text-gray-400 hover:text-gray-600 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-white/5">
+          <span class="material-symbols-outlined text-[20px]">close</span>
+        </button>
+      </div>
+
+      <div class="p-6 space-y-4 max-h-[75vh] overflow-y-auto">
+        <!-- Card 1: Export -->
+        <div class="p-4 rounded-2xl bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/5 flex items-start justify-between gap-4">
+          <div class="space-y-1">
+            <div class="flex items-center gap-2">
+              <span class="material-symbols-outlined text-emerald-500 text-[20px]">cloud_download</span>
+              <h4 class="text-sm font-black text-gray-900 dark:text-white">Exporter une Sauvegarde</h4>
+            </div>
+            <p class="text-xs text-gray-500 dark:text-gray-400">Générez un fichier complet (.json) contenant toutes les ventes, l'historique, les Z de caisse et la configuration des tables.</p>
+          </div>
+          <button onclick="exportCaisseBackup()" class="shrink-0 px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-black text-xs flex items-center gap-2 shadow-glow">
+            <span class="material-symbols-outlined text-[16px]">download</span>
+            <span>Télécharger</span>
+          </button>
+        </div>
+
+        <!-- Card 2: Import -->
+        <div class="p-4 rounded-2xl bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/5 flex items-start justify-between gap-4">
+          <div class="space-y-1">
+            <div class="flex items-center gap-2">
+              <span class="material-symbols-outlined text-blue-500 text-[20px]">cloud_upload</span>
+              <h4 class="text-sm font-black text-gray-900 dark:text-white">Restaurer une Sauvegarde</h4>
+            </div>
+            <p class="text-xs text-gray-500 dark:text-gray-400">Restaurez l'historique complet et les données de caisse depuis un fichier .json précédemment téléchargé.</p>
+          </div>
+          <div>
+            <input type="file" id="backup-file-input" accept=".json" class="hidden" onchange="handleBackupFileSelected(event)" />
+            <button onclick="document.getElementById('backup-file-input').click()" class="shrink-0 px-4 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-black text-xs flex items-center gap-2 shadow-glow">
+              <span class="material-symbols-outlined text-[16px]">upload_file</span>
+              <span>Importer</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Card 3: PIN Management -->
+        <div class="p-4 rounded-2xl bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/5 flex items-start justify-between gap-4">
+          <div class="space-y-1">
+            <div class="flex items-center gap-2">
+              <span class="material-symbols-outlined text-amber-500 text-[20px]">pin</span>
+              <h4 class="text-sm font-black text-gray-900 dark:text-white">Code PIN Gérant</h4>
+            </div>
+            <p class="text-xs text-gray-500 dark:text-gray-400">Verrouille le Rapport Z, l'historique financier et les modifications sensibles. (Défaut : 1234)</p>
+          </div>
+          <button onclick="changeManagerPinPrompt()" class="shrink-0 px-4 py-2.5 rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-black text-xs flex items-center gap-2 shadow-glow">
+            <span class="material-symbols-outlined text-[16px]">edit</span>
+            <span>Changer PIN</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="p-4 bg-gray-50 dark:bg-white/5 border-t border-gray-200 dark:border-white/10 flex justify-end">
+        <button onclick="closeBackupModal()" class="px-5 py-2.5 rounded-xl text-xs font-bold text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-white/10">
+          Fermer
         </button>
       </div>
     </div>

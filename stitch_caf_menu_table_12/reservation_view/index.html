@@ -59,7 +59,12 @@
         </a>
         <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/15">
           <span class="material-symbols-outlined text-[15px] text-primary">event_seat</span>
-          <span class="text-[11px] font-bold uppercase tracking-widest">Réservation de Table</span>
+          <span id="res-badge-title" class="text-[11px] font-bold uppercase tracking-widest">Réservation de Table</span>
+        </div>
+        <div class="flex items-center gap-1 bg-white/10 backdrop-blur-md border border-white/15 rounded-full p-1 text-xs">
+          <button type="button" id="res-lang-fr" onclick="setReservationLang('fr')" class="px-2 py-0.5 rounded-full font-extrabold text-primary bg-white shadow-xs">FR</button>
+          <button type="button" id="res-lang-ar" onclick="setReservationLang('ar')" class="px-2 py-0.5 rounded-full font-bold text-white/80">العربية</button>
+          <button type="button" id="res-lang-en" onclick="setReservationLang('en')" class="px-2 py-0.5 rounded-full font-bold text-white/80">EN</button>
         </div>
         <a href="../swiggy-style_elite_main_menu_390x2500/index.html?mode=delivery"
           class="px-3 py-1.5 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/15 text-[11px] font-bold flex items-center gap-1">
@@ -70,7 +75,7 @@
 
       <div class="text-center">
         <span class="text-[10px] font-extrabold uppercase tracking-[0.25em] text-amber-300/90">Stitch Café & Roastery</span>
-        <h1 class="font-serif italic text-3xl sm:text-4xl mt-1">Réservez votre moment</h1>
+        <h1 id="res-hero-title" class="text-3xl sm:text-4xl font-serif italic mb-3 font-normal leading-tight">Réservez votre moment</h1>
         <p class="text-xs text-white/70 mt-1.5 max-w-sm mx-auto">
           Confirmation immédiate auprès de notre maître d'hôtel sans frais de réservation.
         </p>
@@ -106,7 +111,7 @@
               <span class="material-symbols-outlined text-[20px]">groups</span>
             </div>
             <div>
-              <h2 class="text-sm font-extrabold text-stone-900">Nombre de convives</h2>
+              <h2 id="res-guests-title" class="text-sm font-extrabold text-stone-900">Nombre de convives</h2>
               <p class="text-[11px] text-stone-400">Sélectionnez la taille de votre table</p>
             </div>
           </div>
@@ -125,7 +130,7 @@
             <span class="material-symbols-outlined text-[20px]">calendar_month</span>
           </div>
           <div>
-            <h2 class="text-sm font-extrabold text-stone-900">Date de réservation</h2>
+            <h2 id="res-date-title" class="text-sm font-extrabold text-stone-900">Date de réservation</h2>
             <p class="text-[11px] text-stone-400">Aujourd'hui, demain ou une autre date</p>
           </div>
         </div>
@@ -156,8 +161,8 @@
               <span class="material-symbols-outlined text-[20px]">schedule</span>
             </div>
             <div>
-              <h2 class="text-sm font-extrabold text-stone-900">Heure d'arrivée</h2>
-              <p class="text-[11px] text-stone-400">Table garantie pendant 30 min après l'heure choisie</p>
+              <h2 id="res-time-title" class="text-sm font-extrabold text-stone-900">Heure d'arrivée</h2>
+              <p id="res-time-sub" class="text-[11px] text-stone-400">Table garantie pendant 30 min après l'heure choisie</p>
             </div>
           </div>
           <span id="time-badge" class="px-3 py-1 rounded-full bg-orange-50 text-primary text-xs font-extrabold">10:30</span>
@@ -170,7 +175,7 @@
 
       <button type="button" onclick="goToStep(2)"
         class="w-full py-4 rounded-2xl bg-primary hover:bg-[#e04800] text-white font-extrabold text-sm shadow-glow flex items-center justify-center gap-2 transition-all active:scale-95">
-        <span>Continuer vers le choix de l'espace</span>
+        <span id="btn-step-1-continue">Continuer vers le choix de l'espace</span>
         <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
       </button>
     </section>
@@ -296,7 +301,7 @@
       <div class="bg-white rounded-[2rem] p-5 sm:p-6 shadow-luxury border border-stone-200/70 space-y-4">
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
           <div>
-            <label class="text-[11px] font-extrabold uppercase tracking-wider text-stone-500 block mb-1.5">Nom de Famille *</label>
+            <label class="text-[11px] font-extrabold uppercase tracking-wider text-stone-500 block mb-1.5" id="res-lastname-label">Nom de famille *</label>
             <div class="relative">
               <span class="material-symbols-outlined text-stone-400 text-[18px] absolute left-4 top-1/2 -translate-y-1/2">person</span>
               <input type="text" id="res-lastname" placeholder="Ex: El Amrani"
@@ -304,7 +309,7 @@
             </div>
           </div>
           <div>
-            <label class="text-[11px] font-extrabold uppercase tracking-wider text-stone-500 block mb-1.5">Prénom *</label>
+            <label class="text-[11px] font-extrabold uppercase tracking-wider text-stone-500 block mb-1.5" id="res-firstname-label">Prénom *</label>
             <div class="relative">
               <span class="material-symbols-outlined text-stone-400 text-[18px] absolute left-4 top-1/2 -translate-y-1/2">badge</span>
               <input type="text" id="res-firstname" placeholder="Ex: Yassine"
@@ -605,6 +610,228 @@
 
     document.addEventListener('DOMContentLoaded', initReservationPage);
   </script>
+  
+  <script>
+    const RES_I18N = {
+      fr: {
+        badge: "Réservation de Table",
+        carte: "Carte",
+        hero_tag: "Stitch Roastery Experience",
+        title: "Réservez votre Moment d'Exception",
+        subtitle: "12 tables élégantes réparties sur 3 ambiances : Salle Barista, Terrasse ensoleillée & 1er Étage Lounge.",
+        step1: "1. Date & Heure",
+        step2: "2. Espace",
+        step3: "3. Confirmation",
+        guests_title: "Nombre de convives",
+        guests_sub: "Capacité adaptée à chaque table",
+        date_title: "Date de réservation",
+        btn_today: "Aujourd'hui",
+        btn_tomorrow: "Demain",
+        btn_other: "Autre date",
+        time_title: "Heure d'arrivée",
+        time_sub: "Table garantie pendant 30 min après l'heure choisie",
+        btn_continue_space: "Continuer vers le choix de l'espace",
+        btn_continue_contact: "Continuer vers vos coordonnées",
+        zone_title: "Choisissez votre ambiance",
+        zone_sub: "12 tables réparties sur 3 étages",
+        zone1_title: "Salle Principale (RDC)",
+        zone1_sub: "Tables 5 à 8 • Cœur de l'atelier barista, ambiance feutrée",
+        zone2_title: "Terrasse Ensoleillée",
+        zone2_sub: "Tables 1 à 4 • En plein air, baignée de lumière",
+        zone3_title: "1er Étage Panoramique",
+        zone3_sub: "Tables 9 à 12 • Espace lounge intimiste & calme",
+        notes_title: "Demande spéciale ou préférence",
+        notes_placeholder: "Ex: Table près de la fenêtre, chaise bébé, anniversaire...",
+        contact_title: "Vos coordonnées",
+        contact_sub: "Pour confirmer instantanément votre table",
+        lastname_label: "Nom de famille *",
+        lastname_placeholder: "Ex: Bennani",
+        firstname_label: "Prénom *",
+        firstname_placeholder: "Ex: Youssef",
+        phone_label: "Téléphone Mobile (Maroc) *",
+        phone_placeholder: "06 12 34 56 78 ou +212 6...",
+        phone_hint: "<span id="res-phone-hint">Numéro marocain à 10 chiffres (ex: 0661234567 ou +212661234567)</span>",
+        onsite_notice: "<span id="res-onsite-notice">Paiement et service de table effectués directement sur place au restaurant.</span>",
+        btn_confirm: "Confirmer la Réservation",
+        success_title: "Réservation Confirmée !",
+        success_desc: "Votre table a été réservée avec succès chez Stitch Café.",
+        btn_view_menu: "Découvrir la Carte du Menu",
+        btn_back_home: "Retour à l'Accueil"
+      },
+      ar: {
+        badge: "حجز طاولة",
+        carte: "القائمة",
+        hero_tag: "تجربة ستيتش كافيه الفاخرة",
+        title: "احجز طاولتك الاستثنائية",
+        subtitle: "12 طاولة فاخرة موزعة على 3 فضاءات راقية: صالة الباريستا، التراس المشمس والطابق الأول الهادئ.",
+        step1: "1. التاريخ والوقت",
+        step2: "2. الفضاء المفضل",
+        step3: "3. التأكيد",
+        guests_title: "عدد الأشخاص",
+        guests_sub: "طاقة استيعاب مريحة لكل طاولة",
+        date_title: "تاريخ الحجز",
+        btn_today: "اليوم",
+        btn_tomorrow: "غداً",
+        btn_other: "تاريخ آخر",
+        time_title: "وقت الحضور",
+        time_sub: "الطاولة مضمونة لمدة 30 دقيقة بعد الموعد المحدد",
+        btn_continue_space: "المتابعة لاختيار الفضاء",
+        btn_continue_contact: "المتابعة لبيانات الاتصال",
+        zone_title: "اختر أجواء جلوسك",
+        zone_sub: "12 طاولة موزعة على 3 طوابق",
+        zone1_title: "القاعة الرئيسية (الطابق الأرضي)",
+        zone1_sub: "طاولات 5 إلى 8 • قرب بار تحضير القهوة، أجواء دافئة وموسيقى هادئة",
+        zone2_title: "التراس الخارجي المشمس",
+        zone2_sub: "طاولات 1 إلى 4 • في الهواء الطلق وتحت أشعة الشمس",
+        zone3_title: "الطابق الأول البانورامي",
+        zone3_sub: "طاولات 9 إلى 12 • صالة لاونج مريحة ومناسبة للعمل والهدوء",
+        notes_title: "ملاحظات أو طلبات خاصة",
+        notes_placeholder: "مثال: طاولة بجانب النافذة، كرسي أطفال، مناسبة خاصة...",
+        contact_title: "معلومات الاتصال",
+        contact_sub: "لتأكيد حجز طاولتك فوراً",
+        lastname_label: "الاسم العائلي *",
+        lastname_placeholder: "مثال: بناني",
+        firstname_label: "الاسم الشخصي *",
+        firstname_placeholder: "مثال: يوسف",
+        phone_label: "رقم الهاتف المحمول (المغرب) *",
+        phone_placeholder: "06 12 34 56 78 أو 2126+...",
+        phone_hint: "رقم هاتف مغربي مكوّن من 10 أرقام (مثال: 0661234567)",
+        onsite_notice: "تنبيه: يتم تسديد الحساب وطلب الوجبات في المطعم مباشرة بعد حضوركم.",
+        btn_confirm: "تأكيد الحجز الفوري",
+        success_title: "تم تأكيد حجزك بنجاح !",
+        success_desc: "تم حجز طاولتك وتجهيزها في ستيتش كافيه.",
+        btn_view_menu: "استعراض قائمة الطعام",
+        btn_back_home: "العودة للرئيسية"
+      },
+      en: {
+        badge: "Table Reservation",
+        carte: "Menu",
+        hero_tag: "Stitch Roastery Experience",
+        title: "Reserve Your Exceptional Table",
+        subtitle: "12 elegant tables across 3 distinct zones: Barista Hall, Sunny Terrace & 1st Floor Lounge.",
+        step1: "1. Date & Time",
+        step2: "2. Seating Zone",
+        step3: "3. Confirmation",
+        guests_title: "Number of Guests",
+        guests_sub: "Tailored table capacities",
+        date_title: "Reservation Date",
+        btn_today: "Today",
+        btn_tomorrow: "Tomorrow",
+        btn_other: "Other Date",
+        time_title: "Arrival Time",
+        time_sub: "Table held for 30 minutes past reserved time",
+        btn_continue_space: "Continue to Seating Zone",
+        btn_continue_contact: "Continue to Contact Details",
+        zone_title: "Choose Your Atmosphere",
+        zone_sub: "12 tables across 3 floors",
+        zone1_title: "Main Hall (Ground Floor)",
+        zone1_sub: "Tables 5 to 8 • Heart of the roastery bar, warm jazz vibe",
+        zone2_title: "Sunny Terrace",
+        zone2_sub: "Tables 1 to 4 • Open air seating with natural light",
+        zone3_title: "1st Floor Panoramic Lounge",
+        zone3_sub: "Tables 9 to 12 • Intimate & quiet workspace",
+        notes_title: "Special Requests or Preferences",
+        notes_placeholder: "e.g. Window table, high chair, birthday...",
+        contact_title: "Contact Details",
+        contact_sub: "For instant table booking confirmation",
+        lastname_label: "Last Name *",
+        lastname_placeholder: "e.g. Bennani",
+        firstname_label: "First Name *",
+        firstname_placeholder: "e.g. Youssef",
+        phone_label: "Mobile Phone (Morocco) *",
+        phone_placeholder: "06 12 34 56 78 or +212 6...",
+        phone_hint: "10-digit Moroccan phone number (e.g. 0661234567 or +212661234567)",
+        onsite_notice: "Notice: Payment and table orders are handled directly on-site upon your arrival.",
+        btn_confirm: "Confirm Table Reservation",
+        success_title: "Reservation Confirmed!",
+        success_desc: "Your table is reserved and will be ready for your arrival at Stitch Café.",
+        btn_view_menu: "Explore Menu Catalog",
+        btn_back_home: "Back to Home"
+      }
+    };
+
+    function setReservationLang(lang) {
+      if (!RES_I18N[lang]) lang = 'fr';
+      try { localStorage.setItem('stitch_lang', lang); } catch (_) {}
+      const dict = RES_I18N[lang];
+      const isRtl = lang === 'ar';
+
+      document.documentElement.setAttribute('lang', lang);
+      document.documentElement.setAttribute('dir', isRtl ? 'rtl' : 'ltr');
+
+      ['fr', 'ar', 'en'].forEach(l => {
+        const btn = document.getElementById('res-lang-' + l);
+        if (!btn) return;
+        if (l === lang) {
+          btn.className = "px-2 py-0.5 rounded-full font-extrabold text-primary bg-white shadow-xs";
+        } else {
+          btn.className = "px-2 py-0.5 rounded-full font-bold text-white/80";
+        }
+      });
+
+      const safeSetText = (id, text) => {
+        const el = document.getElementById(id);
+        if (el) el.textContent = text;
+      };
+      const safeSetPlaceholder = (id, text) => {
+        const el = document.getElementById(id);
+        if (el) el.placeholder = text;
+      };
+
+      safeSetText('res-badge-title', dict.badge);
+      safeSetText('res-hero-tag', dict.hero_tag);
+      safeSetText('res-hero-title', dict.title);
+      safeSetText('res-hero-sub', dict.subtitle);
+
+      safeSetText('step-indicator-1', dict.step1);
+      safeSetText('step-indicator-2', dict.step2);
+      safeSetText('step-indicator-3', dict.step3);
+
+      safeSetText('res-guests-title', dict.guests_title);
+      safeSetText('res-guests-sub', dict.guests_sub);
+      safeSetText('res-date-title', dict.date_title);
+      safeSetText('btn-date-today', dict.btn_today);
+      safeSetText('btn-date-tomorrow', dict.btn_tomorrow);
+      safeSetText('btn-date-other', dict.btn_other);
+
+      safeSetText('res-time-title', dict.time_title);
+      safeSetText('res-time-sub', dict.time_sub);
+      safeSetText('btn-step-1-continue', dict.btn_continue_space);
+      safeSetText('btn-step-2-continue', dict.btn_continue_contact);
+
+      safeSetText('res-zone-title', dict.zone_title);
+      safeSetText('res-zone-sub', dict.zone_sub);
+      safeSetText('zone-1-title', dict.zone1_title);
+      safeSetText('zone-1-sub', dict.zone1_sub);
+      safeSetText('zone-2-title', dict.zone2_title);
+      safeSetText('zone-2-sub', dict.zone2_sub);
+      safeSetText('zone-3-title', dict.zone3_title);
+      safeSetText('zone-3-sub', dict.zone3_sub);
+
+      safeSetText('res-notes-title', dict.notes_title);
+      safeSetPlaceholder('res-notes', dict.notes_placeholder);
+
+      safeSetText('res-contact-title', dict.contact_title);
+      safeSetText('res-contact-sub', dict.contact_sub);
+      safeSetText('res-lastname-label', dict.lastname_label);
+      safeSetPlaceholder('res-lastname', dict.lastname_placeholder);
+      safeSetText('res-firstname-label', dict.firstname_label);
+      safeSetPlaceholder('res-firstname', dict.firstname_placeholder);
+      safeSetText('res-phone-label', dict.phone_label);
+      safeSetPlaceholder('res-phone', dict.phone_placeholder);
+      safeSetText('res-phone-hint', dict.phone_hint);
+      safeSetText('res-onsite-notice', dict.onsite_notice);
+      safeSetText('btn-submit-reservation-text', dict.btn_confirm);
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const urlLang = urlParams.get('lang');
+      const saved = urlLang || localStorage.getItem('stitch_lang') || 'fr';
+      setReservationLang(saved);
+    });
+  </script>
+
   <script src="../stitch-cloud-sync.js?v=20261113_v1"></script>
   <script src="../theme-engine.js?v=1"></script>
 </body>

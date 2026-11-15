@@ -740,20 +740,51 @@ function renderCategories() {
   const container = document.getElementById('explore-categories');
   if (!container) return;
 
+  const currentLang = (typeof getLang === 'function') ? getLang() : (localStorage.getItem('stitch_lang') || 'fr');
+  const AR_SUBCAT = {
+    breakfast: "فطور صباحي",
+    toast: "توست وبرانش",
+    fastfood: "برغر وسناك",
+    black: "قهوة سوداء",
+    latte: "لاتيه وكريمي",
+    tea: "شاي وأعشاب",
+    juice: "عصائر طازجة",
+    smoothie: "سموذي",
+    milkshake: "ميلك شيك",
+    iced: "مشروبات مثلجة",
+    sweet: "حلويات فاخرة",
+    bread: "مخبوزات طازجة"
+  };
+  const EN_SUBCAT = {
+    breakfast: "Breakfast",
+    toast: "Toasts & Brunch",
+    fastfood: "Burgers & Snacks",
+    black: "Black Coffee",
+    latte: "Lattes & Creamy",
+    tea: "Tea & Herbal",
+    juice: "Fresh Juices",
+    smoothie: "Smoothies",
+    milkshake: "Milkshakes",
+    iced: "Iced Drinks",
+    sweet: "Fine Pastries",
+    bread: "Fresh Bakery"
+  };
+
   container.innerHTML = subCategories.map(cat => {
     const isSelected = activeSubCat === cat.subCat;
+    const catLabel = currentLang === 'ar' ? (AR_SUBCAT[cat.subCat] || cat.name) : (currentLang === 'en' ? (EN_SUBCAT[cat.subCat] || cat.name) : cat.name);
     return `
     <div class="flex flex-col items-center gap-1.5 shrink-0 cursor-pointer group" onclick="window.selectTwoLevelCategory('${cat.mainCat}', '${cat.subCat}', true)">
       <div class="p-[2.5px] rounded-full ${isSelected ? 'bg-primary shadow-md scale-105' : 'bg-stone-200 dark:bg-stone-700 group-hover:bg-primary'} transition-all">
         <div class="bg-white dark:bg-[#1a100c] p-0.5 rounded-full">
           <div class="w-14 h-14 md:w-16 md:h-16 rounded-full overflow-hidden relative">
-            <img src="${cat.img}" alt="${cat.name}" loading="lazy" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500" onerror="this.onerror=null;this.src='../assets/waiter.jpg'">
+            <img src="${cat.img}" alt="${catLabel}" loading="lazy" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500" onerror="this.onerror=null;this.src='../assets/waiter.jpg'">
           </div>
         </div>
       </div>
-      <p class="text-[11px] font-bold ${isSelected ? 'text-primary' : 'text-stone-700 dark:text-stone-200'} text-center leading-tight max-w-[5.5rem] truncate">${cat.name}</p>
+      <p class="text-[11px] font-bold ${isSelected ? 'text-primary' : 'text-stone-600 dark:text-stone-300'} group-hover:text-primary transition-colors text-center whitespace-nowrap">${catLabel}</p>
     </div>
-  `;
+    `;
   }).join('');
 }
 
@@ -2073,19 +2104,55 @@ window.setMenuLanguage = function(lang) {
   try {
     localStorage.setItem('stitch_lang', lang);
   } catch (_) {}
-  
-  // Set html lang and dir
-  document.documentElement.lang = lang;
-  document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+
+  try {
+    const url = new URL(window.location.href);
+    url.searchParams.set('lang', lang);
+    window.history.replaceState({}, '', url.toString());
+  } catch (_) {}
+
+  // Apply translations via i18n
+  if (typeof applyLang === 'function') {
+    applyLang(lang);
+  } else {
+    document.documentElement.lang = lang;
+    document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+    if (document.body) {
+      if (lang === 'ar') document.body.classList.add('rtl');
+      else document.body.classList.remove('rtl');
+    }
+  }
 
   window.toggleOptionsMenu(false);
-  
-  // Re-render items and translations
-  if (typeof renderAllMenuItems === 'function') {
-    renderAllMenuItems(bestsellers);
+
+  // Re-render all menu components with the new language
+  const targetItems = window.bestsellers || window.allMenuItems || [];
+  if (typeof renderBestsellers === 'function') {
+    renderBestsellers(targetItems);
   }
-  if (typeof updatePageTranslations === 'function') {
-    updatePageTranslations();
+  if (typeof renderCategories === 'function') {
+    renderCategories();
+  }
+  if (typeof renderGourmetComboCard === 'function') {
+    renderGourmetComboCard();
+  }
+  if (typeof renderSmallPromoCarousel === 'function') {
+    renderSmallPromoCarousel();
+  }
+  if (typeof renderBannerPromoCarousel === 'function') {
+    renderBannerPromoCarousel();
+  }
+  if (typeof checkAndRenderTableConflictBanner === 'function') {
+    checkAndRenderTableConflictBanner();
+  }
+  if (typeof renderStitchCartModalItems === 'function') {
+    renderStitchCartModalItems();
+  }
+  if (typeof updateCartModalModeUI === 'function') {
+    updateCartModalModeUI();
+  }
+  if (typeof refreshUniversalNav === 'function') {
+    refreshUniversalNav();
   }
 };
 

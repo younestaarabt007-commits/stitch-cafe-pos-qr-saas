@@ -195,7 +195,11 @@ const MAIN_CAT_LABELS = {
 };
 
 function fetchBestsellers() {
-  const menuData = (typeof allMenuItems !== 'undefined' && Array.isArray(allMenuItems)) ? allMenuItems : [];
+  const menuData = (typeof window !== 'undefined' && Array.isArray(window.allMenuItems) && window.allMenuItems.length > 0)
+    ? window.allMenuItems
+    : ((typeof allMenuItems !== 'undefined' && Array.isArray(allMenuItems) && allMenuItems.length > 0)
+      ? allMenuItems
+      : (bestsellers || []));
   if (!menuData.length) {
     console.error('Menu data not loaded. Check menu.js path.');
   }
@@ -490,6 +494,8 @@ function renderBestsellers(items) {
   const ordered = items;
   let html = '';
   let comboCount = 0;
+  const currentLang = (typeof getLang === 'function') ? getLang() : (localStorage.getItem('stitch_lang') || 'fr');
+  const itemCurr = currentLang === 'ar' ? 'د.م.' : 'DH';
 
   ordered.forEach((item, index) => {
     try {
@@ -525,9 +531,18 @@ function renderBestsellers(items) {
       const subMeta = SUB_CAT_METADATA[item.subCat] || { label: item.category || 'Spécialité', icon: getCategoryIcon(item.category) };
       const gourmetMeta = getGourmetCategoryMeta(item);
 
-      const outOfStockIds = (window.stitchSync && typeof window.stitchSync.getOutOfStockIds === 'function')
-        ? window.stitchSync.getOutOfStockIds()
-        : JSON.parse(localStorage.getItem('stitch_out_of_stock_ids') || '[]');
+      let outOfStockIds = [];
+      try {
+        if (window.stitchSync && typeof window.stitchSync.getOutOfStockIds === 'function') {
+          outOfStockIds = window.stitchSync.getOutOfStockIds();
+        } else {
+          const raw = localStorage.getItem('stitch_out_of_stock_ids');
+          outOfStockIds = raw ? JSON.parse(raw) : [];
+        }
+        if (!Array.isArray(outOfStockIds)) outOfStockIds = [];
+      } catch (_) {
+        outOfStockIds = [];
+      }
       const isOutOfStock = outOfStockIds.includes(String(item.id)) || item.stock === 0 || item.is_available === false;
       const langCode = typeof getLang === 'function' ? getLang() : 'fr';
       const outOfStockLabel = langCode === 'ar' ? 'نفد المخزون' : langCode === 'en' ? 'Out of Stock' : 'Épuisé';
@@ -1279,9 +1294,18 @@ window.filterByCategory = (category) => {
 };
 
 window.addToCart = (id) => {
-  const outOfStockIds = (window.stitchSync && typeof window.stitchSync.getOutOfStockIds === 'function')
-    ? window.stitchSync.getOutOfStockIds()
-    : JSON.parse(localStorage.getItem('stitch_out_of_stock_ids') || '[]');
+  let outOfStockIds = [];
+  try {
+    if (window.stitchSync && typeof window.stitchSync.getOutOfStockIds === 'function') {
+      outOfStockIds = window.stitchSync.getOutOfStockIds();
+    } else {
+      const raw = localStorage.getItem('stitch_out_of_stock_ids');
+      outOfStockIds = raw ? JSON.parse(raw) : [];
+    }
+    if (!Array.isArray(outOfStockIds)) outOfStockIds = [];
+  } catch (_) {
+    outOfStockIds = [];
+  }
 
   if (outOfStockIds.includes(String(id))) {
     const itemObj = (typeof allMenuItems !== 'undefined' ? allMenuItems.find(i => String(i.id) === String(id)) : null) || (typeof bestsellers !== 'undefined' ? bestsellers.find(i => String(i.id) === String(id)) : null);

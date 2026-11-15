@@ -1210,6 +1210,10 @@ function renderFigmaDeliveryQueue() {
 }
 
 function switchTab(tabId) {
+    const sidebar = document.getElementById('sidebar');
+    if (sidebar && window.innerWidth < 768) {
+        sidebar.classList.add('-translate-x-full');
+    }
     let targetSubTab = null;
     if (tabId === 'delivery') {
         tabId = 'delivery-hub';
@@ -1269,8 +1273,8 @@ function switchTab(tabId) {
     if (tabId === 'menu') { loadMenuManager(); }
     if (tabId === 'tables' || tabId === 'qr') { loadQRTab(); }
     if (tabId === 'theme-manager') { loadThemeManagerTab(); }
-    if (tabId === 'history') { renderHistoryTab(); }
-    if (tabId === 'z-report') { renderZReportTab(); }
+    if (tabId === 'history') { (window.renderHistoryTab || renderHistoryTab)(); }
+    if (tabId === 'z-report') { (window.renderZReportTab || renderZReportTab)(); }
 
     // Hide header for POS and Kitchen tabs to maximize screen space
     const pageHeader = document.querySelector('.pos-page-header');
@@ -2098,7 +2102,14 @@ let currentMerchantTheme = 'gourmet';
 
 async function fetchMerchantThemeSettings() {
     try {
-        const res = await fetch(`${liveOrdersApiBase()}/api/settings`, { cache: 'no-store' });
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 1200);
+        let res;
+        try {
+            res = await fetch(`${liveOrdersApiBase()}/api/settings`, { cache: 'no-store', signal: controller.signal });
+        } finally {
+            clearTimeout(timeoutId);
+        }
         if (res.ok) {
             const data = await res.json();
             if (data && data.data && data.data.activeTheme) {
@@ -2220,10 +2231,11 @@ async function setMerchantTheme(newTheme) {
 window.setMerchantTheme = setMerchantTheme;
 
 function loadThemeManagerTab() {
-    
+    const stored = localStorage.getItem('stitch_menu_theme') || currentMerchantTheme || 'gourmet';
+    updateThemeManagerUI(stored);
     fetchMerchantThemeSettings().then(theme => {
         updateThemeManagerUI(theme);
-    });
+    }).catch(() => {});
 }
 window.loadThemeManagerTab = loadThemeManagerTab;
 
@@ -3865,7 +3877,7 @@ function updateTotals() {
     persistMerchantSession();
 }
 
-window.updateChangeCalculator = () => {
+function updateChangeCalculator() {
     const totalEl = document.getElementById('pos-cart-total');
     if (!totalEl) return;
     const total = parseFloat(totalEl.textContent.replace('DH', '')) || 0;
@@ -4155,7 +4167,7 @@ window.showAddProductModal = () => {
 
 window.hideAddProductModal = () => document.getElementById('add-product-modal')?.classList.add('hidden');
 
-window.switchMenuSubTab = (tab) => {
+function switchMenuSubTab(tab) {
     activeMenuSubTab = tab;
 
     // Update active styles
@@ -5610,11 +5622,12 @@ let historyCurrentDateFilter = 'all';
 let historyCustomDateValue = null;
 let currentHistoryOrderInModal = null;
 
-window.renderHistoryTab = function() {
+function renderHistoryTab() {
     refreshHistoryCounters();
     renderHistoryOrdersTable();
     renderHistoryServicesTable();
-};
+}
+window.renderHistoryTab = renderHistoryTab;
 
 function refreshHistoryCounters() {
     const orders = window.StitchDatabase ? window.StitchDatabase.getAllOrders() : [];
@@ -5682,7 +5695,7 @@ window.setHistoryCustomDate = function(dateStr) {
     renderHistoryOrdersTable();
 };
 
-window.renderHistoryOrdersTable = function() {
+function renderHistoryOrdersTable() {
     const tbody = document.getElementById('history-orders-tbody');
     if (!tbody || !window.StitchDatabase) return;
 
@@ -5879,7 +5892,7 @@ window.reprintCurrentHistoryOrder = function() {
     }
 };
 
-window.renderHistoryServicesTable = function() {
+function renderHistoryServicesTable() {
     const tbody = document.getElementById('history-services-tbody');
     if (!tbody || !window.StitchDatabase) return;
 
@@ -5933,7 +5946,7 @@ window.clearServiceLogs = function() {
 
 let zReportCurrentDate = null;
 
-window.renderZReportTab = function() {
+function renderZReportTab() {
     if (!zReportCurrentDate) {
         zReportCurrentDate = window.StitchDatabase ? window.StitchDatabase.formatDateKey(Date.now()) : new Date().toISOString().slice(0, 10);
     }
@@ -5942,8 +5955,9 @@ window.renderZReportTab = function() {
 
     loadZReportForDate(zReportCurrentDate);
 };
+window.renderZReportTab = renderZReportTab;
 
-window.loadZReportForDate = function(dateStr) {
+function loadZReportForDate(dateStr) {
     if (!dateStr || !window.StitchDatabase) return;
     zReportCurrentDate = dateStr;
 

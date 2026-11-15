@@ -7,7 +7,7 @@
   <title>Réserver une Table — Stitch Café</title>
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
   <link
-    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=block"
     rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
     rel="stylesheet" />
@@ -41,6 +41,16 @@
     .hide-scrollbar::-webkit-scrollbar { display: none; }
     .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
   </style>
+  <style>
+    .material-symbols-outlined { font-family: 'Material Symbols Outlined' !important; }
+    html:not(.fonts-loaded) .material-symbols-outlined { color: transparent !important; }
+  </style>
+  <script>
+    if (document.fonts) {
+      document.fonts.load('24px "Material Symbols Outlined"').then(function(){ document.documentElement.classList.add('fonts-loaded'); }).catch(function(){ document.documentElement.classList.add('fonts-loaded'); });
+      setTimeout(function(){ document.documentElement.classList.add('fonts-loaded'); }, 300);
+    } else { document.documentElement.classList.add('fonts-loaded'); }
+  </script>
 </head>
 
 <body class="min-h-screen bg-[#FAF8F5] text-stone-900 antialiased pb-28">

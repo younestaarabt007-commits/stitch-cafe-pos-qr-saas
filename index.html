@@ -6,13 +6,42 @@
   <title>Stitch Café & Roastery — Portale Ecosystem</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800;900&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=block" rel="stylesheet" />
+  <style>
+    .material-symbols-outlined {
+      font-family: 'Material Symbols Outlined' !important;
+      display: inline-block;
+      line-height: 1;
+      -webkit-font-feature-settings: 'liga';
+    }
+    html:not(.fonts-loaded) .material-symbols-outlined,
+    body.icons-pending .material-symbols-outlined {
+      color: transparent !important;
+      text-shadow: none !important;
+    }
+  </style>
+  <script>
+    (function() {
+      function reveal() {
+        document.documentElement.classList.add('fonts-loaded');
+        if (document.body) document.body.classList.remove('icons-pending');
+      }
+      if (document.fonts && document.fonts.load) {
+        document.fonts.load('24px "Material Symbols Outlined"').then(reveal).catch(reveal);
+        setTimeout(reveal, 300);
+      } else {
+        reveal();
+      }
+    })();
+  </script>
   <style>
     body { font-family: 'Plus Jakarta Sans', sans-serif; }
     .serif-title { font-family: 'Instrument Serif', Georgia, serif; }
   </style>
 </head>
-<body class="bg-[#120B08] text-white min-h-screen flex flex-col justify-between p-4 sm:p-6 antialiased selection:bg-orange-500 selection:text-white">
+<body class="icons-pending bg-[#120B08] text-white min-h-screen flex flex-col justify-between p-4 sm:p-6 antialiased selection:bg-orange-500 selection:text-white">
 
   <!-- Ambient Glow Background -->
   <div class="fixed inset-0 overflow-hidden pointer-events-none">

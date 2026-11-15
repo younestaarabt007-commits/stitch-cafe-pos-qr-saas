@@ -170,68 +170,68 @@
       /* ========================================================= */
 
       /* THEME 1: CLASSIC MINIMALIST HEADER */
-      body.theme-classic header {
+      :is(body.theme-classic, html.theme-classic, html[data-stitch-theme="classic"]) header {
         background: #FFFFFF !important;
         border-bottom: 1.5px solid #E5E7EB !important;
         box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03) !important;
         min-height: auto !important;
         padding-bottom: 1rem !important;
       }
-      body.theme-classic #hero-bg-container video {
+      :is(body.theme-classic, html.theme-classic, html[data-stitch-theme="classic"]) #hero-bg-container video {
         display: none !important;
       }
-      body.theme-classic #hero-bg-container {
+      :is(body.theme-classic, html.theme-classic, html[data-stitch-theme="classic"]) #hero-bg-container {
         background: #FAFAFA !important;
       }
-      body.theme-classic #hero-gradient-overlay {
+      :is(body.theme-classic, html.theme-classic, html[data-stitch-theme="classic"]) #hero-gradient-overlay {
         background: none !important;
       }
-      body.theme-classic #theme-hero-banner #header-greeting {
+      :is(body.theme-classic, html.theme-classic, html[data-stitch-theme="classic"]) #theme-hero-banner #header-greeting {
         color: #4B5563 !important;
       }
-      body.theme-classic #theme-hero-banner #header-main-title {
+      :is(body.theme-classic, html.theme-classic, html[data-stitch-theme="classic"]) #theme-hero-banner #header-main-title {
         color: #111827 !important;
         font-family: 'Plus Jakarta Sans', sans-serif !important;
         font-weight: 900 !important;
       }
-      body.theme-classic #theme-hero-banner #header-theme-tagline {
+      :is(body.theme-classic, html.theme-classic, html[data-stitch-theme="classic"]) #theme-hero-banner #header-theme-tagline {
         color: #6B7280 !important;
       }
-      body.theme-classic #search-input {
+      :is(body.theme-classic, html.theme-classic, html[data-stitch-theme="classic"]) #search-input {
         background: #F3F4F6 !important;
         border: 1.5px solid #E5E7EB !important;
         color: #111827 !important;
         box-shadow: none !important;
       }
-      body.theme-classic #search-input::placeholder {
+      :is(body.theme-classic, html.theme-classic, html[data-stitch-theme="classic"]) #search-input::placeholder {
         color: #9CA3AF !important;
       }
-      body.theme-classic #table-badge {
+      :is(body.theme-classic, html.theme-classic, html[data-stitch-theme="classic"]) #table-badge {
         background: #111827 !important;
         border: 1px solid #374151 !important;
       }
-      body.theme-classic #table-badge span {
+      :is(body.theme-classic, html.theme-classic, html[data-stitch-theme="classic"]) #table-badge span {
         color: #FFFFFF !important;
       }
 
       /* THEME 2: GOURMET RESERVE ROASTERY HEADER */
-      body.theme-gourmet header {
+      :is(body.theme-gourmet, html.theme-gourmet, html[data-stitch-theme="gourmet"]) header {
         background: #18110D !important;
         border-bottom: 2px solid rgba(217, 119, 6, 0.4) !important;
         box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45) !important;
       }
-      body.theme-gourmet #hero-bg-container {
+      :is(body.theme-gourmet, html.theme-gourmet, html[data-stitch-theme="gourmet"]) #hero-bg-container {
         background: #18110D !important;
       }
-      body.theme-gourmet #hero-gradient-overlay {
+      :is(body.theme-gourmet, html.theme-gourmet, html[data-stitch-theme="gourmet"]) #hero-gradient-overlay {
         background: linear-gradient(180deg, rgba(24, 17, 13, 0.94) 0%, rgba(38, 26, 20, 0.88) 100%) !important;
       }
-      body.theme-gourmet #theme-hero-banner #header-greeting {
+      :is(body.theme-gourmet, html.theme-gourmet, html[data-stitch-theme="gourmet"]) #theme-hero-banner #header-greeting {
         color: #FBBF24 !important;
         font-weight: 800 !important;
         letter-spacing: 0.18em !important;
       }
-      body.theme-gourmet #theme-hero-banner #header-main-title {
+      :is(body.theme-gourmet, html.theme-gourmet, html[data-stitch-theme="gourmet"]) #theme-hero-banner #header-main-title {
         color: #FFFDF8 !important;
         font-family: 'Instrument Serif', Georgia, serif !important;
         font-style: italic !important;
@@ -239,41 +239,41 @@
         line-height: 1.2 !important;
         text-shadow: 0 2px 10px rgba(0,0,0,0.5) !important;
       }
-      body.theme-gourmet #theme-hero-banner #header-theme-tagline {
+      :is(body.theme-gourmet, html.theme-gourmet, html[data-stitch-theme="gourmet"]) #theme-hero-banner #header-theme-tagline {
         color: #D1B89D !important;
         font-style: italic !important;
       }
-      body.theme-gourmet #search-input {
+      :is(body.theme-gourmet, html.theme-gourmet, html[data-stitch-theme="gourmet"]) #search-input {
         background: rgba(0, 0, 0, 0.45) !important;
         border: 1.5px solid rgba(217, 119, 6, 0.5) !important;
         color: #FFFDF8 !important;
         box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3) !important;
       }
-      body.theme-gourmet #search-input::placeholder {
+      :is(body.theme-gourmet, html.theme-gourmet, html[data-stitch-theme="gourmet"]) #search-input::placeholder {
         color: #D1B89D !important;
       }
-      body.theme-gourmet #table-badge {
+      :is(body.theme-gourmet, html.theme-gourmet, html[data-stitch-theme="gourmet"]) #table-badge {
         background: linear-gradient(135deg, #2D1A10, #18110D) !important;
         border: 1.5px solid rgba(245, 158, 11, 0.6) !important;
         box-shadow: 0 4px 15px rgba(217, 119, 6, 0.3) !important;
       }
-      body.theme-gourmet #table-badge span {
+      :is(body.theme-gourmet, html.theme-gourmet, html[data-stitch-theme="gourmet"]) #table-badge span {
         color: #FDE68A !important;
       }
 
       /* THEME 3: SWIGGY BOLD HIGH ENERGY HEADER */
-      body.theme-swiggy-bold header {
+      :is(body.theme-swiggy-bold, html.theme-swiggy-bold, html[data-stitch-theme="swiggy-bold"]) header {
         background: linear-gradient(135deg, #FF5200 0%, #E11D48 60%, #F59E0B 100%) !important;
         border-bottom: none !important;
         box-shadow: 0 12px 35px rgba(255, 82, 0, 0.35) !important;
       }
-      body.theme-swiggy-bold #hero-bg-container video {
+      :is(body.theme-swiggy-bold, html.theme-swiggy-bold, html[data-stitch-theme="swiggy-bold"]) #hero-bg-container video {
         opacity: 0.22 !important;
       }
-      body.theme-swiggy-bold #hero-gradient-overlay {
+      :is(body.theme-swiggy-bold, html.theme-swiggy-bold, html[data-stitch-theme="swiggy-bold"]) #hero-gradient-overlay {
         background: linear-gradient(135deg, rgba(255, 82, 0, 0.82) 0%, rgba(225, 29, 72, 0.82) 100%) !important;
       }
-      body.theme-swiggy-bold #theme-hero-banner #header-greeting {
+      :is(body.theme-swiggy-bold, html.theme-swiggy-bold, html[data-stitch-theme="swiggy-bold"]) #theme-hero-banner #header-greeting {
         color: #FFFFFF !important;
         background: rgba(0, 0, 0, 0.25) !important;
         padding: 0.25rem 0.75rem !important;
@@ -282,49 +282,49 @@
         width: fit-content !important;
         font-weight: 900 !important;
       }
-      body.theme-swiggy-bold #theme-hero-banner #header-main-title {
+      :is(body.theme-swiggy-bold, html.theme-swiggy-bold, html[data-stitch-theme="swiggy-bold"]) #theme-hero-banner #header-main-title {
         color: #FFFFFF !important;
         font-family: 'Plus Jakarta Sans', sans-serif !important;
         font-weight: 900 !important;
         font-size: 1.65rem !important;
         text-shadow: 0 2px 10px rgba(0, 0, 0, 0.25) !important;
       }
-      body.theme-swiggy-bold #theme-hero-banner #header-theme-tagline {
+      :is(body.theme-swiggy-bold, html.theme-swiggy-bold, html[data-stitch-theme="swiggy-bold"]) #theme-hero-banner #header-theme-tagline {
         color: rgba(255, 255, 255, 0.9) !important;
         font-weight: 700 !important;
       }
-      body.theme-swiggy-bold #search-input {
+      :is(body.theme-swiggy-bold, html.theme-swiggy-bold, html[data-stitch-theme="swiggy-bold"]) #search-input {
         background: #FFFFFF !important;
         border: 2px solid #FED7AA !important;
         color: #111827 !important;
         box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12) !important;
       }
-      body.theme-swiggy-bold #search-input::placeholder {
+      :is(body.theme-swiggy-bold, html.theme-swiggy-bold, html[data-stitch-theme="swiggy-bold"]) #search-input::placeholder {
         color: #9CA3AF !important;
       }
-      body.theme-swiggy-bold #table-badge {
+      :is(body.theme-swiggy-bold, html.theme-swiggy-bold, html[data-stitch-theme="swiggy-bold"]) #table-badge {
         background: #FFFFFF !important;
         border: 2px solid #FF5200 !important;
         box-shadow: 0 4px 15px rgba(255, 82, 0, 0.25) !important;
       }
-      body.theme-swiggy-bold #table-badge span {
+      :is(body.theme-swiggy-bold, html.theme-swiggy-bold, html[data-stitch-theme="swiggy-bold"]) #table-badge span {
         color: #FF5200 !important;
       }
 
       /* ========================================================= */
       /* THEME 1 : CLASSIQUE MINIMALISTE                          */
       /* ========================================================= */
-      body.theme-classic {
+      :is(body.theme-classic, html.theme-classic, html[data-stitch-theme="classic"]) {
         background-color: #FAFAFA !important;
         background-image: none !important;
         color: #111827 !important;
       }
-      body.theme-classic .gourmet-card {
+      :is(body.theme-classic, html.theme-classic, html[data-stitch-theme="classic"]) .gourmet-card {
         background: #FFFFFF !important;
         border: 1px solid #E5E7EB !important;
         box-shadow: 0 1px 3px rgba(0,0,0,0.05) !important;
       }
-      body.theme-classic .gourmet-action-btn {
+      :is(body.theme-classic, html.theme-classic, html[data-stitch-theme="classic"]) .gourmet-action-btn {
         background: #FF5200 !important;
         color: #FFFFFF !important;
       }
@@ -332,7 +332,7 @@
       /* ========================================================= */
       /* THEME 2 : GOURMET RESERVE (STARBUCKS ROASTERY)           */
       /* ========================================================= */
-      body.theme-gourmet {
+      :is(body.theme-gourmet, html.theme-gourmet, html[data-stitch-theme="gourmet"]) {
         background-color: #F8F5EE !important;
         background-image: 
           radial-gradient(#E8DEC8 0.8px, transparent 0.8px),
@@ -342,18 +342,18 @@
         color: #1F1610 !important;
         font-family: 'Plus Jakarta Sans', sans-serif !important;
       }
-      body.theme-gourmet .gourmet-serif {
+      :is(body.theme-gourmet, html.theme-gourmet, html[data-stitch-theme="gourmet"]) .gourmet-serif {
         font-family: 'Instrument Serif', Georgia, serif !important;
         font-style: italic;
       }
-      body.theme-gourmet .gourmet-outfit {
+      :is(body.theme-gourmet, html.theme-gourmet, html[data-stitch-theme="gourmet"]) .gourmet-outfit {
         font-family: 'Outfit', sans-serif !important;
       }
 
       /* ========================================================= */
       /* THEME 3 : SWIGGY BOLD (DOODLES POP & PHOTOS XXL)         */
       /* ========================================================= */
-      body.theme-swiggy-bold {
+      :is(body.theme-swiggy-bold, html.theme-swiggy-bold, html[data-stitch-theme="swiggy-bold"]) {
         background-color: #FBF8F4 !important;
         /* Dynamic Colorful Food Doodle Pattern (Orange, Yellow, Green, Pink, Teal) */
         background-image: url("data:image/svg+xml,%3Csvg width='120' height='120' viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cpath d='M25 35h14v10a7 7 0 0 1-7 7 7 7 0 0 1-7-7V35zm14 2h3a4 4 0 0 1 4 4v2a4 4 0 0 1-4 4h-3v-10z' stroke='%23FF5200' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round' opacity='0.22'/%3E%3Cpath d='M85 28c3 0 7 3 7 7 0 7-7 13-14 13s-14-6-14-13c0-4 4-7 7-7 2 0 4 1 5 3 1-2 3-3 6-3z' stroke='%23EAB308' stroke-width='1.8' opacity='0.22'/%3E%3Ccircle cx='30' cy='95' r='10' stroke='%23EA580C' stroke-width='1.8' opacity='0.22'/%3E%3Cpath d='M30 85v20M20 95h20' stroke='%23EA580C' stroke-width='1.2' opacity='0.2'/%3E%3Cpath d='M90 85c0 7-6 12-12 12 0-7 6-12 12-12z' fill='%2310B981' opacity='0.2'/%3E%3Cpath d='M65 60l2 4 4 2-4 2-2 4-2-4-4-2 4-2z' fill='%23EC4899' opacity='0.25'/%3E%3Ccircle cx='70' cy='20' r='2' fill='%238B5CF6' opacity='0.3'/%3E%3Ccircle cx='15' cy='65' r='2.5' fill='%2306B6D4' opacity='0.3'/%3E%3Ccircle cx='105' cy='105' r='2' fill='%23F59E0B' opacity='0.3'/%3E%3C/g%3E%3C/svg%3E") !important;
@@ -363,8 +363,8 @@
       }
 
       /* Card Transformation in Swiggy Bold: Hero Vertical Food Cards */
-      body.theme-swiggy-bold #bestsellers,
-      body.theme-swiggy-bold #bestsellers-grid {
+      :is(body.theme-swiggy-bold, html.theme-swiggy-bold, html[data-stitch-theme="swiggy-bold"]) #bestsellers,
+      :is(body.theme-swiggy-bold, html.theme-swiggy-bold, html[data-stitch-theme="swiggy-bold"]) #bestsellers-grid {
         display: grid !important;
         grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)) !important;
         gap: 1.5rem !important;
@@ -372,14 +372,14 @@
       }
 
       @media (max-width: 640px) {
-        body.theme-swiggy-bold #bestsellers,
-        body.theme-swiggy-bold #bestsellers-grid {
+        :is(body.theme-swiggy-bold, html.theme-swiggy-bold, html[data-stitch-theme="swiggy-bold"]) #bestsellers,
+        :is(body.theme-swiggy-bold, html.theme-swiggy-bold, html[data-stitch-theme="swiggy-bold"]) #bestsellers-grid {
           grid-template-columns: 1fr !important;
           gap: 1.25rem !important;
         }
       }
 
-      body.theme-swiggy-bold .gourmet-card {
+      :is(body.theme-swiggy-bold, html.theme-swiggy-bold, html[data-stitch-theme="swiggy-bold"]) .gourmet-card {
         flex-direction: column !important;
         align-items: stretch !important;
         padding: 0 !important;
@@ -391,13 +391,13 @@
         transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease !important;
       }
 
-      body.theme-swiggy-bold .gourmet-card:hover {
+      :is(body.theme-swiggy-bold, html.theme-swiggy-bold, html[data-stitch-theme="swiggy-bold"]) .gourmet-card:hover {
         transform: translateY(-3px) !important;
         box-shadow: 0 16px 32px -8px rgba(0, 0, 0, 0.12) !important;
       }
 
       /* Hero Food Image taking prominent appetizing height */
-      body.theme-swiggy-bold .gourmet-card > div:first-child {
+      :is(body.theme-swiggy-bold, html.theme-swiggy-bold, html[data-stitch-theme="swiggy-bold"]) .gourmet-card > div:first-child {
         width: 100% !important;
         height: 175px !important;
         border-radius: 0 !important;
@@ -406,19 +406,19 @@
         background: #F3F4F6 !important;
       }
 
-      body.theme-swiggy-bold .gourmet-card > div:first-child img {
+      :is(body.theme-swiggy-bold, html.theme-swiggy-bold, html[data-stitch-theme="swiggy-bold"]) .gourmet-card > div:first-child img {
         width: 100% !important;
         height: 100% !important;
         object-fit: cover !important;
         transition: transform 0.6s ease !important;
       }
 
-      body.theme-swiggy-bold .gourmet-card:hover > div:first-child img {
+      :is(body.theme-swiggy-bold, html.theme-swiggy-bold, html[data-stitch-theme="swiggy-bold"]) .gourmet-card:hover > div:first-child img {
         transform: scale(1.06) !important;
       }
 
       /* Compact, Clean White Text Area (Chopped vertically to leave space for white) */
-      body.theme-swiggy-bold .gourmet-card > div:nth-child(2) {
+      :is(body.theme-swiggy-bold, html.theme-swiggy-bold, html[data-stitch-theme="swiggy-bold"]) .gourmet-card > div:nth-child(2) {
         padding: 0.55rem 0.85rem 0.55rem 0.85rem !important;
         min-height: auto !important;
         background: #FFFFFF !important;
@@ -427,7 +427,7 @@
         justify-content: space-between !important;
       }
 
-      body.theme-swiggy-bold .gourmet-card h4 {
+      :is(body.theme-swiggy-bold, html.theme-swiggy-bold, html[data-stitch-theme="swiggy-bold"]) .gourmet-card h4 {
         font-size: 0.95rem !important;
         font-weight: 800 !important;
         line-height: 1.25 !important;
@@ -439,7 +439,7 @@
         overflow: hidden !important;
       }
 
-      body.theme-swiggy-bold .gourmet-card p {
+      :is(body.theme-swiggy-bold, html.theme-swiggy-bold, html[data-stitch-theme="swiggy-bold"]) .gourmet-card p {
         font-size: 0.75rem !important;
         line-height: 1.3 !important;
         color: #6B7280 !important;
@@ -452,16 +452,16 @@
 
       /* Mobile Compact Card */
       @media (max-width: 640px) {
-        body.theme-swiggy-bold .gourmet-card > div:first-child {
+        :is(body.theme-swiggy-bold, html.theme-swiggy-bold, html[data-stitch-theme="swiggy-bold"]) .gourmet-card > div:first-child {
           height: 160px !important;
         }
-        body.theme-swiggy-bold .gourmet-card > div:nth-child(2) {
+        :is(body.theme-swiggy-bold, html.theme-swiggy-bold, html[data-stitch-theme="swiggy-bold"]) .gourmet-card > div:nth-child(2) {
           padding: 0.5rem 0.75rem 0.5rem 0.75rem !important;
         }
       }
 
       /* Swiggy Big Bold Action Button */
-      body.theme-swiggy-bold .gourmet-action-btn {
+      :is(body.theme-swiggy-bold, html.theme-swiggy-bold, html[data-stitch-theme="swiggy-bold"]) .gourmet-action-btn {
         padding: 0.6rem 1.35rem !important;
         border-radius: 1rem !important;
         font-size: 0.82rem !important;
@@ -471,15 +471,15 @@
       }
 
       /* Photo badge superposé vs Inline */
-      body.theme-swiggy-bold .swiggy-photo-badge { display: inline-flex !important; }
+      :is(body.theme-swiggy-bold, html.theme-swiggy-bold, html[data-stitch-theme="swiggy-bold"]) .swiggy-photo-badge { display: inline-flex !important; }
       body:not(.theme-swiggy-bold) .swiggy-photo-badge { display: none !important; }
-      body.theme-swiggy-bold .swiggy-inline-badge { display: none !important; }
+      :is(body.theme-swiggy-bold, html.theme-swiggy-bold, html[data-stitch-theme="swiggy-bold"]) .swiggy-inline-badge { display: none !important; }
       body:not(.theme-swiggy-bold) .swiggy-inline-badge { display: inline-flex !important; }
       /* Hide any lingering watermark icons across all themes */
       .gourmet-watermark,
-      body.theme-classic .gourmet-watermark,
-      body.theme-gourmet .gourmet-watermark,
-      body.theme-swiggy-bold .gourmet-watermark { display: none !important; opacity: 0 !important; visibility: hidden !important; pointer-events: none !important; }
+      :is(body.theme-classic, html.theme-classic, html[data-stitch-theme="classic"]) .gourmet-watermark,
+      :is(body.theme-gourmet, html.theme-gourmet, html[data-stitch-theme="gourmet"]) .gourmet-watermark,
+      :is(body.theme-swiggy-bold, html.theme-swiggy-bold, html[data-stitch-theme="swiggy-bold"]) .gourmet-watermark { display: none !important; opacity: 0 !important; visibility: hidden !important; pointer-events: none !important; }
 
       /* =================/* ========================================================= */
       /* CLEAN WHITE CARDS WITH SUBTLE EXTREMITY ACCENT LISERÉ     */
@@ -628,16 +628,27 @@
     document.head.appendChild(styleEl);
   }
 
-  // Init when DOM is ready
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => {
+  // Inject styles immediately to prevent FOUC / visual jump
+  if (typeof document !== 'undefined') {
+    if (document.head) {
       injectThemeStyles();
+    } else {
+      document.addEventListener('DOMContentLoaded', injectThemeStyles);
+    }
+
+    if (document.documentElement) {
+      document.documentElement.setAttribute('data-stitch-theme', currentTheme);
+      document.documentElement.classList.add(`theme-${currentTheme}`);
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', () => {
+        applyThemeToDom(currentTheme);
+        syncThemeFromServer();
+      });
+    } else {
       applyThemeToDom(currentTheme);
       syncThemeFromServer();
-    });
-  } else {
-    injectThemeStyles();
-    applyThemeToDom(currentTheme);
-    syncThemeFromServer();
+    }
   }
 })();

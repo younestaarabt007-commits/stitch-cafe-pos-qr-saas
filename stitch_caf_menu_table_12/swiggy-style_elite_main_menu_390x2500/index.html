@@ -7,13 +7,64 @@
   <title>Elite Main Menu — Stitch Café (Updated)</title>
   <meta name="version" content="1.1">
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preload" as="image" href="../assets/video/hero-poster.jpg" />
   <link
     href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap"
     rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=block"
     rel="stylesheet" />
+  <script src="../theme-engine.js?v=2"></script>
   <script src="../i18n.js"></script>
-  <link rel="stylesheet" href="style.css?v=7" />
+  <link rel="stylesheet" href="style.css?v=8" />
+  <style id="stitch-antifout-styles">
+    /* Anti-FOUT: Prevent Material Symbols text ligatures from flashing before font is loaded */
+    .material-symbols-outlined {
+      font-family: 'Material Symbols Outlined' !important;
+      font-weight: normal;
+      font-style: normal;
+      line-height: 1;
+      letter-spacing: normal;
+      text-transform: none;
+      display: inline-block;
+      white-space: nowrap;
+      word-wrap: normal;
+      direction: ltr;
+      -webkit-font-feature-settings: 'liga';
+      -webkit-font-smoothing: antialiased;
+    }
+    html:not(.fonts-loaded) .material-symbols-outlined,
+    body.icons-pending .material-symbols-outlined {
+      color: transparent !important;
+      text-shadow: none !important;
+      user-select: none;
+    }
+  </style>
+  <script id="stitch-preinit-script">
+    (function() {
+      // 1. Instant theme pre-application to eliminate header split-second lag
+      try {
+        var params = new URLSearchParams(window.location.search);
+        var theme = params.get('theme') || localStorage.getItem('stitch_menu_theme') || 'swiggy-bold';
+        if (!['classic', 'gourmet', 'swiggy-bold'].includes(theme)) theme = 'swiggy-bold';
+        document.documentElement.setAttribute('data-stitch-theme', theme);
+        document.documentElement.classList.add('theme-' + theme);
+      } catch (_) {}
+
+      // 2. Anti-FOUT font load detector
+      function revealIcons() {
+        document.documentElement.classList.add('fonts-loaded');
+        if (document.body) document.body.classList.remove('icons-pending');
+      }
+      if (document.fonts && document.fonts.load) {
+        document.fonts.load('24px "Material Symbols Outlined"').then(revealIcons).catch(revealIcons);
+        setTimeout(revealIcons, 300);
+      } else {
+        revealIcons();
+      }
+    })();
+  </script>
   <script id="tailwind-config">
     tailwind.config = {
       darkMode: "class",
@@ -37,15 +88,17 @@
   </script>
 </head>
 
-<body class="mesh-bg min-h-screen font-sans text-gray-900 dark:text-white pb-32">
+<body class="mesh-bg icons-pending min-h-screen font-sans text-gray-900 dark:text-white pb-32">
   <div class="relative mx-auto w-full max-w-md sm:max-w-lg md:max-w-xl min-h-screen flex flex-col overflow-x-hidden bg-white dark:bg-[#1a100c] shadow-2xl">
     <header class="relative z-20 rounded-b-[2.5rem] md:rounded-b-[3rem] min-h-[310px] md:min-h-[390px] flex flex-col justify-between">
       <!-- Stark's Hot Chicken Cinematic Video Background -->
-      <div class="absolute inset-0 overflow-hidden rounded-b-[2.5rem] md:rounded-b-[3rem] pointer-events-none bg-black" id="hero-bg-container">
+      <div class="absolute inset-0 overflow-hidden rounded-b-[2.5rem] md:rounded-b-[3rem] pointer-events-none bg-stone-950 bg-cover bg-center" id="hero-bg-container" style="background-image: url('../assets/video/hero-poster.jpg');">
         <video id="menu-hero-video" autoplay muted loop playsinline preload="auto"
           poster="../assets/video/hero-poster.jpg"
-          src="../assets/video/hero-desktop.mp4"
-          class="absolute inset-0 w-full h-full object-cover object-center z-0"></video>
+          class="absolute inset-0 w-full h-full object-cover object-center z-0 transition-opacity duration-700">
+          <source src="../assets/video/hero-mobile.mp4" type="video/mp4" media="(max-width: 767px)">
+          <source src="../assets/video/hero-desktop.mp4" type="video/mp4">
+        </video>
         <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-black/15 to-black/75 z-10 transition-colors duration-1000" id="hero-gradient-overlay"></div>
       </div>
 
@@ -663,7 +716,7 @@
   </div>
   <script src="carousel-auto-loop.js?v=9" defer></script>
   <script src="header-interactions.js?v=6" defer></script>
-  <script src="../theme-engine.js?v=1"></script>
+  <!-- theme-engine moved to head for zero-jump -->
   <script src="../stitch-cloud-sync.js?v=20261113_v1"></script>
   <script src="../nav-bar.js?v=9"></script>
   <script src="menu.js"></script>
